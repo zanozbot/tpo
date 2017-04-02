@@ -1,0 +1,41 @@
+<?php
+
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
+
+class CreatePacientsTable extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('pacient', function (Blueprint $table) {
+            $table->integer('stevilka_KZZ');
+            $table->integer('postna_stevilka');
+            $table->integer('pac_stevilka_KZZ');
+            $table->integer('sifra_razmerje');
+            $table->integer('sifra_okolis');
+            $table->string('ime', 200);
+            $table->string('priimek', 200);
+            $table->string('email', 200);
+            $table->string('tel_stevilka', 10);
+            $table->string('naslov', 200);
+            $table->date('datum_rojstva');
+            $table->string('spol', 1);
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('pacient');
+    }
+}

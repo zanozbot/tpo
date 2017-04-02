@@ -3,7 +3,7 @@
 
 ## Namestitev
 - prenos in namestitev wamp stežnika za Windows ([povezava](http://www.wampserver.com/en/))
-- zaženi wamp strežnik in pokačaj, da ikona postane zelena (po potrebi zapri Skype, ker prihaja do konfliktov na port-u)
+- zaženi wamp strežnik in počakaj, da ikona postane zelena (po potrebi zapri Skype, ker prihaja do konfliktov na port-u)
 - prenos Composer ([povezava](https://getcomposer.org/))
 - ko namestitev Composer vpraša za *[...] command-line PHP [...]*, klikni browse in nastavi pot na `%namestitvena_mapa_wamp%\bin\php\php7.0.10\php.exe`
 - odpri CMD in nastavi pot na `%namestitvena_mapa_wamp%\www` ter poženi naslednji ukaz `composer create-project --prefer-dist laravel/laravel ime_projekta`
