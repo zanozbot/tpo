@@ -1,0 +1,13 @@
+body {
+  background-color: #5bc0de;
+}
+
+.active {
+	background-color: lightgray;
+	
+}
+
+.col-centered{
+    float: none;
+    margin: 0 auto;
+}
