@@ -41,4 +41,8 @@ class Pacient extends Model
     public function skrbnik() {
     	return $this->belongsTo('App\Pacient', 'stevilka_KZZ', 'pac_stevilka_KZZ');
     }
+
+    public function uporabnik() {
+        return $this->belongsTo('App\Uporabnik', 'id_uporabnik', 'id_uporabnik');
+    }
 }

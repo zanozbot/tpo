@@ -19,13 +19,10 @@ class CreatePacientsTable extends Migration
             $table->integer('pac_stevilka_KZZ');
             $table->integer('sifra_razmerje');
             $table->integer('sifra_okolis');
-            $table->string('ime', 200);
-            $table->string('priimek', 200);
-            $table->string('email', 200);
-            $table->string('tel_stevilka', 10);
             $table->string('naslov', 200);
             $table->date('datum_rojstva');
             $table->string('spol', 1);
+            $table->integer('id_uporabnik')->references('id_uporabnik')->on('uporabnik');
         });
     }
 

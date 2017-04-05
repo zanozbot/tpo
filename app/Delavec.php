@@ -18,7 +18,7 @@ class Delavec extends Model
     	return $this->belongsTo('App\IzvajalecZD', 'sifra_zd', 'sifra_zd');
     }
 
-    public function vloga() {
-    	return $this->belongsTo('App\Vloga', 'sifra_vloga', 'sifra_vloga');
+    public function uporabnik() {
+        return $this->belongsTo('App\Uporabnik', 'id_uporabnik', 'id_uporabnik');
     }
 }
