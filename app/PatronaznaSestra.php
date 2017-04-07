@@ -21,4 +21,8 @@ class PatronaznaSestra extends Model
     public function okolis() {
     	return $this->hasOne('App\Okolis');
     }
+
+    public function uporabnik() {
+        return $this->belongsTo('App\Uporabnik', 'id_uporabnik', 'id_uporabnik');
+    }
 }
