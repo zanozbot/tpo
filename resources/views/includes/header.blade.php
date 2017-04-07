@@ -7,7 +7,7 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href ="#">Patronažna služba</a>
+			<a class="navbar-brand" href ="{{ route('home') }}">Patronažna služba</a>
 		</div>
 		<div class="collapse navbar-collapse " id="navbar-collapse-1">
 			<ul class="nav navbar-nav pull-right">
