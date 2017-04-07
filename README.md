@@ -32,7 +32,20 @@
     - v datoteko `ime_projekta\routes\web.php` dodaj
         ```
         Route::get('/users', function() {
-    	return App\User::all();
+        return App\User::all();
         });
         ```
     - v korenu projekta zaženi `php artisan serve`, naslov [localhost:8000/users](http://localhost:8000/users/) bi moral vrniti prazen seznam []
+
+### Morebitne težave pri nameščanju
+##### 1. Manjkajoča .env datoteka
+Sporočilo napake: *Whoops, looks like something went wrong.*
+Preimenuj `.env.example` datoteko v `.env` datoteko in poženi naslednja ukaza:
+- `php artisan key:generate`
+- `php artisan config:clear`
+
+***
+
+## Vzpostavitev stanja
+Za vzpostavitev začetnega (čistega) stanja poženi naslednj ukaz v korenskem direktoriju:
+- `php artisan migrate:refresh --seed`

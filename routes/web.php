@@ -26,3 +26,8 @@ Route::get('/plan', function(){
 Route::get('/users', function() {
 	return App\User::all();
 });
+
+// Primer uporabe relacij
+Route::get('/test', function() {
+	return App\Uporabnik::first()->vloga->ime;
+});
