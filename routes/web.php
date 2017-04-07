@@ -19,6 +19,10 @@ Route::get('/admin', function () {
     return view('pages.admin');
 });
 
+Route::get('/plan', function(){
+	return view('pages.plan');
+});
+
 Route::get('/users', function() {
 	return App\User::all();
 });

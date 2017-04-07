@@ -6,8 +6,10 @@
 <title>Patronažna služba</title>
 
 {{ HTML::style('css/bootstrap.min.css') }}
+{{ HTML::style('css/bootstrap-datepicker.min.css') }}
 {{ HTML::style('css/style.css') }}
 
-{{ HTML::script('js/bootstrap.min.js') }}
 {{ HTML::script('js/jquery.js') }}
+{{ HTML::script('js/bootstrap.min.js') }}
+{{ HTML::script('js/bootstrap-datepicker.min.js') }}
 </head>
