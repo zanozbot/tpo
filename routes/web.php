@@ -39,3 +39,8 @@ Route::get('/register', function(){
 Route::get('/contact', function(){
 	return view('pages.contact');
 })->name('contact');
+
+//TODO: Spremeni ko ugotovis angleski prevod
+Route::get('/nalog', function(){
+	return view('pages.nalog');
+})->name('nalog');
