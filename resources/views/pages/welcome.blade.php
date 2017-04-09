@@ -19,7 +19,7 @@
 							title="neustrezno geslo" required>
 					  </div>
 					  <input type="submit" value="Prijavi se" class="btn btn-info btn-block">
-					  <a href="{{route('register')}}">Še nimaš uporabniškega računa? Klikni tu.</a>
+					  <a style="padding: 1px;" href="{{route('register')}}"><center>Še nimaš uporabniškega računa? Klikni tu.</center></a>
 					</form>
 				  </div>
 				</div>
