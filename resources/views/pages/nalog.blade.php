@@ -24,13 +24,76 @@
 								<option>Kontrola zdravstvenega stanja</option>
 							</select>
 						  </div>
-						  <div class="form-group">
+						  <script type="text/javascript">
+						  	$( document ).ready(function() {
+							    $('div[name=vezaniPacienti]').show();
+			  					$('div[name=epruvete]').hide();
+			  					$('div[name=zdravila]').hide();
+							});
+						  	$('select[name=nalogeObiska]').change(function(){
+						  			switch($('select[name=nalogeObiska]').val()){
+						  				case 'Obisk nosečnice':
+						  					$('div[name=vezaniPacienti]').show();
+						  					$('div[name=epruvete]').hide();
+						  					$('div[name=zdravila]').hide();
+						  					break;
+						  				case 'Obisk otročnice':
+						  					$('div[name=vezaniPacienti]').show();
+						  					$('div[name=epruvete]').hide();
+						  					$('div[name=zdravila]').hide();
+						  					break;
+						  				case 'Aplikacija injekcij':
+						  					$('div[name=vezaniPacienti]').hide();
+						  					$('div[name=epruvete]').hide();
+						  					$('div[name=zdravila]').show();
+						  					break;
+						  				case 'Odvzem krvi':
+						  					$('div[name=vezaniPacienti]').hide();
+						  					$('div[name=zdravila]').hide();
+						  					$('div[name=epruvete]').show();
+						  					break;
+						  				default:
+						  					$('div[name=vezaniPacienti]').hide();
+						  					$('div[name=zdravila]').hide();
+						  					$('div[name=epruvete]').hide();
+						  					break;
+						  			}
+						  		});
+						  </script>
+						  <div class="form-group multiple-form-group" name="vezaniPacienti">
 							<label class="label label-primary">Vezani pacienti</label>
-							<input type="text" class="form-control" placeholder="KZZ številka pacienta" name="vezaniPacient" ><button type="button" class="btn btn-add btn-block"><strong>+</strong>
-						</button>
-							</input>
-						  </div>
-						  <div class="form-group">
+								<div class="form-group input-group">
+								<input type="text" class="form-control" placeholder="KZZ številka pacienta" name="vezaniPacient" ></input><span class="input-group-btn"><button type="button" class="btn btn-default btn-add dodajVezanegaPacienta">+
+							</button></span>	
+								</div>					
+								<script type="text/javascript">
+									var dodajPoljeVezaniPacient = function(event){
+										event.preventDefault();
+							            var $formGroup = $(this).closest('.form-group');
+							            var $formGroupClone = $formGroup.clone();
+
+							            $(this)
+							                .toggleClass('btn-default btn-add btn-danger odstraniVezanegaPacienta')
+							                .html('–');
+
+							            $formGroupClone.find('input').val('');
+							            $formGroupClone.insertAfter($formGroup);
+									}
+									 var odstraniPoljeVezaniPacient = function (event) {
+							            event.preventDefault();
+
+							            var $formGroup = $(this).closest('.form-group');
+		            					var $multipleFormGroup = $formGroup.closest('.multiple-form-group');
+
+							            var $lastFormGroupLast = $multipleFormGroup.find('.form-group:last');
+
+							            $formGroup.remove();
+							        };
+							        $(document).on('click', '.odstraniVezanegaPacienta', odstraniPoljeVezaniPacient);
+		        					$(document).on('click', '.dodajVezanegaPacienta', dodajPoljeVezaniPacient);
+								</script>							
+							</div>
+						  <div class="form-group" name="zdravila">
 							<label class="label label-primary">Ustrezna zdravila</label>
 							<select class="selectpicker form-control input-sm" name="ustreznaZdravila" multiple>
 								<option>1</option>
@@ -39,7 +102,7 @@
 								<option>4</option>
 							</select>
 						  </div>
-						  <div class="form-group">
+						  <div class="form-group" name="epruvete">
 							<label class="label label-primary">Barva in število epruvet</label>
 							<select class="selectpicker form-control input-sm" name="barvaEpruvete">
 								<option></option>
@@ -63,12 +126,40 @@
 							<label class="label label-primary">Število obiskov</label>
 							<input type="number" class="form-control input-sm" name="steviloObiskov" placeholder="Število obiskov">
 						  </div>
-						  <div class="form-group">
-							<label class="label label-primary">Časovni interval</label>
+						  <label class="label label-primary" name="intervalLabel">Časovni interval</label>
+						  <label class="label label-default" name="koncniDatumLabel">Končni datum</label>
+
+						  <div class="form-group" name="casovniIntervalDiv">
 							<input type="number" class="form-control input-sm" name="casovniInterval" placeholder="Število dni">
 						  </div>
-						  <div class="form-group">
-							<label class="label label-primary">Končni datum</label>
+						  <script type="text/javascript">
+						  	$(document).ready(function(){
+						  		$('div[name="koncniDatumDiv').hide();
+						  		$('label[name="intervalLabel"]').hover(function(){
+						  			$(this).css('cursor','pointer');
+						  		});
+						  		$('label[name="koncniDatumLabel"]').hover(function(){
+						  			$(this).css('cursor','pointer');
+						  		});
+						  	});
+						  	$('label[name="intervalLabel"]').click(function(){
+						  		$(this).removeClass();
+						  		$(this).addClass('label label-primary');
+						  		$('label[name="koncniDatumLabel"]').removeClass();
+						  		$('label[name="koncniDatumLabel"]').addClass('label label-default', true);
+						  		$('div[name="casovniIntervalDiv').show();
+						  		$('div[name="koncniDatumDiv').hide();
+						  	});
+						  	$('label[name="koncniDatumLabel"]').click(function(){
+						  		$(this).removeClass();
+						  		$(this).addClass('label label-primary');
+						  		$('label[name="intervalLabel"]').removeClass();
+						  		$('label[name="intervalLabel"]').addClass('label label-default', true);
+						  		$('div[name="casovniIntervalDiv').hide();
+						  		$('div[name="koncniDatumDiv').show();
+						  	});
+						  </script>
+						  <div class="form-group" name="koncniDatumDiv">
 							<div class="datepicker input-group date" data-provide="datepicker">
 								<input type="text" class="form-control" placeholder="dd/mm/yyyy" name="koncniDatum">
 								<div class="input-group-addon">
