@@ -40,6 +40,7 @@
 ### Morebitne težave pri nameščanju
 ##### 1. Manjkajoča .env datoteka
 Sporočilo napake: *Whoops, looks like something went wrong.*
+
 Preimenuj `.env.example` datoteko v `.env` datoteko in poženi naslednja ukaza:
 - `php artisan key:generate`
 - `php artisan config:clear`
@@ -47,5 +48,5 @@ Preimenuj `.env.example` datoteko v `.env` datoteko in poženi naslednja ukaza:
 ***
 
 ## Vzpostavitev stanja
-Za vzpostavitev začetnega (čistega) stanja poženi naslednj ukaz v korenskem direktoriju:
+Za vzpostavitev začetnega (čistega) stanja poženi naslednji ukaz v korenskem direktoriju:
 - `php artisan migrate:refresh --seed`

@@ -33,6 +33,10 @@ class VlogaTableSeeder extends Seeder
                 ],
                 [
                     'sifra_vloga' => '5',
+                    'ime' => 'Uslužbenec'
+                ],
+                [
+                    'sifra_vloga' => '6',
                     'ime' => 'Pacient'
                 ]
             ]);

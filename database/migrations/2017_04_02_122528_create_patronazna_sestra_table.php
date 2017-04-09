@@ -15,7 +15,7 @@ class CreatePatronaznaSestraTable extends Migration
     {
         Schema::create('patronazna_sestra', function (Blueprint $table) {
             $table->integer('sifra_ps');
-            $table->integer('sifra_okolis')->references('sifra_okolis')->on('okolis');
+            $table->integer('sifra_okolis')->references('sifra_okolis')->on('okolis')->default(0);
             $table->integer('sifra_zd')->references('sifra_zd')->on('izvajalec_zd');
             $table->integer('id_uporabnik')->references('id_uporabnik')->on('uporabnik');
         });

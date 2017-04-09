@@ -15,9 +15,8 @@ Route::get('/', function () {
     return view('pages.welcome');
 })->name('home');
 
-Route::get('/admin', function () {
-    return view('pages.admin');
-})->name('admin');
+Route::get('/admin', 'AdministratorController@index')->name('admin');
+Route::post('/admin', 'AdministratorController@create')->name('admin_create_user');
 
 Route::get('/plan', function(){
 	return view('pages.plan');

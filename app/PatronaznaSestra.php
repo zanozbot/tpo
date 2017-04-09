@@ -14,6 +14,8 @@ class PatronaznaSestra extends Model
     // Model will not be timestamped
     public $timestamps = false;
 
+    protected $fillable = ['sifra_ps', 'sifra_okolis', 'sifra_zd', 'id_uporabnik'];
+
     public function izvajalecZD() {
     	return $this->belongsTo('App\IzvajalecZD', 'sifra_zd', 'sifra_zd');
     }
