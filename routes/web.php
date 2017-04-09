@@ -24,7 +24,7 @@ Route::get('/plan', function(){
 })->name('plan');
 
 Route::get('/users', function() {
-	return App\User::all();
+	return App\Uporabnik::all();
 })->name('users');
 
 // Primer uporabe relacij
@@ -41,6 +41,6 @@ Route::get('/contact', function(){
 })->name('contact');
 
 //TODO: Spremeni ko ugotovis angleski prevod
-Route::get('/nalog', function(){
-	return view('pages.nalog');
-})->name('nalog');
+Route::resource('nalog', 'DelovniNalogController');
+
+Route::get('/newPassword', 'newPasswordController@index')->name('newPassword');
