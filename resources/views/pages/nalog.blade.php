@@ -130,7 +130,10 @@
 						  <label class="label label-default" name="koncniDatumLabel">Končni datum</label>
 
 						  <div class="form-group" name="casovniIntervalDiv">
-							<input type="number" class="form-control input-sm" name="casovniInterval" placeholder="Število dni">
+							<div class="input-group">
+								<input type="number" class="form-control input-sm" name="casovniInterval" placeholder="Časovni interval med dvema zaporednima obiskoma">
+								<span class="input-group-addon">dni</span>
+							</div>
 						  </div>
 						  <script type="text/javascript">
 						  	$(document).ready(function(){
