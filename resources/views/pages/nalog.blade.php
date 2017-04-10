@@ -89,26 +89,23 @@
             </div>
             <div class="form-group" name="bolezen">
               <label class="label label-primary">Šifra bolezni</label>
-              <select class="selectpicker form-control input-sm" name="sifraBolezni" multiple>
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
+              <select class="selectpicker form-control input-sm" name="sifraBolezni">
+              @foreach ($bolezni as $bolezen)
+              	<option>{{ $bolezen->ime }}</option>
+              @endforeach
               </select>
             </div>
             <div class="form-group" name="zdravila">
               <label class="label label-primary">Ustrezna zdravila</label>
-              <select class="selectpicker form-control input-sm" name="ustreznaZdravila" multiple>
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
+              <select class="selectpicker form-control input-sm" name="ustreznaZdravila[]" multiple>
+              @foreach ($zdravila as $zdravilo)
+              	<option>{{ $zdravilo->ime }}</option>
+              @endforeach
               </select>
             </div>
             <div class="form-group" name="epruvete">
               <label class="label label-primary">Barva in število epruvet</label>
               <select class="selectpicker form-control input-sm" name="barvaEpruvete">
-                <option></option>
                 <option>Rdeča</option>
                 <option>Modra</option>
                 <option>Rumena</option>
