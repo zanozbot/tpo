@@ -25,29 +25,34 @@
             </div>
             <script type="text/javascript">
               $( document ).ready(function() {
-                $('div[name=vezaniPacienti]').slideDown();
-              	$('div[name=epruvete]').slideUp();
-              	$('div[name=zdravila]').slideUp();
+                $('div[name=vezaniPacienti]').show();
+              	$('div[name=epruvete]').hide();
+              	$('div[name=zdravila]').hide();
               });
               $('select[name=nalogeObiska]').change(function(){
               		switch($('select[name=nalogeObiska]').val()){
               			case 'Obisk nosečnice':
+              				$('div[name=vezaniPacienti]').slideDown();
               				$('div[name=epruvete]').slideUp();
               				$('div[name=zdravila]').slideUp();
               				break;
               			case 'Obisk otročnice':
+              				$('div[name=vezaniPacienti]').slideDown();
               				$('div[name=epruvete]').slideUp();
               				$('div[name=zdravila]').slideUp();
               				break;
               			case 'Aplikacija injekcij':
+              				$('div[name=vezaniPacienti]').slideUp();
               				$('div[name=epruvete]').slideUp();
               				$('div[name=zdravila]').slideDown();
               				break;
               			case 'Odvzem krvi':
+              				$('div[name=vezaniPacienti]').slideUp();
               				$('div[name=zdravila]').slideUp();
               				$('div[name=epruvete]').slideDown();
               				break;
               			default:
+              				$('div[name=vezaniPacienti]').slideUp();
               				$('div[name=zdravila]').slideUp();
               				$('div[name=epruvete]').slideUp();
               				break;
@@ -71,7 +76,7 @@
                               .html('–');
                 
                           $formGroupClone.find('input').val('');
-                          $formGroupClone.insertAfter($formGroup);
+                          $formGroupClone.insertAfter($formGroup)
                 }
                  var odstraniPoljeVezaniPacient = function (event) {
                           event.preventDefault();
@@ -86,15 +91,6 @@
                       $(document).on('click', '.odstraniVezanegaPacienta', odstraniPoljeVezaniPacient);
                  					$(document).on('click', '.dodajVezanegaPacienta', dodajPoljeVezaniPacient);
               </script>							
-            </div>
-            <div class="form-group" name="bolezen">
-              <label class="label label-primary">Šifra bolezni</label>
-              <select class="selectpicker form-control input-sm" name="sifraBolezni" multiple>
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-              </select>
             </div>
             <div class="form-group" name="zdravila">
               <label class="label label-primary">Ustrezna zdravila</label>
@@ -132,10 +128,7 @@
             <label class="label label-primary" name="intervalLabel">Časovni interval</label>
             <label class="label label-default" name="koncniDatumLabel">Končni datum</label>
             <div class="form-group" name="casovniIntervalDiv">
-              <div class="input-group">
-                <input type="number" class="form-control input-sm" name="casovniInterval" placeholder="Časovni interval med dvema zaporednima obiskoma">
-                <span class="input-group-addon">dni</span>
-              </div>
+              <input type="number" class="form-control input-sm" name="casovniInterval" placeholder="Število dni">
             </div>
             <script type="text/javascript">
               $(document).ready(function(){
@@ -154,8 +147,7 @@
               	$('label[name="koncniDatumLabel"]').addClass('label label-default', true);
               	$('div[name="casovniIntervalDiv').show();
               	$('div[name="koncniDatumDiv').hide();
-              });
-              $('label[name="koncniDatumLabel"]').click(function(){
+              });						  	$('label[name="koncniDatumLabel"]').click(function(){
               	$(this).removeClass();
               	$(this).addClass('label label-primary');
               	$('label[name="intervalLabel"]').removeClass();
@@ -182,8 +174,8 @@
             </div>
             <div class="form-group">
               <label class="label label-primary">Datum je</label>
-              <label class="radio-inline"><input type="radio" class="radio-inline" name="obveznoDrzanjeDatuma" value="Okviren" checked>Okviren</label>
-              <label class="radio-inline"><input type="radio" class="radio-inline" name="obveznoDrzanjeDatuma" value="Obvezen">Obvezen</label>
+              <label class="radio-inline"><input type="radio" class="radio-inline" name="obveznoDrzanjeDatuma">Okviren</label>
+              <label class="radio-inline"><input type="radio" class="radio-inline" name="obveznoDrzanjeDatuma">Obvezen</label>
             </div>
             <input type="submit" value="Kreiraj nalog" class="btn btn-info btn-block">
           </form>
