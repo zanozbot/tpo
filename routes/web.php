@@ -40,6 +40,8 @@ Route::get('/contact', function(){
 })->name('contact');
 
 //TODO: Spremeni ko ugotovis angleski prevod
-Route::resource('nalog', 'DelovniNalogController');
+//Route::resource('nalog', 'DelovniNalogController');
+Route::get('/nalog', 'DelovniNalogController@index')->name('nalog');
+Route::post('/nalog', 'DelovniNalogController@create')->name('create_nalog');
 
 Route::get('/newPassword', 'newPasswordController@index')->name('newPassword');

@@ -180,8 +180,8 @@
 						  </div>
 						  <div class="form-group">
 							<label class="label label-primary">Datum je</label>
-							<label class="radio-inline"><input type="radio" class="radio-inline" name="obveznoDrzanjeDatuma">Okviren</label>
-							<label class="radio-inline"><input type="radio" class="radio-inline" name="obveznoDrzanjeDatuma">Obvezen</label>
+							<label class="radio-inline"><input type="radio" class="radio-inline" name="obveznoDrzanjeDatuma" value="Okviren" checked>Okviren</label>
+							<label class="radio-inline"><input type="radio" class="radio-inline" name="obveznoDrzanjeDatuma" value="Obvezen">Obvezen</label>
 						  </div>
 						  <input type="submit" value="Kreiraj nalog" class="btn btn-info btn-block">
 						</form>
