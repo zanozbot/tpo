@@ -5,11 +5,16 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\DelovniNalog;
 use App\Pacient;
+use App\Bolezen;
+use App\Zdravilo;
 
 class DelovniNalogController extends Controller
 {
     public function index() {
-    	return view('pages.nalog');
+        $bolezni = Bolezen::all();
+        $zdravila = Zdravilo::all();
+
+    	return view('pages.nalog', ['bolezni' => $bolezni, 'zdravila' => $zdravila]);
     }
 
     public function create(Request $request) {
@@ -38,19 +43,33 @@ class DelovniNalogController extends Controller
 		    'obveznoDrzanjeDatuma' => 'Vrsta datuma',
 		    'steviloEpruvet' => 'Število epruvet',
 		    'barvaEpruvete' => 'Barva epruvete',
-		    'ustreznaZdravila' => 'Ustrezna zdravila'
+		    'ustreznaZdravila' => 'Ustrezna zdravila',
+            'sifraBolezni' => 'Šifra bolezni'
 		];
 
 		//preverjanje pacienta v bazi
-		/*$pacient = Pacient::where('stevilka_KZZ', $request['vezaniPacient'])->get();
+		$pacient = Pacient::where('stevilka_KZZ', $request['vezaniPacient'])->get();
 		if($pacient == [])
 		{
-		    $validator->getMessageBag()->add('vezaniPacient', 'Pacient s številko KZZ '.$request['vezaniPacient'].' ne obstaja v bazi pacientov.');
-		}*/
+            //kako dodati error message v error sporočila, ki jih vrne validate()?
+		    return 'Pacient ne obstaja.';
+		}
+
+        if ($request['koncniDatum'] == '') {
+            //racunamo koncni datum na podlagi časovnega intervala in števila obiskov
+        } else {
+            //racunamo časovni interval na podlagi števila obiskov in končnega datuma
+        }
+
+        $datumObvezen = 0;
+        if ($request['obveznoDrzanjeDatuma'] == 'Obvezen') {
+            $datumObvezen = 1;
+        }
 
     	//preverjanje pravilnosti podatkov
         $this->validate($request, [
                 'vezaniPacient' => 'required|numeric',
+                'sifraBolezni' => 'required',
                 'ustreznaZdravila' => 'required_if:nalogeObiska,Aplikacija injekcij',
                 'barvaEpruvete' => 'required_if:nalogeObiska,Odvzem krvi',
                 'steviloEpruvet' => 'required_if:nalogeObiska,Odvzem krvi',
@@ -71,22 +90,32 @@ class DelovniNalogController extends Controller
         $datumKoncni = $leto.'-'.$mesec.'-'.$dan;
 
         /*TODO:
-			-migracija baze(barva_krvi->barva_epruvete, atribut koncni_datum)
 			-izdelava delovnega naloga(ko bo narejena prijava v sistem in bodo v bazi šifranti)
 			-izdelava obiskov(ko bo narejena izdelava delovnega naloga)
 		*/
 
+        $datumObvezen = 0;
+        if ($request['obveznoDrzanjeDatuma'] == 'Obvezen'){
+            $datumObvezen = 1;
+        }
+
         $delovniNalog = DelovniNalog::create([
     		'stevilka_KZZ' => $request['vezaniPacient'],
     		'sifra_delavec' => 123,//spremeniti v prijavljenega zdravnika/vodjoZD, ki izpolnjuje delovni nalog
+            'sifra_bolezen' => $request['sifraBolezni'],
     		'sifra_vrsta_obisk' => $request['nalogeObiska'],
-    		'barva_krvi' => $request['barvaEpruvete'],//v bazi spremeniti barva_krvi v barva_epruvete
-    		'datumPrvegaObiska' => $datumZacetni,
-    		'datum_obvezen' => $request['obveznoDrzanjeDatuma'],
+    		'barva_epruvete' => $request['barvaEpruvete'],
+            'datum_prvega_obiska' => $datumZacetni,
+            'datum_koncnega_obiska' => $datumKoncni,
+    		'datum_obvezen' => $datumObvezen,
     		'stevilo_obiskov' => $request['steviloObiskov'],
     		'casovni_interval' => $request['casovniInterval'],
-    		//dodati koncni datum v bazo
     		]);
+
+        $ustreznaZdravila = $_POST['ustreznaZdravila'];
+        foreach ($ustreznaZdravila as $zdravilo)
+            $zdravilo = Zdravilo::where('ime', $zdravilo);
+            $zdravilo->delovni_nalog()->attach($sifra_dn);
 
         return redirect()->route('nalog')->with('status', true);
     }
