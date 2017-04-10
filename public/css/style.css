@@ -4,7 +4,11 @@ body {
 
 .active {
 	background-color: lightgray;
-	
+}
+
+.nalog {
+	background-color: #f4f9ff;
+	height: auto;
 }
 
 .col-centered{
