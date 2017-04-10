@@ -27,7 +27,7 @@ class DelovniNalog extends Model
     }
 
     public function obisk() {
-    	return $this->hasMany('App\Obisk');
+    	return $this->hasMany('App\Obisk', 'sifra_dn', 'sifra_dn');
     }
 
     public function zdravilo() {

@@ -15,6 +15,6 @@ class Obisk extends Model
     public $timestamps = false;
 
     public function delovni_nalog() {
-    	return $this->belongsTo('App\DelovniNalog');
+    	return $this->belongsTo('App\DelovniNalog', 'sifra_dn', 'sifra_dn');
     }
 }
