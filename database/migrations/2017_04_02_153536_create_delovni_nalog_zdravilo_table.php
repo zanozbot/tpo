@@ -16,7 +16,7 @@ class CreateDelovniNalogZdraviloTable extends Migration
         Schema::create('delovni_nalog_zdravilo', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('sifra_dn');
-            $table->integer('sifra_zdravilo');
+            $table->string('sifra_zdravilo');
         });
     }
 

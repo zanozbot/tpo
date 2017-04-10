@@ -14,7 +14,7 @@ class CreateBolezensTable extends Migration
     public function up()
     {
         Schema::create('bolezen', function (Blueprint $table) {
-            $table->integer('sifra_bolezen');
+            $table->string('sifra_bolezen');
             $table->string('ime', 200);
         });
     }

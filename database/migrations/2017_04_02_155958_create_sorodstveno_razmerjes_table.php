@@ -14,7 +14,7 @@ class CreateSorodstvenoRazmerjesTable extends Migration
     public function up()
     {
         Schema::create('sorodstveno_razmerje', function (Blueprint $table) {
-            $table->integer('sifra_razmerje');
+            $table->string('sifra_razmerje');
             $table->string('ime');
         });
     }

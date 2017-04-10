@@ -15,7 +15,7 @@ class CreateDelavecsTable extends Migration
     {
         Schema::create('delavec', function (Blueprint $table) {
             $table->integer('sifra_delavec');
-            $table->integer('sifra_zd');
+            $table->string('sifra_zd');
             $table->integer('id_uporabnik')->references('id_uporabnik')->on('uporabnik');
         });
     }

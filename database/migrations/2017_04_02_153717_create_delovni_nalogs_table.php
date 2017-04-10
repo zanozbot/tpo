@@ -17,7 +17,7 @@ class CreateDelovniNalogsTable extends Migration
             $table->integer('sifra_dn');
             $table->integer('stevilka_KZZ');
             $table->integer('sifra_delavec');
-            $table->integer('sifra_bolezen');
+            $table->string('sifra_bolezen');
             $table->integer('sifra_obiska');
             $table->integer('sifra_vrsta_obisk');
             $table->string('barva_epruvete', 200);

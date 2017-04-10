@@ -14,7 +14,7 @@ class CreateIzvajalecZdTable extends Migration
     public function up()
     {
         Schema::create('izvajalec_zd', function (Blueprint $table) {
-            $table->integer('sifra_zd');
+            $table->string('sifra_zd');
             $table->integer('postna_stevilka')->references('postna_stevilka')->on('posta');
             $table->string('naziv', 200);
             $table->string('naslov', 200);

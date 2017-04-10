@@ -14,8 +14,9 @@ class CreateZdravilosTable extends Migration
     public function up()
     {
         Schema::create('zdravilo', function (Blueprint $table) {
-            $table->integer('sifra_zdravilo');
+            $table->string('sifra_zdravilo');
             $table->string('ime', 200);
+            $table->string('opis', 200);
         });
     }
 

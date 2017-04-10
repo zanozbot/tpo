@@ -16,7 +16,8 @@ class CreateVrstaObiskasTable extends Migration
         Schema::create('vrsta_obiska', function (Blueprint $table) {
             $table->integer('sifra_vrsta_obisk');
             $table->boolean('preventivni');
-            $table->string('meritve', 400);
+            $table->string('ime');
+            $table->string('meritve', 400)->default('');
         });
     }
 
