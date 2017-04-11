@@ -205,6 +205,4 @@
     </div>
   </div>
 </div>
-
-@include('includes.seznamnalog')
 @stop
