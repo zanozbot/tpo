@@ -12,7 +12,7 @@
 		<div class="collapse navbar-collapse " id="navbar-collapse-1">
 			<ul class="nav navbar-nav pull-right">
 				<li>
-					<a href="nalog.html">Nalog</a>
+					<a href="{{route('nalog')}}">Nalog</a>
 				</li>
 				<li>
 					<a href="obisk.html">Obisk</a>

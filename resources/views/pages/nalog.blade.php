@@ -56,8 +56,8 @@
             </script>
             <div class="form-group multiple-form-group" name="vezaniPacienti">
               <label class="label label-primary">Vezani pacienti</label>
-              <div class="form-group input-group">
-                <input type="text" class="form-control" placeholder="KZZ številka pacienta" name="vezaniPacient" ></input><span class="input-group-btn"><button type="button" class="btn btn-default btn-add dodajVezanegaPacienta">+
+              <div class="form-group input-group" name="vezaniPacientDiv">
+                <input type="text" class="form-control" placeholder="KZZ številka pacienta" name="vezaniPacient[0]" ></input><span class="input-group-btn"><button type="button" class="btn btn-default btn-add dodajVezanegaPacienta">+
                 </button></span>	
               </div>
               <script type="text/javascript">
@@ -69,7 +69,8 @@
                           $(this)
                               .toggleClass('btn-default btn-add btn-danger odstraniVezanegaPacienta')
                               .html('–');
-                
+                		  $i = $('div[name=vezaniPacientDiv').length;
+                		  $formGroupClone.find('input').attr('name', 'vezaniPacient[' + $i + ']');
                           $formGroupClone.find('input').val('');
                           $formGroupClone.insertAfter($formGroup);
                 }
