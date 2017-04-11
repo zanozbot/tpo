@@ -9,8 +9,6 @@ class DelovniNalog extends Model
     protected $table = 'delovni_nalog';
     protected $primaryKey = 'sifra_dn';
 
-    // Primary key will not be auto incremented
-    public $incrementing = false;
     // Model will not be timestamped
     public $timestamps = false;
 
