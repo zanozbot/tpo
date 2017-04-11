@@ -59,3 +59,7 @@ Sporočilo napake: *...[ReflectionException]...*
 Poženi naslednje ukaze:
 - `composer dump-autoload`
 - `php artisan migrate:refresh --seed`
+
+#### 3. Posodobitev predpomnilnika
+Po spremembi .env datoteke poženi naslednji ukaz:
+- `php artisan config:cache`

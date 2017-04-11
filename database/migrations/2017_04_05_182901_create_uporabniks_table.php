@@ -21,6 +21,7 @@ class CreateUporabniksTable extends Migration
             $table->string('email')->unique();
             $table->string('geslo');
             $table->string('tel_stevilka', 10);
+            $table->boolean('aktiviran')->default(false);
             $table->rememberToken();
             $table->timestamps();
         });
