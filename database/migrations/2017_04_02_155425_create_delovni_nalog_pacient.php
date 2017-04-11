@@ -15,8 +15,8 @@ class CreateDelovniNalogPacient extends Migration
     {
         Schema::create('delovni_nalog_pacient', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('stevilka_KZZ');
-            $table->integer('sifra_dn');
+            $table->integer('pacient_stevilka_KZZ');
+            $table->integer('delovni_nalog_sifra_dn');
         });
     }
 

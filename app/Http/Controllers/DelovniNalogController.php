@@ -7,6 +7,7 @@ use App\DelovniNalog;
 use App\Pacient;
 use App\Bolezen;
 use App\Zdravilo;
+use App\VrstaObiska;
 
 class DelovniNalogController extends Controller
 {
@@ -14,10 +15,13 @@ class DelovniNalogController extends Controller
         $bolezni = Bolezen::all();
         $zdravila = Zdravilo::all();
 
-    	return view('pages.nalog', ['bolezni' => $bolezni, 'zdravila' => $zdravila]);
+    	return view('pages.nalog', ['bolezni' => $bolezni, 'zdravila' => $zdravila, 'errPacient' => '']);
     }
 
     public function create(Request $request) {
+
+        $bolezni = Bolezen::all();
+        $zdravila = Zdravilo::all();
 
     	$messages = [
 		    'required' => 'Polje ":attribute" mora biti izpoljeno.',
@@ -44,39 +48,33 @@ class DelovniNalogController extends Controller
 		    'steviloEpruvet' => 'Število epruvet',
 		    'barvaEpruvete' => 'Barva epruvete',
 		    'ustreznaZdravila' => 'Ustrezna zdravila',
-            'sifraBolezni' => 'Šifra bolezni'
+            'imeBolezni' => 'Ime bolezni'
 		];
 
 		//preverjanje pacienta v bazi
 		$pacient = Pacient::where('stevilka_KZZ', $request['vezaniPacient'])->get();
-		if($pacient == [])
+		if(!$pacient->first())
 		{
-            //kako dodati error message v error sporočila, ki jih vrne validate()?
-		    return 'Pacient ne obstaja.';
+            return view('pages.nalog', ['bolezni' => $bolezni, 'zdravila' => $zdravila, 'errPacient' => 'Pacient s številko KZZ '.$request['vezaniPacient'].' v bazi še ne obstaja.']);
 		}
 
-        if ($request['koncniDatum'] == '') {
-            //racunamo koncni datum na podlagi časovnega intervala in števila obiskov
-        } else {
-            //racunamo časovni interval na podlagi števila obiskov in končnega datuma
-        }
-
-        $datumObvezen = 0;
-        if ($request['obveznoDrzanjeDatuma'] == 'Obvezen') {
-            $datumObvezen = 1;
+        //preverjanje ali je casovni interval izpolnjen
+        $prevKoncniDatum = 'required_without:casovniInterval|date_format:d/m/Y|after_or_equal:datumPrvegaObiska';
+        if($request['casovniInterval'] != []){
+            $prevKoncniDatum = 'required_without:casovniInterval';
         }
 
     	//preverjanje pravilnosti podatkov
         $this->validate($request, [
                 'vezaniPacient' => 'required|numeric',
-                'sifraBolezni' => 'required',
+                'imeBolezni' => 'required',
                 'ustreznaZdravila' => 'required_if:nalogeObiska,Aplikacija injekcij',
                 'barvaEpruvete' => 'required_if:nalogeObiska,Odvzem krvi',
                 'steviloEpruvet' => 'required_if:nalogeObiska,Odvzem krvi',
                 'datumPrvegaObiska' => 'required|date_format:d/m/Y|after_or_equal:tomorrow',
                 'steviloObiskov' => 'required|numeric|max:10',
                 'casovniInterval' => 'required_without:koncniDatum',
-                'koncniDatum' => 'required_without:casovniInterval|date_format:d/m/Y|after_or_equal:datumPrvegaObiska',
+                'koncniDatum' => $prevKoncniDatum,
                 'obveznoDrzanjeDatuma' => 'required'
             ], $messages, $customAttributes);
 
@@ -85,37 +83,62 @@ class DelovniNalogController extends Controller
        	list($dan, $mesec, $leto) = explode("/", $datumZacetni);
         $datumZacetni = $leto.'-'.$mesec.'-'.$dan;
 
-        $datumKoncni = $request['datumPrvegaObiska'];
-       	list($dan, $mesec, $leto) = explode("/", $datumKoncni);
-        $datumKoncni = $leto.'-'.$mesec.'-'.$dan;
-
-        /*TODO:
-			-izdelava delovnega naloga(ko bo narejena prijava v sistem in bodo v bazi šifranti)
-			-izdelava obiskov(ko bo narejena izdelava delovnega naloga)
-		*/
+        $datumKoncni = $request['koncniDatum'];
+        if($datumKoncni){
+            list($dan, $mesec, $leto) = explode("/", $datumKoncni);
+            $datumKoncni = $leto.'-'.$mesec.'-'.$dan;
+        }        
 
         $datumObvezen = 0;
         if ($request['obveznoDrzanjeDatuma'] == 'Obvezen'){
             $datumObvezen = 1;
         }
 
+        //pridobivanje sifre bolezni in vrste obiska
+        $sifraBolezni = Bolezen::where('ime', $request['imeBolezni'])->get();
+        $sifraVrstaObiska = VrstaObiska::where('ime', $request['nalogeObiska'])->get();
+        $sifraBolezni = $sifraBolezni[0]->sifra_bolezen;
+        $sifraVrstaObiska = $sifraVrstaObiska[0]->sifra_vrsta_obisk;
+
+        /*TODO:
+            -izdelava delovnega naloga(sifra_delavec nadomestiti s šifro prijavljenega delavca)
+        */
+
         $delovniNalog = DelovniNalog::create([
-    		'stevilka_KZZ' => $request['vezaniPacient'],
     		'sifra_delavec' => 123,//spremeniti v prijavljenega zdravnika/vodjoZD, ki izpolnjuje delovni nalog
-            'sifra_bolezen' => $request['sifraBolezni'],
-    		'sifra_vrsta_obisk' => $request['nalogeObiska'],
+            'sifra_bolezen' => $sifraBolezni,
+    		'sifra_vrsta_obisk' => $sifraVrstaObiska,
     		'barva_epruvete' => $request['barvaEpruvete'],
             'datum_prvega_obiska' => $datumZacetni,
             'datum_koncnega_obiska' => $datumKoncni,
     		'datum_obvezen' => $datumObvezen,
     		'stevilo_obiskov' => $request['steviloObiskov'],
-    		'casovni_interval' => $request['casovniInterval'],
+    		'casovni_interval' => $request['casovniInterval']
     		]);
 
-        $ustreznaZdravila = $_POST['ustreznaZdravila'];
-        foreach ($ustreznaZdravila as $zdravilo)
-            $zdravilo = Zdravilo::where('ime', $zdravilo);
-            $zdravilo->delovni_nalog()->attach($sifra_dn);
+        $sifraNovegaDN = DelovniNalog::max('sifra_dn');
+
+        //dodajanje v vmesno tabelo delovni_nalog_zdravilo
+        if ($sifraVrstaObiska == 50){
+            $ustreznaZdravila = $_POST['ustreznaZdravila'];
+            foreach ($ustreznaZdravila as $zdravilo)
+                $zdraviloIn = Zdravilo::where('ime', $zdravilo)->get();
+                $zdraviloIn[0]->delovni_nalog()->attach($sifraNovegaDN);
+        }
+
+        //dodajanje v vmesno tabelo delovni_nalog_pacient
+        $pacientIn = Pacient::where('stevilka_KZZ', $request['vezaniPacient'])->get();
+        $pacientIn[0]->delovni_nalog()->attach($sifraNovegaDN);
+
+        /*TODO:
+            -kreiranje obiskov glede na delovni nalog
+        */
+
+        if ($request['koncniDatum'] == '') {
+            //racunamo koncni datum na podlagi časovnega intervala in števila obiskov
+        } else {
+            //racunamo časovni interval na podlagi števila obiskov in končnega datuma
+        }
 
         return redirect()->route('nalog')->with('status', true);
     }

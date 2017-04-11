@@ -88,8 +88,8 @@
               </script>							
             </div>
             <div class="form-group" name="bolezen">
-              <label class="label label-primary">Šifra bolezni</label>
-              <select class="selectpicker form-control input-sm" name="sifraBolezni">
+              <label class="label label-primary">Ime bolezni</label>
+              <select class="selectpicker form-control input-sm" name="imeBolezni">
               @foreach ($bolezni as $bolezen)
               	<option>{{ $bolezen->ime }}</option>
               @endforeach
@@ -184,6 +184,13 @@
             </div>
             <input type="submit" value="Kreiraj nalog" class="btn btn-info btn-block">
           </form>
+          @if ($errPacient != '')
+	          <div class="alert alert-danger">
+	            <ul>
+	              <li>{{ $errPacient }}</li>
+	            </ul>
+	          </div>
+          @endif
           @if (count($errors) > 0)
           <div class="alert alert-danger">
             <ul>
