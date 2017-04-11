@@ -14,6 +14,9 @@ class DelovniNalog extends Model
     // Model will not be timestamped
     public $timestamps = false;
 
+    protected $fillable = ['sifra_delavec', 'sifra_bolezen', 'sifra_vrsta_obisk', 'barva_epruvete',
+    'datum_prvega_obiska', 'datum_koncnega_obiska', 'datum_obvezen', 'stevilo_obiskov', 'casovni_interval'];
+
     public function vrsta_obiska() {
     	return $this->belongsTo('App\VrstaObiska');
     }

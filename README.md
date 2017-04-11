@@ -54,7 +54,8 @@ Preimenuj `.env.example` datoteko v `.env` datoteko in poženi naslednja ukaza:
 - `php artisan config:clear`
 
 #### 2. Napaka pri sejanju podatkovne baze
-Sporočilo napake: *.. [ReflectionException] ..*
+Sporočilo napake: *...[ReflectionException]...*
+
 Poženi naslednje ukaze:
 - `composer dump-autoload`
 - `php artisan migrate:refresh --seed`

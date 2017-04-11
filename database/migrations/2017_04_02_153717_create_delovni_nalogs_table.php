@@ -14,8 +14,7 @@ class CreateDelovniNalogsTable extends Migration
     public function up()
     {
         Schema::create('delovni_nalog', function (Blueprint $table) {
-            $table->integer('sifra_dn');
-            $table->integer('stevilka_KZZ');
+            $table->increments('sifra_dn');
             $table->integer('sifra_delavec');
             $table->string('sifra_bolezen');
             $table->integer('sifra_vrsta_obisk');
