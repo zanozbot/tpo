@@ -65,7 +65,6 @@
                 	event.preventDefault();
                           var $formGroup = $(this).closest('.form-group');
                           var $formGroupClone = $formGroup.clone();
-                
                           $(this)
                               .toggleClass('btn-default btn-add btn-danger odstraniVezanegaPacienta')
                               .html('–');
