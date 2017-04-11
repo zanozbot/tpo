@@ -14,6 +14,7 @@
 Route::get('/', function () {
     return view('pages.welcome');
 })->name('home');
+Route::post('/', 'AdministratorController@login')->name('login');
 
 Route::get('/admin', 'AdministratorController@index')->name('admin');
 Route::post('/admin', 'AdministratorController@create')->name('admin_create_user');
@@ -43,5 +44,9 @@ Route::get('/contact', function(){
 //Route::resource('nalog', 'DelovniNalogController');
 Route::get('/nalog', 'DelovniNalogController@index')->name('nalog');
 Route::post('/nalog', 'DelovniNalogController@create')->name('create_nalog');
+
+Route::get('/nalogi', function(){
+	return view('pages.nalogi');
+})->name('nalogi');
 
 Route::get('/newPassword', 'newPasswordController@index')->name('newPassword');

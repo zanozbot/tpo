@@ -8,15 +8,17 @@
 					<h3 class="panel-title">Prijava</h3>
 				  </div>
 				  <div class="panel-body">
-					<form role="form" >
+					<form role="form" method="post">
+					{{ csrf_field() }}
 					  <div class="form-group">
 						<label class="label label-primary">Uporabniško ime</label>
 						<input type="text" name="uporabniskoime" class="form-control input-sm" placeholder="Uporabnik" required>
 					  </div>
 					  <div class="form-group">
 							<label class="label label-primary">Geslo</label>
-							<input type="password" pattern="(?=.*\d).{8,}" name="geslo" class="form-control input-sm" placeholder="Geslo" 
-							title="neustrezno geslo" required>
+							<!-- <input type="password" pattern="(?=.*\d).{8,}" name="geslo" class="form-control input-sm" placeholder="Geslo" 
+							title="neustrezno geslo" required> -->
+							<input type="password" name="geslo" class="form-control input-sm" placeholder="Geslo" required>
 					  </div>
 					  <input type="submit" value="Prijavi se" class="btn btn-info btn-block">
 					  <a style="padding: 1px;" href="{{route('register')}}"><center>Še nimaš uporabniškega računa? Klikni tu.</center></a>

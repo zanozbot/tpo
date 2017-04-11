@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Auth;
+use Illuminate\Support\Facades\Input;
 use App\Vloga;
 use App\Uporabnik;
 use App\PatronaznaSestra;
@@ -13,6 +15,19 @@ class AdministratorController extends Controller
     public function index() {
     	$vloge = Vloga::where('sifra_vloga', '>', 1)->where('sifra_vloga', '<', 6)->get();
     	return view('pages.admin', ['vloge' => $vloge]);
+    }
+
+    public function login(Request $request){
+        $userdata = array(
+            'email' => $request['uporabniskoime'],
+            'password' => $request['geslo']
+            );
+
+        if(Auth::attempt($userdata)){
+            echo 'SUCCESS';
+        } else {
+            echo 'FAILURE';
+        }
     }
 
     public function create(Request $request) {
