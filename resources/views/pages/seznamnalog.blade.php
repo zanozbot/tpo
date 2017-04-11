@@ -1,5 +1,6 @@
+@extends('layouts.default')
+@section('content')
 <div class="container">
-
 	<div class="panel panel-default">			
 	  <div class="panel-heading">
 		<h3 class="panel-title">Seznam Nalogov</h3>
@@ -9,14 +10,17 @@
 			<thead>
 			  <tr>
 				<th>Šifra naloga</th>
-				<th>Datum</th>
+				<th>Ustvaril</th>
+				<th>Pacient</th>
 				<th></th>
 			  </tr>
 			</thead>
 			<tbody>
+			  @foreach ($mix as $minimix)
 			  <tr>
-				<td>Value</td>
-				<td>Value</td>
+				<td>{{$minimix->sifra_dn}}</td>
+				<td>{{$minimix->sifra_delavec}}</td>
+				<td>{{$minimix->ime}}</td>
 				<td >		
 					<button type="button" class="btn btn-info btn-block" data-toggle="modal" data-target="#podrobnosti"><span class="glyphicon glyphicon-plus"></span></button>
 					<div class="modal fade" id="podrobnosti" role="dialog">
@@ -35,19 +39,10 @@
 					</div>
 				</td>
 			  </tr>
-			  <tr>
-				<td>Value</td>
-				<td>Value</td>
-				<td>Value</td>
-			  </tr>
-			  <tr>
-				<td>Value</td>
-				<td>Value</td>
-				<td>Value</td>
-			  </tr>
+              @endforeach
 			</tbody>
 		  </table>
 	</div>
 	</div>
 </div>
-
+@stop
