@@ -42,9 +42,9 @@ Route::get('/contact', function(){
 	return view('pages.contact');
 })->name('contact');
 
-//TODO: Spremeni ko ugotovis angleski prevod
-//Route::resource('nalog', 'DelovniNalogController');
 Route::get('/nalog', 'DelovniNalogController@index')->name('nalog');
 Route::post('/nalog', 'DelovniNalogController@create')->name('create_nalog');
+
+Route::get('/seznamNalogov', 'SeznamNalogovController@index')->name('seznamNalogov');
 
 Route::get('/newPassword', 'newPasswordController@index')->name('newPassword');
