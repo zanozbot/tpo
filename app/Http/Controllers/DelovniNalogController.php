@@ -8,6 +8,7 @@ use App\Pacient;
 use App\Bolezen;
 use App\Zdravilo;
 use App\VrstaObiska;
+use App\Obisk;
 
 class DelovniNalogController extends Controller
 {
@@ -127,17 +128,36 @@ class DelovniNalogController extends Controller
         }
 
         //dodajanje v vmesno tabelo delovni_nalog_pacient
-        $pacientIn = Pacient::where('stevilka_KZZ', $request['vezaniPacient'])->get();
-        $pacientIn[0]->delovni_nalog()->attach($sifraNovegaDN);
+        // $pacientiVsi = $_POST['vezaniPacient'];
+        //     foreach ($ustreznaZdravila as $zdravilo)
+        //     $pacientIn = Pacient::where('stevilka_KZZ', $request['vezaniPacient'])->get();
+        //     $pacientIn[0]->delovni_nalog()->attach($sifraNovegaDN);
 
         /*TODO:
             -kreiranje obiskov glede na delovni nalog
         */
 
-        if ($request['koncniDatum'] == '') {
-            //racunamo koncni datum na podlagi časovnega intervala in števila obiskov
+        //kreiranje obiskov
+        if ($datumKoncni) {
+            $date1=date_create((string)$datumZacetni);
+            $date2=date_create((string)$datumKoncni);
+            $diff=date_diff($date1,$date2);
+            $stDni = $diff->format("%a");
+            $korak = floor($stDni/$request['steviloObiskov']);
+            $datumObiska = $datumZacetni;
+            for ($x = 0; $x < $request['steviloObiskov']-1; $x++) {
+                $obisk = Obisk::create([
+                    'sifra_dn' => $sifraNovegaDN,
+                    'datum_obiska' => $datumObiska
+                    ]);
+                $datumObiska = date('Y-m-d', strtotime($datumObiska.' + '.$korak.' days'));
+            }
+            $obisk = Obisk::create([
+                'sifra_dn' => $sifraNovegaDN,
+                'datum_obiska' => $datumKoncni
+                ]);
         } else {
-            //racunamo časovni interval na podlagi števila obiskov in končnega datuma
+            
         }
 
         return redirect()->route('nalog')->with('status', true);

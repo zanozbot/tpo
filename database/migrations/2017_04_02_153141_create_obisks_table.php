@@ -14,7 +14,7 @@ class CreateObisksTable extends Migration
     public function up()
     {
         Schema::create('obisk', function (Blueprint $table) {
-            $table->integer('sifra_obisk');
+            $table->increments('sifra_obisk');
             $table->integer('sifra_dn')->references('sifra_dn')->on('delovni_nalog');
             $table->date('datum_obiska');
         });
