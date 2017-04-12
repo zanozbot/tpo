@@ -63,3 +63,6 @@ Poženi naslednje ukaze:
 #### 3. Posodobitev predpomnilnika
 Po spremembi .env datoteke poženi naslednji ukaz:
 - `php artisan config:cache`
+
+## Hrošči in njihovo odpravljanje
+https://hackmd.io/s/HyOP-Rsal
