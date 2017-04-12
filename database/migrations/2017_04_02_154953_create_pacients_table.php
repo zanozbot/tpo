@@ -17,9 +17,9 @@ class CreatePacientsTable extends Migration
             $table->integer('stevilka_KZZ');
             $table->integer('postna_stevilka');
             $table->integer('pac_stevilka_KZZ');
-            $table->string('sifra_razmerje');
             $table->integer('sifra_okolis');
-            $table->string('naslov', 200);
+            $table->string('ulica', 100);
+			$table->string('kraj', 100);
             $table->date('datum_rojstva');
             $table->string('spol', 1);
             $table->integer('id_uporabnik')->references('id_uporabnik')->on('uporabnik');

@@ -34,9 +34,8 @@ Route::get('/test', function() {
 	return App\Uporabnik::first()->vloga->ime;
 });
 
-Route::get('/register', function(){
-	return view('pages.register');
-})->name('register');
+Route::get('/register', 'RegistrationController@index')->name('register');
+Route::post('/register', 'RegistrationController@register')->name('register_create_user');
 
 Route::get('/contact', function(){
 	return view('pages.contact');

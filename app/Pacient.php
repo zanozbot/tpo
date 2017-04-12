@@ -13,6 +13,8 @@ class Pacient extends Model
     public $incrementing = false;
     // Model will not be timestamped
     public $timestamps = false;
+	protected $fillable = ['stevilka_KZZ', 'postna_stevilka', 'pac_stevilka_KZZ', 'sifra_okolis','ulica',
+ 	'kraj','datum_rojstva','spol','id_uporabnik'];
 
     public function delovni_nalog() {
     	return $this->belongsToMany('App\DelovniNalog', 'delovni_nalog_pacient');
