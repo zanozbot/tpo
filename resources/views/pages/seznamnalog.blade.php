@@ -12,6 +12,8 @@
 			  </div>
 			  <div class="panel-body"> 
 				<div class="row">
+				<form role="form" action="{{ route('filterSeznamNalogov') }}" method="post">
+            		{{ csrf_field() }}
 					<div class="col-xs-12 col-sm-12 col-md-6">
 						<div class="form-group">
 						  <label class="label label-primary">Izdajalec</label>
@@ -79,7 +81,9 @@
 							});
 						  </script>
 						</div>
+						<input type="submit" value="Filtriraj" class="btn btn-info btn-block">
 					</div>
+				</form>
 				</div>
 			  </div>
 		  </div>
@@ -97,8 +101,8 @@
 			  @foreach ($mix as $minimix)
 			  <tr>
 				<td>{{$minimix->sifra_dn}}</td>
-				<td>{{$minimix->sifra_delavec}}</td>
-				<td>{{$minimix->ime}}</td>
+				<td>{{$minimix->datum_prvega_obiska}}</td>
+				<td>{{$minimix->datum_koncnega_obiska}}</td>
 				<td >		
 					<button type="button" class="btn btn-info btn-block" data-toggle="modal" data-target="#podrobnosti"><span class="glyphicon glyphicon-plus"></span></button>
 					<div class="modal fade" id="podrobnosti" role="dialog">
