@@ -22,6 +22,7 @@ class CreateUporabniksTable extends Migration
             $table->string('geslo');
             $table->string('tel_stevilka', 10);
             $table->boolean('aktiviran')->default(false);
+            $table->date('datum_prijave')->nullable()->default(null);
             $table->rememberToken();
             $table->timestamps();
         });

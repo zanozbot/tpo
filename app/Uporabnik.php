@@ -14,7 +14,7 @@ class Uporabnik extends Authenticatable
     protected $primaryKey = 'id_uporabnik';
 
     protected $fillable = [
-        'ime', 'email', 'geslo', 'sifra_vloga', 'tel_stevilka', 'priimek', 'aktiviran'
+        'ime', 'email', 'geslo', 'sifra_vloga', 'tel_stevilka', 'priimek', 'aktiviran','datum_prijave'
     ];
 
     protected $hidden = [

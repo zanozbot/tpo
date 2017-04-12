@@ -98,8 +98,8 @@
 							<label class="label label-primary">Potrdi geslo</label>
 							<input type="password" pattern="(?=.*\d).{8,}" name="potrdigeslo" class="form-control input-sm" placeholder="Geslo" 
 							title="najmanj 8 znakov, vsaj en numeričen" required>
-						  </div>
-						  <input type="submit" value="Ustvari račun" class="btn btn-info btn-block">
+						  </div>						    						  						  
+						  <input type="submit" value="Ustvari račun" class="btn btn-info btn-block">	
 						  <input type="hidden" name="_token" value="{{ Session::token() }}"/>
 						</form>
 				  </div>

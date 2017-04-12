@@ -67,7 +67,11 @@
 						  </div>
 						  <div class="form-group">
 							<label class="label label-primary">Šifra izvajalca zdravstvene dejavnosti</label>
-							<input type="number" name="sifraizvajalca" class="form-control input-sm" min="1" placeholder="12345" required>
+							<select class="selectpicker form-control input-sm" name="sifraizvajalca">
+					            @foreach ($izvajalci as $izvajalec)
+					            	<option>{{ $izvajalec->sifra_zd }}</option>
+					            @endforeach
+					        </select>
 						  </div>
 						  <div class="form-group">
 							<label class="label label-primary">Email</label>
