@@ -21,5 +21,6 @@ class DatabaseSeeder extends Seeder
         $this->call(OkolisTableSeeder::class);
         $this->call(MaterialTableSeeder::class);
         $this->call(SorodstvenoRazmerjeTableSeeder::class);
+        $this->call(UporabnikiSeeder::class);
     }
 }

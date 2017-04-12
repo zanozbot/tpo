@@ -16,7 +16,7 @@ class CreatePacientsTable extends Migration
         Schema::create('pacient', function (Blueprint $table) {
             $table->integer('stevilka_KZZ');
             $table->integer('postna_stevilka');
-            $table->integer('pac_stevilka_KZZ');
+            $table->integer('pac_stevilka_KZZ')->default(-1);
             $table->integer('sifra_okolis');
             $table->string('ulica', 100);
 			$table->string('kraj', 100);

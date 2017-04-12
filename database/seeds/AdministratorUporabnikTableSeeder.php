@@ -18,7 +18,7 @@ class AdministratorUporabnikTableSeeder extends Seeder
             'priimek' => 'Administratorjev',
             'email' => 'admin@gmail.com',
             'geslo' => bcrypt('admin'),
-            'tel_stevilka' => '051700106',
+            'tel_stevilka' => '051000001',
             'aktiviran' => true
         ]);
     }
