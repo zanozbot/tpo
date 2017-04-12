@@ -3,22 +3,32 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\DelovniNalog;
 use App\Pacient;
 use App\Bolezen;
 use App\Zdravilo;
 use App\VrstaObiska;
 use App\Obisk;
+use App\Delavec;
 use App\Plan;
 use App\PatronaznaSestra;
 
 class DelovniNalogController extends Controller
 {
     public function index() {
-        $bolezni = Bolezen::all();
-        $zdravila = Zdravilo::all();
+        if (Auth::check()) {
+            if (Auth::user()->sifra_vloga == 3 || Auth::user()->sifra_vloga == 2){
+                $bolezni = Bolezen::all();
+                $zdravila = Zdravilo::all();
 
-    	return view('pages.nalog', ['bolezni' => $bolezni, 'zdravila' => $zdravila, 'errPacient' => '']);
+            return view('pages.nalog', ['bolezni' => $bolezni, 'zdravila' => $zdravila, 'errPacient' => '']);
+            } else {
+                return redirect()->route('home');
+            }
+        } else {
+           return redirect()->route('home');
+        }
     }
 
     public function getFilteredResults(Request $request){
@@ -116,12 +126,12 @@ class DelovniNalogController extends Controller
             $barvaEpruvete = $request['barvaEpruvete'];
         }
 
-        /*TODO:
-            -izdelava delovnega naloga(sifra_delavec nadomestiti s šifro prijavljenega delavca)
-        */
+        //pridobivanje šifre delavca
+        $sifraDelavca = Delavec::where('id_uporabnik', '=', Auth::user()->id_uporabnik)->get();
+        $sifraDelavca = $sifraDelavca[0]->sifra_delavec;
 
         $delovniNalog = DelovniNalog::create([
-    		'sifra_delavec' => 12345,//spremeniti v prijavljenega zdravnika/vodjoZD, ki izpolnjuje delovni nalog
+    		'sifra_delavec' => $sifraDelavca,
             'sifra_bolezen' => $sifraBolezni,
     		'sifra_vrsta_obisk' => $sifraVrstaObiska,
     		'barva_epruvete' => $barvaEpruvete,

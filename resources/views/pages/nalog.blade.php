@@ -23,9 +23,11 @@
                 <option>Obisk nosečnice</option>
                 <option>Obisk otročnice</option>
                 <option>Preventiva starostnika</option>
+              @if (Auth::user()->sifra_vloga == 2)
                 <option>Aplikacija injekcij</option>
                 <option>Odvzem krvi</option>
                 <option>Kontrola zdravstvenega stanja</option>
+              @endif
               </select>
             </div>
             <script type="text/javascript">
