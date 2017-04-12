@@ -10,7 +10,6 @@ class PagesController extends Controller
 {
 	public function homePage(){
 		if(Auth::check()){
-			echo "Logged in";
 			return view('pages.welcome');
 		} else {
 			return view('pages.login');

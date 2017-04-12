@@ -58,6 +58,12 @@
 				                Ženski
 				            </label>
 						  </div>
+						  @if (Auth::check())
+						  <div class="form-group">
+							<label class="label label-primary">Sorodstveno razmerje</label>
+							<input type="text" name="sorodstvenoRazmerje" class="form-control input-sm" placeholder="Mati" required>
+						  </div>
+						  @endif
 						  <div class="form-group">
 							<label class="label label-primary">Geslo</label>
 							<input type="password" pattern="(?=.*\d).{8,}" name="geslo" class="form-control input-sm" placeholder="Geslo" 
