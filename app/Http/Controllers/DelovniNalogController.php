@@ -166,7 +166,14 @@ class DelovniNalogController extends Controller
             $datumObiska = $datumZacetni;
             for ($x = 1; $x <= $request['steviloObiskov']-1; $x++) {
                 $sifraPlan = Plan::where('datum_plan', '=', '0000-01-01')->get();
-                $sifraPlan = $sifraPlan[0]->sifra_plan;
+                if(!$sifraPlan->first()){
+                    $planCreate = Plan::create([
+                                'datum_plan' => '0000-01-01'
+                            ]);
+                    $sifraPlan = Plan::max('sifra_plan');
+                } else {
+                    $sifraPlan = $sifraPlan[0]->sifra_plan;
+                }
                 if($datumObvezen == 1){
                     //kreiraj ali dodaj v plan
                     $plan = Plan::where('datum_plan', $datumObiska)->get();
@@ -185,8 +192,10 @@ class DelovniNalogController extends Controller
                 $obisk = Obisk::create([
                     'sifra_dn' => $sifraNovegaDN,
                     'sifra_plan' => $sifraPlan,
+                    'originalna_sifra_plan' => $sifraPlan,
                     'sifra_ps' => $sifraPS,
-                    'datum_obiska' => $datumObiska
+                    'datum_obiska' => $datumObiska,
+                    'originalni_datum' => $datumObiska
                     ]);
 
                 $korakIn = $x*$korak;
@@ -195,8 +204,10 @@ class DelovniNalogController extends Controller
             $obisk = Obisk::create([
                     'sifra_dn' => $sifraNovegaDN,
                     'sifra_plan' => $sifraPlan,
+                    'originalna_sifra_plan' => $sifraPlan,
                     'sifra_ps' => $sifraPS,
-                    'datum_obiska' => $datumKoncni
+                    'datum_obiska' => $datumKoncni,
+                    'originalni_datum' => $datumKoncni
                     ]);
         } else {
             $date1 = date_create((string)$datumZacetni);
@@ -231,8 +242,9 @@ class DelovniNalogController extends Controller
                 $obisk = Obisk::create([
                     'sifra_dn' => $sifraNovegaDN,
                     'sifra_plan' => $sifraPlan,
+                    'originalna_sifra_plan' => $sifraPlan,
                     'sifra_ps' => $sifraPS,
-                    'datum_obiska' => $datumObiska
+                    'datum_obiska' => $datumObiska,
                     ]);
                 $datumObiska = date('Y-m-d', strtotime($datumObiska.' + '.$korak.' days'));
             }
