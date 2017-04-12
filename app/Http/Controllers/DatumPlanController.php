@@ -3,12 +3,22 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Plan;
 
 class DatumPlanController extends Controller
 {
     public function index() {
-    	return view('pages.datumplan');
+        if (Auth::check()) {
+            if (Auth::user()->sifra_vloga == 4){
+                return view('pages.datumplan');
+            } else {
+                return redirect()->route('home');
+            }
+        } else {
+           return redirect()->route('home');
+        }
+    	
     }
 
     public function create(Request $request) {
