@@ -1,5 +1,6 @@
 @extends('layouts.default')
 @section('content')
+{{ HTML::script('js/admin.js') }}
 	<div class="container">
 		<div class="row">
 			<div class="col-xs-12 col-sm-12 col-md-2">			
@@ -45,8 +46,8 @@
 						  zdravstveno osebje potem prijavlja v sistem. Posebna aktivacija računa ni potrebna. -->
 
 						  <div class="form-group">
-							  <label class="label label-primary" for="sel1">Vrsta uporabnika:</label>
-							  <select class="form-control input-sm" name="vrstauporabnika" required>
+							  <label class="label label-primary" for="sel1">Vrsta uporabnika</label>
+							  <select class="form-control input-sm" id="select" name="vrstauporabnika" required>
 							  		<option disabled selected value>Izberi vrsto uporabnika</option>
 							    @foreach ($vloge as $vloga)
 									<option value="{{ $vloga->sifra_vloga }}">{{ $vloga->ime }}</option>
@@ -65,11 +66,21 @@
 							<label class="label label-primary">Šifra uslužbenca</label>
 							<input type="number" name="sifrausluzbenca" class="form-control input-sm" min="1" placeholder="12345" required>
 						  </div>
+						  <div class="form-group" id="okolisi" hidden>
+							<label class="label label-primary">Okoliš</label>
+							<select class="selectpicker form-control input-sm" name="okolis">
+								<option disabled selected value>Izberi okoliš</option>
+					            @foreach ($okolisi as $okolis)
+					            	<option value="{{ $okolis->sifra_okolis }}">{{ $okolis->ime }}</option>
+					            @endforeach
+					        </select>
+						  </div>
 						  <div class="form-group">
-							<label class="label label-primary">Šifra izvajalca zdravstvene dejavnosti</label>
+							<label class="label label-primary">Izvajalec zdravstvene dejavnosti</label>
 							<select class="selectpicker form-control input-sm" name="sifraizvajalca">
+								<option disabled selected value>Izberi izvajalca zdravstvene dejavnosti</option>
 					            @foreach ($izvajalci as $izvajalec)
-					            	<option>{{ $izvajalec->sifra_zd }}</option>
+					            	<option value="{{ $izvajalec->sifra_zd }}">{{ $izvajalec->naziv }}</option>
 					            @endforeach
 					        </select>
 						  </div>

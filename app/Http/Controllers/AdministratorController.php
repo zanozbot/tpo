@@ -9,13 +9,15 @@ use App\Uporabnik;
 use App\PatronaznaSestra;
 use App\Delavec;
 use App\IzvajalecZD;
+use App\Okolis;
 
 class AdministratorController extends Controller
 {
     public function index() {
     	$vloge = Vloga::where('sifra_vloga', '>', 1)->where('sifra_vloga', '<', 6)->get();
         $izvajalci = IzvajalecZD::all();
-    	return view('pages.admin', ['vloge' => $vloge, 'izvajalci' => $izvajalci]);
+        $okolisi = Okolis::all();
+    	return view('pages.admin', ['vloge' => $vloge, 'izvajalci' => $izvajalci, 'okolisi' => $okolisi]);
     }
 
     public function create(Request $request) {
@@ -59,7 +61,8 @@ class AdministratorController extends Controller
     		'priimek' => $request['priimek'],
     		'email' => $request['email'],
     		'geslo' => bcrypt($request['geslo']),
-    		'tel_stevilka' => $request['tel_stevilka']
+    		'tel_stevilka' => $request['tel_stevilka'],
+            'aktiviran' => true
     		]);
 
     	if($vrstauporabnika == 2 || $vrstauporabnika == 3) {
@@ -72,7 +75,8 @@ class AdministratorController extends Controller
     		$patronazna_sestra = PatronaznaSestra::create([
     				'sifra_ps' => $request['sifrausluzbenca'],
     				'sifra_zd' => $request['sifraizvajalca'],
-    				'id_uporabnik' => $uporabnik->id_uporabnik
+    				'id_uporabnik' => $uporabnik->id_uporabnik,
+                    'sifra_okolis' => $request['okolis']
     			]);
     	}
 
