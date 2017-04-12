@@ -21,6 +21,10 @@ class DelovniNalogController extends Controller
     	return view('pages.nalog', ['bolezni' => $bolezni, 'zdravila' => $zdravila, 'errPacient' => '']);
     }
 
+    public function getFilteredResults(Request $request){
+        
+    }
+
     public function create(Request $request) {
 
         $bolezni = Bolezen::all();

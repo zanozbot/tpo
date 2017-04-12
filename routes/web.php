@@ -17,6 +17,7 @@ Route::get('/confirm-account/{token}', 'RegistrationController@confirm')->name('
 Route::get('/', function () {
     return view('pages.welcome');
 })->name('home');
+Route::post('/', 'AdministratorController@login')->name('login');
 
 Route::get('/admin', 'AdministratorController@index')->name('admin');
 Route::post('/admin', 'AdministratorController@create')->name('admin_create_user');
