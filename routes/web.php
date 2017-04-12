@@ -11,41 +11,41 @@
 |
 */
 
-Route::get('/email', 'RegistrationController@register')->name('register_post');
-Route::get('/confirm-account/{token}', 'RegistrationController@confirm')->name('confirm-account');
-
+// Prijava
 Route::get('/', function () {
     return view('pages.welcome');
 })->name('home');
-Route::post('/', 'AdministratorController@login')->name('login');
+Route::post('/', 'UporabnikController@login')->name('login');
 
-Route::get('/admin', 'AdministratorController@index')->name('admin');
-Route::post('/admin', 'AdministratorController@create')->name('admin_create_user');
+// Middleware skrbi, da mora biti uporabnik prijavljen
+//Route::group(['middleware' => ['je.prijavljen']], function () {
+	// Uporabnik
+    Route::get('/newPassword', 'newPasswordController@index')->name('newPassword');
+	Route::post('/newPassword', 'newPasswordController@change_password')->name('change_password');
+	Route::get('/odjava', 'UporabnikController@logout')->name('odjava');
 
-Route::get('/plan', function(){
-	return view('pages.plan');
-})->name('plan');
+	// Administrator
+	Route::get('/admin', 'AdministratorController@index')->name('admin');
+	Route::post('/admin', 'AdministratorController@create')->name('admin_create_user');
 
-Route::get('/users', function() {
-	return App\Uporabnik::all();
-})->name('users');
+	// Plan
+	Route::get('/plan', function(){
+		return view('pages.plan');
+	})->name('plan');
 
-// Primer uporabe relacij
-Route::get('/test', function() {
-	return App\Uporabnik::first()->vloga->ime;
-});
+	// Nalog
+	Route::get('/nalog', 'DelovniNalogController@index')->name('nalog');
+	Route::post('/nalog', 'DelovniNalogController@create')->name('create_nalog');
+	Route::get('/seznamNalogov', 'SeznamNalogovController@index')->name('seznamNalogov');
+//});
 
+// Registracija
 Route::get('/register', function(){
 	return view('pages.register');
 })->name('register');
+Route::get('/email', 'RegistrationController@register')->name('register_post');
+Route::get('/confirm-account/{token}', 'RegistrationController@confirm')->name('confirm-account');
 
 Route::get('/contact', function(){
 	return view('pages.contact');
 })->name('contact');
-
-Route::get('/nalog', 'DelovniNalogController@index')->name('nalog');
-Route::post('/nalog', 'DelovniNalogController@create')->name('create_nalog');
-
-Route::get('/seznamNalogov', 'SeznamNalogovController@index')->name('seznamNalogov');
-
-Route::get('/newPassword', 'newPasswordController@index')->name('newPassword');
