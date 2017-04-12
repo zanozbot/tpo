@@ -17,4 +17,12 @@ class Obisk extends Model
     public function delovni_nalog() {
     	return $this->belongsTo('App\DelovniNalog', 'sifra_dn', 'sifra_dn');
     }
+
+    public function plan() {
+    	return $this->belongsTo('App\Plan', 'sifra_plan', 'sifra_plan');
+    }
+
+    public function patronazna_sestra() {
+    	return $this->belongsTo('App\PatronaznaSestra', 'sifra_ps', 'sifra_ps');
+    }
 }

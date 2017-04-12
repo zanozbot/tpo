@@ -27,4 +27,8 @@ class PatronaznaSestra extends Model
     public function uporabnik() {
         return $this->belongsTo('App\Uporabnik', 'id_uporabnik', 'id_uporabnik');
     }
+
+    public function obisk() {
+        return $this->hasMany('App\Obisk', 'sifra_ps', 'sifra_ps');
+    }
 }
