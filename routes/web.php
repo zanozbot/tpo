@@ -47,5 +47,6 @@ Route::get('/nalog', 'DelovniNalogController@index')->name('nalog');
 Route::post('/nalog', 'DelovniNalogController@create')->name('create_nalog');
 
 Route::get('/seznamNalogov', 'SeznamNalogovController@index')->name('seznamNalogov');
+Route::post('/seznamNalogov', 'SeznamNalogovController@filter')->name('filterSeznamNalogov');
 
 Route::get('/newPassword', 'newPasswordController@index')->name('newPassword');
