@@ -12,7 +12,7 @@ class Obisk extends Model
     // Model will not be timestamped
     public $timestamps = false;
 
-	protected $fillable = ['sifra_dn', 'datum_obiska'];
+	protected $fillable = ['sifra_dn', 'sifra_plan', 'sifra_ps', 'datum_obiska'];
 
     public function delovni_nalog() {
     	return $this->belongsTo('App\DelovniNalog', 'sifra_dn', 'sifra_dn');

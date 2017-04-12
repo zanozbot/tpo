@@ -9,6 +9,8 @@ use App\Bolezen;
 use App\Zdravilo;
 use App\VrstaObiska;
 use App\Obisk;
+use App\Plan;
+use App\PatronaznaSestra;
 
 class DelovniNalogController extends Controller
 {
@@ -143,6 +145,14 @@ class DelovniNalogController extends Controller
                 $pacientIn[0]->delovni_nalog()->attach($sifraNovegaDN);
             }
 
+        //pridobivanje sifre MS TODO
+        $pacKZZ = $delovniNalog->pacient()->get();
+        $pacKZZ = $pacKZZ[0]->pivot->pacient_stevilka_KZZ;
+        $okolis = Pacient::where('stevilka_KZZ', '=', $pacKZZ)->get();
+        $okolis = $okolis[0]->sifra_okolis;
+        $sifraPS = PatronaznaSestra::where('sifra_okolis', '=', $okolis)->get();
+        $sifraPS = $sifraPS[0]->sifra_ps;
+
         //kreiranje obiskov
         if ($datumKoncni) {
             $date1 = date_create((string)$datumZacetni);
@@ -152,24 +162,65 @@ class DelovniNalogController extends Controller
             $korak = $stDni/$request['steviloObiskov'];
             $datumObiska = $datumZacetni;
             for ($x = 1; $x <= $request['steviloObiskov']-1; $x++) {
+                $sifraPlan = Plan::where('datum_plan', '=', '0000-01-01')->get();
+                $sifraPlan = $sifraPlan[0]->sifra_plan;
+                if($datumObvezen == 1){
+                    //kreiraj ali dodaj v plan
+                    $plan = Plan::where('datum_plan', $datumObiska)->get();
+                    if(!$plan->first()){
+                        //plan v bazi še ne obstaja
+                        $planCreate = Plan::create([
+                                'datum_plan' => $datumObiska
+                            ]);
+                        $sifraPlan = Plan::max('sifra_plan');
+                    } else {
+                        //plan v bazi že obstaja
+                        $sifraPlan = Plan::where('datum_plan', '=', $datumObiska)->get();
+                        $sifraPlan = $sifraPlan[0]->sifra_plan;
+                    }
+                }
                 $obisk = Obisk::create([
                     'sifra_dn' => $sifraNovegaDN,
+                    'sifra_plan' => $sifraPlan,
+                    'sifra_ps' => $sifraPS,
                     'datum_obiska' => $datumObiska
                     ]);
+
                 $korakIn = $x*$korak;
                 $datumObiska = date('Y-m-d', strtotime($datumZacetni.' + '.round($korakIn).' days'));
             }
             $obisk = Obisk::create([
-                'sifra_dn' => $sifraNovegaDN,
-                'datum_obiska' => $datumKoncni
-                ]);
+                    'sifra_dn' => $sifraNovegaDN,
+                    'sifra_plan' => $sifraPlan,
+                    'sifra_ps' => $sifraPS,
+                    'datum_obiska' => $datumKoncni
+                    ]);
         } else {
             $date1 = date_create((string)$datumZacetni);
             $korak = $request['casovniInterval'];
             $datumObiska = $datumZacetni;
             for ($x = 0; $x < $request['steviloObiskov']; $x++) {
+                $sifraPlan = Plan::where('datum_plan', '=', '0000-01-01')->get();
+                $sifraPlan = $sifraPlan[0]->sifra_plan;
+                if($datumObvezen == 1){
+                    //kreiraj ali dodaj v plan
+                    $plan = Plan::where('datum_plan', $datumObiska)->get();
+                    if(!$plan->first()){
+                        //plan v bazi še ne obstaja
+                        $planCreate = Plan::create([
+                                'datum_plan' => $datumObiska
+                            ]);
+                        $sifraPlan = Plan::max('sifra_plan');
+                    } else {
+                        //plan v bazi že obstaja
+                        $sifraPlan = Plan::where('datum_plan', '=', $datumObiska)->get();
+                        $sifraPlan = $sifraPlan[0]->sifra_plan;
+                    }
+                }
                 $obisk = Obisk::create([
                     'sifra_dn' => $sifraNovegaDN,
+                    'sifra_plan' => $sifraPlan,
+                    'sifra_ps' => $sifraPS,
                     'datum_obiska' => $datumObiska
                     ]);
                 $datumObiska = date('Y-m-d', strtotime($datumObiska.' + '.$korak.' days'));

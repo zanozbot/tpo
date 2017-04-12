@@ -36,7 +36,7 @@
 					<form role="form" >
 						<!-- datepicker -->
 						<div class="datepicker input-group date" data-provide="datepicker">
-							<input type="text" class="form-control" placeholder="dd/mm/yyyy">
+							<input type="text" class="form-control" placeholder="dd/mm/yyyy" name="datumPlana">
 							<div class="input-group-addon">
 								<span class="glyphicon glyphicon-th"></span>
 							</div>
