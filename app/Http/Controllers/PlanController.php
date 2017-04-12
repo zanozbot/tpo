@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Obisk;
+use App\Uporabnik;
+use App\Pacient;
 use App\DelovniNalog;
 use App\PatronaznaSestra;
 use App\Delavec;

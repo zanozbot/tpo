@@ -18,33 +18,60 @@ class SeznamNalogovController extends Controller
         $mix = DelovniNalog::join('delovni_nalog_pacient', 'delovni_nalog.sifra_dn', '=', 'delovni_nalog_pacient.delovni_nalog_sifra_dn')
         				->join('pacient', 'delovni_nalog_pacient.pacient_stevilka_KZZ', '=', 'pacient.stevilka_KZZ')
         				->join('uporabnik', 'pacient.id_uporabnik', '=', 'uporabnik.id_uporabnik')
+        				->join('delavec', 'delavec.sifra_delavec', '=', 'delovni_nalog.sifra_delavec')
+        				->join('izvajalec_zd', 'izvajalec_zd.sifra_zd', '=', 'delavec.sifra_zd')
+        				->join('posta', 'posta.postna_stevilka', '=', 'pacient.postna_stevilka')
+        				->join('vrsta_obiska', 'delovni_nalog.sifra_vrsta_obisk', '=', 'vrsta_obiska.sifra_vrsta_obisk')
+        				->join('bolezen', 'bolezen.sifra_bolezen', '=', 'delovni_nalog.sifra_bolezen')
                         ->get(array(
-		                            'ime',
+		                            'uporabnik.ime as ime_pacienta',
 		                            'priimek',
 		                            'email',
 		                            'tel_stevilka',
 		                            'stevilka_KZZ',
-		                            'postna_stevilka',
+		                            'pacient.postna_stevilka as posta_pacient',
 		                            'sifra_okolis',
+		                            'pacient.ulica as naslov_pacienta',
+		                            'pacient.kraj as kraj_pacienta',
 		                            'datum_rojstva',
 		                            'spol',
 		                            'sifra_dn',
-		                            'sifra_delavec',
-		                            'sifra_bolezen',
-		                            'sifra_vrsta_obisk',
+		                            'vrsta_obiska.sifra_vrsta_obisk',
 		                            'barva_epruvete',
+		                            'stevilo_epruvet',
 		                            'datum_prvega_obiska',
 		                            'datum_koncnega_obiska',
 		                            'datum_obvezen',
 		                            'stevilo_obiskov',
-		                            'casovni_interval'
+		                            'casovni_interval',
+		                            'izvajalec_zd.sifra_zd',
+		                            'izvajalec_zd.postna_stevilka as posta_izvajalec',
+		                            'delavec.sifra_delavec as sifra_delavca',
+		                            'izvajalec_zd.naziv as naziv_izvajalca',
+		                            'izvajalec_zd.naslov as naslov_izvajalca',
+		                            'posta.kraj as kraj_poste',
+		                            'vrsta_obiska.ime as ime_vrsta_obiska',
+		                            'preventivni',
+		                            'bolezen.sifra_bolezen as sifra_bolezni',
+		                            'bolezen.ime as ime_bolezni'
                         ));
-       // echo $mix;
+		        for ($i=0; $i < count($mix); $i++) { 
+		        	$mix[$i]->obiski = Obisk::where('sifra_dn', '=', $mix[$i]->sifra_dn)->get();
+		        }
+		        for ($i=0; $i < count($mix); $i++) { 
+		        	$mix[$i]->zdravila = DelovniNalog::join('delovni_nalog_zdravilo', 'delovni_nalog.sifra_dn', '=', 'delovni_nalog_zdravilo.delovni_nalog_sifra_dn')
+		        									->join('zdravilo', 'zdravilo.sifra_zdravilo', '=', 'delovni_nalog_zdravilo.zdravilo_sifra_zdravilo')
+		        									->get(array(
+		        										'zdravilo.sifra_zdravilo as sifra_zdravila',
+		        										'zdravilo.ime as ime_zdravila',
+		        										'zdravilo.opis as opis_zdravila'
+		        										));
+		        }
+
         for ($i=0; $i < count($mix); $i++) { 
         	$mix[$i]->obiski = Obisk::where('sifra_dn', '=', $mix[$i]->sifra_dn)->get();
         }
 
-        //echo $mix;
 		return view('pages.seznamnalog', ['mix' => $mix]);
     }
 
