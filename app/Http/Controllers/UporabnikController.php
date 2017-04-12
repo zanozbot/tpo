@@ -37,8 +37,8 @@ class UporabnikController extends Controller
                 return redirect()->route('home')->with('warning', 'Vaš račun še ni bil aktiviran. Preverite svoj email.');
             }
 
-            return $uporabnik; // Zbriši!
-            //TODO: Redirect na nov pogled!
+            //return $uporabnik; // Zbriši!
+            return redirect()->route('home');
         } else {
             $zaklepanjeIP->poskus += 1;
             $zaklepanjeIP->save();

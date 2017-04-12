@@ -26,9 +26,20 @@
 				<li >
 					<a href="{{ url('admin') }}">Admin</a>
 				</li>	
-				<li>
-					<a href="profil.html">Profil</a>
+				@if (Auth::check())
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{Auth::user()->ime}}<span class="caret"></span></a>
+					<ul class="dropdown-menu">
+			            <li><a href="#">Poduporabnik</a></li>
+			            <li><a href="{{route('register')}}">Dodaj poduporabnika</a></li>
+			            <li><a href="{{route('odjava')}}">Odjava</a></li>
+			          </ul>
 				</li>
+				@else
+				<li>
+					<a href="{{route('home')}}">Prijava</a>
+				</li>
+				@endif
 			</ul>
 		</div>
 	</div>

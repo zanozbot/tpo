@@ -7,9 +7,11 @@ use App\Mail\Mailer;
 use App\Uporabnik;
 use App\AktivacijaRacuna;
 use Mail;
+use Auth;
 
 class RegistrationController extends Controller
 {
+
     public function register(Request $request) {
     	// Validacija + kreacija uporabnika
     	/*$uporabnik = Uporabnik::create([

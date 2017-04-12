@@ -12,9 +12,7 @@
 */
 
 // Prijava
-Route::get('/', function () {
-    return view('pages.welcome');
-})->name('home');
+Route::get('/', 'PagesController@homePage')->name('home');
 Route::post('/', 'UporabnikController@login')->name('login');
 
 // Middleware skrbi, da mora biti uporabnik prijavljen
