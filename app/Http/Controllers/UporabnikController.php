@@ -34,6 +34,7 @@ class UporabnikController extends Controller
             $uporabnik->save();
 
             if(!$uporabnik->aktiviran) {
+                Auth::logout();
                 return redirect()->route('home')->with('warning', 'Vaš račun še ni bil aktiviran. Preverite svoj email.');
             }
 
