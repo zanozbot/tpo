@@ -73,7 +73,7 @@ class RegistrationController extends Controller
        	list($dan, $mesec, $leto) = explode("/", $datumRojstva);
         $datumRojstva = $leto.'-'.$mesec.'-'.$dan;
 		$spol = 'm';
-        if ($request['spol'] == 'Ženski'){
+        if ($request['spol'] == 'female'){
             $spol = 'z';
         }
 		$pacient = Pacient::create([
