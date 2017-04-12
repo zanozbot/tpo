@@ -119,7 +119,7 @@ class DelovniNalogController extends Controller
         */
 
         $delovniNalog = DelovniNalog::create([
-    		'sifra_delavec' => 123,//spremeniti v prijavljenega zdravnika/vodjoZD, ki izpolnjuje delovni nalog
+    		'sifra_delavec' => 12345,//spremeniti v prijavljenega zdravnika/vodjoZD, ki izpolnjuje delovni nalog
             'sifra_bolezen' => $sifraBolezni,
     		'sifra_vrsta_obisk' => $sifraVrstaObiska,
     		'barva_epruvete' => $barvaEpruvete,

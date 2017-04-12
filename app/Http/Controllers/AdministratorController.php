@@ -9,12 +9,14 @@ use App\Vloga;
 use App\Uporabnik;
 use App\PatronaznaSestra;
 use App\Delavec;
+use App\IzvajalecZD;
 
 class AdministratorController extends Controller
 {
     public function index() {
     	$vloge = Vloga::where('sifra_vloga', '>', 1)->where('sifra_vloga', '<', 6)->get();
-    	return view('pages.admin', ['vloge' => $vloge]);
+        $izvajalci = IzvajalecZD::all();
+    	return view('pages.admin', ['vloge' => $vloge, 'izvajalci' => $izvajalci]);
     }
 
     public function login(Request $request){

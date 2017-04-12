@@ -7,6 +7,11 @@
         <div class="panel-heading">
           <h3 class="panel-title">Kreiranje delovnega naloga</h3>
         </div>
+        @if (session('status'))
+          <div class="alert alert-success">
+            <strong>Uspeh!</strong> Delovni nalog je bil uspešno ustvarjen!
+        </div>
+        @endif
         <div class="panel-body">
           <form role="form" action="/nalog" method="post">
             {{ csrf_field() }}

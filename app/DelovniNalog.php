@@ -9,9 +9,6 @@ class DelovniNalog extends Model
     protected $table = 'delovni_nalog';
     protected $primaryKey = 'sifra_dn';
 
-    // Model will not be timestamped
-    public $timestamps = false;
-
     protected $fillable = ['sifra_delavec', 'sifra_bolezen', 'sifra_vrsta_obisk', 'barva_epruvete',
     'datum_prvega_obiska', 'datum_koncnega_obiska', 'datum_obvezen', 'stevilo_obiskov', 'casovni_interval'];
 

@@ -24,6 +24,7 @@ class CreateDelovniNalogsTable extends Migration
             $table->boolean('datum_obvezen');
             $table->integer('stevilo_obiskov');
             $table->integer('casovni_interval')->nullable();
+            $table->timestamps();
         });
     }
 

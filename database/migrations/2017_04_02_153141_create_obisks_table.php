@@ -16,7 +16,11 @@ class CreateObisksTable extends Migration
         Schema::create('obisk', function (Blueprint $table) {
             $table->increments('sifra_obisk');
             $table->integer('sifra_dn')->references('sifra_dn')->on('delovni_nalog');
+            $table->integer('sifra_plan');
+            $table->integer('sifra_ps');
             $table->date('datum_obiska');
+            $table->boolean('opravljen')->default(false);
+            $table->boolean('nadomesca')->default(false);
         });
     }
 
