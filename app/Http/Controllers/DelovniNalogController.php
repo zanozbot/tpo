@@ -149,7 +149,7 @@ class DelovniNalogController extends Controller
                 $pacientIn[0]->delovni_nalog()->attach($sifraNovegaDN);
             }
 
-        //pridobivanje sifre MS TODO
+        //pridobivanje sifre MS
         $pacKZZ = $delovniNalog->pacient()->get();
         $pacKZZ = $pacKZZ[0]->pivot->pacient_stevilka_KZZ;
         $okolis = Pacient::where('stevilka_KZZ', '=', $pacKZZ)->get();

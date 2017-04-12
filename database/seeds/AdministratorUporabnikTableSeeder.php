@@ -14,9 +14,9 @@ class AdministratorUporabnikTableSeeder extends Seeder
     public function run() {
     	 Uporabnik::create([
         	'sifra_vloga' => '1',
-            'ime' => 'Admin',
-            'priimek' => 'Administratorjev',
-            'email' => 'admin@gmail.com',
+            'ime' => 'Žan',
+            'priimek' => 'Ožbot',
+            'email' => 'zan.ozbot@gmail.com',
             'geslo' => bcrypt('admin'),
             'tel_stevilka' => '051700106'
         ]);
