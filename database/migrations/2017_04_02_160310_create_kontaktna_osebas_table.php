@@ -15,7 +15,6 @@ class CreateKontaktnaOsebasTable extends Migration
     {
         Schema::create('kontaktna_oseba', function (Blueprint $table) {
             $table->integer('sifra_kontaktna_oseba');
-            $table->integer('stevilka_KZZ');
             $table->string('sifra_razmerja');
             $table->string('ime', 200);
             $table->string('priimek', 200);

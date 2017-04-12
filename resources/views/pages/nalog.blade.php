@@ -122,7 +122,7 @@
             </div>
             <div class="form-group">
               <label class="label label-primary">Datum prvega obiska</label>
-              <div class="datepicker input-group date" data-provide="datepicker">
+              <div class="datepicker input-group date" data-provide="datepicker" data-date-format="dd/mm/yyyy">
                 <input type="text" class="form-control" placeholder="dd/mm/yyyy" name="datumPrvegaObiska">
                 <div class="input-group-addon">
                   <span class="glyphicon glyphicon-th"></span>
@@ -169,7 +169,7 @@
               });
             </script>
             <div class="form-group" name="koncniDatumDiv">
-              <div class="datepicker input-group date" data-provide="datepicker">
+              <div class="datepicker input-group date" data-provide="datepicker" data-date-format="dd/mm/yyyy">
                 <input type="text" class="form-control" placeholder="dd/mm/yyyy" name="koncniDatum">
                 <div class="input-group-addon">
                   <span class="glyphicon glyphicon-th"></span>

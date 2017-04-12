@@ -10,6 +10,32 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/email', 'RegistrationController@register')->name('register_post');
+Route::get('/confirm-account/{token}', 'RegistrationController@confirm')->name('confirm-account');
+
+Route::get('/', function () {
+    return view('pages.welcome');
+})->name('home');
+
+Route::get('/admin', 'AdministratorController@index')->name('admin');
+Route::post('/admin', 'AdministratorController@create')->name('admin_create_user');
+
+Route::get('/plan', function(){
+	return view('pages.plan');
+})->name('plan');
+
+Route::get('/users', function() {
+	return App\Uporabnik::all();
+})->name('users');
+
+// Primer uporabe relacij
+Route::get('/test', function() {
+	return App\Uporabnik::first()->vloga->ime;
+});
+
+// Registracija
+Route::get('/register', 'RegistrationController@index')->name('register');
+Route::post('/register', 'RegistrationController@register')->name('register_create_user');
 
 // Prijava
 Route::get('/', 'PagesController@homePage')->name('home');
@@ -38,10 +64,6 @@ Route::post('/', 'UporabnikController@login')->name('login');
 	Route::get('/seznamNalogov', 'SeznamNalogovController@index')->name('seznamNalogov');
 //});
 
-// Registracija
-Route::get('/register', function(){
-	return view('pages.register');
-})->name('register');
 Route::get('/email', 'RegistrationController@register')->name('register_post');
 Route::get('/confirm-account/{token}', 'RegistrationController@confirm')->name('confirm-account');
 
