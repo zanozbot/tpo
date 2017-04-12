@@ -46,7 +46,7 @@
 					<div class="form-control nalog" name="imeZavOsebe">{{$mini->ime_pacienta}}</div>
 				  </div>
 				  <div class="form-group">
-					<label class="label label-primary">Ulica, hišna številka</label>
+					<label class="label label-primary">Ulica in hišna številka</label>
 					<div class="form-control nalog" name="ulicaZavOsebe">{{$mini->naslov_pacienta}}</div>
 				  </div>
 				  <div class="row">
@@ -59,7 +59,7 @@
 					<div class="col-lg-6">
 					  <div class="form-group">
 						<label class="label label-primary">Kraj</label>
-						<div class="form-control nalog" name="krajZavOsebe">{{$mini->kraj}}</div>
+						<div class="form-control nalog" name="krajZavOsebe">{{$mini->kraj_poste}}</div>
 					  </div>
 					</div>
 				  </div>	 
@@ -132,6 +132,10 @@
 				    <label class="label label-primary">Barva epruvet</label>
 					<div class="form-control nalog" name="vrstaStoritve">{{$mini->barva_epruvete}}</div>
 				  </div>
+				  <div class="form-group">
+				    <label class="label label-primary">Število epruvet</label>
+					<div class="form-control nalog" name="vrstaStoritve">{{$mini->stevilo_epruvet}}</div>
+				  </div>
 			  </div>
 			</div>
 			@elseif ($mini->ime_vrsta_obiska == 'Aplikacija injekcij')
@@ -158,7 +162,7 @@
 							  </tr>
 							</thead>
 							<tbody>
-							@foreach ($mini->zdravilo as $zdravilo)
+							@foreach ($mini->zdravila as $zdravilo)
 							  <tr>
 								<td>{{$zdravilo->sifra_zdravila}}</td>
 								<td>{{$zdravilo->ime_zdravila}}</td>

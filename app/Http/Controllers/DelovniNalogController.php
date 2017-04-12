@@ -135,6 +135,7 @@ class DelovniNalogController extends Controller
             'sifra_bolezen' => $sifraBolezni,
     		'sifra_vrsta_obisk' => $sifraVrstaObiska,
     		'barva_epruvete' => $barvaEpruvete,
+            'stevilo_epruvet' => $request['steviloEpruvet'],
             'datum_prvega_obiska' => $datumZacetni,
             'datum_koncnega_obiska' => $datumKoncni,
     		'datum_obvezen' => $datumObvezen,
@@ -147,17 +148,18 @@ class DelovniNalogController extends Controller
         //dodajanje v vmesno tabelo delovni_nalog_zdravilo
         if ($sifraVrstaObiska == 50){
             $ustreznaZdravila = $_POST['ustreznaZdravila'];
-            foreach ($ustreznaZdravila as $zdravilo)
-                $zdraviloIn = Zdravilo::where('ime', $zdravilo)->get();
+            for ($x = 0; $x < count($ustreznaZdravila); $x++) {
+                $zdraviloIn = Zdravilo::where('ime', $ustreznaZdravila[$x])->get();
                 $zdraviloIn[0]->delovni_nalog()->attach($sifraNovegaDN);
+            }
         }
 
         //dodajanje v vmesno tabelo delovni_nalog_pacient
         $pacientiVsi = $_POST['vezaniPacient'];
-            for ($x = 0; $x < count($pacientiVsi); $x++) {
-                $pacientIn = Pacient::where('stevilka_KZZ', $pacientiVsi[$x])->get();
-                $pacientIn[0]->delovni_nalog()->attach($sifraNovegaDN);
-            }
+        for ($x = 0; $x < count($pacientiVsi); $x++) {
+            $pacientIn = Pacient::where('stevilka_KZZ', $pacientiVsi[$x])->get();
+            $pacientIn[0]->delovni_nalog()->attach($sifraNovegaDN);
+        }
 
         //pridobivanje sifre MS
         $pacKZZ = $delovniNalog->pacient()->get();

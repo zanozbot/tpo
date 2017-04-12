@@ -9,7 +9,7 @@ class DelovniNalog extends Model
     protected $table = 'delovni_nalog';
     protected $primaryKey = 'sifra_dn';
 
-    protected $fillable = ['sifra_delavec', 'sifra_bolezen', 'sifra_vrsta_obisk', 'barva_epruvete',
+    protected $fillable = ['sifra_delavec', 'sifra_bolezen', 'sifra_vrsta_obisk', 'barva_epruvete', 'stevilo_epruvet',
     'datum_prvega_obiska', 'datum_koncnega_obiska', 'datum_obvezen', 'stevilo_obiskov', 'casovni_interval'];
 
     public function vrsta_obiska() {

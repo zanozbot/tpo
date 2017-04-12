@@ -19,6 +19,7 @@ class CreateDelovniNalogsTable extends Migration
             $table->string('sifra_bolezen');
             $table->integer('sifra_vrsta_obisk');
             $table->string('barva_epruvete', 200)->nullable();
+            $table->integer('stevilo_epruvet')->nullable();
             $table->date('datum_prvega_obiska');
 			$table->date('datum_koncnega_obiska')->nullable();
             $table->boolean('datum_obvezen');
