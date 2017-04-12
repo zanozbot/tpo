@@ -37,19 +37,19 @@
 			  <div class="panel-body">
 				  <div class="form-group">
 					<label class="label label-primary">Številka zavarovane osebe</label>
-					<div class="form-control nalog" name="stZavOsebe">Value</div>
+					<div class="form-control nalog" name="stZavOsebe">{{ $minimix->stevilka_KZZ }}</div>
 				  </div>
 				  <div class="form-group">
 					<label class="label label-primary">Datum rojstva</label>
-					<div class="form-control nalog" name="rojstvoZavOsebe">Value</div>
+					<div class="form-control nalog" name="rojstvoZavOsebe">{{ $minimix->datum_rojstva }}</div>
 				  </div>
 				  <div class="form-group">
 					<label class="label label-primary">Priimek</label>
-					<div class="form-control nalog" name="priimekZavOsebe">Value</div>
+					<div class="form-control nalog" name="priimekZavOsebe">{{ $minimix->priimek }}</div>
 				  </div>
 				  <div class="form-group">
 					<label class="label label-primary">Ime</label>
-					<div class="form-control nalog" name="imeZavOsebe">Value</div>
+					<div class="form-control nalog" name="imeZavOsebe">{{ $minimix->ime }}</div>
 				  </div>
 				  <div class="form-group">
 					<label class="label label-primary">Ulica, hišna številka</label>

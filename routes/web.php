@@ -11,6 +11,9 @@
 |
 */
 
+Route::get('/email', 'RegistrationController@register')->name('register_post');
+Route::get('/confirm-account/{token}', 'RegistrationController@confirm')->name('confirm-account');
+
 Route::get('/', function () {
     return view('pages.welcome');
 })->name('home');
@@ -40,13 +43,9 @@ Route::get('/contact', function(){
 	return view('pages.contact');
 })->name('contact');
 
-//TODO: Spremeni ko ugotovis angleski prevod
-//Route::resource('nalog', 'DelovniNalogController');
 Route::get('/nalog', 'DelovniNalogController@index')->name('nalog');
 Route::post('/nalog', 'DelovniNalogController@create')->name('create_nalog');
 
-Route::get('/nalogi', function(){
-	return view('pages.nalogi');
-})->name('nalogi');
+Route::get('/seznamNalogov', 'SeznamNalogovController@index')->name('seznamNalogov');
 
 Route::get('/newPassword', 'newPasswordController@index')->name('newPassword');
