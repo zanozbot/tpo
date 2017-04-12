@@ -17,12 +17,12 @@ class RegistrationController extends Controller
     		]);*/
     	
     	$uporabnik = Uporabnik::first(); // Izbriši
-    	$aktivacija = AktivacijaRacuna::create([
-    		'id_uporabnik' => $uporabnik->id_uporabnik,
-    		'token' => str_random(30)
-    		]);
+    	$aktivacija = AktivacijaRacuna::updateOrCreate(
+    		['id_uporabnik' => $uporabnik->id_uporabnik],
+            ['token' => str_random(30)]
+    		);
 
-    	Mail::to('zan.ozbot@gmail.com')->send(new Mailer($uporabnik));
+    	Mail::to($uporabnik->email)->send(new Mailer($uporabnik));
     	return redirect()->route('home')->with('status', 'Poslali smo vam aktivacijsko kodo. Preverite svoj email.');
     }
 
