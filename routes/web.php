@@ -27,9 +27,6 @@ Route::post('/', 'UporabnikController@login')->name('login');
 	Route::post('/admin', 'AdministratorController@create')->name('admin_create_user');
 
 	// Plan
-	Route::get('/plan', function(){
-		return view('pages.plan');
-	})->name('plan');
 	Route::get('/datumplan', 'DatumPlanController@index')->name('datumPlan');
 	Route::post('/datumplan', 'DatumPlanController@create')->name('create_datumPlan');
 	Route::get('/plan', 'PlanController@index')->name('plan');

@@ -21,7 +21,7 @@
 					<a href="material.html">Material</a>
 				</li>
 				<li>
-					<a href="pot.html">Pot</a>
+					<a href="{{route('datumPlan')}}">Plan</a>
 				</li>
 				<li >
 					<a href="{{ url('admin') }}">Admin</a>

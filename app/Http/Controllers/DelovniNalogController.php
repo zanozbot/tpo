@@ -156,7 +156,6 @@ class DelovniNalogController extends Controller
         $okolis = $okolis[0]->sifra_okolis;
         $sifraPS = PatronaznaSestra::where('sifra_okolis', '=', $okolis)->get();
         $sifraPS = $sifraPS[0]->sifra_ps;
-
         //kreiranje obiskov
         if ($datumKoncni) {
             $date1 = date_create((string)$datumZacetni);
@@ -205,7 +204,15 @@ class DelovniNalogController extends Controller
             $datumObiska = $datumZacetni;
             for ($x = 0; $x < $request['steviloObiskov']; $x++) {
                 $sifraPlan = Plan::where('datum_plan', '=', '0000-01-01')->get();
-                $sifraPlan = $sifraPlan[0]->sifra_plan;
+                if(!$sifraPlan->first()){
+                    $planCreate = Plan::create([
+                                'datum_plan' => '0000-01-01'
+                            ]);
+                    $sifraPlan = Plan::max('sifra_plan');
+                } else {
+                    $sifraPlan = $sifraPlan[0]->sifra_plan;
+                }
+                
                 if($datumObvezen == 1){
                     //kreiraj ali dodaj v plan
                     $plan = Plan::where('datum_plan', $datumObiska)->get();
