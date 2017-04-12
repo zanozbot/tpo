@@ -8,6 +8,7 @@ use App\DelovniNalog;
 use App\Uporabnik;
 use App\Pacient;
 use App\Obisk;
+use App\PatronaznaSestra;
 
 class SeznamNalogovController extends Controller
 {
@@ -25,7 +26,6 @@ class SeznamNalogovController extends Controller
 		                            'stevilka_KZZ',
 		                            'postna_stevilka',
 		                            'sifra_okolis',
-		                            'naslov',
 		                            'datum_rojstva',
 		                            'spol',
 		                            'sifra_dn',
@@ -76,6 +76,17 @@ class SeznamNalogovController extends Controller
 			$sifra_vrsta_obisk = $sifra_vrsta_obisk[0]->sifra_vrsta_obisk;
 			$mix->where('delovni_nalog.sifra_vrsta_obisk', '=', $sifra_vrsta_obisk);
 		}
+		if($request['izdajalec']){
+			$mix->where('delovni_nalog.sifra_delavec', '=', $request['izdajalec']);
+		}
+		if($request['zadolzenaSestra']){
+			$sestra = PatronaznaSestra::where('sifra_ps', '=', $request['zadolzenaSestra'])->get();
+			if(count($sestra) > 0)
+		    	$okolisSestre = $sestra[0]->sifra_okolis;
+		    else 
+		    	$okolisSestre = "nope";
+		    $mix->where('pacient.sifra_okolis', '=', $okolisSestre);
+		}
 		$filteredMix = $mix->get(array(
 		                            'ime',
 		                            'priimek',
@@ -84,7 +95,6 @@ class SeznamNalogovController extends Controller
 		                            'stevilka_KZZ',
 		                            'postna_stevilka',
 		                            'sifra_okolis',
-		                            'naslov',
 		                            'datum_rojstva',
 		                            'spol',
 		                            'sifra_dn',
