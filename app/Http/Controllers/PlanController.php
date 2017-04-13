@@ -15,6 +15,7 @@ class PlanController extends Controller
 {
     public function index() {
     	$sifraPlan = 0;
+    	$izbraniDatum = 0;
 		if (Auth::check()) {
             if (Auth::user()->sifra_vloga == 4){
                 if (session()->has('sifraPlan')){
@@ -67,7 +68,9 @@ class PlanController extends Controller
 		                            'bolezen.ime as ime_bolezni'
                         ));
 		        for ($i=0; $i < count($mix1); $i++) { 
-		        	$mix1[$i]->obiski = Obisk::where('sifra_dn', '=', $mix1[$i]->sifra_dn)->where('opravljen', '=', 0)
+		        	$mix1[$i]->obiski = Obisk::where('obisk.sifra_dn', '=', $mix1[$i]->sifra_dn)->where('opravljen', '=', 0)
+		        				->join('delovni_nalog', 'delovni_nalog.sifra_dn', '=', 'obisk.sifra_dn')
+		        				->where('datum_obvezen', '=', 0)
 								->where('sifra_plan', '!=', $sifraPlan)->get();
 		        }
 		        for ($i=0; $i < count($mix1); $i++) { 
