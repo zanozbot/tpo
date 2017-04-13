@@ -37,6 +37,14 @@ Route::get('/test', function() {
 Route::get('/register', 'RegistrationController@index')->name('register');
 Route::post('/register', 'RegistrationController@register')->name('register_create_user');
 
+// Poduporabnik
+Route::get('/poduporabnik', 'PoduporabnikController@index')->name('poduporabnik');
+Route::post('/poduporabnik', 'PoduporabnikController@create')->name('poduporabnik_create_user');
+
+// Kontaktna oseba
+Route::get('/contact', 'ContactController@index')->name('contact');
+Route::post('/contact', 'ContactController@create')->name('contact_create_user');
+
 // Prijava
 Route::get('/', 'PagesController@homePage')->name('home');
 Route::post('/', 'UporabnikController@login')->name('login');
@@ -68,6 +76,4 @@ Route::post('/', 'UporabnikController@login')->name('login');
 Route::get('/email', 'RegistrationController@register')->name('register_post');
 Route::get('/confirm-account/{token}', 'RegistrationController@confirm')->name('confirm-account');
 
-Route::get('/contact', function(){
-	return view('pages.contact');
-})->name('contact');
+

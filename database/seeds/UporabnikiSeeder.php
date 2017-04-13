@@ -74,6 +74,8 @@ class UporabnikiSeeder extends Seeder
         $pacient = Pacient::create([
         		'id_uporabnik' => $u4->id_uporabnik,
         		'stevilka_KZZ' => '1234567890',
+				'ime' => 'Pacient',
+				'priimek' => 'Debevc',
         		'sifra_okolis' => '3',
         		'ulica' => 'Novomeška cesta 5',
         		'kraj' => 'Črna na Koroškem',

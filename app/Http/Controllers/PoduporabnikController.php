@@ -7,19 +7,22 @@ use App\Mail\Mailer;
 use App\Uporabnik;
 use App\Pacient;
 use App\Okolis;
+use App\SorodstvenoRazmerje;
 use App\AktivacijaRacuna;
 use Mail;
 use Auth;
 
-class RegistrationController extends Controller
+class PoduporabnikController extends Controller
 {
 	public function index() {
     	$okolisi = Okolis::where('sifra_okolis', '>', 1)->get();
-    	return view('pages.register', ['okolisi' => $okolisi]);
+		$razmerja = SorodstvenoRazmerje::all();
+    	return view('pages.poduporabnik', ['okolisi' => $okolisi, 'razmerja' => $razmerja]);
     }
 
-    public function register(Request $request) {
+    public function create(Request $request) {
     	// Validacija + kreacija 
+		
 		$messages = [
 		    'same'    => 'Polja ":attribute" in ":other" se morata ujemati.',
 		    'required' => 'Polje ":attribute" mora biti izpoljeno.',
@@ -29,47 +32,35 @@ class RegistrationController extends Controller
 			'date_format' => 'Oblika datuma v polju ":attribute" ni pravilna.'
 		];
 		$customAttributes = [
-			'email' => 'Email',
     		'stevilkaKarticeZavarovanja' => 'Številka kartice zdravstvenega zavarovanja',
 			'ime' => 'Ime',
     		'priimek' => 'Priimek',
+			'okolis' => 'Okoliši',
+			'razmerje' => 'Razmerje',
 		    'ulica' => 'Ulica',
 		    'kraj' => 'Kraj',
-			'posta' => 'Poštna številka'
+			'posta' => 'Poštna številka',
 		    'datumRojstva' => 'Datum rojstva',
-		    'tel_stevilka' => 'Telefonska številka',
 			'spol' => 'Spol',
-			'geslo' => 'Geslo',
-		    'potrdigeslo' => 'Potrdi geslo'
 		];
 		
 		$this->validate($request, [
-    		'email' => 'required|email|unique:uporabnik',
     		'stevilkaKarticeZavarovanja' => 'required|numeric',
     		'ime' => 'required',
         	'priimek' => 'required',
+			'razmerje' => 'required',
 			'posta' => 'required|numeric|max:9999|min:1000',
 			'okolis' => 'required',
 			'ulica' => 'required',
 			'kraj' => 'required',	
         	'datumRojstva' => 'required|date_format:d/m/Y',
-        	'tel_stevilka' => 'required|max:9',
 			'spol' => 'required',
-        	'geslo' => 'required',
-        	'potrdigeslo' => 'required|same:geslo',
-    	], $messages, $customAttributes);	
-		
-    	$uporabnik = Uporabnik::create([
-    		'sifra_vloga' => 6,
-    		'ime' => $request['ime'],
-    		'priimek' => $request['priimek'],
-    		'email' => $request['email'],
-    		'geslo' => bcrypt($request['geslo']),
-    		'tel_stevilka' => $request['tel_stevilka']
-		]);
+    	], $messages, $customAttributes);
 		
 		$sifraOkolis = Okolis::where('ime', $request['okolis'])->get();
 		$sifraOkolis = $sifraOkolis[0]->sifra_okolis;
+		$sifraRazmerje = SorodstvenoRazmerje::where('ime', $request['razmerje'])->get();
+		$sifraRazmerje = $sifraRazmerje[0]->sifra_razmerje;
 		$datumRojstva = $request['datumRojstva'];   
        	list($dan, $mesec, $leto) = explode("/", $datumRojstva);
         $datumRojstva = $leto.'-'.$mesec.'-'.$dan;
@@ -77,30 +68,20 @@ class RegistrationController extends Controller
         if ($request['spol'] == 'female'){
             $spol = 'z';
         }
+		
 		$pacient = Pacient::create([
 			'stevilka_KZZ' => $request['stevilkaKarticeZavarovanja'],
     		'postna_stevilka' => $request['posta'],
 			'ime' => $request['ime'],
-    		'priimek' => $request['priimek'],
+			'priimek' => $request['priimek'],
+			'sifra_razmerje' => $sifraRazmerje,
             'sifra_okolis' => $sifraOkolis,
 			'ulica' => $request['ulica'],
 			'kraj' => $request['kraj'],
             'datum_rojstva' => $datumRojstva,
             'spol' => $spol,
-			'id_uporabnik' => $uporabnik->id_uporabnik
+			'id_uporabnik' => Auth::user()->id_uporabnik
 		]);
-		return redirect()->route('register')->with('status', true);
-    }
-
-    public function confirm($token) {
-    	$aktivacija = AktivacijaRacuna::find($token);
-    	$uporabnik = $aktivacija->uporabnik;
-
-    	if($uporabnik->aktiviran) {
-    		return redirect()->route('home')->with('warning', 'Vaš račun je bil že aktiviran.');
-    	}
-		$uporabnik->aktiviran = true;
-		$uporabnik->save();
-    	return redirect()->route('home')->with('status', 'Uspešno ste aktivirali vaš račun.');	
+		return redirect()->route('poduporabnik')->with('status', true);
     }
 }

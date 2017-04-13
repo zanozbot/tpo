@@ -39,9 +39,13 @@ class Uporabnik extends Authenticatable
     }
 
     public function pacient() {
-    	return $this->hasOne('App\Pacient', 'id_uporabnik', 'id_uporabnik');
+    	return $this->hasMany('App\Pacient', 'id_uporabnik', 'id_uporabnik');
     }
-
+	
+	public function kontaktna_oseba() {
+    	return $this->hasMany('App\KontaktnaOseba', 'id_uporabnik', 'id_uporabnik');
+    }
+	
     public function aktivacija() {
         return $this->hasOne('App\AktivacijaRacuna', 'id_uporabnik', 'id_uporabnik');
     }
