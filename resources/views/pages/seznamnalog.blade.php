@@ -17,19 +17,19 @@
 					<div class="col-xs-12 col-sm-12 col-md-6">
 						<div class="form-group">
 						  <label class="label label-primary">Izdajalec</label>
-						  <input type="text" class="form-control input-sm" name="izdajalec" ></input>	
+						  <input type="text" class="form-control input-sm" name="izdajalec" placeholder="Šifra izdajalca naloga"></input>	
 						</div>
 						<div class="form-group">
 						  <label class="label label-primary">Pacient</label>
-						  <input type="text" class="form-control input-sm" name="pacient" ></input>
+						  <input type="text" class="form-control input-sm" name="pacient" placeholder="Šifra pacienta"></input>
 						</div>
-						<div class="form-group">  
+						<div class="form-group">
 						  <label class="label label-primary">Zadolžena patronažna sestra</label>
-						  <input type="text" class="form-control input-sm" name="zadolzenaSestra" ></input>
+						  <input type="text" class="form-control input-sm" name="zadolzenaSestra" placeholder="Šifra patronažne sestre"></input>
 						</div>
 						<div class="form-group">
 						  <label class="label label-primary">Nadomestna patronažna sestra</label>
-						  <input type="text" class="form-control input-sm" name="nadomestnaSestra" ></input>
+						  <input type="text" class="form-control input-sm" name="nadomestnaSestra" placeholder="Šifra patronažne sestre"></input>
 						</div>
 					</div>
 					<div class="col-xs-12 col-sm-12 col-md-6">
