@@ -11,13 +11,19 @@
 		</div>
 		<div class="collapse navbar-collapse " id="navbar-collapse-1">
 			<ul class="nav navbar-nav pull-right">
-				@if (Auth::check() && (Auth::user()->sifra_vloga == 2 || Auth::user()->sifra_vloga == 3))
+				@if (Auth::check())
+				@if((Auth::user()->sifra_vloga == 2 || Auth::user()->sifra_vloga == 3))
 				<li>
 					<a href="{{route('nalog')}}">Nov nalog</a>
 				</li>
 				<li>
 					<a href="{{route('seznamNalogov')}}">Seznam nalogov</a>
 				</li>
+				@else
+				<li>
+					<a href="{{route('seznamNalogov')}}">Seznam nalogov</a>
+				</li>
+				@endif
 				@endif
 				<!-- Trenutno funkcionalnost ni podprta
 				@if (Auth::check() && (Auth::user()->sifra_vloga == 4))
