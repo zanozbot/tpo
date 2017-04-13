@@ -34,12 +34,11 @@ class PlanController extends Controller
         				->join('vrsta_obiska', 'delovni_nalog.sifra_vrsta_obisk', '=', 'vrsta_obiska.sifra_vrsta_obisk')
         				->join('bolezen', 'bolezen.sifra_bolezen', '=', 'delovni_nalog.sifra_bolezen')
                         ->get(array(
-		                            'uporabnik.ime as ime_pacienta',
-		                            'priimek',
+		                            'pacient.ime as ime_pacienta',
+		                            'pacient.priimek as priimek_pacienta',
 		                            'email',
 		                            'tel_stevilka',
 		                            'stevilka_KZZ',
-		                            'pac_stevilka_KZZ',
 		                            'pacient.postna_stevilka as posta_pacient',
 		                            'sifra_okolis',
 		                            'pacient.ulica as naslov_pacienta',
@@ -85,7 +84,7 @@ class PlanController extends Controller
 		        									->join('uporabnik', 'pacient.id_uporabnik', '=', 'uporabnik.id_uporabnik')
 		        									->get(array(
 		        										'stevilka_KZZ',
-		        										'ime',
+		        										'pacient.ime as ime_pacienta',
 		        										'datum_rojstva'
 		        										));
 		        }
@@ -99,8 +98,8 @@ class PlanController extends Controller
         				->join('vrsta_obiska', 'delovni_nalog.sifra_vrsta_obisk', '=', 'vrsta_obiska.sifra_vrsta_obisk')
         				->join('bolezen', 'bolezen.sifra_bolezen', '=', 'delovni_nalog.sifra_bolezen')
                         ->get(array(
-		                            'uporabnik.ime as ime_pacienta',
-		                            'priimek',
+		                            'pacient.ime as ime_pacienta',
+		                            'pacient.priimek as priimek_pacienta',
 		                            'email',
 		                            'tel_stevilka',
 		                            'stevilka_KZZ',
@@ -150,7 +149,7 @@ class PlanController extends Controller
 		        									->join('uporabnik', 'pacient.id_uporabnik', '=', 'uporabnik.id_uporabnik')
 		        									->get(array(
 		        										'stevilka_KZZ',
-		        										'ime',
+		        										'pacient.ime as ime_pacienta',
 		        										'datum_rojstva'
 		        										));
 		        }

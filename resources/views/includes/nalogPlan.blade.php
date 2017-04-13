@@ -39,7 +39,7 @@
 				  </div>
 				  <div class="form-group">
 					<label class="label label-primary">Priimek</label>
-					<div class="form-control nalog" name="priimekZavOsebe">{{$mini->priimek}}</div>
+					<div class="form-control nalog" name="priimekZavOsebe">{{$mini->priimek_pacienta}}</div>
 				  </div>
 				  <div class="form-group">
 					<label class="label label-primary">Ime</label>

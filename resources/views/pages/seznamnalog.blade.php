@@ -101,7 +101,7 @@
 			   @foreach ($mix as $mini)
 				<tr>
 					<td>{{$mini->sifra_dn}}</td>
-					<td>{{$mini->priimek}}</td>
+					<td>{{$mini->priimek_pacienta}}</td>
 					<td>{{$mini->ime_bolezni}}</td>
 					<td >		
 						<button type="button" class="btn btn-info btn-block" data-toggle="modal" data-target="#podrobnosti"><span class="glyphicon glyphicon-plus"></span></button>
