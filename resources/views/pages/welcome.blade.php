@@ -16,6 +16,6 @@
                 {{ session('danger') }}
             </div>
         @endif
-        <h1> <center>Welcome {{Auth::user()->ime}}</center> </h1>
+        <h1> <center>Dobrodošli {{Auth::user()->ime}}!</center> </h1>
     </div>
 @stop

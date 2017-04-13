@@ -39,6 +39,7 @@ class PlanController extends Controller
 		                            'email',
 		                            'tel_stevilka',
 		                            'stevilka_KZZ',
+		                            'pac_stevilka_KZZ',
 		                            'pacient.postna_stevilka as posta_pacient',
 		                            'sifra_okolis',
 		                            'pacient.ulica as naslov_pacienta',
@@ -76,6 +77,16 @@ class PlanController extends Controller
 		        										'zdravilo.sifra_zdravilo as sifra_zdravila',
 		        										'zdravilo.ime as ime_zdravila',
 		        										'zdravilo.opis as opis_zdravila'
+		        										));
+		        }
+		        for ($i=0; $i < count($mix1); $i++) { 
+		        	$mix1[$i]->pacienti = DelovniNalog::join('delovni_nalog_pacient', 'delovni_nalog.sifra_dn', '=', 'delovni_nalog_pacient.delovni_nalog_sifra_dn')
+		        									->join('pacient', 'pacient.stevilka_KZZ', '=', 'delovni_nalog_pacient.pacient_stevilka_KZZ')
+		        									->join('uporabnik', 'pacient.id_uporabnik', '=', 'uporabnik.id_uporabnik')
+		        									->get(array(
+		        										'stevilka_KZZ',
+		        										'ime',
+		        										'datum_rojstva'
 		        										));
 		        }
 
@@ -133,8 +144,17 @@ class PlanController extends Controller
 		        										'zdravilo.opis as opis_zdravila'
 		        										));
 		        }
+				for ($i=0; $i < count($mix2); $i++) { 
+		        	$mix2[$i]->pacienti = DelovniNalog::join('delovni_nalog_pacient', 'delovni_nalog.sifra_dn', '=', 'delovni_nalog_pacient.delovni_nalog_sifra_dn')
+		        									->join('pacient', 'pacient.stevilka_KZZ', '=', 'delovni_nalog_pacient.pacient_stevilka_KZZ')
+		        									->join('uporabnik', 'pacient.id_uporabnik', '=', 'uporabnik.id_uporabnik')
+		        									->get(array(
+		        										'stevilka_KZZ',
+		        										'ime',
+		        										'datum_rojstva'
+		        										));
+		        }
 
-		       	//return $mix[0]->obiski[0]->sifra_obisk;
 		    	return view('pages.plan', ['sifraPlan' => $sifraPlan, 'sifraSestre' => $sifraSestre, 'mix1' => $mix1, 'mix2' => $mix2]);
             } else {
                 return redirect()->route('home');

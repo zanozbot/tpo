@@ -67,6 +67,16 @@ class SeznamNalogovController extends Controller
 		        										'zdravilo.opis as opis_zdravila'
 		        										));
 		        }
+		        for ($i=0; $i < count($mix); $i++) { 
+		        	$mix[$i]->pacienti = DelovniNalog::join('delovni_nalog_pacient', 'delovni_nalog.sifra_dn', '=', 'delovni_nalog_pacient.delovni_nalog_sifra_dn')
+		        									->join('pacient', 'pacient.stevilka_KZZ', '=', 'delovni_nalog_pacient.pacient_stevilka_KZZ')
+		        									->join('uporabnik', 'pacient.id_uporabnik', '=', 'uporabnik.id_uporabnik')
+		        									->get(array(
+		        										'stevilka_KZZ',
+		        										'ime',
+		        										'datum_rojstva'
+		        										));
+		        }
 
         for ($i=0; $i < count($mix); $i++) { 
         	$mix[$i]->obiski = Obisk::where('sifra_dn', '=', $mix[$i]->sifra_dn)->get();
