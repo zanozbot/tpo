@@ -22,6 +22,9 @@ class PlanController extends Controller
 		        	$sifraPlan = session('sifraPlan');
 		        	$izbraniDatum = session('izbraniDatum');
 		        }
+		        //if(!isset($izbraniDatum)) {
+		        //	return redirect()->route('datumPlan');
+		        //}
 
 		        //pridobivanje šifre delavca
 		        $sifraSestre = PatronaznaSestra::where('id_uporabnik', '=', Auth::user()->id_uporabnik)->get();

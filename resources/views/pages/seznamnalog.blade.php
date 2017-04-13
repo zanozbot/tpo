@@ -104,8 +104,8 @@
 					<td>{{$mini->priimek_pacienta}}</td>
 					<td>{{$mini->ime_bolezni}}</td>
 					<td >		
-						<button type="button" class="btn btn-info btn-block" data-toggle="modal" data-target="#podrobnosti"><span class="glyphicon glyphicon-plus"></span></button>
-						<div class="modal fade" id="podrobnosti" role="dialog">
+						<button type="button" class="btn btn-info btn-block" data-toggle="modal" data-target="#podrobnosti{{$mini->sifra_dn}}"><span class="glyphicon glyphicon-plus"></span></button>
+						<div class="modal fade" id="podrobnosti{{$mini->sifra_dn}}" role="dialog">
 							<div class="modal-dialog modal-lg">
 							  <div class="modal-content">
 								<div class="modal-header">
