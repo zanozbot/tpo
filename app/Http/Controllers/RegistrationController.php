@@ -89,6 +89,13 @@ class RegistrationController extends Controller
             'spol' => $spol,
 			'id_uporabnik' => $uporabnik->id_uporabnik
 		]);
+
+		$aktivacija = AktivacijaRacuna::create([
+	   		'id_uporabnik' => $uporabnik->id_uporabnik,
+     		'token' => str_random(30)
+     		]);
+		
+		Mail::to($uporabnik->email)->send(new Mailer($uporabnik));
 		return redirect()->route('register')->with('status', true);
     }
 

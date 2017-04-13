@@ -58,7 +58,7 @@
 							</div>
 						  </div>	
 						  <div class="form-group">
-							  <label class="label label-primary">Regija</label>
+							  <label class="label label-primary">Okoliš</label>
 							  <select class="selectpicker form-control input-sm" name="okolis">
 							  @foreach ($okolisi as $okolis)
 								<option>{{ $okolis->ime }}</option>

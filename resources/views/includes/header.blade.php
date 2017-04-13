@@ -51,6 +51,7 @@
 						<ul class="dropdown-menu">
 							<li><a href="{{route('contact')}}">Dodaj kontaktno osebo</a></li>
 							<li><a href="{{route('poduporabnik')}}">Dodaj poduporabnika</a></li>
+							<li><a href="{{route('newPassword')}}">Spremeni geslo</a></li>
 							<li><a href="{{route('odjava')}}">Odjava</a></li>
 						  </ul>
 					</li>
@@ -58,6 +59,7 @@
 						<li class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{Auth::user()->ime}}<span class="caret"></span></a>
 							<ul class="dropdown-menu">
+								<li><a href="{{route('newPassword')}}">Spremeni geslo</a></li>
 								<li><a href="{{route('odjava')}}">Odjava</a></li>
 							  </ul>
 						</li>
