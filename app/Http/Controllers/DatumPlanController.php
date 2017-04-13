@@ -57,6 +57,6 @@ class DatumPlanController extends Controller
             $sifraPlan = $sifraPlan[0]->sifra_plan;
         }
 
-    	return redirect()->route('plan')->with('sifraPlan', $sifraPlan);
+    	return redirect()->route('plan')->with(['sifraPlan' => $sifraPlan, 'izbraniDatum' => $request['datumPlana']]);
     }
 }

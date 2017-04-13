@@ -59,7 +59,7 @@
 			<div class="col-xs-12 col-sm-12 col-md-7 ">
 				<div class="panel panel-default">
 				  <div class="panel-heading">
-					<h3 class="panel-title">Planirani obiski</h3>
+					<h3 class="panel-title">Planirani obiski za datum {{$izbraniDatum}}</h3>
 				  </div>
 				  <div class="panel-body">
 				  <table class="table">
@@ -75,6 +75,11 @@
 					  	@foreach ($mix2 as $mini)
 							@foreach ($mini->obiski as $obisk)
 							<tr>
+								@if ($mini->datum_obvezen == 1)
+									<td><button type="button" onclick="window.location='{{ url('plan/odstrani') }}/{{$sifraPlan}}/{{$sifra = $obisk->sifra_obisk}}'" class="btn btn-default" name="{{$sifra = $obisk->sifra_obisk}}" disabled>Odstrani</button></td>
+								@else
+									<td><button type="button" onclick="window.location='{{ url('plan/odstrani') }}/{{$sifraPlan}}/{{$sifra = $obisk->sifra_obisk}}'" class="btn btn-default" name="{{$sifra = $obisk->sifra_obisk}}">Odstrani</button></td>
+								@endif
 								<td></td>
 								<td>{{$obisk->sifra_obisk}}</td>
 								<td>{{$mini->ime_bolezni}}</td>

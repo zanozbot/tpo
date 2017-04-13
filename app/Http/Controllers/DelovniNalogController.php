@@ -71,7 +71,7 @@ class DelovniNalogController extends Controller
 		$pacient = Pacient::where('stevilka_KZZ', $request['vezaniPacient'][0])->get();
 		if(!$pacient->first())
 		{
-            $msg = 'Pacient s številko KZZ '.$request['vezaniPacient'][0].' v bazi še ne obstaja.';
+            $msg = 'Pacient s številko kartice zdravstvenega zavarovanja '.$request['vezaniPacient'][0].' v bazi še ne obstaja.';
             if (!$request['vezaniPacient'][0]) {
                 $msg = 'Polje "Vezani pacienti" mora biti izpolnjeno';
             }

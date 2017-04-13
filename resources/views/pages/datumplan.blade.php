@@ -7,6 +7,15 @@
 				  <div class="panel-heading">
 					<h3 class="panel-title">Kreiranje plana</h3>
 				  </div>
+				  @if (count($errors) > 0)
+			          <div class="alert alert-danger">
+			            <ul>
+			              @foreach ($errors->all() as $error)
+			              <li>{{ $error }}</li>
+			              @endforeach
+			            </ul>
+			          </div>
+			      @endif
 				  <div class="panel-body">
 					<form role="form" method="post">
 					{{ csrf_field() }}
@@ -29,15 +38,6 @@
 							</script>
 						  <input type="submit" value="Ustvari plan" class="btn btn-info btn-block">
 						</form>
-						@if (count($errors) > 0)
-				          <div class="alert alert-danger">
-				            <ul>
-				              @foreach ($errors->all() as $error)
-				              <li>{{ $error }}</li>
-				              @endforeach
-				            </ul>
-				          </div>
-				        @endif
 					</div>
 				  </div>
 				</div>

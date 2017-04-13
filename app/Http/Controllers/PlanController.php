@@ -19,6 +19,7 @@ class PlanController extends Controller
             if (Auth::user()->sifra_vloga == 4){
                 if (session()->has('sifraPlan')){
 		        	$sifraPlan = session('sifraPlan');
+		        	$izbraniDatum = session('izbraniDatum');
 		        }
 
 		        //pridobivanje šifre delavca
@@ -154,7 +155,7 @@ class PlanController extends Controller
 		        										));
 		        }
 
-		    	return view('pages.plan', ['sifraPlan' => $sifraPlan, 'sifraSestre' => $sifraSestre, 'mix1' => $mix1, 'mix2' => $mix2]);
+		    	return view('pages.plan', ['sifraPlan' => $sifraPlan, 'sifraSestre' => $sifraSestre, 'mix1' => $mix1, 'mix2' => $mix2, 'izbraniDatum' => $izbraniDatum]);
             } else {
                 return redirect()->route('home');
             }
@@ -167,6 +168,23 @@ class PlanController extends Controller
     	if (Auth::check()) {
             if (Auth::user()->sifra_vloga == 4){
                 $obisk = Obisk::where('sifra_obisk', '=', $sifraObiska)->update(['sifra_plan' => $sifraPlan]);
+    	
+    			return redirect()->route('plan')->with('sifraPlan', $sifraPlan);
+            } else {
+                return redirect()->route('home');
+            }
+        } else {
+           return redirect()->route('home');
+        }     
+    	
+    }
+
+    public function odstrani($sifraPlan, $sifraObiska) {
+    	if (Auth::check()) {
+            if (Auth::user()->sifra_vloga == 4){
+            	$originalSifraPlana = Obisk::where('sifra_obisk', '=', $sifraObiska)->get();
+            	$originalSifraPlana = $originalSifraPlana[0]->originalna_sifra_plan;
+                $obisk = Obisk::where('sifra_obisk', '=', $sifraObiska)->update(['sifra_plan' => $originalSifraPlana]);
     	
     			return redirect()->route('plan')->with('sifraPlan', $sifraPlan);
             } else {
