@@ -13,21 +13,25 @@
 			<ul class="nav navbar-nav pull-right">
 				@if (Auth::check() && (Auth::user()->sifra_vloga == 2 || Auth::user()->sifra_vloga == 3))
 				<li>
-					<a href="{{route('nalog')}}">Nalog</a>
+					<a href="{{route('nalog')}}">Nov nalog</a>
+				</li>
+				<li>
+					<a href="{{route('seznamNalogov')}}">Seznam nalogov</a>
 				</li>
 				@endif
+				<!-- Trenutno funkcionalnost ni podprta
 				@if (Auth::check() && (Auth::user()->sifra_vloga == 4))
 				<li>
 					<a href="obisk.html">Obisk</a>
 				</li>
-				@endif
+				@endif-->
 				<!-- Trenutno funkcionalnost ni podprta
 				<li>
 					<a href="material.html">Material</a>
 				</li>-->
 				@if (Auth::check() && (Auth::user()->sifra_vloga == 4))
 				<li>
-					<a href="{{route('datumPlan')}}">Plan</a>
+					<a href="{{route('datumPlan')}}">Plan obiskov</a>
 				</li>
 				@endif
 				@if (Auth::check() && (Auth::user()->sifra_vloga == 1))

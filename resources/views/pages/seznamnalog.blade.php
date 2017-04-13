@@ -92,36 +92,36 @@
 			<thead>
 			  <tr>
 				<th>Šifra naloga</th>
-				<th>Ustvaril</th>
 				<th>Pacient</th>
+				<th>Bolezen</th>
 				<th></th>
 			  </tr>
 			</thead>
 			<tbody>
-			  @foreach ($mix as $minimix)
-			  <tr>
-				<td>{{$minimix->sifra_dn}}</td>
-				<td>{{$minimix->datum_prvega_obiska}}</td>
-				<td>{{$minimix->datum_koncnega_obiska}}</td>
-				<td >		
-					<button type="button" class="btn btn-info btn-block" data-toggle="modal" data-target="#podrobnosti"><span class="glyphicon glyphicon-plus"></span></button>
-					<div class="modal fade" id="podrobnosti" role="dialog">
-						<div class="modal-dialog modal-lg">
-						  <div class="modal-content">
-							<div class="modal-header">
-							  <button type="button" class="close" data-dismiss="modal">&times;</button>
+			   @foreach ($mix as $mini)
+				<tr>
+					<td>{{$mini->sifra_dn}}</td>
+					<td>{{$mini->priimek}}</td>
+					<td>{{$mini->ime_bolezni}}</td>
+					<td >		
+						<button type="button" class="btn btn-info btn-block" data-toggle="modal" data-target="#podrobnosti"><span class="glyphicon glyphicon-plus"></span></button>
+						<div class="modal fade" id="podrobnosti" role="dialog">
+							<div class="modal-dialog modal-lg">
+							  <div class="modal-content">
+								<div class="modal-header">
+								  <button type="button" class="close" data-dismiss="modal">&times;</button>
+								</div>
+								<div class="modal-body">
+								<div class="container-fluid">
+								  @include('includes.nalog')
+								</div>
+								</div>
+							  </div>
 							</div>
-							<div class="modal-body">
-							<div class="container-fluid">
-							  @include('includes.nalog')
-							</div>
-							</div>
-						  </div>
 						</div>
-					</div>
-				</td>
-			  </tr>
-              @endforeach
+					</td>
+				</tr>
+			@endforeach
 			</tbody>
 		  </table>
 	</div>
