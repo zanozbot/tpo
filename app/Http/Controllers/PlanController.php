@@ -10,6 +10,7 @@ use App\Pacient;
 use App\DelovniNalog;
 use App\PatronaznaSestra;
 use App\Delavec;
+use Carbon\Carbon;
 
 class PlanController extends Controller
 {
@@ -22,9 +23,6 @@ class PlanController extends Controller
 		        	$sifraPlan = session('sifraPlan');
 		        	$izbraniDatum = session('izbraniDatum');
 		        }
-		        //if(!isset($izbraniDatum)) {
-		        //	return redirect()->route('datumPlan');
-		        //}
 
 		        //pridobivanje šifre delavca
 		        $sifraSestre = PatronaznaSestra::where('id_uporabnik', '=', Auth::user()->id_uporabnik)->get();
