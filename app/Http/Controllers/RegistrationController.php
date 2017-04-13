@@ -35,7 +35,7 @@ class RegistrationController extends Controller
     		'priimek' => 'Priimek',
 		    'ulica' => 'Ulica',
 		    'kraj' => 'Kraj',
-			'posta' => 'Poštna številka'
+			'posta' => 'Poštna številka',
 		    'datumRojstva' => 'Datum rojstva',
 		    'tel_stevilka' => 'Telefonska številka',
 			'spol' => 'Spol',
