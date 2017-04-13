@@ -8,7 +8,6 @@
 					<h3 class="panel-title">Neopravljeni obiski</h3>
 				  </div>
 				  <div class="panel-body">
-				  	<p>{{ $izbraniDatum }}</p>
 					<form role="form" method="post">
 						<!-- seznam neopravljenih obiskov določene MS, vključno z obiski, kjer MS nadomešča -->
 						<table class="table">
@@ -23,9 +22,12 @@
 						<tbody>
 						@foreach ($mix1 as $mini)
 							@foreach ($mini->obiski as $obisk)
-								@if ($mini->datum_obvezen == 1)
 								<tr>
+								@if ($mini->datum_obvezen == 1)
 									<td><button type="button" onclick="window.location='{{ url('plan/dodaj') }}/{{$sifraPlan}}/{{$sifra = $obisk->sifra_obisk}}'" class="btn btn-default" name="{{$sifra = $obisk->sifra_obisk}}" disabled>Dodaj</button></td>
+								@else
+									<td><button type="button" onclick="window.location='{{ url('plan/dodaj') }}/{{$sifraPlan}}/{{$sifra = $obisk->sifra_obisk}}'" class="btn btn-default" name="{{$sifra = $obisk->sifra_obisk}}">Dodaj</button></td>
+								@endif
 									<td>{{$obisk->sifra_obisk}}</td>
 									<td>{{$mini->sifra_bolezni}}</td>
 									<td >
@@ -46,30 +48,6 @@
 										</div>
 									</td>
 								</tr>
-								@else
-									<tr>
-									<td><button type="button" onclick="window.location='{{ url('plan/dodaj') }}/{{$sifraPlan}}/{{$sifra = $obisk->sifra_obisk}}'" class="btn btn-default" name="{{$sifra = $obisk->sifra_obisk}}">Dodaj</button></td>
-									<td>{{$obisk->sifra_obisk}}</td>
-									<td>{{$mini->sifra_bolezni}}</td>
-									<td >		
-										<button type="button" class="btn btn-info btn-block" data-toggle="modal" data-target="#podrobnosti{{$obisk->sifra_obisk}}"><span class="glyphicon glyphicon-plus"></span></button>
-										<div class="modal fade" id="podrobnosti{{$obisk->sifra_obisk}}" role="dialog">
-											<div class="modal-dialog modal-lg">
-											  <div class="modal-content">
-												<div class="modal-header">
-												  <button type="button" class="close" data-dismiss="modal">&times;</button>
-												</div>
-												<div class="modal-body">
-												<div class="container-fluid">
-												  @include('includes.nalogPlan')
-												</div>
-												</div>
-											  </div>
-											</div>
-										</div>
-									</td>
-								</tr>
-								@endif
 							@endforeach
 						  @endforeach
 						  </tbody>
@@ -81,7 +59,7 @@
 			<div class="col-xs-12 col-sm-12 col-md-8 ">
 				<div class="panel panel-default">
 				  <div class="panel-heading">
-					<h3 class="panel-title">Planirani obiski</h3>
+					<h3 class="panel-title">Planirani obiski za izbrani datum</h3>
 				  </div>
 				  <div class="panel-body">
 				  <table class="table">
@@ -96,8 +74,12 @@
 					<tbody>
 					  	@foreach ($mix2 as $mini)
 							@foreach ($mini->obiski as $obisk)
-						  		@if ($mini->datum_obvezen == 1)
 						  		<tr>
+						  			@if ($mini->datum_obvezen == 1)
+						  				<td><button type="button" onclick="window.location='{{ url('plan/odstrani') }}/{{$sifraPlan}}/{{$sifra = $obisk->sifra_obisk}}'" class="btn btn-default" name="{{$sifra = $obisk->sifra_obisk}}" disabled>Odstrani</button></td>
+						  			@else
+										<td><button type="button" onclick="window.location='{{ url('plan/odstrani') }}/{{$sifraPlan}}/{{$sifra = $obisk->sifra_obisk}}'" class="btn btn-default" name="{{$sifra = $obisk->sifra_obisk}}">Odstrani</button></td>
+						  			@endif
 									<td></td>
 									<td>{{$obisk->sifra_obisk}}</td>
 									<td>{{$mini->sifra_bolezni}}</td>
@@ -119,30 +101,6 @@
 										</div>
 									</td>
 								</tr>
-								@else
-								<tr>
-									<td></td>
-									<td>{{$obisk->sifra_obisk}}</td>
-									<td>{{$mini->sifra_bolezni}}</td>
-									<td >		
-										<button type="button" class="btn btn-info btn-block" data-toggle="modal" data-target="#podrobnosti{{$obisk->sifra_obisk}}"><span class="glyphicon glyphicon-plus"></span></button>
-										<div class="modal fade" id="podrobnosti{{$obisk->sifra_obisk}}" role="dialog">
-											<div class="modal-dialog modal-lg">
-											  <div class="modal-content">
-												<div class="modal-header">
-												  <button type="button" class="close" data-dismiss="modal">&times;</button>
-												</div>
-												<div class="modal-body">
-												<div class="container-fluid">
-												  @include('includes.nalogPlan')
-												</div>
-												</div>
-											  </div>
-											</div>
-										</div>
-									</td>
-								</tr>
-								@endif
 							@endforeach
 						@endforeach
 					  </tbody>
