@@ -195,25 +195,43 @@ class DelovniNalogController extends Controller
                 } else {
                     $originalnaSifraPlana = $sifraPlan;
                 }
+
+                //preverjanje ali je datum sobota ali nedelja
+                $novDatumObiska = $datumObiska;
+                if (date('N', strtotime($novDatumObiska)) == 6) {
+                    //datum je na soboto
+                    $novDatumObiska = date('Y-m-d', strtotime('-1 day', strtotime($novDatumObiska)));
+                } else if (date('N', strtotime($novDatumObiska)) == 7){
+                    //datum je na nedeljo
+                    $novDatumObiska = date('Y-m-d', strtotime('+1 day', strtotime($novDatumObiska)));
+                }
                 $obisk = Obisk::create([
                     'sifra_dn' => $sifraNovegaDN,
                     'sifra_plan' => $sifraPlan,
                     'originalna_sifra_plan' => $originalnaSifraPlana,
                     'sifra_ps' => $sifraPS,
-                    'datum_obiska' => $datumObiska,
-                    'originalni_datum' => $datumObiska
+                    'datum_obiska' => $novDatumObiska
                     ]);
 
                 $korakIn = $x*$korak;
                 $datumObiska = date('Y-m-d', strtotime($datumZacetni.' + '.round($korakIn).' days'));
+            }
+
+            //preverjanje ali je datum sobota ali nedelja
+            $novDatumObiska = $datumKoncni;
+            if (date('N', strtotime($novDatumObiska)) == 6) {
+                //datum je na soboto
+                $novDatumObiska = date('Y-m-d', strtotime('-1 day', strtotime($novDatumObiska)));
+            } else if (date('N', strtotime($novDatumObiska)) == 7){
+                //datum je na nedeljo
+                $novDatumObiska = date('Y-m-d', strtotime('+1 day', strtotime($novDatumObiska)));
             }
             $obisk = Obisk::create([
                     'sifra_dn' => $sifraNovegaDN,
                     'sifra_plan' => $sifraPlan,
                     'originalna_sifra_plan' => $sifraPlan,
                     'sifra_ps' => $sifraPS,
-                    'datum_obiska' => $datumKoncni,
-                    'originalni_datum' => $datumKoncni
+                    'datum_obiska' => $novDatumObiska
                     ]);
         } else {
             $date1 = date_create((string)$datumZacetni);
@@ -239,12 +257,22 @@ class DelovniNalogController extends Controller
                 } else {
                     $originalnaSifraPlana = $sifraPlan;
                 }
+
+                //preverjanje ali je datum sobota ali nedelja
+                $novDatumObiska = $datumObiska;
+                if (date('N', strtotime($novDatumObiska)) == 6) {
+                    //datum je na soboto
+                    $novDatumObiska = date('Y-m-d', strtotime('-1 day', strtotime($novDatumObiska)));
+                } else if (date('N', strtotime($novDatumObiska)) == 7){
+                    //datum je na nedeljo
+                    $novDatumObiska = date('Y-m-d', strtotime('+1 day', strtotime($novDatumObiska)));
+                }
                 $obisk = Obisk::create([
                     'sifra_dn' => $sifraNovegaDN,
                     'sifra_plan' => $sifraPlan,
                     'originalna_sifra_plan' => $originalnaSifraPlana,
                     'sifra_ps' => $sifraPS,
-                    'datum_obiska' => $datumObiska,
+                    'datum_obiska' => $novDatumObiska
                     ]);
                 $datumObiska = date('Y-m-d', strtotime($datumObiska.' + '.$korak.' days'));
             }
