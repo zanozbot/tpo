@@ -23,6 +23,7 @@ class SeznamNalogovController extends Controller
         				->join('posta', 'posta.postna_stevilka', '=', 'pacient.postna_stevilka')
         				->join('vrsta_obiska', 'delovni_nalog.sifra_vrsta_obisk', '=', 'vrsta_obiska.sifra_vrsta_obisk')
         				->join('bolezen', 'bolezen.sifra_bolezen', '=', 'delovni_nalog.sifra_bolezen')
+        				->orderBy('delovni_nalog.sifra_dn', 'asc')
                         ->get(array(
 		                            'pacient.ime as ime_pacienta',
 		                            'pacient.priimek as priimek_pacienta',
@@ -37,6 +38,7 @@ class SeznamNalogovController extends Controller
 		                            'spol',
 		                            'sifra_dn',
 		                            'vrsta_obiska.sifra_vrsta_obisk',
+		                            'vrsta_obiska.ime as ime_vrsta_obiska',
 		                            'barva_epruvete',
 		                            'stevilo_epruvet',
 		                            'datum_prvega_obiska',
@@ -71,10 +73,12 @@ class SeznamNalogovController extends Controller
 		        	$mix[$i]->pacienti = DelovniNalog::join('delovni_nalog_pacient', 'delovni_nalog.sifra_dn', '=', 'delovni_nalog_pacient.delovni_nalog_sifra_dn')
 		        									->join('pacient', 'pacient.stevilka_KZZ', '=', 'delovni_nalog_pacient.pacient_stevilka_KZZ')
 		        									->join('uporabnik', 'pacient.id_uporabnik', '=', 'uporabnik.id_uporabnik')
+        											->join('patronazna_sestra', 'patronazna_sestra.sifra_okolis', '=', 'pacient.sifra_okolis')
 		        									->get(array(
 		        										'stevilka_KZZ',
 		        										'pacient.ime as ime_pacienta',
-		        										'datum_rojstva'
+		        										'datum_rojstva',
+		        										'sifra_ps'
 		        										));
 		        }
 
@@ -89,19 +93,26 @@ class SeznamNalogovController extends Controller
 		$mix = DelovniNalog::query();
 
 		$mix = DelovniNalog::join('delovni_nalog_pacient', 'delovni_nalog.sifra_dn', '=', 'delovni_nalog_pacient.delovni_nalog_sifra_dn')
-		        				->join('pacient', 'delovni_nalog_pacient.pacient_stevilka_KZZ', '=', 'pacient.stevilka_KZZ')
-		        				->join('uporabnik', 'pacient.id_uporabnik', '=', 'uporabnik.id_uporabnik');
+        				->join('pacient', 'delovni_nalog_pacient.pacient_stevilka_KZZ', '=', 'pacient.stevilka_KZZ')
+        				->join('uporabnik', 'pacient.id_uporabnik', '=', 'uporabnik.id_uporabnik')
+        				->join('delavec', 'delavec.sifra_delavec', '=', 'delovni_nalog.sifra_delavec')
+        				->join('izvajalec_zd', 'izvajalec_zd.sifra_zd', '=', 'delavec.sifra_zd')
+        				->join('posta', 'posta.postna_stevilka', '=', 'pacient.postna_stevilka')
+        				->join('vrsta_obiska', 'delovni_nalog.sifra_vrsta_obisk', '=', 'vrsta_obiska.sifra_vrsta_obisk')
+        				->join('bolezen', 'bolezen.sifra_bolezen', '=', 'delovni_nalog.sifra_bolezen')
+        				->orderBy('delovni_nalog.sifra_dn', 'asc');
+
 		if($request['odDatum']){
 			//Sprememba formata datuma
 	        $odDatum = $request['odDatum'];
-	       	list($dan, $mesec, $leto) = explode("/", $odDatum);
+	       	list($dan, $mesec, $leto) = explode(".", $odDatum);
 	        $odDatum = $leto.'-'.$mesec.'-'.$dan;;
 			$mix->whereDate('delovni_nalog.created_at', '>', date($odDatum));
 		}
 		if($request['doDatum']){
 			//Sprememba formata datuma
 	        $doDatum = $request['odDatum'];
-	       	list($dan, $mesec, $leto) = explode("/", $doDatum);
+	       	list($dan, $mesec, $leto) = explode(".", $doDatum);
 	        $doDatum = $leto.'-'.$mesec.'-'.$dan;;
 			$mix->whereDate('delovni_nalog.created_at', '<', date($doDatum));
 		}
@@ -125,31 +136,63 @@ class SeznamNalogovController extends Controller
 		    $mix->where('pacient.sifra_okolis', '=', $okolisSestre);
 		}
 		$filteredMix = $mix->get(array(
-		                            'pacient.ime as ime_pacienta',
-		                            'pacient.priimek as priimek_pacienta',
-		                            'email',
-		                            'tel_stevilka',
-		                            'stevilka_KZZ',
-		                            'postna_stevilka',
-		                            'sifra_okolis',
-		                            'datum_rojstva',
-		                            'spol',
-		                            'sifra_dn',
-		                            'sifra_delavec',
-		                            'sifra_bolezen',
-		                            'sifra_vrsta_obisk',
-		                            'barva_epruvete',
-		                            'datum_prvega_obiska',
-		                            'datum_koncnega_obiska',
-		                            'datum_obvezen',
-		                            'stevilo_obiskov',
-		                            'casovni_interval'
-	                    		));
-       // echo $mix;
-        for ($i=0; $i < count($filteredMix); $i++) { 
+	                            'pacient.ime as ime_pacienta',
+	                            'pacient.priimek as priimek_pacienta',
+	                            'email',
+	                            'tel_stevilka',
+	                            'stevilka_KZZ',
+	                            'pacient.postna_stevilka as posta_pacient',
+	                            'sifra_okolis',
+	                            'pacient.ulica as naslov_pacienta',
+	                            'pacient.kraj as kraj_pacienta',
+	                            'datum_rojstva',
+	                            'spol',
+	                            'sifra_dn',
+	                            'vrsta_obiska.sifra_vrsta_obisk',
+	                            'vrsta_obiska.ime as ime_vrsta_obiska',
+	                            'barva_epruvete',
+	                            'stevilo_epruvet',
+	                            'datum_prvega_obiska',
+	                            'datum_koncnega_obiska',
+	                            'datum_obvezen',
+	                            'stevilo_obiskov',
+	                            'casovni_interval',
+	                            'izvajalec_zd.sifra_zd',
+	                            'izvajalec_zd.postna_stevilka as posta_izvajalec',
+	                            'delavec.sifra_delavec as sifra_delavca',
+	                            'izvajalec_zd.naziv as naziv_izvajalca',
+	                            'izvajalec_zd.naslov as naslov_izvajalca',
+	                            'posta.kraj as kraj_poste',
+	                            'vrsta_obiska.ime as ime_vrsta_obiska',
+	                            'preventivni',
+	                            'bolezen.sifra_bolezen as sifra_bolezni',
+	                            'bolezen.ime as ime_bolezni'
+                        ));
+		for ($i=0; $i < count($filteredMix); $i++) { 
         	$filteredMix[$i]->obiski = Obisk::where('sifra_dn', '=', $filteredMix[$i]->sifra_dn)->get();
         }
-    	//echo $request;
+        for ($i=0; $i < count($filteredMix); $i++) { 
+        	$filteredMix[$i]->zdravila = DelovniNalog::join('delovni_nalog_zdravilo', 'delovni_nalog.sifra_dn', '=', 'delovni_nalog_zdravilo.delovni_nalog_sifra_dn')
+        									->join('zdravilo', 'zdravilo.sifra_zdravilo', '=', 'delovni_nalog_zdravilo.zdravilo_sifra_zdravilo')
+        									->get(array(
+        										'zdravilo.sifra_zdravilo as sifra_zdravila',
+        										'zdravilo.ime as ime_zdravila',
+        										'zdravilo.opis as opis_zdravila'
+        										));
+        }
+        for ($i=0; $i < count($filteredMix); $i++) { 
+        	$filteredMix[$i]->pacienti = DelovniNalog::join('delovni_nalog_pacient', 'delovni_nalog.sifra_dn', '=', 'delovni_nalog_pacient.delovni_nalog_sifra_dn')
+        									->join('pacient', 'pacient.stevilka_KZZ', '=', 'delovni_nalog_pacient.pacient_stevilka_KZZ')
+        									->join('uporabnik', 'pacient.id_uporabnik', '=', 'uporabnik.id_uporabnik')
+											->join('patronazna_sestra', 'patronazna_sestra.sifra_okolis', '=', 'pacient.sifra_okolis')
+        									->get(array(
+        										'stevilka_KZZ',
+        										'pacient.ime as ime_pacienta',
+        										'datum_rojstva',
+        										'sifra_ps'
+        										));
+        }
+
     	return view('pages.seznamnalog', ['mix' => $filteredMix]);
     }
     

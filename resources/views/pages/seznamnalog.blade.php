@@ -50,14 +50,14 @@
 						<div class="form-group" name="odDatumDiv">
 						  <label class="label label-primary">Od datuma</label>
 						  <div class="datepicker input-group date" data-provide="datepicker">
-							<input type="text" class="form-control" placeholder="dd/mm/yyyy" name="odDatum">
+							<input type="text" class="form-control" placeholder="dd.mm.llll" name="odDatum">
 							<div class="input-group-addon">
 							  <span class="glyphicon glyphicon-th"></span>
 							</div>
 						  </div>
 						  <script>
 							$('.datepicker').datepicker({
-								format: "dd/mm/yyyy",
+								format: "dd.mm.yyyy",
 								clearBtn: true,
 								autoclose: true,
 								todayHighlight: true
@@ -67,14 +67,14 @@
 						<div class="form-group" name="doDatumDiv">
 						  <label class="label label-primary">Do datuma</label>
 						  <div class="datepicker input-group date" data-provide="datepicker">
-							<input type="text" class="form-control" placeholder="dd/mm/yyyy" name="doDatum">
+							<input type="text" class="form-control" placeholder="dd.mm.llll" name="doDatum">
 							<div class="input-group-addon">
 							  <span class="glyphicon glyphicon-th"></span>
 							</div>
 						  </div>
 						  <script>
 							$('.datepicker').datepicker({
-								format: "dd/mm/yyyy",
+								format: "dd.mm.yyyy",
 								clearBtn: true,
 								autoclose: true,
 								todayHighlight: true
@@ -93,7 +93,8 @@
 			  <tr>
 				<th>Šifra naloga</th>
 				<th>Pacient</th>
-				<th>Bolezen</th>
+				<th>Naslov</th>
+				<th>Vrsta naloga</th>
 				<th></th>
 			  </tr>
 			</thead>
@@ -101,8 +102,9 @@
 			   @foreach ($mix as $mini)
 				<tr>
 					<td>{{$mini->sifra_dn}}</td>
-					<td>{{$mini->priimek_pacienta}}</td>
-					<td>{{$mini->ime_bolezni}}</td>
+					<td>{{$mini->ime_pacienta.' '.$mini->priimek_pacienta}}</td>
+					<td>{{$mini->naslov_pacienta.', '.$mini->kraj_pacienta}}</td>
+					<td>{{$mini->ime_vrsta_obiska}}</td>
 					<td >		
 						<button type="button" class="btn btn-info btn-block" data-toggle="modal" data-target="#podrobnosti{{$mini->sifra_dn}}"><span class="glyphicon glyphicon-plus"></span></button>
 						<div class="modal fade" id="podrobnosti{{$mini->sifra_dn}}" role="dialog">

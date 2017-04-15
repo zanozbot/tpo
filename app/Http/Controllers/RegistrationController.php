@@ -52,7 +52,7 @@ class RegistrationController extends Controller
 			'okolis' => 'required',
 			'ulica' => 'required',
 			'kraj' => 'required',	
-        	'datumRojstva' => 'required|date_format:d/m/Y',
+        	'datumRojstva' => 'required|date_format:d.m.Y',
         	'tel_stevilka' => 'required|max:9',
 			'spol' => 'required',
         	'geslo' => 'required',
@@ -71,7 +71,7 @@ class RegistrationController extends Controller
 		$sifraOkolis = Okolis::where('ime', $request['okolis'])->get();
 		$sifraOkolis = $sifraOkolis[0]->sifra_okolis;
 		$datumRojstva = $request['datumRojstva'];   
-       	list($dan, $mesec, $leto) = explode("/", $datumRojstva);
+       	list($dan, $mesec, $leto) = explode(".", $datumRojstva);
         $datumRojstva = $leto.'-'.$mesec.'-'.$dan;
 		$spol = 'm';
         if ($request['spol'] == 'female'){

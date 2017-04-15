@@ -138,8 +138,8 @@
             </div>
             <div class="form-group">
               <label class="label label-primary">Datum prvega obiska</label>
-              <div class="datepicker input-group date" data-provide="datepicker" data-date-format="dd/mm/yyyy">
-                <input type="text" class="form-control" placeholder="dd/mm/yyyy" name="datumPrvegaObiska" required>
+              <div class="datepicker input-group date" data-provide="datepicker" data-date-format="dd.mm.yyyy">
+                <input type="text" class="form-control" placeholder="dd.mm.llll" name="datumPrvegaObiska" required>
                 <div class="input-group-addon">
                   <span class="glyphicon glyphicon-th"></span>
                 </div>
@@ -185,15 +185,15 @@
               });
             </script>
             <div class="form-group" name="koncniDatumDiv">
-              <div class="datepicker input-group date" data-provide="datepicker" data-date-format="dd/mm/yyyy">
-                <input type="text" class="form-control" placeholder="dd/mm/yyyy" name="koncniDatum">
+              <div class="datepicker input-group date" data-provide="datepicker" data-date-format="dd.mm.yyyy">
+                <input type="text" class="form-control" placeholder="dd.mm.llll" name="koncniDatum">
                 <div class="input-group-addon">
                   <span class="glyphicon glyphicon-th"></span>
                 </div>
               </div>
               <script>
                 $('.datepicker').datepicker({
-                	format: "dd/mm/yyyy",
+                	format: "dd.mm.yyyy",
                 	clearBtn: true,
                 	autoclose: true,
                 	todayHighlight: true

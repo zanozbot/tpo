@@ -54,7 +54,7 @@ class PoduporabnikController extends Controller
 			'okolis' => 'required',
 			'ulica' => 'required',
 			'kraj' => 'required',	
-        	'datumRojstva' => 'required|date_format:d/m/Y',
+        	'datumRojstva' => 'required|date_format:d.m.Y',
 			'spol' => 'required',
     	], $messages, $customAttributes);
 		
@@ -63,7 +63,7 @@ class PoduporabnikController extends Controller
 		$sifraRazmerje = SorodstvenoRazmerje::where('ime', $request['razmerje'])->get();
 		$sifraRazmerje = $sifraRazmerje[0]->sifra_razmerje;
 		$datumRojstva = $request['datumRojstva'];   
-       	list($dan, $mesec, $leto) = explode("/", $datumRojstva);
+       	list($dan, $mesec, $leto) = explode(".", $datumRojstva);
         $datumRojstva = $leto.'-'.$mesec.'-'.$dan;
 		$spol = 'm';
         if ($request['spol'] == 'female'){

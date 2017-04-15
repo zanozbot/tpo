@@ -35,12 +35,12 @@ class DatumPlanController extends Controller
 
     	//preverjanje pravilnosti datuma
         $this->validate($request, [
-        		'datumPlana' => 'required|date_format:d/m/Y|after_or_equal:tomorrow',
+        		'datumPlana' => 'required|date_format:d.m.Y|after_or_equal:today',
             ], $messages, $customAttributes);
 
         //Sprememba formata datuma
         $datumPlana = $request['datumPlana'];
-       	list($dan, $mesec, $leto) = explode("/", $datumPlana);
+       	list($dan, $mesec, $leto) = explode(".", $datumPlana);
         $datumPlana = $leto.'-'.$mesec.'-'.$dan;
 
         //kreiraj ali dodaj v plan
