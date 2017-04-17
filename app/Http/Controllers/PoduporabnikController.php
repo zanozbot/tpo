@@ -27,7 +27,8 @@ class PoduporabnikController extends Controller
 		    'same'    => 'Polja ":attribute" in ":other" se morata ujemati.',
 		    'required' => 'Polje ":attribute" mora biti izpoljeno.',
 		    'unique' => 'Uporabnik s takim ":attribute" že obstaja.',
-		    'max' => 'Polje ":attribute" ima lahko največ :max številk.',
+		    'stevilkaKarticeZavarovanja.max' => 'Polje ":attribute" ima lahko največ 10 številk.',
+		    'posta.max' => 'Polje ":attribute" ima lahko največ 4 številke.',
 		    'email' => 'Vnešen email mora biti veljaven.',
 			'date_format' => 'Oblika datuma v polju ":attribute" ni pravilna.'
 		];
@@ -45,7 +46,7 @@ class PoduporabnikController extends Controller
 		];
 		
 		$this->validate($request, [
-    		'stevilkaKarticeZavarovanja' => 'required|numeric',
+    		'stevilkaKarticeZavarovanja' => 'required|numeric|max:2147483647',
     		'ime' => 'required',
         	'priimek' => 'required',
 			'razmerje' => 'required',
@@ -53,7 +54,7 @@ class PoduporabnikController extends Controller
 			'okolis' => 'required',
 			'ulica' => 'required',
 			'kraj' => 'required',	
-        	'datumRojstva' => 'required|date_format:d/m/Y',
+        	'datumRojstva' => 'required|date_format:d.m.Y',
 			'spol' => 'required',
     	], $messages, $customAttributes);
 		
@@ -62,7 +63,7 @@ class PoduporabnikController extends Controller
 		$sifraRazmerje = SorodstvenoRazmerje::where('ime', $request['razmerje'])->get();
 		$sifraRazmerje = $sifraRazmerje[0]->sifra_razmerje;
 		$datumRojstva = $request['datumRojstva'];   
-       	list($dan, $mesec, $leto) = explode("/", $datumRojstva);
+       	list($dan, $mesec, $leto) = explode(".", $datumRojstva);
         $datumRojstva = $leto.'-'.$mesec.'-'.$dan;
 		$spol = 'm';
         if ($request['spol'] == 'female'){

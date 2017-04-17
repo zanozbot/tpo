@@ -12,6 +12,22 @@
             <strong>Uspeh!</strong> Delovni nalog je bil uspešno ustvarjen!
         </div>
         @endif
+        @if ($errPacient != '')
+            <div class="alert alert-danger">
+              <ul>
+                <li>{{ $errPacient }}</li>
+              </ul>
+            </div>
+        @endif
+        @if (count($errors) > 0)
+          <div class="alert alert-danger">
+            <ul>
+              @foreach ($errors->all() as $error)
+              <li>{{ $error }}</li>
+              @endforeach
+            </ul>
+          </div>
+        @endif
         <div class="panel-body">
           <form role="form" action="/nalog" method="post">
             {{ csrf_field() }}
@@ -64,7 +80,7 @@
             <div class="form-group multiple-form-group" name="vezaniPacienti">
               <label class="label label-primary">Vezani pacienti</label>
               <div class="form-group input-group" name="vezaniPacientDiv">
-                <input type="text" class="form-control" placeholder="KZZ številka pacienta" name="vezaniPacient[0]" ></input><span class="input-group-btn"><button type="button" class="btn btn-default btn-add dodajVezanegaPacienta">+
+                <input type="text" class="form-control" placeholder="KZZ številka pacienta" name="vezaniPacient[0]" required></input><span class="input-group-btn"><button type="button" class="btn btn-default btn-add dodajVezanegaPacienta">+
                 </button></span>	
               </div>
               <script type="text/javascript">
@@ -122,8 +138,8 @@
             </div>
             <div class="form-group">
               <label class="label label-primary">Datum prvega obiska</label>
-              <div class="datepicker input-group date" data-provide="datepicker" data-date-format="dd/mm/yyyy">
-                <input type="text" class="form-control" placeholder="dd/mm/yyyy" name="datumPrvegaObiska">
+              <div class="datepicker input-group date" data-provide="datepicker" data-date-format="dd.mm.yyyy">
+                <input type="text" class="form-control" placeholder="dd.mm.llll" name="datumPrvegaObiska" required>
                 <div class="input-group-addon">
                   <span class="glyphicon glyphicon-th"></span>
                 </div>
@@ -131,7 +147,7 @@
             </div>
             <div class="form-group">
               <label class="label label-primary">Število obiskov</label>
-              <input type="number" class="form-control input-sm" name="steviloObiskov" placeholder="Število obiskov">
+              <input type="number" class="form-control input-sm" name="steviloObiskov" placeholder="Število obiskov" required>
             </div>
             <label class="label label-primary" name="intervalLabel">Časovni interval</label>
             <label class="label label-default" name="koncniDatumLabel">Končni datum</label>
@@ -169,15 +185,15 @@
               });
             </script>
             <div class="form-group" name="koncniDatumDiv">
-              <div class="datepicker input-group date" data-provide="datepicker" data-date-format="dd/mm/yyyy">
-                <input type="text" class="form-control" placeholder="dd/mm/yyyy" name="koncniDatum">
+              <div class="datepicker input-group date" data-provide="datepicker" data-date-format="dd.mm.yyyy">
+                <input type="text" class="form-control" placeholder="dd.mm.llll" name="koncniDatum">
                 <div class="input-group-addon">
                   <span class="glyphicon glyphicon-th"></span>
                 </div>
               </div>
               <script>
                 $('.datepicker').datepicker({
-                	format: "dd/mm/yyyy",
+                	format: "dd.mm.yyyy",
                 	clearBtn: true,
                 	autoclose: true,
                 	todayHighlight: true
@@ -191,22 +207,6 @@
             </div>
             <input type="submit" value="Kreiraj nalog" class="btn btn-info btn-block">
           </form>
-          @if ($errPacient != '')
-	          <div class="alert alert-danger">
-	            <ul>
-	              <li>{{ $errPacient }}</li>
-	            </ul>
-	          </div>
-          @endif
-          @if (count($errors) > 0)
-          <div class="alert alert-danger">
-            <ul>
-              @foreach ($errors->all() as $error)
-              <li>{{ $error }}</li>
-              @endforeach
-            </ul>
-          </div>
-          @endif
         </div>
       </div>
     </div>

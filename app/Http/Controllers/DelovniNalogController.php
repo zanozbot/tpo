@@ -71,7 +71,7 @@ class DelovniNalogController extends Controller
 		$pacient = Pacient::where('stevilka_KZZ', $request['vezaniPacient'][0])->get();
 		if(!$pacient->first())
 		{
-            $msg = 'Pacient s številko KZZ '.$request['vezaniPacient'][0].' v bazi še ne obstaja.';
+            $msg = 'Pacient s številko kartice zdravstvenega zavarovanja '.$request['vezaniPacient'][0].' v bazi še ne obstaja.';
             if (!$request['vezaniPacient'][0]) {
                 $msg = 'Polje "Vezani pacienti" mora biti izpolnjeno';
             }
@@ -79,7 +79,7 @@ class DelovniNalogController extends Controller
 		}
 
         //preverjanje ali je casovni interval izpolnjen
-        $prevKoncniDatum = 'required_without:casovniInterval|date_format:d/m/Y|after_or_equal:datumPrvegaObiska';
+        $prevKoncniDatum = 'required_without:casovniInterval|date_format:d.m.Y|after_or_equal:datumPrvegaObiska';
         if($request['casovniInterval'] != []){
             $prevKoncniDatum = 'required_without:casovniInterval';
         }
@@ -90,7 +90,7 @@ class DelovniNalogController extends Controller
                 'ustreznaZdravila' => 'required_if:nalogeObiska,Aplikacija injekcij',
                 'barvaEpruvete' => 'required_if:nalogeObiska,Odvzem krvi',
                 'steviloEpruvet' => 'required_if:nalogeObiska,Odvzem krvi',
-                'datumPrvegaObiska' => 'required|date_format:d/m/Y|after_or_equal:tomorrow',
+                'datumPrvegaObiska' => 'required|date_format:d.m.Y|after_or_equal:tomorrow',
                 'steviloObiskov' => 'required|numeric|max:10',
                 'casovniInterval' => 'required_without:koncniDatum',
                 'koncniDatum' => $prevKoncniDatum,
@@ -99,12 +99,12 @@ class DelovniNalogController extends Controller
 
         //Sprememba formata datuma
         $datumZacetni = $request['datumPrvegaObiska'];
-       	list($dan, $mesec, $leto) = explode("/", $datumZacetni);
+       	list($dan, $mesec, $leto) = explode(".", $datumZacetni);
         $datumZacetni = $leto.'-'.$mesec.'-'.$dan;
 
         $datumKoncni = $request['koncniDatum'];
         if($datumKoncni){
-            list($dan, $mesec, $leto) = explode("/", $datumKoncni);
+            list($dan, $mesec, $leto) = explode(".", $datumKoncni);
             $datumKoncni = $leto.'-'.$mesec.'-'.$dan;
         }        
 
@@ -177,86 +177,102 @@ class DelovniNalogController extends Controller
             $korak = $stDni/$request['steviloObiskov'];
             $datumObiska = $datumZacetni;
             for ($x = 1; $x <= $request['steviloObiskov']-1; $x++) {
-                $sifraPlan = Plan::where('datum_plan', '=', '0000-01-01')->get();
-                if(!$sifraPlan->first()){
+                //kreiraj ali dodaj v plan
+                $plan = Plan::where('datum_plan', $datumObiska)->get();
+                if(!$plan->first()){
+                    //plan v bazi še ne obstaja
                     $planCreate = Plan::create([
-                                'datum_plan' => '0000-01-01'
-                            ]);
+                            'datum_plan' => $datumObiska
+                        ]);
                     $sifraPlan = Plan::max('sifra_plan');
                 } else {
+                    //plan v bazi že obstaja
+                    $sifraPlan = Plan::where('datum_plan', '=', $datumObiska)->get();
                     $sifraPlan = $sifraPlan[0]->sifra_plan;
                 }
-                if($datumObvezen == 1){
-                    //kreiraj ali dodaj v plan
-                    $plan = Plan::where('datum_plan', $datumObiska)->get();
-                    if(!$plan->first()){
-                        //plan v bazi še ne obstaja
-                        $planCreate = Plan::create([
-                                'datum_plan' => $datumObiska
-                            ]);
-                        $sifraPlan = Plan::max('sifra_plan');
-                    } else {
-                        //plan v bazi že obstaja
-                        $sifraPlan = Plan::where('datum_plan', '=', $datumObiska)->get();
-                        $sifraPlan = $sifraPlan[0]->sifra_plan;
-                    }
+                if ($datumObvezen == 0){
+                    $originalnaSifraPlana = -1;
+                } else {
+                    $originalnaSifraPlana = $sifraPlan;
+                }
+
+                //preverjanje ali je datum sobota ali nedelja
+                $novDatumObiska = $datumObiska;
+                if (date('N', strtotime($novDatumObiska)) == 6) {
+                    //datum je na soboto
+                    $novDatumObiska = date('Y-m-d', strtotime('-1 day', strtotime($novDatumObiska)));
+                } else if (date('N', strtotime($novDatumObiska)) == 7){
+                    //datum je na nedeljo
+                    $novDatumObiska = date('Y-m-d', strtotime('+1 day', strtotime($novDatumObiska)));
                 }
                 $obisk = Obisk::create([
                     'sifra_dn' => $sifraNovegaDN,
                     'sifra_plan' => $sifraPlan,
-                    'originalna_sifra_plan' => $sifraPlan,
+                    'originalna_sifra_plan' => $originalnaSifraPlana,
                     'sifra_ps' => $sifraPS,
-                    'datum_obiska' => $datumObiska,
-                    'originalni_datum' => $datumObiska
+                    'datum_obiska' => $novDatumObiska
                     ]);
 
                 $korakIn = $x*$korak;
                 $datumObiska = date('Y-m-d', strtotime($datumZacetni.' + '.round($korakIn).' days'));
+            }
+
+            //preverjanje ali je datum sobota ali nedelja
+            $novDatumObiska = $datumKoncni;
+            if (date('N', strtotime($novDatumObiska)) == 6) {
+                //datum je na soboto
+                $novDatumObiska = date('Y-m-d', strtotime('-1 day', strtotime($novDatumObiska)));
+            } else if (date('N', strtotime($novDatumObiska)) == 7){
+                //datum je na nedeljo
+                $novDatumObiska = date('Y-m-d', strtotime('+1 day', strtotime($novDatumObiska)));
             }
             $obisk = Obisk::create([
                     'sifra_dn' => $sifraNovegaDN,
                     'sifra_plan' => $sifraPlan,
                     'originalna_sifra_plan' => $sifraPlan,
                     'sifra_ps' => $sifraPS,
-                    'datum_obiska' => $datumKoncni,
-                    'originalni_datum' => $datumKoncni
+                    'datum_obiska' => $novDatumObiska
                     ]);
         } else {
             $date1 = date_create((string)$datumZacetni);
             $korak = $request['casovniInterval'];
             $datumObiska = $datumZacetni;
             for ($x = 0; $x < $request['steviloObiskov']; $x++) {
-                $sifraPlan = Plan::where('datum_plan', '=', '0000-01-01')->get();
-                if(!$sifraPlan->first()){
+                
+                //kreiraj ali dodaj v plan
+                $plan = Plan::where('datum_plan', $datumObiska)->get();
+                if(!$plan->first()){
+                    //plan v bazi še ne obstaja
                     $planCreate = Plan::create([
-                                'datum_plan' => '0000-01-01'
-                            ]);
+                            'datum_plan' => $datumObiska
+                        ]);
                     $sifraPlan = Plan::max('sifra_plan');
                 } else {
+                    //plan v bazi že obstaja
+                    $sifraPlan = Plan::where('datum_plan', '=', $datumObiska)->get();
                     $sifraPlan = $sifraPlan[0]->sifra_plan;
                 }
-                
-                if($datumObvezen == 1){
-                    //kreiraj ali dodaj v plan
-                    $plan = Plan::where('datum_plan', $datumObiska)->get();
-                    if(!$plan->first()){
-                        //plan v bazi še ne obstaja
-                        $planCreate = Plan::create([
-                                'datum_plan' => $datumObiska
-                            ]);
-                        $sifraPlan = Plan::max('sifra_plan');
-                    } else {
-                        //plan v bazi že obstaja
-                        $sifraPlan = Plan::where('datum_plan', '=', $datumObiska)->get();
-                        $sifraPlan = $sifraPlan[0]->sifra_plan;
-                    }
+                if ($datumObvezen == 0){
+                    $originalnaSifraPlana = -1;
+                } else {
+                    $originalnaSifraPlana = $sifraPlan;
+                }
+
+                //preverjanje ali je datum sobota ali nedelja
+                $novDatumObiska = $datumObiska;
+                if (date('N', strtotime($novDatumObiska)) == 6) {
+                    //datum je na soboto
+                    $novDatumObiska = date('Y-m-d', strtotime('-1 day', strtotime($novDatumObiska)));
+                } else if (date('N', strtotime($novDatumObiska)) == 7){
+                    //datum je na nedeljo
+                    $novDatumObiska = date('Y-m-d', strtotime('+1 day', strtotime($novDatumObiska)));
                 }
                 $obisk = Obisk::create([
                     'sifra_dn' => $sifraNovegaDN,
                     'sifra_plan' => $sifraPlan,
-                    'originalna_sifra_plan' => $sifraPlan,
+                    'originalna_sifra_plan' => $originalnaSifraPlana,
                     'sifra_ps' => $sifraPS,
-                    'datum_obiska' => $datumObiska,
+                    'datum_obiska' => $novDatumObiska
                     ]);
                 $datumObiska = date('Y-m-d', strtotime($datumObiska.' + '.$korak.' days'));
             }

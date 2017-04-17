@@ -35,7 +35,7 @@ class RegistrationController extends Controller
     		'priimek' => 'Priimek',
 		    'ulica' => 'Ulica',
 		    'kraj' => 'Kraj',
-			'posta' => 'Poštna številka'
+			'posta' => 'Poštna številka',
 		    'datumRojstva' => 'Datum rojstva',
 		    'tel_stevilka' => 'Telefonska številka',
 			'spol' => 'Spol',
@@ -52,7 +52,7 @@ class RegistrationController extends Controller
 			'okolis' => 'required',
 			'ulica' => 'required',
 			'kraj' => 'required',	
-        	'datumRojstva' => 'required|date_format:d/m/Y',
+        	'datumRojstva' => 'required|date_format:d.m.Y',
         	'tel_stevilka' => 'required|max:9',
 			'spol' => 'required',
         	'geslo' => 'required',
@@ -71,7 +71,7 @@ class RegistrationController extends Controller
 		$sifraOkolis = Okolis::where('ime', $request['okolis'])->get();
 		$sifraOkolis = $sifraOkolis[0]->sifra_okolis;
 		$datumRojstva = $request['datumRojstva'];   
-       	list($dan, $mesec, $leto) = explode("/", $datumRojstva);
+       	list($dan, $mesec, $leto) = explode(".", $datumRojstva);
         $datumRojstva = $leto.'-'.$mesec.'-'.$dan;
 		$spol = 'm';
         if ($request['spol'] == 'female'){
@@ -89,6 +89,13 @@ class RegistrationController extends Controller
             'spol' => $spol,
 			'id_uporabnik' => $uporabnik->id_uporabnik
 		]);
+
+		$aktivacija = AktivacijaRacuna::create([
+	   		'id_uporabnik' => $uporabnik->id_uporabnik,
+     		'token' => str_random(30)
+     		]);
+		
+		Mail::to($uporabnik->email)->send(new Mailer($uporabnik));
 		return redirect()->route('register')->with('status', true);
     }
 

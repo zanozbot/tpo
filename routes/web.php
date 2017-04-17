@@ -65,6 +65,7 @@ Route::post('/', 'UporabnikController@login')->name('login');
 	Route::post('/datumplan', 'DatumPlanController@create')->name('create_datumPlan');
 	Route::get('/plan', 'PlanController@index')->name('plan');
 	Route::get('/plan/dodaj/{sifraPlan}/{sifraObiska}', 'PlanController@dodaj')->name('dodaj_plan');
+	Route::get('/plan/odstrani/{sifraPlan}/{sifraObiska}', 'PlanController@odstrani')->name('odstrani_plan');
 
 	// Nalog
 	Route::get('/nalog', 'DelovniNalogController@index')->name('nalog');

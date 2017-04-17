@@ -59,7 +59,6 @@
 					<a href="{{ url('admin') }}"><span class="glyphicon glyphicon-user"></span> Dodaj osebje</a>
 				</li>	
 				@endif
-				@if (Auth::user()->sifra_vloga == 6)
 
 				<li>
 					<a href="{{route('contact')}}"><span class="glyphicon glyphicon-phone"></span> Kontaktne osebe</a>		
@@ -70,6 +69,7 @@
 				</li>
 				@endif
 				<li>
+					<a href="{{route('newPassword')}}">Spremeni geslo</a>
 					<a href="{{route('odjava')}}"><span class="glyphicon glyphicon-log-out"></span>	Odjava</a>
 						
 				</li>
