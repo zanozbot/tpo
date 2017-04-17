@@ -19,26 +19,29 @@
 				  <div class="panel-body">
 					<form role="form" method="post">
 					{{ csrf_field() }}
-					<div class="form-group">
+						<div class="form-group">
 						<label class="label label-primary">Datum plana</label>
 						  <div class="datepicker input-group date" data-provide="datepicker">
 							<input type="text" class="form-control" placeholder="dd.mm.llll" name="datumPlana">
 							<div class="input-group-addon">
 								<span class="glyphicon glyphicon-th"></span>
 							</div>
-							</div>
-							<script>
-								$('.datepicker').datepicker({
-									format: "dd.mm.yyyy",
-									todayBtn: "linked",
-									clearBtn: true,
-									autoclose: true,
-									todayHighlight: true
-								});
-							</script>
-						  <input type="submit" value="Ustvari plan" class="btn btn-info btn-block">
+						</div>
+						<script>
+							$('.datepicker').datepicker({
+								format: "dd.mm.yyyy",
+								todayBtn: "linked",
+								clearBtn: true,
+								autoclose: true,
+								todayHighlight: true
+							});
+						</script>
+						</div>
+						<div class="form-group">
+						 <input type="submit" value="Ustvari plan" class="btn btn-info btn-block">
+						</div>
 						</form>
-					</div>
+
 				  </div>
 				</div>
 			</div>

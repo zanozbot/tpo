@@ -15,9 +15,25 @@ use Auth;
 class PoduporabnikController extends Controller
 {
 	public function index() {
-    	$okolisi = Okolis::where('sifra_okolis', '>', 1)->get();
+    	$okolisi = Okolis::all();
 		$razmerja = SorodstvenoRazmerje::all();
-    	return view('pages.poduporabnik', ['okolisi' => $okolisi, 'razmerja' => $razmerja]);
+		$poduporabniki = Pacient::where('id_uporabnik', Auth::user()->id_uporabnik)
+						 ->join('sorodstveno_razmerje', 'pacient.sifra_razmerje', '=', 'sorodstveno_razmerje.sifra_razmerje')
+						 ->join('okolis', 'pacient.sifra_okolis', '=', 'okolis.sifra_okolis')
+						 ->get(array(
+								'stevilka_KZZ',
+								'pacient.ime as ime',
+								'okolis.ime as okolis',
+								'sorodstveno_razmerje.ime as razmerje',
+								'priimek',
+								'ulica',
+								'kraj',
+								'postna_stevilka',
+								'datum_rojstva',
+								'spol'
+							)
+						 );
+    	return view('pages.poduporabnik', ['okolisi' => $okolisi, 'razmerja' => $razmerja, 'poduporabniki' => $poduporabniki]);
     }
 
     public function create(Request $request) {

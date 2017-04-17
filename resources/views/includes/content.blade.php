@@ -29,10 +29,10 @@
 						<a class="vloga">Vodja patronažne službe</a>
 					</li>
 					<li>
-						<a href="{{route('nalog')}}"><span class="glyphicon glyphicon-plus"></span> Nov nalog</a>
+						<a href="{{route('nalog')}}"><span class="fa fa-calendar-plus-o"></span> Nov nalog</a>
 					</li>
 					<li>
-						<a href="{{route('seznamNalogov')}}"><span class="glyphicon glyphicon-list"></span> Seznam nalogov</a>
+						<a href="{{route('seznamNalogov')}}"><span class="fa fa-calendar-o"></span> Seznam nalogov</a>
 					</li>
 					@endif
 					<!-- Trenutno funkcionalnost ni podprta
@@ -58,7 +58,7 @@
 						<a class="vloga">Pacient</a>
 					</li>
 					<li>
-						<a href="{{route('contact')}}"><span class="glyphicon glyphicon-phone"></span> Kontaktne osebe</a>		
+						<a href="{{route('contact')}}"><span class="fa fa-address-book"></span> Kontaktne osebe</a>		
 					</li>
 					<li>
 						<a href="{{route('poduporabnik')}}"><span class="glyphicon glyphicon-user"></span> Poduporabniki</a>
@@ -66,11 +66,10 @@
 					</li>
 					@endif
 					<li>
-						<a href="{{route('newPassword')}}"><span class="glyphicon glyphicon-pencil"></span> Spremeni geslo</a>
-						<a href="{{route('odjava')}}"><span class="glyphicon glyphicon-off"></span>	Odjava</a>
+						<a href="{{route('newPassword')}}"><span class="fa fa-edit"></span> Spremeni geslo</a>
+						<a href="{{route('odjava')}}"><span class="fa fa-power-off"></span>	Odjava</a>
 							
 					</li>
-
 				</ul>
 			</div>
 		</div>
@@ -78,8 +77,8 @@
 		@else
 		<div class="col-sm-12 col-lg-12">
 		@endif
-		
      		@yield('content')
+			
 		</div>
 	</div>
 </div>

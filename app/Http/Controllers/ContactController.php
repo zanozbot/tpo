@@ -13,9 +13,22 @@ class ContactController extends Controller
 {
 	public function index() {
 		$razmerja = SorodstvenoRazmerje::all();
-    	return view('pages.contact', ['razmerja' => $razmerja]);
+		$kontakti = KontaktnaOseba::where('id_uporabnik', Auth::user()->id_uporabnik)
+					->join('sorodstveno_razmerje', 'kontaktna_oseba.sifra_razmerje', '=', 'sorodstveno_razmerje.sifra_razmerje')
+					->get(array(
+						'sorodstveno_razmerje.ime as razmerje',
+						'kontaktna_oseba.ime as ime',
+						'priimek',
+						'tel_stevilka',
+						'postna_stevilka',
+						'kraj',
+						'ulica'
+					
+						)
+					);
+    	return view('pages.contact', ['razmerja' => $razmerja,'kontakti' => $kontakti]);
     }
-
+ 
     public function create(Request $request) {
     	// Validacija + kreacija 
 		

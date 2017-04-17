@@ -1,13 +1,13 @@
 @media (max-width: 768px){
 .navbar-fixed-side{
-	margin:-20px  -15px 10px -15px;
+	margin: -15px  -15px 10px -15px;
 	padding-left: 10px;
 }
 }
 @media (min-width: 768px){
 .navbar-fixed-side{
 	position:fixed;
-	margin:-20px  -15px 0px -15px;
+	margin: -15px  -15px 0px -15px;
 	padding-left: 10px;
 	height:100vh;
 	width:inherit;

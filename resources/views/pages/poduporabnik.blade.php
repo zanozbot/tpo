@@ -3,6 +3,69 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-xs-12 col-sm-12 col-md-10 ">
+				@foreach ($poduporabniki as $poduporabnik)
+					<div class="panel panel-default">			
+					  <div class="panel-heading">
+						<h3 class="panel-title">Poduporabnik</h3>
+					  </div>
+					  <div class="panel-body">
+						  <div class="form-group">
+							<label class="label label-primary">Številka KZZ</label>
+							<div class="form-control nalog" name="priimek"><label>{{$poduporabnik->stevilka_KZZ}}</label></div>
+						  </div>
+						  <div class="form-group">
+							<label class="label label-primary">Ime</label>
+							<div class="form-control nalog" name="priimek"><label>{{$poduporabnik->ime}}</label></div>
+						  </div>
+						  <div class="form-group">
+							<label class="label label-primary">Priimek</label>
+							<div class="form-control nalog" name="ime"><label>{{$poduporabnik->priimek}}</label></div>
+						  </div>
+						  <div class="form-group">
+							<label class="label label-primary">Sorodstveno razmerje</label>
+							<div class="form-control nalog" name="razmerje"><label>{{$poduporabnik->razmerje}}</label></div>
+						  </div>
+						  <div class="form-group">
+							<label class="label label-primary">Ulica</label>
+							<div class="form-control nalog" name="ulica"><label>{{$poduporabnik->ulica}}</label></div>
+						  </div>
+						  <div class="row">
+							<div class="col-lg-6">
+							  <div class="form-group">
+								<label class="label label-primary">Kraj</label>
+								<div class="form-control nalog" name="kraj"><label>{{$poduporabnik->kraj}}</label></div>
+							  </div>
+							</div>
+							<div class="col-lg-6">
+							  <div class="form-group">
+								<label class="label label-primary">Pošta</label>
+								<div class="form-control nalog" name="posta"><label>{{$poduporabnik->posta_stevilka}}</label></div>
+							  </div>
+							</div>
+						  </div>	
+						  <div class="form-group">
+							<label class="label label-primary">Regija</label>
+							<div class="form-control nalog" name="telZavOsebe"><label>{{$poduporabnik->okolis}}</label></div>
+						  </div>
+						  <div class="form-group">
+							<label class="label label-primary">Datum rojstva</label>
+							<div class="form-control nalog" name="telZavOsebe"><label>{{$poduporabnik->datum_rojstva}}</label></div>
+						  </div>
+						  @if ($poduporabnik->spol == 'm')
+						  <div class="form-group">
+							<label class="label label-primary">Spol</label>
+							<div class="form-control nalog" name="telZavOsebe"><label>Moški</label></div>
+						  </div>
+						  @else
+						  <div class="form-group">
+							<label class="label label-primary">Spol</label>
+							<div class="form-control nalog" name="telZavOsebe"><label>Ženski</label></div>
+						  </div>
+						  @endif
+									  
+					  </div>
+					</div>
+				@endforeach
 				<div class="panel panel-default">			
 				  <div class="panel-heading">
 					<h3 class="panel-title">Dodajanje poduporabnika</h3>

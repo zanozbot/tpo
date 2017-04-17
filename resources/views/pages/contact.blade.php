@@ -3,9 +3,53 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-xs-12 col-sm-12 col-md-10 ">
+				@foreach ($kontakti as $kontakt)
+					<div class="panel panel-default">			
+					  <div class="panel-heading">
+						<h3 class="panel-title">Kontaktna oseba</h3>
+					  </div>
+					  <div class="panel-body">
+						  <div class="form-group">
+							<label class="label label-primary">Ime</label>
+							<div class="form-control nalog" name="priimek"><label>{{$kontakt->ime}}</label></div>
+						  </div>
+						  <div class="form-group">
+							<label class="label label-primary">Priimek</label>
+							<div class="form-control nalog" name="ime"><label>{{$kontakt->priimek}}</label></div>
+						  </div>
+						  <div class="form-group">
+							<label class="label label-primary">Ulica</label>
+							<div class="form-control nalog" name="ulica"><label>{{$kontakt->ulica}}</label></div>
+						  </div>
+						  <div class="row">
+							<div class="col-lg-6">
+							  <div class="form-group">
+								<label class="label label-primary">Kraj</label>
+								<div class="form-control nalog" name="kraj"><label>{{$kontakt->kraj}}</label></div>
+							  </div>
+							</div>
+							<div class="col-lg-6">
+							  <div class="form-group">
+								<label class="label label-primary">Pošta</label>
+								<div class="form-control nalog" name="posta"><label>{{$kontakt->posta_stevilka}}</label></div>
+							  </div>
+							</div>
+						  </div>	 
+						  <div class="form-group">
+							<label class="label label-primary">Telefonska številka</label>
+							<div class="form-control nalog" name="telZavOsebe"><label>{{$kontakt->tel_stevilka}}</label></div>
+						  </div>
+						  <div class="form-group">
+							<label class="label label-primary">Sorodstveno razmerje</label>
+							<div class="form-control nalog" name="razmerje"><label>{{$kontakt->razmerje}}</label></div>
+						  </div>
+									  
+					  </div>
+					</div>
+				@endforeach
 				<div class="panel panel-default">			
 				  <div class="panel-heading">
-					<h3 class="panel-title">Kontaktna oseba novega uporabnika</h3>
+					<h3 class="panel-title">Dodaj novo kontaktno osebo</h3>
 				  </div>
 				  @if (session('status'))
 				  	<div class="alert alert-success">
@@ -21,6 +65,7 @@
 							</ul>
 						</div>
 				  @endif
+				  
 				  <div class="panel-body">
 						<form role="form" method="POST" action="{{ route('contact_create_user') }}" >
 						  <!--podatke o kontaktni osebi (priimek in ime, naslov, telefon, sorodstveno razmerje) -->
@@ -67,6 +112,7 @@
 						</form>
 				  </div>
 				</div>
+
 			</div>
 		</div>
 	</div>

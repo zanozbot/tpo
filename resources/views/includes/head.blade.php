@@ -9,6 +9,7 @@
 {{ HTML::style('css/bootstrap-datepicker.min.css') }}
 {{ HTML::style('css/style.css') }}
 {{ HTML::style('css/navbar-fixed-side.css') }}
+{{ HTML::style('css/font-awesome.min.css') }}
 
 {{ HTML::script('js/jquery.js') }}
 {{ HTML::script('js/bootstrap.min.js') }}
