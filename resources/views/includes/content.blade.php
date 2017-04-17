@@ -4,15 +4,35 @@
 		<div class="col-sm-3 col-lg-2">
 			<div class="navbar navbar-inverse  navbar-fixed-side" >
 				<ul class="nav navbar-nav">
+
+					@if (Auth::user()->sifra_vloga == 1)
 					<li>
-						<a class="vloga">Admin</a>
-					</li>
-					@if ((Auth::user()->sifra_vloga == 2 || Auth::user()->sifra_vloga == 3))
-					<li>
-						<a href="{{route('nalog')}}">Nov nalog</a>
+						<a class="vloga">Administrator</a>
 					</li>
 					<li>
-						<a href="{{route('seznamNalogov')}}">Seznam nalogov</a>
+						<a href="{{ url('admin') }}"><span class="glyphicon glyphicon-user"></span> Dodaj osebje</a>
+					</li>	
+					@endif
+					@if (Auth::user()->sifra_vloga == 2)
+					<li>
+						<a class="vloga">Zdravnik</a>
+					</li>
+					<li>
+						<a href="{{route('nalog')}}"><span class="glyphicon glyphicon-plus"></span> Nov nalog</a>
+					</li>
+					<li>
+						<a href="{{route('seznamNalogov')}}"><span class="glyphicon glyphicon-list"></span> Seznam nalogov</a>
+					</li>
+					@endif
+					@if (Auth::user()->sifra_vloga == 3)
+					<li>
+						<a class="vloga">Vodja patronažne službe</a>
+					</li>
+					<li>
+						<a href="{{route('nalog')}}"><span class="glyphicon glyphicon-plus"></span> Nov nalog</a>
+					</li>
+					<li>
+						<a href="{{route('seznamNalogov')}}"><span class="glyphicon glyphicon-list"></span> Seznam nalogov</a>
 					</li>
 					@endif
 					<!-- Trenutno funkcionalnost ni podprta
@@ -27,15 +47,16 @@
 					</li>-->
 					@if (Auth::user()->sifra_vloga == 4)
 					<li>
-						<a href="{{route('datumPlan')}}">Plan obiskov</a>
+						<a class="vloga">Patronažna sestra</a>
+					</li>
+					<li>
+						<a href="{{route('datumPlan')}}"><span class="glyphicon glyphicon-calendar"></span> Plan obiskov</a>
 					</li>
 					@endif
-					@if (Auth::user()->sifra_vloga == 1)
-					<li>
-						<a href="{{ url('admin') }}"><span class="glyphicon glyphicon-user"></span> Dodaj osebje</a>
-					</li>	
-					@endif
 					@if (Auth::user()->sifra_vloga == 6)
+					<li>
+						<a class="vloga">Pacient</a>
+					</li>
 					<li>
 						<a href="{{route('contact')}}"><span class="glyphicon glyphicon-phone"></span> Kontaktne osebe</a>		
 					</li>
@@ -46,7 +67,7 @@
 					@endif
 					<li>
 						<a href="{{route('newPassword')}}"><span class="glyphicon glyphicon-pencil"></span> Spremeni geslo</a>
-						<a href="{{route('odjava')}}"><span class="glyphicon glyphicon-log-out"></span>	Odjava</a>
+						<a href="{{route('odjava')}}"><span class="glyphicon glyphicon-off"></span>	Odjava</a>
 							
 					</li>
 
