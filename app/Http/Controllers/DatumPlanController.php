@@ -50,7 +50,7 @@ class DatumPlanController extends Controller
             $planCreate = Plan::create([
                     'datum_plan' => $datumPlana
                 ]);
-            $sifraPlan = Plan::max('sifra_plan');
+            $sifraPlan = $planCreate->sifra_plan;
         } else {
             //plan v bazi že obstaja
             $sifraPlan = Plan::where('datum_plan', '=', $datumPlana)->get();

@@ -86,28 +86,37 @@
               <script type="text/javascript">
                 var dodajPoljeVezaniPacient = function(event){
                 	event.preventDefault();
-                          var $formGroup = $(this).closest('.form-group');
-                          var $formGroupClone = $formGroup.clone();
-                          $(this)
-                              .toggleClass('btn-default btn-add btn-danger odstraniVezanegaPacienta')
-                              .html('–');
-                		  $i = $('div[name=vezaniPacientDiv').length;
-                		  $formGroupClone.find('input').attr('name', 'vezaniPacient[' + $i + ']');
-                          $formGroupClone.find('input').val('');
-                          $formGroupClone.insertAfter($formGroup);
+                  var $formGroup = $(this).closest('.form-group');
+                  var $formGroupClone = $formGroup.clone();
+
+            		  $i = $('div[name=vezaniPacientDiv').length;
+            		  $formGroupClone.find('input').attr('name', 'vezaniPacient[' + $i + ']');
+                  $formGroupClone.find('input').val('');
+
+                  $formGroupClone.find('button').toggleClass('btn-default btn-add btn-danger odstraniVezanegaPacienta').html('–');
+
+                  $formGroupClone.insertAfter($formGroup);
+
+                  $('div[name=vezaniPacientDiv').each(function(j, obj){
+                    $(this).find('input').attr('name', 'vezaniPacient[' + j + ']');
+                  });
                 }
-                 var odstraniPoljeVezaniPacient = function (event) {
-                          event.preventDefault();
-                
-                          var $formGroup = $(this).closest('.form-group');
-                     					var $multipleFormGroup = $formGroup.closest('.multiple-form-group');
-                
-                          var $lastFormGroupLast = $multipleFormGroup.find('.form-group:last');
-                
-                          $formGroup.remove();
-                      };
-                      $(document).on('click', '.odstraniVezanegaPacienta', odstraniPoljeVezaniPacient);
-                 					$(document).on('click', '.dodajVezanegaPacienta', dodajPoljeVezaniPacient);
+                var odstraniPoljeVezaniPacient = function (event) {
+                  event.preventDefault();
+          
+                  var $formGroup = $(this).closest('.form-group');
+           			  var $multipleFormGroup = $formGroup.closest('.multiple-form-group');
+          
+                  var $lastFormGroupLast = $multipleFormGroup.find('.form-group:last');
+
+                  $formGroup.remove();
+
+                  $('div[name=vezaniPacientDiv').each(function(j, obj){
+                    $(this).find('input').attr('name', 'vezaniPacient[' + j + ']');
+                  });
+                };
+                $(document).on('click', '.odstraniVezanegaPacienta', odstraniPoljeVezaniPacient);
+       					$(document).on('click', '.dodajVezanegaPacienta', dodajPoljeVezaniPacient);
               </script>							
             </div>
             <div class="form-group" name="bolezen">
@@ -128,13 +137,33 @@
             </div>
             <div class="form-group" name="epruvete">
               <label class="label label-primary">Barva in število epruvet</label>
-              <select class="selectpicker form-control input-sm" name="barvaEpruvete">
-                <option>Rdeča</option>
-                <option>Modra</option>
-                <option>Rumena</option>
-                <option>Zelena</option>
-              </select>
-              <input type="number" class="form-control input-sm" name="steviloEpruvet" placeholder="Število epruvet">
+              <label class="label">Rde</label>
+              <table class="table table-bordered">
+                <thead>
+                  <th><label>Barva<label></th>
+                  <th><label>Število<label></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><label>Rdeča</label></td>
+                    <td><input type="number" min="0" class="form-control input-sm" name="steviloRdeca" value="0"></td>
+                  </tr>
+                  <tr>
+                    <td><label>Modra</label></td>
+                    <td><input type="number" min="0" class="form-control input-sm" name="steviloModra" value="0"></td>
+                  </tr>
+                  <tr>
+                    <td><label>Rumena</label></td>
+                    <td><input type="number" min="0" class="form-control input-sm" name="steviloRumena" value="0"></td>
+                  </tr>
+                  <tr>
+                    <td><label>Zelena</label></td>
+                    <td><input type="number" min="0" class="form-control input-sm" name="steviloZelena" value="0"></td>
+                  </tr>
+                  </tr>
+                </tbody>
+              </table>
             </div>
             <div class="form-group">
               <label class="label label-primary">Datum prvega obiska</label>

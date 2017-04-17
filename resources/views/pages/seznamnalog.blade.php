@@ -91,20 +91,20 @@
 		  <table class="table ">
 			<thead>
 			  <tr>
-				<th>Šifra naloga</th>
-				<th>Pacient</th>
-				<th>Naslov</th>
-				<th>Vrsta naloga</th>
+				<th><label>Šifra naloga</label></th>
+				<th><label>Pacient</label></th>
+				<th><label>Naslov</label></th>
+				<th><label>Vrsta naloga</label></th>
 				<th></th>
 			  </tr>
 			</thead>
 			<tbody>
 			   @foreach ($mix as $mini)
 				<tr>
-					<td>{{$mini->sifra_dn}}</td>
-					<td>{{$mini->ime_pacienta.' '.$mini->priimek_pacienta}}</td>
-					<td>{{$mini->naslov_pacienta.', '.$mini->kraj_pacienta}}</td>
-					<td>{{$mini->ime_vrsta_obiska}}</td>
+					<td><label>{{$mini->sifra_dn}}</label></td>
+					<td><label>{{$mini->ime_pacienta.' '.$mini->priimek_pacienta}}</label></td>
+					<td><label>{{$mini->naslov_pacienta.', '.$mini->kraj_pacienta}}</label></td>
+					<td><label>{{$mini->ime_vrsta_obiska}}</label></td>
 					<td >		
 						<button type="button" class="btn btn-info btn-block" data-toggle="modal" data-target="#podrobnosti{{$mini->sifra_dn}}"><span class="glyphicon glyphicon-plus"></span></button>
 						<div class="modal fade" id="podrobnosti{{$mini->sifra_dn}}" role="dialog">

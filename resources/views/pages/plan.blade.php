@@ -14,12 +14,12 @@
 						<thead>
 						  <tr>
 							<th></th>
-							<th>Šifra naloga</th>
-							<th>Prvotni datum obiska</th>
-							<th>Pacient</th>
-							<th>Naslov</th>							
-							<th>Vrsta obiska</th>
-							<th></th>
+						<th><label>Šifra naloga</label></th>
+						<th><label>Prvotni datum obiska</label></th>
+						<th><label>Pacient</label></th>
+						<th><label>Naslov</label></th>
+						<th><label>Vrsta obiska</label></th>
+						<th></th>
 						  </tr>
 						</thead>
 						<tbody>
@@ -31,11 +31,17 @@
 								@else
 									<td><button type="button" onclick="window.location='{{ url('plan/dodaj') }}/{{$sifraPlan}}/{{$sifra = $obisk->sifra_obisk}}'" class="btn btn-default" name="{{$sifra = $obisk->sifra_obisk}}">Dodaj</button></td>
 								@endif
-								<td>{{$mini->sifra_dn}}</td>
-								<td>{{$obisk->datum_obiska}}</td>
-								<td>{{$mini->ime_pacienta.' '.$mini->priimek_pacienta}}</td>
-								<td>{{$mini->naslov_pacienta.', '.$mini->kraj_pacienta}}</td>
-								<td>{{$mini->ime_vrsta_obiska}}</td>
+								<td><label>{{$mini->sifra_dn}}</label></td>
+									<td><label id="pr_dat_ne_{{$obisk->sifra_obisk}}"></label></td>
+									<script>
+									  	var prvotniDatumPl = "{{$obisk->datum_obiska}}";
+									  	var arrStringovPl = prvotniDatumPl.split("-");
+									  	var preurejeniDatumPl = arrStringovPl[2].concat(".".concat(arrStringovPl[1].concat(".".concat(arrStringovPl[0]))));
+									  	$("#pr_dat_ne_{{$obisk->sifra_obisk}}").html(preurejeniDatumPl);
+									</script>
+									<td><label>{{$mini->ime_pacienta.' '.$mini->priimek_pacienta}}</label></td>
+									<td><label>{{$mini->naslov_pacienta.', '.$mini->kraj_pacienta}}</label></td>
+									<td><label>{{$mini->ime_vrsta_obiska}}</label></td>
 								<td >
 									<button type="button" class="btn btn-info btn-block" data-toggle="modal" data-target="#podrobnosti{{$obisk->sifra_obisk}}"><span class="glyphicon glyphicon-plus"></span></button>
 									<div class="modal fade" id="podrobnosti{{$obisk->sifra_obisk}}" role="dialog">
@@ -72,11 +78,11 @@
 				    <thead>
 					  <tr>
 						<th></th>
-						<th>Šifra naloga</th>
-						<th>Prvotni datum obiska</th>
-						<th>Pacient</th>
-						<th>Naslov</th>
-						<th>Vrsta obiska</th>
+						<th><label>Šifra naloga</label></th>
+						<th><label>Prvotni datum obiska</label></th>
+						<th><label>Pacient</label></th>
+						<th><label>Naslov</label></th>
+						<th><label>Vrsta obiska</label></th>
 						<th></th>
 					  </tr>
 					</thead>
@@ -89,11 +95,17 @@
 						  			@else
 										<td><button type="button" onclick="window.location='{{ url('plan/odstrani') }}/{{$sifraPlan}}/{{$sifra = $obisk->sifra_obisk}}'" class="btn btn-default" name="{{$sifra = $obisk->sifra_obisk}}">Odstrani</button></td>
 						  			@endif
-						  			<td>{{$mini->sifra_dn}}</td>
-									<td>{{$obisk->datum_obiska}}</td>
-									<td>{{$mini->ime_pacienta.' '.$mini->priimek_pacienta}}</td>
-									<td>{{$mini->naslov_pacienta.', '.$mini->kraj_pacienta}}</td>
-									<td>{{$mini->ime_vrsta_obiska}}</td>
+						  			<td><label>{{$mini->sifra_dn}}</label></td>
+									<td><label id="pr_dat_pl_{{$obisk->sifra_obisk}}"></label></td>
+									<script>
+									  	var prvotniDatumPl = "{{$obisk->datum_obiska}}";
+									  	var arrStringovPl = prvotniDatumPl.split("-");
+									  	var preurejeniDatumPl = arrStringovPl[2].concat(".".concat(arrStringovPl[1].concat(".".concat(arrStringovPl[0]))));
+									  	$("#pr_dat_pl_{{$obisk->sifra_obisk}}").html(preurejeniDatumPl);
+									</script>
+									<td><label>{{$mini->ime_pacienta.' '.$mini->priimek_pacienta}}</label></td>
+									<td><label>{{$mini->naslov_pacienta.', '.$mini->kraj_pacienta}}</label></td>
+									<td><label>{{$mini->ime_vrsta_obiska}}</label></td>
 									<td>		
 										<button type="button" class="btn btn-info btn-block" data-toggle="modal" data-target="#podrobnosti{{$obisk->sifra_obisk}}"><span class="glyphicon glyphicon-plus"></span></button>
 										<div class="modal fade" id="podrobnosti{{$obisk->sifra_obisk}}" role="dialog">
