@@ -146,12 +146,46 @@
 			  </div>
 			  <div class="panel-body">					  
 				  <div class="form-group">
-				    <label class="label label-primary">Barva epruvet</label>
-					<div class="form-control nalog" name="vrstaStoritve"><label>{{$mini->barva_epruvete}}</label></div>
-				  </div>
-				  <div class="form-group">
-				    <label class="label label-primary">Število epruvet</label>
-					<div class="form-control nalog" name="vrstaStoritve"><label>{{$mini->stevilo_epruvet}}</label></div>
+					<div class="form-control nalog" name="vrstaStoritve">
+					  <div class="panel-heading">
+						<h3 class="panel-title">Epruvete</h3>
+					  </div>
+					  <div class="panel-body">
+						  <table class="table table-bordered">
+							<thead>
+							  <tr>
+								<th>Barva</th>
+								<th>Število</th>
+							  </tr>
+							</thead>
+							<tbody>
+							  <tr>
+								<td><label>Rdeča</label></td>
+								<td><label id="rdeca_{{$obisk->sifra_obisk}}"></label></td>
+							  </tr>
+							  <tr>
+								<td><label>Modra</label></td>
+								<td><label id="modra_{{$obisk->sifra_obisk}}"></label></td>
+							  </tr>
+							  <tr>
+								<td><label>Rumena</label></td>
+								<td><label id="rumena_{{$obisk->sifra_obisk}}"></label></td>
+							  </tr>
+							  <tr>
+								<td><label>Zelena</label></td>
+								<td><label id="zelena_{{$obisk->sifra_obisk}}"></label></td>
+							  </tr>
+							</tbody>
+						  </table>
+						  <script>
+							var stEp = "{{$mini->stevilo_epruvet_RdMoRuZe}}";
+			  				var arrStringovEp = stEp.split(" ");
+			  				$("#rdeca_{{$obisk->sifra_obisk}}").html(arrStringovEp[0]);
+			  				$("#modra_{{$obisk->sifra_obisk}}").html(arrStringovEp[1]);
+			  				$("#rumena_{{$obisk->sifra_obisk}}").html(arrStringovEp[2]);
+			  				$("#zelena_{{$obisk->sifra_obisk}}").html(arrStringovEp[3]);
+						  </script>
+					  </div>
 				  </div>
 			  </div>
 			</div>
@@ -244,17 +278,17 @@
 		  </tr>
 		</thead>
 		<tbody>
-		@foreach ($mini->obiski as $obisk)
+		@foreach ($mini->obiski as $obiskIn)
 		  <tr>
-			<td><label>{{$obisk->sifra_obisk}}</label></td>
-			<td><label id="dat_obiska_{{$obisk->sifra_obisk}}"></label></td>
+			<td><label>{{$obiskIn->sifra_obisk}}</label></td>
+			<td><label id="dat_obiska_{{$obisk->sifra_obisk}}_{{$obiskIn->sifra_obisk}}"></label></td>
 			<script>
-			  	var prvotniDatumOb = "{{$obisk->datum_obiska}}";
+			  	var prvotniDatumOb = "{{$obiskIn->datum_obiska}}";
 			  	var arrStringovOb = prvotniDatumOb.split("-");
 			  	var preurejeniDatumOb = arrStringovOb[2].concat(".".concat(arrStringovOb[1].concat(".".concat(arrStringovOb[0]))));
-			  	$("#dat_obiska_{{$obisk->sifra_obisk}}").html(preurejeniDatumOb);
+			  	$("#dat_obiska_{{$obisk->sifra_obisk}}_{{$obiskIn->sifra_obisk}}").html(preurejeniDatumOb);
 			</script>
-			@if ($obisk->opravljen == 1)
+			@if ($obiskIn->opravljen == 1)
 				<td><label class="checkbox-inline"><input type="checkbox" name="vrstaZdravnik" disabled checked>Opravljen</label></td>
 			@else
 				<td><label class="checkbox-inline"><input type="checkbox" name="vrstaZdravnik" disabled>Opravljen</label></td>

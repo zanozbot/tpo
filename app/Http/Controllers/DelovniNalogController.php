@@ -51,7 +51,6 @@ class DelovniNalogController extends Controller
 			'casovniInterval.required_without' => 'Polje ":attribute" mora biti izpolnjeno, če je polje "Končni datum" neizpolnjeno.',
 			'required_if' => 'Polje ":attribute" mora biti izpolnjeno.',
 			'ustreznaZdravila.required_if' => 'Izberite ustrezna zdravila iz polja ":attribute".',
-			'barvaEpruvete.required_if' => 'Izberite ustrezno barvo epruvete iz polja ":attribute".'
 		];
 
     	$customAttributes = [
@@ -61,8 +60,10 @@ class DelovniNalogController extends Controller
 		    'casovniInterval' => 'Časovni interval',
 		    'koncniDatum' => 'Končni datum',
 		    'obveznoDrzanjeDatuma' => 'Vrsta datuma',
-		    'steviloEpruvet' => 'Število epruvet',
-		    'barvaEpruvete' => 'Barva epruvete',
+            'steviloRdeca' => 'Število rdečih epruvet',
+            'steviloModra' => 'Število modrih epruvet',
+            'steviloRumena' => 'Število rumenih epruvet',
+            'steviloZelena' => 'Število zelenih epruvet',
 		    'ustreznaZdravila' => 'Ustrezna zdravila',
             'imeBolezni' => 'Ime bolezni'
 		];
@@ -88,8 +89,10 @@ class DelovniNalogController extends Controller
         $this->validate($request, [
                 'imeBolezni' => 'required',
                 'ustreznaZdravila' => 'required_if:nalogeObiska,Aplikacija injekcij',
-                'barvaEpruvete' => 'required_if:nalogeObiska,Odvzem krvi',
-                'steviloEpruvet' => 'required_if:nalogeObiska,Odvzem krvi',
+                'steviloRdeca' => 'required_if:nalogeObiska,Odvzem krvi|numeric',
+                'steviloModra' => 'required_if:nalogeObiska,Odvzem krvi|numeric',
+                'steviloRumena' => 'required_if:nalogeObiska,Odvzem krvi|numeric',
+                'steviloZelena' => 'required_if:nalogeObiska,Odvzem krvi|numeric',
                 'datumPrvegaObiska' => 'required|date_format:d.m.Y|after_or_equal:tomorrow',
                 'steviloObiskov' => 'required|numeric|max:10',
                 'casovniInterval' => 'required_without:koncniDatum',
@@ -120,22 +123,18 @@ class DelovniNalogController extends Controller
         $sifraBolezni = $sifraBolezni[0]->sifra_bolezen;
         $sifraVrstaObiska = $sifraVrstaObiska[0]->sifra_vrsta_obisk;
 
-        //barva epruvete na NULL, če ne gre za odvzem krvi(sifra=60)
-        $barvaEpruvete = NULL;
-        if ($sifraVrstaObiska == 60){
-            $barvaEpruvete = $request['barvaEpruvete'];
-        }
-
         //pridobivanje šifre delavca
         $sifraDelavca = Delavec::where('id_uporabnik', '=', Auth::user()->id_uporabnik)->get();
         $sifraDelavca = $sifraDelavca[0]->sifra_delavec;
+
+        //kreiranje stringa steviloEpruvet
+        $steviloEpruvet = $request['steviloRdeca']." ".$request['steviloModra']." ".$request['steviloRumena']." ".$request['steviloZelena'];
 
         $delovniNalog = DelovniNalog::create([
     		'sifra_delavec' => $sifraDelavca,
             'sifra_bolezen' => $sifraBolezni,
     		'sifra_vrsta_obisk' => $sifraVrstaObiska,
-    		'barva_epruvete' => $barvaEpruvete,
-            'stevilo_epruvet' => $request['steviloEpruvet'],
+            'stevilo_epruvet_RdMoRuZe' => $steviloEpruvet,
             'datum_prvega_obiska' => $datumZacetni,
             'datum_koncnega_obiska' => $datumKoncni,
     		'datum_obvezen' => $datumObvezen,

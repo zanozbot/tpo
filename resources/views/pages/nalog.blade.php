@@ -128,13 +128,33 @@
             </div>
             <div class="form-group" name="epruvete">
               <label class="label label-primary">Barva in število epruvet</label>
-              <select class="selectpicker form-control input-sm" name="barvaEpruvete">
-                <option>Rdeča</option>
-                <option>Modra</option>
-                <option>Rumena</option>
-                <option>Zelena</option>
-              </select>
-              <input type="number" class="form-control input-sm" name="steviloEpruvet" placeholder="Število epruvet">
+              <label class="label">Rde</label>
+              <table class="table table-bordered">
+                <thead>
+                  <th><label>Barva<label></th>
+                  <th><label>Število<label></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><label>Rdeča</label></td>
+                    <td><input type="number" min="0" class="form-control input-sm" name="steviloRdeca" value="0"></td>
+                  </tr>
+                  <tr>
+                    <td><label>Modra</label></td>
+                    <td><input type="number" min="0" class="form-control input-sm" name="steviloModra" value="0"></td>
+                  </tr>
+                  <tr>
+                    <td><label>Rumena</label></td>
+                    <td><input type="number" min="0" class="form-control input-sm" name="steviloRumena" value="0"></td>
+                  </tr>
+                  <tr>
+                    <td><label>Zelena</label></td>
+                    <td><input type="number" min="0" class="form-control input-sm" name="steviloZelena" value="0"></td>
+                  </tr>
+                  </tr>
+                </tbody>
+              </table>
             </div>
             <div class="form-group">
               <label class="label label-primary">Datum prvega obiska</label>
