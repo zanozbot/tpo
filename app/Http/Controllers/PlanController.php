@@ -34,6 +34,7 @@ class PlanController extends Controller
         				->join('posta', 'posta.postna_stevilka', '=', 'pacient.postna_stevilka')
         				->join('vrsta_obiska', 'delovni_nalog.sifra_vrsta_obisk', '=', 'vrsta_obiska.sifra_vrsta_obisk')
         				->join('bolezen', 'bolezen.sifra_bolezen', '=', 'delovni_nalog.sifra_bolezen')
+        				->where('pacient.pac_stevilka_KZZ', '=', '-1')
         				->orderBy('delovni_nalog.sifra_dn', 'asc')
                         ->get(array(
 		                            'pacient.ime as ime_pacienta',
@@ -41,6 +42,7 @@ class PlanController extends Controller
 		                            'email',
 		                            'tel_stevilka',
 		                            'stevilka_KZZ',
+		                            'pac_stevilka_KZZ',
 		                            'pacient.postna_stevilka as posta_pacient',
 		                            'sifra_okolis',
 		                            'pacient.ulica as naslov_pacienta',
@@ -89,9 +91,26 @@ class PlanController extends Controller
         											->join('patronazna_sestra', 'patronazna_sestra.sifra_okolis', '=', 'pacient.sifra_okolis')
 		        									->get(array(
 		        										'stevilka_KZZ',
+		        										'pac_stevilka_KZZ',
 		        										'pacient.ime as ime_pacienta',
 		        										'datum_rojstva',
 		        										'sifra_ps'
+		        										));
+		        }
+		        for ($i=0; $i < count($mix1); $i++) { 
+		        	$mix1[$i]->otroci = DelovniNalog::join('delovni_nalog_pacient', 'delovni_nalog.sifra_dn', '=', 'delovni_nalog_pacient.delovni_nalog_sifra_dn')
+		        									->join('pacient', 'delovni_nalog_pacient.pacient_stevilka_KZZ', '=', 'pacient.pac_stevilka_KZZ')
+		        									->join('uporabnik', 'pacient.id_uporabnik', '=', 'uporabnik.id_uporabnik')
+		        									->where('delovni_nalog.sifra_dn', '=', $mix1[$i]->sifra_dn)
+		        									->where('pacient.pac_stevilka_KZZ', '=', $mix1[$i]->stevilka_KZZ)
+		        									->get(array(
+		        										'stevilka_KZZ',
+		        										'pacient.ime',
+		        										'pacient.priimek',
+		        										'pacient.datum_rojstva',
+		        										'pac_stevilka_KZZ',
+		        										'pacient.ime as ime_pacienta',
+		        										'datum_rojstva'
 		        										));
 		        }
 
@@ -103,6 +122,7 @@ class PlanController extends Controller
         				->join('posta', 'posta.postna_stevilka', '=', 'pacient.postna_stevilka')
         				->join('vrsta_obiska', 'delovni_nalog.sifra_vrsta_obisk', '=', 'vrsta_obiska.sifra_vrsta_obisk')
         				->join('bolezen', 'bolezen.sifra_bolezen', '=', 'delovni_nalog.sifra_bolezen')
+        				->where('pacient.pac_stevilka_KZZ', '=', '-1')
         				->orderBy('delovni_nalog.sifra_dn', 'asc')
                         ->get(array(
 		                            'pacient.ime as ime_pacienta',
@@ -110,6 +130,7 @@ class PlanController extends Controller
 		                            'email',
 		                            'tel_stevilka',
 		                            'stevilka_KZZ',
+		                            'pac_stevilka_KZZ',
 		                            'pacient.postna_stevilka as posta_pacient',
 		                            'sifra_okolis',
 		                            'pacient.ulica as naslov_pacienta',
@@ -157,9 +178,26 @@ class PlanController extends Controller
         											->join('patronazna_sestra', 'patronazna_sestra.sifra_okolis', '=', 'pacient.sifra_okolis')
 		        									->get(array(
 		        										'stevilka_KZZ',
+		        										'pac_stevilka_KZZ',
 		        										'pacient.ime as ime_pacienta',
 		        										'datum_rojstva',
 		        										'sifra_ps'
+		        										));
+		        }
+		        for ($i=0; $i < count($mix2); $i++) { 
+		        	$mix2[$i]->otroci = DelovniNalog::join('delovni_nalog_pacient', 'delovni_nalog.sifra_dn', '=', 'delovni_nalog_pacient.delovni_nalog_sifra_dn')
+		        									->join('pacient', 'delovni_nalog_pacient.pacient_stevilka_KZZ', '=', 'pacient.pac_stevilka_KZZ')
+		        									->join('uporabnik', 'pacient.id_uporabnik', '=', 'uporabnik.id_uporabnik')
+		        									->where('delovni_nalog.sifra_dn', '=', $mix2[$i]->sifra_dn)
+		        									->where('pacient.pac_stevilka_KZZ', '=', $mix2[$i]->stevilka_KZZ)
+		        									->get(array(
+		        										'stevilka_KZZ',
+		        										'pacient.ime',
+		        										'pacient.priimek',
+		        										'pacient.datum_rojstva',
+		        										'pac_stevilka_KZZ',
+		        										'pacient.ime as ime_pacienta',
+		        										'datum_rojstva'
 		        										));
 		        }
 

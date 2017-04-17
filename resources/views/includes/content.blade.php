@@ -52,6 +52,9 @@
 					<li>
 						<a href="{{route('datumPlan')}}"><span class="glyphicon glyphicon-calendar"></span> Plan obiskov</a>
 					</li>
+					<li>
+						<a href="{{route('seznamNalogov')}}"><span class="glyphicon glyphicon-list"></span> Seznam nalogov</a>
+					</li>
 					@endif
 					@if (Auth::user()->sifra_vloga == 6)
 					<li>

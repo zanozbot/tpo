@@ -63,7 +63,7 @@ class UporabnikiSeeder extends Seeder
         ]);
 
         $u4 = Uporabnik::create([
-        	'sifra_vloga' => '6',
+            'sifra_vloga' => '6',
             'ime' => 'Pacient',
             'priimek' => 'Debevc',
             'email' => 'pacient@gmail.com',
@@ -71,6 +71,7 @@ class UporabnikiSeeder extends Seeder
             'tel_stevilka' => '051000006',
             'aktiviran' => true
         ]);
+
         $pacient = Pacient::create([
         		'id_uporabnik' => $u4->id_uporabnik,
         		'stevilka_KZZ' => '1234567890',
@@ -81,6 +82,30 @@ class UporabnikiSeeder extends Seeder
         		'kraj' => 'Črna na Koroškem',
         		'datum_rojstva' => Carbon::createFromDate(1996, 5, 12, 'Europe/London'),
                 'spol' => 'm',
+                'postna_stevilka' => '3000'
+        ]);
+
+        $u5 = Uporabnik::create([
+            'sifra_vloga' => '6',
+            'ime' => 'Otrok',
+            'priimek' => 'Debevc',
+            'email' => 'otrok@gmail.com',
+            'geslo' => bcrypt('otrok'),
+            'tel_stevilka' => '051000007',
+            'aktiviran' => true
+        ]);
+
+        $pacient = Pacient::create([
+                'id_uporabnik' => $u5->id_uporabnik,
+                'stevilka_KZZ' => '12345',
+                'pac_stevilka_KZZ' => '1234567890',
+                'ime' => 'Otrok',
+                'priimek' => 'Debevc',
+                'sifra_okolis' => '3',
+                'ulica' => 'Novomeška cesta 5',
+                'kraj' => 'Črna na Koroškem',
+                'datum_rojstva' => Carbon::createFromDate(2016, 10, 12, 'Europe/London'),
+                'spol' => 'z',
                 'postna_stevilka' => '3000'
         ]);
     }

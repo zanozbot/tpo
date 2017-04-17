@@ -68,16 +68,25 @@ class DelovniNalogController extends Controller
             'imeBolezni' => 'Ime bolezni'
 		];
 
-		//preverjanje pacienta v bazi
-		$pacient = Pacient::where('stevilka_KZZ', $request['vezaniPacient'][0])->get();
-		if(!$pacient->first())
-		{
-            $msg = 'Pacient s številko kartice zdravstvenega zavarovanja '.$request['vezaniPacient'][0].' v bazi še ne obstaja.';
-            if (!$request['vezaniPacient'][0]) {
-                $msg = 'Polje "Vezani pacienti" mora biti izpolnjeno';
-            }
+		//preverjanje da je dodajanje pacientov mogoče le v primeru obiska otročnice
+        $pacientiVsi = array_unique($_POST['vezaniPacient']);
+        if (count($pacientiVsi) > 1 && $request['nalogeObiska'] != 'Obisk otročnice') {
+            $msg = 'Dodajanje več pacientov je mogoče samo, če je izbrana naloga "Obisk otročnice".';
             return view('pages.nalog', ['bolezni' => $bolezni, 'zdravila' => $zdravila, 'errPacient' => $msg]);
-		}
+        }
+
+        //preverjanje pacienta v bazi
+        foreach ($pacientiVsi as $pac) {
+            $pacient = Pacient::where('stevilka_KZZ', $pac)->get();
+            if(!$pacient->first())
+            {
+                $msg = 'Pacient s številko kartice zdravstvenega zavarovanja '.$pac.' v bazi še ne obstaja.';
+                if (!$pac) {
+                    $msg = 'Polje "Vezani pacienti" mora biti izpolnjeno';
+                }
+                return view('pages.nalog', ['bolezni' => $bolezni, 'zdravila' => $zdravila, 'errPacient' => $msg]);
+            }
+        }
 
         //preverjanje ali je casovni interval izpolnjen
         $prevKoncniDatum = 'required_without:casovniInterval|date_format:d.m.Y|after_or_equal:datumPrvegaObiska';
@@ -142,7 +151,7 @@ class DelovniNalogController extends Controller
     		'casovni_interval' => $request['casovniInterval']
     		]);
 
-        $sifraNovegaDN = DelovniNalog::max('sifra_dn');
+        $sifraNovegaDN = $delovniNalog->sifra_dn;
 
         //dodajanje v vmesno tabelo delovni_nalog_zdravilo
         if ($sifraVrstaObiska == 50){
@@ -154,9 +163,8 @@ class DelovniNalogController extends Controller
         }
 
         //dodajanje v vmesno tabelo delovni_nalog_pacient
-        $pacientiVsi = $_POST['vezaniPacient'];
-        for ($x = 0; $x < count($pacientiVsi); $x++) {
-            $pacientIn = Pacient::where('stevilka_KZZ', $pacientiVsi[$x])->get();
+        foreach ($pacientiVsi as $pac) {
+            $pacientIn = Pacient::where('stevilka_KZZ', $pac)->get();
             $pacientIn[0]->delovni_nalog()->attach($sifraNovegaDN);
         }
 
@@ -183,7 +191,7 @@ class DelovniNalogController extends Controller
                     $planCreate = Plan::create([
                             'datum_plan' => $datumObiska
                         ]);
-                    $sifraPlan = Plan::max('sifra_plan');
+                    $sifraPlan = $planCreate->sifra_plan;
                 } else {
                     //plan v bazi že obstaja
                     $sifraPlan = Plan::where('datum_plan', '=', $datumObiska)->get();
@@ -245,7 +253,7 @@ class DelovniNalogController extends Controller
                     $planCreate = Plan::create([
                             'datum_plan' => $datumObiska
                         ]);
-                    $sifraPlan = Plan::max('sifra_plan');
+                    $sifraPlan = $planCreate->sifra_plan;
                 } else {
                     //plan v bazi že obstaja
                     $sifraPlan = Plan::where('datum_plan', '=', $datumObiska)->get();

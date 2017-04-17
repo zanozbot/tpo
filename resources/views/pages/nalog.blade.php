@@ -86,28 +86,37 @@
               <script type="text/javascript">
                 var dodajPoljeVezaniPacient = function(event){
                 	event.preventDefault();
-                          var $formGroup = $(this).closest('.form-group');
-                          var $formGroupClone = $formGroup.clone();
-                          $(this)
-                              .toggleClass('btn-default btn-add btn-danger odstraniVezanegaPacienta')
-                              .html('–');
-                		  $i = $('div[name=vezaniPacientDiv').length;
-                		  $formGroupClone.find('input').attr('name', 'vezaniPacient[' + $i + ']');
-                          $formGroupClone.find('input').val('');
-                          $formGroupClone.insertAfter($formGroup);
+                  var $formGroup = $(this).closest('.form-group');
+                  var $formGroupClone = $formGroup.clone();
+
+            		  $i = $('div[name=vezaniPacientDiv').length;
+            		  $formGroupClone.find('input').attr('name', 'vezaniPacient[' + $i + ']');
+                  $formGroupClone.find('input').val('');
+
+                  $formGroupClone.find('button').toggleClass('btn-default btn-add btn-danger odstraniVezanegaPacienta').html('–');
+
+                  $formGroupClone.insertAfter($formGroup);
+
+                  $('div[name=vezaniPacientDiv').each(function(j, obj){
+                    $(this).find('input').attr('name', 'vezaniPacient[' + j + ']');
+                  });
                 }
-                 var odstraniPoljeVezaniPacient = function (event) {
-                          event.preventDefault();
-                
-                          var $formGroup = $(this).closest('.form-group');
-                     					var $multipleFormGroup = $formGroup.closest('.multiple-form-group');
-                
-                          var $lastFormGroupLast = $multipleFormGroup.find('.form-group:last');
-                
-                          $formGroup.remove();
-                      };
-                      $(document).on('click', '.odstraniVezanegaPacienta', odstraniPoljeVezaniPacient);
-                 					$(document).on('click', '.dodajVezanegaPacienta', dodajPoljeVezaniPacient);
+                var odstraniPoljeVezaniPacient = function (event) {
+                  event.preventDefault();
+          
+                  var $formGroup = $(this).closest('.form-group');
+           			  var $multipleFormGroup = $formGroup.closest('.multiple-form-group');
+          
+                  var $lastFormGroupLast = $multipleFormGroup.find('.form-group:last');
+
+                  $formGroup.remove();
+
+                  $('div[name=vezaniPacientDiv').each(function(j, obj){
+                    $(this).find('input').attr('name', 'vezaniPacient[' + j + ']');
+                  });
+                };
+                $(document).on('click', '.odstraniVezanegaPacienta', odstraniPoljeVezaniPacient);
+       					$(document).on('click', '.dodajVezanegaPacienta', dodajPoljeVezaniPacient);
               </script>							
             </div>
             <div class="form-group" name="bolezen">

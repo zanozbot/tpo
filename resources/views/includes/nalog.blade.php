@@ -248,11 +248,19 @@
 							  </tr>
 							</thead>
 							<tbody>
+							  @foreach ($mini->otroci as $otrok)
 							  <tr>
-								<td><label>{{$mini->pacienti[0]->stevilka_KZZ}}</label></td>
-								<td><label>{{$mini->pacienti[0]->ime}}</label></td>
-								<td><label>{{$mini->pacienti[0]->datum_rojstva}}</label></td>
+								<td><label>{{$otrok->stevilka_KZZ}}</label></td>
+								<td><label>{{$otrok->ime}} {{$otrok->priimek}}</label></td>
+								<td><label id="dat_roj_ot_{{$mini->sifra_dn}}_{{$otrok->stevilka_KZZ}}"></label></td>
+								<script>
+								  	var prvotniDatumOt = "{{$otrok->datum_rojstva}}";
+								  	var arrStringovOt = prvotniDatumOt.split("-");
+								  	var preurejeniDatumOt = arrStringovOt[2].concat(".".concat(arrStringovOt[1].concat(".".concat(arrStringovOt[0]))));
+								  	$("#dat_roj_ot_{{$mini->sifra_dn}}_{{$otrok->stevilka_KZZ}}").html(preurejeniDatumOt);
+								</script>
 							  </tr>
+							  @endforeach
 							</tbody>
 						  </table>
 					  </div>
