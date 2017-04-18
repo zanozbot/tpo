@@ -53,7 +53,11 @@
 							<div class="col-lg-4">
 							  <div class="form-group">
 								<label class="label label-primary">Poštna številka</label>
-								<input type="number" min="1000" max="9999" value="{{ Request::old('posta') }}" name="posta" class="form-control input-sm" placeholder="1000" required>
+								<select  class="selectpicker form-control input-sm" name="posta">
+								  @foreach ($poste as $posta)
+									<option value="{{ $posta->postna_stevilka }}" {{ (Request::old("posta") == $posta->postna_stevilka ? "selected":"") }}>{{ $posta->postna_stevilka . " " . $posta->kraj }}</option>
+								  @endforeach
+								  </select>
 							  </div>
 							</div>
 						  </div>	

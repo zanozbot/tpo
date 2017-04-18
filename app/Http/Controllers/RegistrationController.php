@@ -8,6 +8,7 @@ use App\Uporabnik;
 use App\Pacient;
 use App\Okolis;
 use App\AktivacijaRacuna;
+use App\Posta;
 use Mail;
 use Auth;
 
@@ -15,7 +16,8 @@ class RegistrationController extends Controller
 {
 	public function index() {
     	$okolisi = Okolis::where('sifra_okolis', '>', 1)->get();
-    	return view('pages.register', ['okolisi' => $okolisi]);
+    	$poste = Posta::all();
+    	return view('pages.register', ['okolisi' => $okolisi, 'poste' => $poste]);
     }
 
     public function register(Request $request) {
