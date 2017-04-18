@@ -16,51 +16,51 @@ class OkolisTableSeeder extends Seeder
             DB::table('okolis')->insert([
                 [
                 	'sifra_okolis' => '1',
-                    'ime' => 'Pomurska regija'
+                    'ime' => 'Moste-Polje'
                 ],
                 [
                 	'sifra_okolis' => '2',
-                    'ime' => 'Podravska regija'
+                    'ime' => 'Polje'
                 ],
                 [
                 	'sifra_okolis' => '3',
-                    'ime' => 'Koroška regija'
+                    'ime' => 'Rožna dolina'
                 ],
                 [
                 	'sifra_okolis' => '4',
-                    'ime' => 'Savinjska regija'
+                    'ime' => 'Domžale'
                 ],
                 [
                 	'sifra_okolis' => '5',
-                    'ime' => 'Zasavska regija'
+                    'ime' => 'Vrhnika'
                 ],
                 [
                 	'sifra_okolis' => '6',
-                    'ime' => 'Posavska regija'
+                    'ime' => 'Logatec'
                 ],
                 [
                 	'sifra_okolis' => '7',
-                    'ime' => 'Jugovzhodna Slovenija'
+                    'ime' => 'Grosuplje'
                 ],
                 [
                 	'sifra_okolis' => '8',
-                    'ime' => 'Osrednjeslovenska regija'
+                    'ime' => 'Škofja Loka'
                 ],
                 [
                 	'sifra_okolis' => '9',
-                    'ime' => 'Gorenjska regija'
+                    'ime' => 'Sežana'
                 ],
                 [
                 	'sifra_okolis' => '10',
-                    'ime' => 'Primorsko-notranjska regija'
+                    'ime' => 'Radovljica'
                 ],
                 [
                 	'sifra_okolis' => '11',
-                    'ime' => 'Goriška regija'
+                    'ime' => 'Ravne na Koroškem'
                 ],
                 [
                 	'sifra_okolis' => '12',
-                    'ime' => 'Obalno-kraška regija'
+                    'ime' => 'Slovenska bistrica'
                 ]
             ]);
         }
