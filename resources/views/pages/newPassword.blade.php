@@ -18,6 +18,11 @@
 				  </div>
 				  <div class="panel-body">
 						<form role="form" method="post">
+						<div class="form-group">
+							<label class="label label-primary">Staro geslo</label>
+							<input type="password" name="starogeslo" class="form-control input-sm" placeholder="Staro geslo" 
+							 required>
+						  </div>
 						  <div class="form-group">
 							<label class="label label-primary">Novo geslo</label>
 							<input type="password" pattern="(?=.*\d).{8,}" name="geslo" class="form-control input-sm" placeholder="Geslo" 

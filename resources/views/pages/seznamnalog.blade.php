@@ -127,7 +127,7 @@
 								</div>
 								<div class="modal-body">
 								<div class="container-fluid">
-									<!--- AFNA include('includes.nalog',  ['pacienti' => $pacienti, 'sestre' => $sestre]) -->
+									@include('includes.nalog')
 								</div>
 								</div>
 							  </div>

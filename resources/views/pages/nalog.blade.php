@@ -36,23 +36,24 @@
             <div class="form-group">
               <label class="label label-primary">Naloge</label>
               <select class="selectpicker form-control input-sm" name="nalogeObiska">
-                <option>Obisk nosečnice</option>
-                <option>Obisk otročnice</option>
-                <option>Preventiva starostnika</option>
+                <option {{ (Request::old("nalogeObiska") == 'Obisk nosečnice' ? "selected":"") }}>Obisk nosečnice</option>
+                <option {{ (Request::old("nalogeObiska") == 'Obisk otročnice' ? "selected":"") }}>Obisk otročnice</option>
+                <option {{ (Request::old("nalogeObiska") == 'Preventiva starostnika' ? "selected":"") }}>Preventiva starostnika</option>
               @if (Auth::user()->sifra_vloga == 2)
-                <option>Aplikacija injekcij</option>
-                <option>Odvzem krvi</option>
-                <option>Kontrola zdravstvenega stanja</option>
+                <option {{ (Request::old("nalogeObiska") == "Aplikacija injekcij" ? "selected":"") }}>Aplikacija injekcij</option>
+                <option {{ (Request::old("nalogeObiska") == 'Odvzem krvi' ? "selected":"") }}>Odvzem krvi</option>
+                <option {{ (Request::old("nalogeObiska") == 'Kontrola zdravstvenega stanja' ? "selected":"") }}>Kontrola zdravstvenega stanja</option>
               @endif
               </select>
             </div>
             <script type="text/javascript">
               $( document ).ready(function() {
-                $('div[name=vezaniPacienti]').slideDown();
-              	$('div[name=epruvete]').slideUp();
-              	$('div[name=zdravila]').slideUp();
+                //$('div[name=vezaniPacienti]').hide();
+              	$('div[name=epruvete]').hide();
+              	$('div[name=zdravila]').hide();
               });
               $('select[name=nalogeObiska]').change(function(){
+                  console.log($('select[name=nalogeObiska]').val());
               		switch($('select[name=nalogeObiska]').val()){
               			case 'Obisk nosečnice':
               				$('div[name=epruvete]').slideUp();
@@ -76,14 +77,19 @@
               				break;
               		}
               	});
+
+                function setOption(){
+                  $('select[name=nalogeObiska]').val($('select[name=nalogeObiska]').val()).trigger('change');
+                }
+                setTimeout(setOption, 500);              
             </script>
             <div class="form-group multiple-form-group" name="vezaniPacienti">
               <label class="label label-primary">Vezani pacienti</label>
               <div class="form-group input-group" name="vezaniPacientDiv">
                 <select class="selectpicker form-control input-sm" name="vezaniPacient[0]" required>
-                  <option> - </option>
+                  <option disabled value>Izberi pacienta</option>
                   @foreach ($pacienti as $pacient)
-                    <option value="{{$pacient->stevilka_KZZ}}">{{ $pacient->ime_pacienta . " " . $pacient->priimek_pacienta . " | " . $pacient->stevilka_KZZ }}</option>                  
+                    <option value="{{$pacient->stevilka_KZZ}}" {{ (Request::old("vezaniPacient[0]") == $pacient->stevilka_KZZ ? "selected":"") }}>{{ $pacient->ime_pacienta . " " . $pacient->priimek_pacienta . " | " . $pacient->stevilka_KZZ }}</option>                  
                   @endforeach
                 </select><span class="input-group-btn"><button type="button" class="btn btn-default btn-add dodajVezanegaPacienta">+
                 </button></span>	
@@ -128,7 +134,7 @@
               <label class="label label-primary">Ime bolezni</label>
               <select class="selectpicker form-control input-sm" name="imeBolezni">
               @foreach ($bolezni as $bolezen)
-              	<option>{{ $bolezen->ime }}</option>
+              	<option  {{ (Request::old("imeBolezni") == $bolezen->ime ? "selected":"") }}>{{ $bolezen->ime }}</option>
               @endforeach
               </select>
             </div>
@@ -152,19 +158,19 @@
                 <tbody>
                   <tr>
                     <td><label>Rdeča</label></td>
-                    <td><input type="number" min="0" class="form-control input-sm" name="steviloRdeca" value="0"></td>
+                    <td><input type="number" min="0" class="form-control input-sm" name="steviloRdeca" value="{{ Request::old('steviloRdeca') ?: 0 }}"></td>
                   </tr>
                   <tr>
                     <td><label>Modra</label></td>
-                    <td><input type="number" min="0" class="form-control input-sm" name="steviloModra" value="0"></td>
+                    <td><input type="number" min="0" class="form-control input-sm" name="steviloModra" value="{{ Request::old('steviloModra') ?: 0 }}"></td>
                   </tr>
                   <tr>
                     <td><label>Rumena</label></td>
-                    <td><input type="number" min="0" class="form-control input-sm" name="steviloRumena" value="0"></td>
+                    <td><input type="number" min="0" class="form-control input-sm" name="steviloRumena" value="{{ Request::old('steviloRumena') ?: 0 }}"></td>
                   </tr>
                   <tr>
                     <td><label>Zelena</label></td>
-                    <td><input type="number" min="0" class="form-control input-sm" name="steviloZelena" value="0"></td>
+                    <td><input type="number" min="0" class="form-control input-sm" name="steviloZelena" value="{{ Request::old('steviloZelena') ?: 0 }}"></td>
                   </tr>
                   </tr>
                 </tbody>
@@ -173,7 +179,7 @@
             <div class="form-group">
               <label class="label label-primary">Datum prvega obiska</label>
               <div class="datepicker input-group date" data-provide="datepicker" data-date-format="dd.mm.yyyy">
-                <input type="text" class="form-control" placeholder="dd.mm.llll" name="datumPrvegaObiska" required>
+                <input type="text" class="form-control" value="{{ Request::old('datumPrvegaObiska') }}" placeholder="dd.mm.llll" name="datumPrvegaObiska" required>
                 <div class="input-group-addon">
                   <span class="glyphicon glyphicon-th"></span>
                 </div>
@@ -181,13 +187,13 @@
             </div>
             <div class="form-group">
               <label class="label label-primary">Število obiskov</label>
-              <input type="number" class="form-control input-sm" name="steviloObiskov" placeholder="Število obiskov" required>
+              <input type="number" class="form-control input-sm" value="{{ Request::old('steviloObiskov') }}" name="steviloObiskov" placeholder="Število obiskov" required>
             </div>
             <label class="label label-primary" name="intervalLabel">Časovni interval</label>
             <label class="label label-default" name="koncniDatumLabel">Končni datum</label>
             <div class="form-group" name="casovniIntervalDiv">
               <div class="input-group">
-                <input type="number" class="form-control input-sm" name="casovniInterval" placeholder="Časovni interval med dvema zaporednima obiskoma">
+                <input type="number" class="form-control input-sm" value="{{ Request::old('casovniInterval') }}" name="casovniInterval" placeholder="Časovni interval med dvema zaporednima obiskoma">
                 <span class="input-group-addon">dni</span>
               </div>
             </div>
@@ -236,8 +242,8 @@
             </div>
             <div class="form-group">
               <label class="label label-primary">Datum je</label>
-              <label class="radio-inline"><input type="radio" class="radio-inline" name="obveznoDrzanjeDatuma" value="Okviren" checked>Okviren</label>
-              <label class="radio-inline"><input type="radio" class="radio-inline" name="obveznoDrzanjeDatuma" value="Obvezen">Obvezen</label>
+              <label class="radio-inline"><input type="radio" {{ (Request::old("obveznoDrzanjeDatuma") == 'Okviren' ? "checked":"") }} class="radio-inline" name="obveznoDrzanjeDatuma" value="Okviren" checked>Okviren</label>
+              <label class="radio-inline"><input type="radio" {{ (Request::old("obveznoDrzanjeDatuma") == 'Obvezen' ? "checked":"") }} class="radio-inline" name="obveznoDrzanjeDatuma" value="Obvezen">Obvezen</label>
             </div>
             <input type="submit" value="Kreiraj nalog" class="btn btn-info btn-block">
           </form>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Auth;
 use App\Uporabnik;
+use Illuminate\Support\Facades\Hash;
 
 class newPasswordController extends Controller
 {
@@ -21,15 +22,22 @@ class newPasswordController extends Controller
 
     	$customAttributes = [
     		'geslo' => 'Geslo',
-		    'potrdigeslo' => 'Potrdi geslo',
+		    'potrdigeslo' => 'Potrdi geslo'
 		];
 
     	$this->validate($request, [
         	'geslo' => 'required|min:8',
-        	'potrdigeslo' => 'required|same:geslo',
+        	'potrdigeslo' => 'required|same:geslo'
     	], $messages, $customAttributes);
 
+
+
     	$uporabnik = Auth::user();
+
+        if (!Hash::check($request['starogeslo'], $uporabnik->geslo)) {
+            return redirect()->back()->withErrors(['Napačno staro geslo.']);
+        }
+
     	$uporabnik->geslo = bcrypt($request['geslo']);
 
     	Auth::logout();
