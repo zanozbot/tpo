@@ -24,44 +24,48 @@
 						</thead>
 						<tbody>
 						@foreach ($mix1 as $mini)
-							@foreach ($mini->obiski as $obisk)
+							@if ($mini->ime_vrsta_obiska == 'Obisk otročnice' && $mini->pac_stevilka_KZZ != -1)
 
-								<tr>
-								@if ($mini->datum_obvezen == 1)
-									<td><button type="button" onclick="window.location='{{ url('plan/dodaj') }}/{{$sifraPlan}}/{{$sifra = $obisk->sifra_obisk}}'" class="btn btn-default" name="{{$sifra = $obisk->sifra_obisk}}" disabled>Dodaj</button></td>
-								@else
-									<td><button type="button" onclick="window.location='{{ url('plan/dodaj') }}/{{$sifraPlan}}/{{$sifra = $obisk->sifra_obisk}}'" class="btn btn-default" name="{{$sifra = $obisk->sifra_obisk}}">Dodaj</button></td>
-								@endif
-								<td><label>{{$mini->sifra_dn}}</label></td>
-									<td><label id="pr_dat_ne_{{$obisk->sifra_obisk}}"></label></td>
-									<script>
-									  	var prvotniDatumPl = "{{$obisk->datum_obiska}}";
-									  	var arrStringovPl = prvotniDatumPl.split("-");
-									  	var preurejeniDatumPl = arrStringovPl[2].concat(".".concat(arrStringovPl[1].concat(".".concat(arrStringovPl[0]))));
-									  	$("#pr_dat_ne_{{$obisk->sifra_obisk}}").html(preurejeniDatumPl);
-									</script>
-									<td><label>{{$mini->ime_pacienta.' '.$mini->priimek_pacienta}}</label></td>
-									<td><label>{{$mini->naslov_pacienta.', '.$mini->kraj_pacienta}}</label></td>
-									<td><label>{{$mini->ime_vrsta_obiska}}</label></td>
-								<td >
-									<button type="button" class="btn btn-info btn-block" data-toggle="modal" data-target="#podrobnosti{{$obisk->sifra_obisk}}"><span class="glyphicon glyphicon-plus"></span></button>
-									<div class="modal fade" id="podrobnosti{{$obisk->sifra_obisk}}" role="dialog">
-										<div class="modal-dialog modal-lg">
-										  <div class="modal-content">
-											<div class="modal-header">
-											  <button type="button" class="close" data-dismiss="modal">&times;</button>
+			   				@else
+								@foreach ($mini->obiski as $obisk)
+
+									<tr>
+									@if ($mini->datum_obvezen == 1)
+										<td><button type="button" onclick="window.location='{{ url('plan/dodaj') }}/{{$sifraPlan}}/{{$sifra = $obisk->sifra_obisk}}'" class="btn btn-default" name="{{$sifra = $obisk->sifra_obisk}}" disabled>Dodaj</button></td>
+									@else
+										<td><button type="button" onclick="window.location='{{ url('plan/dodaj') }}/{{$sifraPlan}}/{{$sifra = $obisk->sifra_obisk}}'" class="btn btn-default" name="{{$sifra = $obisk->sifra_obisk}}">Dodaj</button></td>
+									@endif
+									<td><label>{{$mini->sifra_dn}}</label></td>
+										<td><label id="pr_dat_ne_{{$obisk->sifra_obisk}}"></label></td>
+										<script>
+										  	var prvotniDatumPl = "{{$obisk->datum_obiska}}";
+										  	var arrStringovPl = prvotniDatumPl.split("-");
+										  	var preurejeniDatumPl = arrStringovPl[2].concat(".".concat(arrStringovPl[1].concat(".".concat(arrStringovPl[0]))));
+										  	$("#pr_dat_ne_{{$obisk->sifra_obisk}}").html(preurejeniDatumPl);
+										</script>
+										<td><label>{{$mini->ime_pacienta.' '.$mini->priimek_pacienta}}</label></td>
+										<td><label>{{$mini->naslov_pacienta.', '.$mini->kraj_pacienta}}</label></td>
+										<td><label>{{$mini->ime_vrsta_obiska}}</label></td>
+									<td >
+										<button type="button" class="btn btn-info btn-block" data-toggle="modal" data-target="#podrobnosti{{$obisk->sifra_obisk}}"><span class="glyphicon glyphicon-plus"></span></button>
+										<div class="modal fade" id="podrobnosti{{$obisk->sifra_obisk}}" role="dialog">
+											<div class="modal-dialog modal-lg">
+											  <div class="modal-content">
+												<div class="modal-header">
+												  <button type="button" class="close" data-dismiss="modal">&times;</button>
+												</div>
+												<div class="modal-body">
+												<div class="container-fluid">
+												  @include('includes.nalogPlan')
+												</div>
+												</div>
+											  </div>
 											</div>
-											<div class="modal-body">
-											<div class="container-fluid">
-											  @include('includes.nalogPlan')
-											</div>
-											</div>
-										  </div>
 										</div>
-									</div>
-								</td>
-							</tr>
-							@endforeach
+									</td>
+								</tr>
+								@endforeach
+							@endif
 						  @endforeach
 						  </tbody>
 						</table>
@@ -89,43 +93,47 @@
 					</thead>
 					<tbody>
 					  	@foreach ($mix2 as $mini)
-							@foreach ($mini->obiski as $obisk)
-						  		<tr>
-						  			@if ($mini->datum_obvezen == 1)
-						  				<td><button type="button" onclick="window.location='{{ url('plan/odstrani') }}/{{$sifraPlan}}/{{$sifra = $obisk->sifra_obisk}}'" class="btn btn-default" name="{{$sifra = $obisk->sifra_obisk}}" disabled>Odstrani</button></td>
-						  			@else
-										<td><button type="button" onclick="window.location='{{ url('plan/odstrani') }}/{{$sifraPlan}}/{{$sifra = $obisk->sifra_obisk}}'" class="btn btn-default" name="{{$sifra = $obisk->sifra_obisk}}">Odstrani</button></td>
-						  			@endif
-						  			<td><label>{{$mini->sifra_dn}}</label></td>
-									<td><label id="pr_dat_pl_{{$obisk->sifra_obisk}}"></label></td>
-									<script>
-									  	var prvotniDatumPl = "{{$obisk->datum_obiska}}";
-									  	var arrStringovPl = prvotniDatumPl.split("-");
-									  	var preurejeniDatumPl = arrStringovPl[2].concat(".".concat(arrStringovPl[1].concat(".".concat(arrStringovPl[0]))));
-									  	$("#pr_dat_pl_{{$obisk->sifra_obisk}}").html(preurejeniDatumPl);
-									</script>
-									<td><label>{{$mini->ime_pacienta.' '.$mini->priimek_pacienta}}</label></td>
-									<td><label>{{$mini->naslov_pacienta.', '.$mini->kraj_pacienta}}</label></td>
-									<td><label>{{$mini->ime_vrsta_obiska}}</label></td>
-									<td>		
-										<button type="button" class="btn btn-info btn-block" data-toggle="modal" data-target="#podrobnosti{{$obisk->sifra_obisk}}"><span class="glyphicon glyphicon-plus"></span></button>
-										<div class="modal fade" id="podrobnosti{{$obisk->sifra_obisk}}" role="dialog">
-											<div class="modal-dialog modal-lg">
-											  <div class="modal-content">
-												<div class="modal-header">
-												  <button type="button" class="close" data-dismiss="modal">&times;</button>
+					  		@if ($mini->ime_vrsta_obiska == 'Obisk otročnice' && $mini->pac_stevilka_KZZ != -1)
+
+			   				@else
+								@foreach ($mini->obiski as $obisk)
+							  		<tr>
+							  			@if ($mini->datum_obvezen == 1)
+							  				<td><button type="button" onclick="window.location='{{ url('plan/odstrani') }}/{{$sifraPlan}}/{{$sifra = $obisk->sifra_obisk}}'" class="btn btn-default" name="{{$sifra = $obisk->sifra_obisk}}" disabled>Odstrani</button></td>
+							  			@else
+											<td><button type="button" onclick="window.location='{{ url('plan/odstrani') }}/{{$sifraPlan}}/{{$sifra = $obisk->sifra_obisk}}'" class="btn btn-default" name="{{$sifra = $obisk->sifra_obisk}}">Odstrani</button></td>
+							  			@endif
+							  			<td><label>{{$mini->sifra_dn}}</label></td>
+										<td><label id="pr_dat_pl_{{$obisk->sifra_obisk}}"></label></td>
+										<script>
+										  	var prvotniDatumPl = "{{$obisk->datum_obiska}}";
+										  	var arrStringovPl = prvotniDatumPl.split("-");
+										  	var preurejeniDatumPl = arrStringovPl[2].concat(".".concat(arrStringovPl[1].concat(".".concat(arrStringovPl[0]))));
+										  	$("#pr_dat_pl_{{$obisk->sifra_obisk}}").html(preurejeniDatumPl);
+										</script>
+										<td><label>{{$mini->ime_pacienta.' '.$mini->priimek_pacienta}}</label></td>
+										<td><label>{{$mini->naslov_pacienta.', '.$mini->kraj_pacienta}}</label></td>
+										<td><label>{{$mini->ime_vrsta_obiska}}</label></td>
+										<td>		
+											<button type="button" class="btn btn-info btn-block" data-toggle="modal" data-target="#podrobnosti{{$obisk->sifra_obisk}}"><span class="glyphicon glyphicon-plus"></span></button>
+											<div class="modal fade" id="podrobnosti{{$obisk->sifra_obisk}}" role="dialog">
+												<div class="modal-dialog modal-lg">
+												  <div class="modal-content">
+													<div class="modal-header">
+													  <button type="button" class="close" data-dismiss="modal">&times;</button>
+													</div>
+													<div class="modal-body">
+													<div class="container-fluid">
+													  @include('includes.nalogPlan')
+													</div>
+													</div>
+												  </div>
 												</div>
-												<div class="modal-body">
-												<div class="container-fluid">
-												  @include('includes.nalogPlan')
-												</div>
-												</div>
-											  </div>
 											</div>
-										</div>
-									</td>
-								</tr>
-							@endforeach
+										</td>
+									</tr>
+								@endforeach
+							@endif
 						@endforeach
 					  </tbody>
 					</table>

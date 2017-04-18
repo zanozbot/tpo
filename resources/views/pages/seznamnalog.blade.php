@@ -115,7 +115,6 @@
 		  <table class="table ">
 			<thead>
 			  <tr>
-			  	<th><label>Index</label></th>
 				<th><label>Šifra naloga</label></th>
 				<th><label>Pacient</label></th>
 				<th><label>Naslov</label></th>
@@ -124,12 +123,11 @@
 			  </tr>
 			</thead>
 			<tbody>
-			   @foreach ($mix as $index=>$mini)
+			   @foreach ($mix as $mini)
 			    @if ($mini->ime_vrsta_obiska == 'Obisk otročnice' && $mini->pac_stevilka_KZZ != -1)
 
 			   	@else
 				<tr>
-					<td><label>{{$index}}</label></td>
 					<td><label>{{$mini->sifra_dn}}</label></td>
 					<td><label>{{$mini->ime_pacienta.' '.$mini->priimek_pacienta}}</label></td>
 					<td><label>{{$mini->naslov_pacienta.', '.$mini->kraj_pacienta}}</label></td>
