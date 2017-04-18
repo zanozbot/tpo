@@ -37,7 +37,6 @@ class SeznamNalogovController extends Controller
         				->join('posta', 'posta.postna_stevilka', '=', 'pacient.postna_stevilka')
         				->join('vrsta_obiska', 'delovni_nalog.sifra_vrsta_obisk', '=', 'vrsta_obiska.sifra_vrsta_obisk')
         				->join('bolezen', 'bolezen.sifra_bolezen', '=', 'delovni_nalog.sifra_bolezen')
-        				->where('pacient.pac_stevilka_KZZ', '=', '-1')
         				->orderBy('delovni_nalog.sifra_dn', 'asc')
                         ->get(array(
 		                            'pacient.ime as ime_pacienta',
@@ -141,7 +140,6 @@ class SeznamNalogovController extends Controller
         				->join('posta', 'posta.postna_stevilka', '=', 'pacient.postna_stevilka')
         				->join('vrsta_obiska', 'delovni_nalog.sifra_vrsta_obisk', '=', 'vrsta_obiska.sifra_vrsta_obisk')
         				->join('bolezen', 'bolezen.sifra_bolezen', '=', 'delovni_nalog.sifra_bolezen')
-        				->where('pacient.pac_stevilka_KZZ', '=', '-1')
         				->orderBy('delovni_nalog.sifra_dn', 'asc');
 
 		if($request['odDatum']){

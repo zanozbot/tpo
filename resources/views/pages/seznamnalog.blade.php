@@ -125,6 +125,9 @@
 			</thead>
 			<tbody>
 			   @foreach ($mix as $index=>$mini)
+			    @if ($mini->ime_vrsta_obiska == 'Obisk otročnice' && $mini->pac_stevilka_KZZ != -1)
+
+			   	@else
 				<tr>
 					<td><label>{{$index}}</label></td>
 					<td><label>{{$mini->sifra_dn}}</label></td>
@@ -149,6 +152,7 @@
 						</div>
 					</td>
 				</tr>
+				@endif
 			@endforeach
 			</tbody>
 		  </table>
