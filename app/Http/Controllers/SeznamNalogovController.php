@@ -16,7 +16,6 @@ class SeznamNalogovController extends Controller
 {
 
 	public function index() {
-		//echo DelovniNalog::all();
 		if(Auth::check()){
 			//Zdravnik
 			if(Auth::user()->sifra_vloga == 2){
@@ -71,6 +70,7 @@ class SeznamNalogovController extends Controller
 		                            'bolezen.sifra_bolezen as sifra_bolezni',
 		                            'bolezen.ime as ime_bolezni'
                         ));
+                echo $mix;
 		        for ($i=0; $i < count($mix); $i++) { 
 		        	$mix[$i]->obiski = Obisk::where('sifra_dn', '=', $mix[$i]->sifra_dn)->get();
 		        }
@@ -125,7 +125,7 @@ class SeznamNalogovController extends Controller
         							'uporabnik.ime as ime',
         							'uporabnik.priimek as priimek',
         							'patronazna_sestra.sifra_ps as sifra_ps')); 
-
+		
 		return view('pages.seznamnalog', ['mix' => $mix, 'pacienti' => $pacienti, 'sestre'=>$sestre]);
     }
 

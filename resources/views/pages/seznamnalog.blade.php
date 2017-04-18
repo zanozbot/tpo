@@ -124,9 +124,9 @@
 			</thead>
 			<tbody>
 			   @foreach ($mix as $mini)
-			    @if ($mini->ime_vrsta_obiska == 'Obisk otročnice' && $mini->pac_stevilka_KZZ != -1)
+			    <!-- AFNAif ($mini->ime_vrsta_obiska == 'Obisk otročnice' && $mini->pac_stevilka_KZZ != -1)
 
-			   	@else
+			   	AFNAelse-->
 				<tr>
 					<td><label>{{$mini->sifra_dn}}</label></td>
 					<td><label>{{$mini->ime_pacienta.' '.$mini->priimek_pacienta}}</label></td>
@@ -150,7 +150,7 @@
 						</div>
 					</td>
 				</tr>
-				@endif
+				<!-- AFNAendif -->
 			@endforeach
 			</tbody>
 		  </table>
