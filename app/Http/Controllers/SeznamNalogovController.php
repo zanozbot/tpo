@@ -103,8 +103,17 @@ class SeznamNalogovController extends Controller
         for ($i=0; $i < count($mix); $i++) { 
         	$mix[$i]->obiski = Obisk::where('sifra_dn', '=', $mix[$i]->sifra_dn)->get();
         }
+        $pacienti = Pacient::get(array(
+                                    'pacient.ime as ime_pacienta',
+                                    'stevilka_KZZ',
+                                    'pacient.priimek as priimek_pacienta'));
+        $sestre = PatronaznaSestra::join('uporabnik', 'patronazna_sestra.id_uporabnik', '=', 'uporabnik.id_uporabnik')
+        					->get(array(
+        							'uporabnik.ime as ime',
+        							'uporabnik.priimek as priimek',
+        							'patronazna_sestra.sifra_ps as sifra_ps')); 
 
-		return view('pages.seznamnalog', ['mix' => $mix]);
+		return view('pages.seznamnalog', ['mix' => $mix, 'pacienti' => $pacienti, 'sestre'=>$sestre]);
     }
 
     public function filter(Request $request){
@@ -135,7 +144,7 @@ class SeznamNalogovController extends Controller
 	        $doDatum = $leto.'-'.$mesec.'-'.$dan;;
 			$mix->whereDate('delovni_nalog.created_at', '<', date($doDatum));
 		}
-		if($request['pacient']){
+		if($request['pacient'] != "-"){
 			$mix->where('delovni_nalog_pacient.pacient_stevilka_KZZ', '=', $request['pacient']);
 		}
 		if($request['obisk'] != "-"){
@@ -146,12 +155,13 @@ class SeznamNalogovController extends Controller
 		if($request['izdajalec']){
 			$mix->where('delovni_nalog.sifra_delavec', '=', $request['izdajalec']);
 		}
-		if($request['zadolzenaSestra']){
+		if($request['zadolzenaSestra'] != "-"){
 			$sestra = PatronaznaSestra::where('sifra_ps', '=', $request['zadolzenaSestra'])->get();
 			if(count($sestra) > 0)
 		    	$okolisSestre = $sestra[0]->sifra_okolis;
 		    else 
 		    	$okolisSestre = "nope";
+		    echo $okolisSestre;
 		    $mix->where('pacient.sifra_okolis', '=', $okolisSestre);
 		}
 		$filteredMix = $mix->get(array(
@@ -228,8 +238,15 @@ class SeznamNalogovController extends Controller
         										'datum_rojstva'
         										));
         }
-
-    	return view('pages.seznamnalog', ['mix' => $filteredMix]);
+        $pacienti = Pacient::get(array(
+                                    'pacient.ime as ime_pacienta',
+                                    'stevilka_KZZ'));
+        $sestre = PatronaznaSestra::join('uporabnik', 'patronazna_sestra.id_uporabnik', '=', 'uporabnik.id_uporabnik')
+        					->get(array(
+        							'uporabnik.ime as ime',
+        							'uporabnik.priimek as priimek',
+        							'patronazna_sestra.sifra_ps as sifra_ps')); 
+    	return view('pages.seznamnalog', ['mix' => $filteredMix, 'pacienti' => $pacienti, 'sestre' => $sestre]);
     }
     
 }

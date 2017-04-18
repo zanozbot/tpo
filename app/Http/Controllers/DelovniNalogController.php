@@ -21,8 +21,11 @@ class DelovniNalogController extends Controller
             if (Auth::user()->sifra_vloga == 3 || Auth::user()->sifra_vloga == 2){
                 $bolezni = Bolezen::all();
                 $zdravila = Zdravilo::all();
-
-            return view('pages.nalog', ['bolezni' => $bolezni, 'zdravila' => $zdravila, 'errPacient' => '']);
+                $pacienti = Pacient::get(array(
+                                    'pacient.ime as ime_pacienta',
+                                    'stevilka_KZZ',
+                                    'pacient.priimek as priimek_pacienta'));
+            return view('pages.nalog', ['pacienti' => $pacienti, 'bolezni' => $bolezni, 'zdravila' => $zdravila, 'errPacient' => '']);
             } else {
                 return redirect()->route('home');
             }
@@ -39,6 +42,7 @@ class DelovniNalogController extends Controller
 
         $bolezni = Bolezen::all();
         $zdravila = Zdravilo::all();
+
 
     	$messages = [
 		    'required' => 'Polje ":attribute" mora biti izpolnjeno.',
@@ -72,7 +76,11 @@ class DelovniNalogController extends Controller
         $pacientiVsi = array_unique($_POST['vezaniPacient']);
         if (count($pacientiVsi) > 1 && $request['nalogeObiska'] != 'Obisk otročnice') {
             $msg = 'Dodajanje več pacientov je mogoče samo, če je izbrana naloga "Obisk otročnice".';
-            return view('pages.nalog', ['bolezni' => $bolezni, 'zdravila' => $zdravila, 'errPacient' => $msg]);
+            $pacienti = Pacient::get(array(
+                                    'pacient.ime as ime_pacienta',
+                                    'stevilka_KZZ',
+                                    'pacient.priimek as priimek_pacienta'));
+            return view('pages.nalog', ['bolezni' => $bolezni, 'zdravila' => $zdravila, 'errPacient' => $msg, 'pacienti' => $pacienti]);
         }
 
         //preverjanje pacienta v bazi
@@ -84,7 +92,11 @@ class DelovniNalogController extends Controller
                 if (!$pac) {
                     $msg = 'Polje "Vezani pacienti" mora biti izpolnjeno';
                 }
-                return view('pages.nalog', ['bolezni' => $bolezni, 'zdravila' => $zdravila, 'errPacient' => $msg]);
+                $pacienti = Pacient::get(array(
+                                    'pacient.ime as ime_pacienta',
+                                    'stevilka_KZZ',
+                                    'pacient.priimek as priimek_pacienta'));
+                return view('pages.nalog', ['bolezni' => $bolezni, 'zdravila' => $zdravila, 'errPacient' => $msg, 'pacienti' => $pacienti]);
             }
         }
 
@@ -284,7 +296,12 @@ class DelovniNalogController extends Controller
                 $datumObiska = date('Y-m-d', strtotime($datumObiska.' + '.$korak.' days'));
             }
         }
-
-        return redirect()->route('nalog')->with('status', true);
+        $pacienti = Pacient::get(array(
+                                    'pacient.ime as ime_pacienta',
+                                    'stevilka_KZZ',
+                                    'pacient.priimek as priimek_pacienta'));
+        return redirect()->route('nalog', ['status' => 'true', 'pacienti' => $pacienti]);
+        echo "lol";
     }
 }
+

@@ -80,7 +80,12 @@
             <div class="form-group multiple-form-group" name="vezaniPacienti">
               <label class="label label-primary">Vezani pacienti</label>
               <div class="form-group input-group" name="vezaniPacientDiv">
-                <input type="text" class="form-control" placeholder="KZZ številka pacienta" name="vezaniPacient[0]" required></input><span class="input-group-btn"><button type="button" class="btn btn-default btn-add dodajVezanegaPacienta">+
+                <select class="selectpicker form-control input-sm" name="vezaniPacient[0]" required>
+                  <option> - </option>
+                  @foreach ($pacienti as $pacient)
+                    <option value="{{$pacient->stevilka_KZZ}}">{{ $pacient->ime_pacienta . " " . $pacient->priimek_pacienta . " | " . $pacient->stevilka_KZZ }}</option>                  
+                  @endforeach
+                </select><span class="input-group-btn"><button type="button" class="btn btn-default btn-add dodajVezanegaPacienta">+
                 </button></span>	
               </div>
               <script type="text/javascript">
@@ -90,8 +95,8 @@
                   var $formGroupClone = $formGroup.clone();
 
             		  $i = $('div[name=vezaniPacientDiv').length;
-            		  $formGroupClone.find('input').attr('name', 'vezaniPacient[' + $i + ']');
-                  $formGroupClone.find('input').val('');
+            		  $formGroupClone.find('select').attr('name', 'vezaniPacient[' + $i + ']');
+                  $formGroupClone.find('select').val('');
 
                   $formGroupClone.find('button').toggleClass('btn-default btn-add btn-danger odstraniVezanegaPacienta').html('–');
 
