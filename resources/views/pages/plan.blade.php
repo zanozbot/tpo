@@ -25,6 +25,7 @@
 						<tbody>
 						@foreach ($mix1 as $mini)
 							@foreach ($mini->obiski as $obisk)
+
 								<tr>
 								@if ($mini->datum_obvezen == 1)
 									<td><button type="button" onclick="window.location='{{ url('plan/dodaj') }}/{{$sifraPlan}}/{{$sifra = $obisk->sifra_obisk}}'" class="btn btn-default" name="{{$sifra = $obisk->sifra_obisk}}" disabled>Dodaj</button></td>

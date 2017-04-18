@@ -17,7 +17,11 @@
 						<div class="col-xs-12 col-sm-12 col-md-6">
 							<div class="form-group">
 							  <label class="label label-primary">Izdajalec</label>
-							  <input type="text" class="form-control input-sm" name="izdajalec" placeholder="Šifra izdajalca naloga"></input>	
+							  @if (Auth::user()->sifra_vloga == 3)
+							  	<input type="text" class="form-control input-sm" name="izdajalec" placeholder=""></input>
+							  @else 
+							  <input type="text" class="form-control input-sm" name="izdajalec" placeholder="Med izdajalci lahko išče le vodja" disabled="true"></input>
+							  @endif
 							</div>
 							<div class="form-group">
 							  <label class="label label-primary">Pacient</label>
@@ -32,12 +36,20 @@
 							<div class="form-group">
 							  <label class="label label-primary">Zadolžena patronažna sestra</label>
 							  <!--<input type="text" class="form-control input-sm" name="zadolzenaSestra" placeholder="Šifra patronažne sestre"></input>-->
+							  @if (Auth::user()->sifra_vloga != 4)
 							  <select class="selectpicker form-control input-sm" name="zadolzenaSestra" required>
 			                    <option> - </option>
 			                  @foreach ($sestre as $sestra)
 			                    <option value="{{$sestra->sifra_ps}}">{{ $sestra->ime . " " . $sestra->priimek }}</option>
 			                  @endforeach
 			                  </select>
+			                  @else 
+				                  @foreach ($sestre as $sestra)
+				                  	@if ($sestra->id_uporabnik = Auth::user()->id_uporabnik)
+										<input type="text" class="form-control input-sm" name="zadolzenaSestra" value="{{$sestra->sifra_ps}}" disabled="true"></input>
+				                  	@endif
+				                  @endforeach
+			                  @endif
 							</div>
 							<div class="form-group">
 							  <label class="label label-primary">Nadomestna patronažna sestra</label>
@@ -103,6 +115,7 @@
 		  <table class="table ">
 			<thead>
 			  <tr>
+			  	<th><label>Index</label></th>
 				<th><label>Šifra naloga</label></th>
 				<th><label>Pacient</label></th>
 				<th><label>Naslov</label></th>
@@ -111,8 +124,9 @@
 			  </tr>
 			</thead>
 			<tbody>
-			   @foreach ($mix as $mini)
+			   @foreach ($mix as $index=>$mini)
 				<tr>
+					<td><label>{{$index}}</label></td>
 					<td><label>{{$mini->sifra_dn}}</label></td>
 					<td><label>{{$mini->ime_pacienta.' '.$mini->priimek_pacienta}}</label></td>
 					<td><label>{{$mini->naslov_pacienta.', '.$mini->kraj_pacienta}}</label></td>

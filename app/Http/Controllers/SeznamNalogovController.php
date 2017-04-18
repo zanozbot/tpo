@@ -9,12 +9,26 @@ use App\Uporabnik;
 use App\Pacient;
 use App\Obisk;
 use App\PatronaznaSestra;
+use App\Delavec;
+use Auth;
 
 class SeznamNalogovController extends Controller
 {
 
 	public function index() {
 		//echo DelovniNalog::all();
+		if(Auth::check()){
+			//Zdravnik
+			if(Auth::user()->sifra_vloga == 2){
+				$delavec = Delavec::where('delavec.id_uporabnik', '=', Auth::user()->id_uporabnik)->get();
+				$forceZdravnik = $delavec[0]->sifra_delavec;
+			}
+			//Sestra
+			if(Auth::user()->sifra_vloga == 4){
+				$sestra = PatronaznaSestra::where('id_uporabnik', '=', Auth::user()->id_uporabnik)->get();
+				$forceSestra = $sestra[0]->sifra_okolis;
+			}
+		}
         $mix = DelovniNalog::join('delovni_nalog_pacient', 'delovni_nalog.sifra_dn', '=', 'delovni_nalog_pacient.delovni_nalog_sifra_dn')
         				->join('pacient', 'delovni_nalog_pacient.pacient_stevilka_KZZ', '=', 'pacient.stevilka_KZZ')
         				->join('uporabnik', 'pacient.id_uporabnik', '=', 'uporabnik.id_uporabnik')
@@ -152,16 +166,23 @@ class SeznamNalogovController extends Controller
 			$sifra_vrsta_obisk = $sifra_vrsta_obisk[0]->sifra_vrsta_obisk;
 			$mix->where('delovni_nalog.sifra_vrsta_obisk', '=', $sifra_vrsta_obisk);
 		}
-		if($request['izdajalec']){
+
+		if(isset($forceZdravnik) != null){
+			$mix->where('delovni_nalog.sifra_delavec', '=', $forceZdravnik);
+		}
+		else if($request['izdajalec']){
 			$mix->where('delovni_nalog.sifra_delavec', '=', $request['izdajalec']);
 		}
-		if($request['zadolzenaSestra'] != "-"){
+
+		if(isset($forceSestra)){
+			$mix->where('delovni_nalog.sifra_okolis', '=', $forceSestra);
+		}
+		else if($request['zadolzenaSestra'] != "-"){
 			$sestra = PatronaznaSestra::where('sifra_ps', '=', $request['zadolzenaSestra'])->get();
 			if(count($sestra) > 0)
 		    	$okolisSestre = $sestra[0]->sifra_okolis;
 		    else 
 		    	$okolisSestre = "nope";
-		    echo $okolisSestre;
 		    $mix->where('pacient.sifra_okolis', '=', $okolisSestre);
 		}
 		$filteredMix = $mix->get(array(
