@@ -45,8 +45,8 @@
 			                  </select>
 			                  @else 
 				                  @foreach ($sestre as $sestra)
-				                  	@if ($sestra->id_uporabnik = Auth::user()->id_uporabnik)
-										<input type="text" class="form-control input-sm" name="zadolzenaSestra" value="{{$sestra->sifra_ps}}" disabled="true"></input>
+				                  	@if ($sestra->id_sestre == Auth::user()->id_uporabnik)
+										<input type="text" class="form-control input-sm" name="zadolzenaSestra" value="{{$sestra->sifra_ps}} " disabled="true"></input>
 				                  	@endif
 				                  @endforeach
 			                  @endif
@@ -124,32 +124,36 @@
 			</thead>
 			<tbody>
 			   @foreach ($mix as $mini)
-			    <!-- AFNAif ($mini->ime_vrsta_obiska == 'Obisk otročnice' && $mini->pac_stevilka_KZZ != -1)
+			    <!-- TODO: Ko je šifra naloga ista, se izpiše le prvi
+			    AFNAif ($mini->ime_vrsta_obiska == 'Obisk otročnice' && $mini->pac_stevilka_KZZ != -1)
 
 			   	AFNAelse-->
-				<tr>
-					<td><label>{{$mini->sifra_dn}}</label></td>
-					<td><label>{{$mini->ime_pacienta.' '.$mini->priimek_pacienta}}</label></td>
-					<td><label>{{$mini->naslov_pacienta.', '.$mini->kraj_pacienta}}</label></td>
-					<td><label>{{$mini->ime_vrsta_obiska}}</label></td>
-					<td >		
-						<button type="button" class="btn btn-info btn-block" data-toggle="modal" data-target="#podrobnosti{{$mini->sifra_dn}}"><span class="glyphicon glyphicon-plus"></span></button>
-						<div class="modal fade" id="podrobnosti{{$mini->sifra_dn}}" role="dialog">
-							<div class="modal-dialog modal-lg">
-							  <div class="modal-content">
-								<div class="modal-header">
-								  <button type="button" class="close" data-dismiss="modal">&times;</button>
+			   	@if (!isset($prejsnjaSifra) || $prejsnjaSifra != $mini->sifra_dn)
+					<tr>
+						<td><label>{{$mini->sifra_dn}}</label></td>
+						<td><label>{{$mini->ime_pacienta.' '.$mini->priimek_pacienta}}</label></td>
+						<td><label>{{$mini->naslov_pacienta.', '.$mini->kraj_pacienta}}</label></td>
+						<td><label>{{$mini->ime_vrsta_obiska}}</label></td>
+						<td >		
+							<button type="button" class="btn btn-info btn-block" data-toggle="modal" data-target="#podrobnosti{{$mini->sifra_dn}}"><span class="glyphicon glyphicon-plus"></span></button>
+							<div class="modal fade" id="podrobnosti{{$mini->sifra_dn}}" role="dialog">
+								<div class="modal-dialog modal-lg">
+								  <div class="modal-content">
+									<div class="modal-header">
+									  <button type="button" class="close" data-dismiss="modal">&times;</button>
+									</div>
+									<div class="modal-body">
+									<div class="container-fluid">
+										@include('includes.nalog')
+									</div>
+									</div>
+								  </div>
 								</div>
-								<div class="modal-body">
-								<div class="container-fluid">
-									@include('includes.nalog')
-								</div>
-								</div>
-							  </div>
 							</div>
-						</div>
-					</td>
-				</tr>
+						</td>
+					</tr>
+				@endif
+				{{$prejsnjaSifra = $mini->sifra_dn}}
 				<!-- AFNAendif -->
 			@endforeach
 			</tbody>

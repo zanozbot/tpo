@@ -300,8 +300,7 @@ class DelovniNalogController extends Controller
                                     'pacient.ime as ime_pacienta',
                                     'stevilka_KZZ',
                                     'pacient.priimek as priimek_pacienta'));
-        return redirect()->route('nalog', ['status' => 'true', 'pacienti' => $pacienti]);
-        echo "lol";
+        return redirect()->route('nalog')->with('status', true,'pacienti',$pacienti);
     }
 }
 

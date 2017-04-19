@@ -36,8 +36,26 @@ class SeznamNalogovController extends Controller
         				->join('posta', 'posta.postna_stevilka', '=', 'pacient.postna_stevilka')
         				->join('vrsta_obiska', 'delovni_nalog.sifra_vrsta_obisk', '=', 'vrsta_obiska.sifra_vrsta_obisk')
         				->join('bolezen', 'bolezen.sifra_bolezen', '=', 'delovni_nalog.sifra_bolezen')
-        				->orderBy('delovni_nalog.sifra_dn', 'asc')
-                        ->get(array(
+        				->orderBy('delovni_nalog.sifra_dn', 'asc');
+                        if(Auth::check()){
+							//Zdravnik
+							if(Auth::user()->sifra_vloga == 2){
+								$delavec = Delavec::where('delavec.id_uporabnik', '=', Auth::user()->id_uporabnik)->get();
+								$forceZdravnik = $delavec[0]->sifra_delavec;
+							}
+							//Sestra
+							if(Auth::user()->sifra_vloga == 4){
+								$sestra = PatronaznaSestra::where('patronazna_sestra.id_uporabnik', '=', Auth::user()->id_uporabnik)->get();
+								$forceSestra = $sestra[0]->sifra_okolis;
+							}
+						}
+						if(isset($forceSestra)){
+							$mix->where('pacient.sifra_okolis', '=', $forceSestra);
+						}
+						if(isset($forceZdravnik)){
+							$mix->where('delovni_nalog.sifra_delavec', '=', $forceZdravnik);
+						}
+						$mix = $mix->get(array(
 		                            'pacient.ime as ime_pacienta',
 		                            'pacient.priimek as priimek_pacienta',
 		                            'email',
@@ -123,12 +141,24 @@ class SeznamNalogovController extends Controller
         					->get(array(
         							'uporabnik.ime as ime',
         							'uporabnik.priimek as priimek',
-        							'patronazna_sestra.sifra_ps as sifra_ps')); 
-		
+        							'patronazna_sestra.sifra_ps as sifra_ps',
+        							'patronazna_sestra.id_uporabnik as id_sestre'));
 		return view('pages.seznamnalog', ['mix' => $mix, 'pacienti' => $pacienti, 'sestre'=>$sestre]);
     }
 
     public function filter(Request $request){
+    	if(Auth::check()){
+			//Zdravnik
+			if(Auth::user()->sifra_vloga == 2){
+				$delavec = Delavec::where('delavec.id_uporabnik', '=', Auth::user()->id_uporabnik)->get();
+				$forceZdravnik = $delavec[0]->sifra_delavec;
+			}
+			//Sestra
+			if(Auth::user()->sifra_vloga == 4){
+				$sestra = PatronaznaSestra::where('patronazna_sestra.id_uporabnik', '=', Auth::user()->id_uporabnik)->get();
+				$forceSestra = $sestra[0]->sifra_okolis;
+			}
+		}
 		$mix = DelovniNalog::query();
 
 		$mix = DelovniNalog::join('delovni_nalog_pacient', 'delovni_nalog.sifra_dn', '=', 'delovni_nalog_pacient.delovni_nalog_sifra_dn')
@@ -164,7 +194,7 @@ class SeznamNalogovController extends Controller
 			$mix->where('delovni_nalog.sifra_vrsta_obisk', '=', $sifra_vrsta_obisk);
 		}
 
-		if(isset($forceZdravnik) != null){
+		if(isset($forceZdravnik)){
 			$mix->where('delovni_nalog.sifra_delavec', '=', $forceZdravnik);
 		}
 		else if($request['izdajalec']){
@@ -172,7 +202,7 @@ class SeznamNalogovController extends Controller
 		}
 
 		if(isset($forceSestra)){
-			$mix->where('delovni_nalog.sifra_okolis', '=', $forceSestra);
+			$mix->where('pacient.sifra_okolis', '=', $forceSestra);
 		}
 		else if($request['zadolzenaSestra'] != "-"){
 			$sestra = PatronaznaSestra::where('sifra_ps', '=', $request['zadolzenaSestra'])->get();
@@ -263,7 +293,8 @@ class SeznamNalogovController extends Controller
         					->get(array(
         							'uporabnik.ime as ime',
         							'uporabnik.priimek as priimek',
-        							'patronazna_sestra.sifra_ps as sifra_ps')); 
+        							'patronazna_sestra.sifra_ps as sifra_ps',
+        							'patronazna_sestra.id_uporabnik as id_sestre')); 
     	return view('pages.seznamnalog', ['mix' => $filteredMix, 'pacienti' => $pacienti, 'sestre' => $sestre]);
     }
     
