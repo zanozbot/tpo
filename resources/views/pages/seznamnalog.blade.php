@@ -153,7 +153,7 @@
 						</td>
 					</tr>
 				@endif
-				{{$prejsnjaSifra = $mini->sifra_dn}}
+				@php ($prejsnjaSifra = $mini->sifra_dn)
 				<!-- AFNAendif -->
 			@endforeach
 			</tbody>
