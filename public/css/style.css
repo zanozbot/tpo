@@ -1,6 +1,7 @@
 body {
-  background-color: #5bc0de;
-  padding-top: 65px;
+	background-color: #5bc0de;
+	    background: url('../img/shattered.png') repeat center center;
+	padding-top: 65px;
 }
 
 .active {
@@ -19,4 +20,35 @@ body {
 .vloga {
 	border-bottom:1px solid #e7e7e7;
 	font-weight: bold;	
+}
+.line {
+	border-top:1px solid #e7e7e7;
+}
+
+.img-full {
+    min-width: 100%;
+}
+.box {
+	margin-top:20px;
+    margin-bottom: 20px;
+    padding: 30px 15px;
+    background: #fafafa;
+}
+hr {
+    max-width: 400px;
+    border-color: #999999;
+}
+
+@media screen and (min-width:768px) {
+    .top-divider {
+        margin-top: 0;
+    }
+}
+
+@media screen and (min-width:1200px) {
+    .box:after {
+        content: '';
+        display: table;
+        clear: both;
+    }
 }

@@ -17,7 +17,7 @@
 			
 			@else
 			<li>
-				<a href="{{route('home')}}">Prijava</a>
+				<a href="{{route('prijava')}}">Prijava</a>
 			</li>
 			@endif
 		</ul>

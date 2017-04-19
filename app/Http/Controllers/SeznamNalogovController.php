@@ -70,7 +70,6 @@ class SeznamNalogovController extends Controller
 		                            'bolezen.sifra_bolezen as sifra_bolezni',
 		                            'bolezen.ime as ime_bolezni'
                         ));
-                echo $mix;
 		        for ($i=0; $i < count($mix); $i++) { 
 		        	$mix[$i]->obiski = Obisk::where('sifra_dn', '=', $mix[$i]->sifra_dn)->get();
 		        }

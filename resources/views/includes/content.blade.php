@@ -4,7 +4,6 @@
 		<div class="col-sm-3 col-lg-2">
 			<div class="navbar navbar-inverse  navbar-fixed-side" >
 				<ul class="nav navbar-nav">
-
 					@if (Auth::user()->sifra_vloga == 1)
 					<li>
 						<a class="vloga">Administrator</a>
@@ -73,12 +72,14 @@
 						<a href="{{route('odjava')}}"><span class="fa fa-power-off"></span>	Odjava</a>
 							
 					</li>
+					<li>
+						<a class="line">Datum zadnje prijave: {{ Auth::user()->datum_prijave }}</a> 
+					</li>
 				</ul>
+				
 			</div>
 		</div>
 		<div class="col-sm-9 col-lg-10">
-		@else
-		<div class="col-sm-12 col-lg-12">
 		@endif
      		@yield('content')
 			

@@ -46,7 +46,7 @@ Route::get('/contact', 'ContactController@index')->name('contact');
 Route::post('/contact', 'ContactController@create')->name('contact_create_user');
 
 // Prijava
-Route::get('/', 'PagesController@homePage')->name('home');
+Route::get('/prijava', 'PagesController@homePage')->name('prijava');
 Route::post('/', 'UporabnikController@login')->name('login');
 
 // Middleware skrbi, da mora biti uporabnik prijavljen
