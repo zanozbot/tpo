@@ -72,9 +72,8 @@ Route::post('/', 'UporabnikController@login')->name('login');
 	Route::post('/nalog', 'DelovniNalogController@create')->name('create_nalog');
 	Route::get('/seznamNalogov', 'SeznamNalogovController@index')->name('seznamNalogov');
 	Route::post('/seznamNalogov', 'SeznamNalogovController@filter')->name('filterSeznamNalogov');
+	Route::get('/seznamObiskov', 'SeznamObiskovController@index')->name('seznamObiskov');
+	Route::post('/seznamObiskov', 'SeznamObiskovController@filter')->name('filterSeznamObiskov');
 //});
-
-Route::get('/email', 'RegistrationController@register')->name('register_post');
-Route::get('/confirm-account/{token}', 'RegistrationController@confirm')->name('confirm-account');
 
 
