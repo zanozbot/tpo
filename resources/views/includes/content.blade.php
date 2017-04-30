@@ -34,7 +34,7 @@
 						<a href="{{route('nalog')}}"><span class="fa fa-calendar-plus-o"></span> Nov nalog</a>
 					</li>
 					<li>
-						<a href="{{route('seznamNalogov')}}"><span class="fa fa-calendar-o"></span> Seznam nalogov</a>
+						<a href="{{route('seznamNalogov')}}"><span class="glyphicon glyphicon-list"></span> Seznam nalogov</a>
 					</li>
 					<li>
 						<a href="{{route('seznamObiskov')}}"><span class="glyphicon glyphicon-list"></span> Seznam obiskov</a>
