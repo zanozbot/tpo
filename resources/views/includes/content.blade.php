@@ -10,7 +10,7 @@
 					</li>
 					<li>
 						<a href="{{ url('admin') }}"><span class="glyphicon glyphicon-user"></span> Dodaj osebje</a>
-					</li>	
+					</li>
 					@endif
 					@if (Auth::user()->sifra_vloga == 2)
 					<li>
@@ -69,29 +69,29 @@
 						<a class="vloga">Pacient</a>
 					</li>
 					<li>
-						<a href="{{route('contact')}}"><span class="fa fa-address-book"></span> Kontaktne osebe</a>		
+						<a href="{{route('contact')}}"><span class="fa fa-address-book"></span> Kontaktne osebe</a>
 					</li>
 					<li>
-						<a href="{{route('poduporabnik')}}"><span class="glyphicon glyphicon-user"></span> Poduporabniki</a>
-						
+						<a href="{{route('poduporabnik')}}"><span class="glyphicon glyphicon-user"></span> Uporabniki</a>
+
 					</li>
 					@endif
 					<li>
 						<a href="{{route('newPassword')}}"><span class="fa fa-edit"></span> Spremeni geslo</a>
 						<a href="{{route('odjava')}}"><span class="fa fa-power-off"></span>	Odjava</a>
-							
+
 					</li>
 					<li>
-						<a class="line">Datum zadnje prijave: {{ Auth::user()->datum_prijave }}</a> 
+						<a class="line">Datum zadnje prijave: {{ Auth::user()->datum_prijave }}</a>
 					</li>
 				</ul>
-				
+
 			</div>
 		</div>
 		<div class="col-sm-9 col-lg-10">
 		@endif
      		@yield('content')
-			
+
 		</div>
 	</div>
 </div>
