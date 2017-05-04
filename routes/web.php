@@ -75,5 +75,3 @@ Route::post('/', 'UporabnikController@login')->name('login');
 	Route::get('/seznamObiskov', 'SeznamObiskovController@index')->name('seznamObiskov');
 	Route::post('/seznamObiskov', 'SeznamObiskovController@filter')->name('filterSeznamObiskov');
 //});
-
-

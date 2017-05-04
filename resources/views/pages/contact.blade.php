@@ -49,6 +49,7 @@
 								  @endforeach
 								  </select>
 							  </div>
+								<input type="hidden" name="id_kontakt" value="{{ $kontakt->id_kontakt }}"/>
 							  <input type="submit" value="Spremeni podatke" class="btn btn-info btn-block">
 							  <input type="hidden" name="_token" value="{{ Session::token() }}"/>
 							</form>
@@ -115,6 +116,7 @@
 							  @endforeach
 							  </select>
 						  </div>
+							<input type="hidden" name="id_kontakt" value="{{ -1 }}"/>
 						  <input type="submit" value="Dodaj podatke kontaktne osebe" class="btn btn-info btn-block">
 						  <input type="hidden" name="_token" value="{{ Session::token() }}"/>
 						</form>

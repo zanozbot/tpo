@@ -94,7 +94,22 @@ class PoduporabnikController extends Controller
         if ($request['spol'] == 'female'){
             $spol = 'z';
         }
-
+		$pacient = Pacient::where('stevilka_KZZ', $request['stevilkaKarticeZavarovanja']);
+		if($pacient){
+				$pacient ->update([
+					'postna_stevilka' => $request['posta'],
+					'ime' => $request['ime'],
+					'priimek' => $request['priimek'],
+					'sifra_razmerje' => $sifraRazmerje,
+					'sifra_okolis' => $sifraOkolis,
+					'ulica' => $request['ulica'],
+					'kraj' => $request['kraj'],
+					'datum_rojstva' => $datumRojstva,
+					'spol' => $spol,
+				]);
+				return redirect()->route('poduporabnik');
+	  }
+		else {
 		$pacient = Pacient::create([
 			'stevilka_KZZ' => $request['stevilkaKarticeZavarovanja'],
 			'postna_stevilka' => $request['posta'],
@@ -108,6 +123,9 @@ class PoduporabnikController extends Controller
 			'spol' => $spol,
 			'id_uporabnik' => Auth::user()->id_uporabnik
 		]);
+
 		return redirect()->route('poduporabnik')->with('status', true);
+		}
+
     }
 }
