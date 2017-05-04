@@ -65,14 +65,18 @@
 					</li>
 					@endif
 					@if (Auth::user()->sifra_vloga == 6)
+
 					<li>
 						<a class="vloga">Pacient</a>
+					</li>
+					<li>
+						<a href="{{route('profil')}}"><span class="glyphicon glyphicon-user"></span> Profil</a>
 					</li>
 					<li>
 						<a href="{{route('contact')}}"><span class="fa fa-address-book"></span> Kontaktne osebe</a>
 					</li>
 					<li>
-						<a href="{{route('poduporabnik')}}"><span class="glyphicon glyphicon-user"></span> Uporabniki</a>
+						<a href="{{route('poduporabnik')}}"><span class="glyphicon glyphicon-user"></span> Poduporabniki</a>
 
 					</li>
 					@endif

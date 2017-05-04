@@ -41,6 +41,11 @@ Route::post('/register', 'RegistrationController@register')->name('register_crea
 Route::get('/poduporabnik', 'PoduporabnikController@index')->name('poduporabnik');
 Route::post('/poduporabnik', 'PoduporabnikController@create')->name('poduporabnik_create_user');
 
+
+// Profil
+Route::get('/profil', 'ProfilController@index')->name('profil');
+Route::post('/profil', 'ProfilController@update')->name('profil_update');
+
 // Kontaktna oseba
 Route::get('/contact', 'ContactController@index')->name('contact');
 Route::post('/contact', 'ContactController@create')->name('contact_create_user');

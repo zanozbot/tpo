@@ -12,7 +12,7 @@
 						<form role="form" method="POST" action="{{ route('poduporabnik_create_user') }}">
 							<div class="form-group">
 							<label class="label label-primary">Številka kartice zdravstvenega zavarovanja</label>
-							<input type="number" value="{{$poduporabnik->stevilka_KZZ}}" name="stevilkaKarticeZavarovanja" class="form-control input-sm" placeholder="123456789" required>
+							<input type="number" value="{{$poduporabnik->stevilka_KZZ}}" name="stevilkaKarticeZavarovanja" class="form-control input-sm" placeholder="123456789" readonly required>
 							</div>
 							<div class="form-group">
 							<label class="label label-primary">Ime</label>
@@ -44,7 +44,11 @@
 							<div class="col-lg-4">
 								<div class="form-group">
 								<label class="label label-primary">Poštna številka</label>
-								<input type="number" min="1000" max="9999" value="{{$poduporabnik->postna_stevilka}}" name="posta" class="form-control input-sm" placeholder="1000" required>
+								<select  class="selectpicker form-control input-sm" name="posta">
+								  @foreach ($poste as $posta)
+									<option value="{{ $posta->postna_stevilka }}" {{ ($poduporabnik->postna_stevilka == $posta->postna_stevilka ? "selected":"") }}>{{ $posta->postna_stevilka . " " . $posta->kraj }}</option>
+								  @endforeach
+								  </select>
 								</div>
 							</div>
 							</div>
@@ -136,7 +140,11 @@
 							<div class="col-lg-4">
 							  <div class="form-group">
 								<label class="label label-primary">Poštna številka</label>
-								<input type="number" min="1000" max="9999" value="{{ Request::old('posta') }}" name="posta" class="form-control input-sm" placeholder="1000" required>
+								<select  class="selectpicker form-control input-sm" name="posta">
+								  @foreach ($poste as $posta)
+									<option value="{{ $posta->postna_stevilka }}" {{ (Request::old("posta") == $posta->postna_stevilka ? "selected":"") }}>{{ $posta->postna_stevilka . " " . $posta->kraj }}</option>
+								  @endforeach
+								  </select>
 							  </div>
 							</div>
 						  </div>
