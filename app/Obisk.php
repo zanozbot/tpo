@@ -25,4 +25,8 @@ class Obisk extends Model
     public function patronazna_sestra() {
     	return $this->belongsTo('App\PatronaznaSestra', 'sifra_ps', 'sifra_ps');
     }
+
+    public function porocilo() {
+        return $this->hasMany('App\Porocilo', 'sifra_obisk', 'sifra_obisk');
+    }
 }
