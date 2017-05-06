@@ -61,6 +61,10 @@ Route::post('/', 'UporabnikController@login')->name('login');
 	Route::post('/newPassword', 'newPasswordController@change_password')->name('change_password');
 	Route::get('/odjava', 'UporabnikController@logout')->name('odjava');
 
+	Route::get('pozabljenoGeslo', 'UporabnikController@pozabljenoGeslo')->name('pozabljenoGeslo');
+	Route::post('pozabljenoGeslo', 'UporabnikController@pozabljenoGesloPost');
+	Route::get('/confirm-password/{token}', 'UporabnikController@confirm_password')->name('confirm-password');
+
 	// Administrator
 	Route::get('/admin', 'AdministratorController@index')->name('admin');
 	Route::post('/admin', 'AdministratorController@create')->name('admin_create_user');

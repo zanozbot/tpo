@@ -49,4 +49,8 @@ class Uporabnik extends Authenticatable
     public function aktivacija() {
         return $this->hasOne('App\AktivacijaRacuna', 'id_uporabnik', 'id_uporabnik');
     }
+
+    public function pozabljeno_geslo() {
+        return $this->hasMany('App\PozabljenoGeslo', 'id_uporabnik', 'id_uporabnik');
+    }
 }

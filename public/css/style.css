@@ -1,39 +1,43 @@
 body {
-	background-color: #5bc0de;
-	    background: url('../img/shattered.png') repeat center center;
-	padding-top: 65px;
+    background-color: #5bc0de;
+    background: url('../img/shattered.png') repeat center center;
+    padding-top: 65px;
 }
 
 .active {
-	background-color: lightgray;
+    background-color: lightgray;
 }
 
 .nalog {
-	background-color: #f4f9ff;
-	height: auto;
+    background-color: #f4f9ff;
+    height: auto;
 }
 
-.col-centered{
+.col-centered {
     float: none;
     margin: 0 auto;
 }
+
 .vloga {
-	border-bottom:1px solid #e7e7e7;
-	font-weight: bold;	
+    border-bottom: 1px solid #e7e7e7;
+    font-weight: bold;
 }
+
 .line {
-	border-top:1px solid #e7e7e7;
+    border-top: 1px solid #e7e7e7;
 }
 
 .img-full {
     min-width: 100%;
 }
+
 .box {
-	margin-top:20px;
+    margin-top: 20px;
     margin-bottom: 20px;
     padding: 30px 15px;
     background: #fafafa;
 }
+
 hr {
     max-width: 400px;
     border-color: #999999;

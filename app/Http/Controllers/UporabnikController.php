@@ -4,8 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\ZaklepanjeIP;
+use App\PozabljenoGeslo;
+use App\Uporabnik;
 use Carbon\Carbon;
 use Auth;
+use Mail;
+use App\Mail\PozabljenoGesloEmail;
 
 class UporabnikController extends Controller
 {
@@ -64,5 +68,59 @@ class UporabnikController extends Controller
     public function logout() {
     	Auth::logout();
     	return redirect()->route('home');
+    }
+
+    public function pozabljenoGeslo() {
+        return view('pages.pozabljeno_geslo');
+    }
+
+    public function pozabljenoGesloPost(Request $request) {
+        $messages = [
+            'same'    => 'Polja ":attribute" in ":other" se morata ujemati.',
+            'required' => 'Polje ":attribute" mora biti izpoljeno.',
+            'exists' => 'Uporabnik s takim ":attribute" ne obstaja.',
+            'email' => 'Vnešen email mora biti veljaven.'
+        ];
+
+        $customAttributes = [
+            'email' => 'Email',
+            'geslo' => 'Geslo',
+            'potrdigeslo' => 'Potrdi geslo'
+        ];
+
+        $this->validate($request, [
+            'email' => 'required|email|exists:uporabnik',
+            'geslo' => 'required',
+            'potrdigeslo' => 'required|same:geslo',
+        ], $messages, $customAttributes);
+
+
+        $uporabnik = Uporabnik::where('email', $request['email'])->first();
+
+        $pozabljeno_geslo = PozabljenoGeslo::create([
+            'geslo' => $request['geslo'],
+            'id_uporabnik' => $uporabnik->id_uporabnik,
+            'token' => str_random(30)
+        ]);
+
+        Mail::to($uporabnik->email)->send(new PozabljenoGesloEmail($uporabnik));
+
+        return redirect()->route('login')->with('status', 'Na vaš email je bila poslana potrditvena povezava za novo geslo.');
+    }
+
+    public function confirm_password($token) {
+        $pozabljeno_geslo = PozabljenoGeslo::find($token);
+        if($pozabljeno_geslo->dirty) {
+            return redirect()->route('login')->with('warning', 'Geslo je bilo že aktivirano.');
+        }
+        $uporabnik = $pozabljeno_geslo->uporabnik;
+
+        $pozabljeno_geslo->dirty = true;
+        $pozabljeno_geslo->save();
+
+        $uporabnik->geslo = bcrypt($pozabljeno_geslo->geslo);
+        $uporabnik->save();
+
+        return redirect()->route('login')->with('status', 'Uspešna aktivacija novega gesla.');
     }
 }

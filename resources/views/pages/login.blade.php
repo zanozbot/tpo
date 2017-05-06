@@ -26,8 +26,8 @@
 					<form role="form" action="{{route('login')}}" method="post">
 					{{ csrf_field() }}
 					  <div class="form-group">
-						<label class="label label-primary">Uporabniško ime</label>
-						<input type="text" name="uporabniskoime" class="form-control input-sm" placeholder="Uporabnik" required>
+						<label class="label label-primary">Email</label>
+						<input type="text" name="uporabniskoime" class="form-control input-sm" placeholder="Email" required>
 					  </div>
 					  <div class="form-group">
 							<label class="label label-primary">Geslo</label>
@@ -36,6 +36,7 @@
 							<input type="password" name="geslo" class="form-control input-sm" placeholder="Geslo" required>
 					  </div>
 					  <input type="submit" value="Prijavi se" class="btn btn-info btn-block">
+					  <a style="padding: 1px;" href="{{route('pozabljenoGeslo')}}"><center>Pozabljeno geslo?</center></a>
 					  <a style="padding: 1px;" href="{{route('register')}}"><center>Še nimaš uporabniškega računa? Klikni tu.</center></a>
 					</form>
 				  </div>
