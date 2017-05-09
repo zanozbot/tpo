@@ -1,6 +1,6 @@
 <div class="panel panel-default">			
   <div class="panel-heading">
-	<h3 class="panel-title">Delovni nalog</h3>
+	<h3 class="panel-title">Obisk</h3>
   </div>
   <div class="panel-body">
 	<div class="row">
@@ -67,14 +67,22 @@
 				<h3 class="panel-title">2 - Storitev</h3>
 			  </div>
 			  <div class="panel-body">					  
-				  <div class="form-group">
-				    <label class="label label-primary">Ime storitve</label>
+				<div class="form-group">
+				    <label class="label label-primary">Ime obiska</label>
 					<div class="form-control nalog" name="vrstaStoritve"><label>{{$mini->ime_vrsta_obiska}}</label></div>
-				  </div>
 				</div>
-			  <div class="panel-body">
+				<div class="form-group">
+				    <label class="label label-primary">Datum obiska</label>
+					<div class="form-control nalog" name="datumStoritve"><label id="dat_ob_{{$mini->sifra_obisk}}"></label></div>
+					<script>
+					  	var prvotniDatum = "{{$mini->predvideni_datum_obiska}}";
+					  	var arrStringov = prvotniDatum.split("-");
+					  	var preurejeniDatum = arrStringov[2].concat(".".concat(arrStringov[1].concat(".".concat(arrStringov[0]))));
+					  	$("#dat_ob_{{$mini->sifra_obisk}}").html(preurejeniDatum);
+					</script>
+				</div>
 				<div class="form-group" >
-					<label class="label label-primary">Vrsta storitve</label>
+					<label class="label label-primary">Vrsta obiska</label>
 					@if ($mini->preventivni == 1)
 						<label class="checkbox-inline"><input type="checkbox" name="vrstaZdravnik" disabled checked>Preventivni</label>
 						<label class="checkbox-inline"><input type="checkbox" name="vrstaZdravnik" disabled>Kurativni</label>
@@ -137,29 +145,29 @@
 							<tbody>
 							  <tr>
 								<td><label>Rdeča</label></td>
-								<td><label id="rdeca_{{$mini->sifra_dn}}"></label></td>
+								<td><label id="rdeca_{{$mini->sifra_obisk}}"></label></td>
 							  </tr>
 							  <tr>
 								<td><label>Modra</label></td>
-								<td><label id="modra_{{$mini->sifra_dn}}"></label></td>
+								<td><label id="modra_{{$mini->sifra_obisk}}"></label></td>
 							  </tr>
 							  <tr>
 								<td><label>Rumena</label></td>
-								<td><label id="rumena_{{$mini->sifra_dn}}"></label></td>
+								<td><label id="rumena_{{$mini->sifra_obisk}}"></label></td>
 							  </tr>
 							  <tr>
 								<td><label>Zelena</label></td>
-								<td><label id="zelena_{{$mini->sifra_dn}}"></label></td>
+								<td><label id="zelena_{{$mini->sifra_obisk}}"></label></td>
 							  </tr>
 							</tbody>
 						  </table>
 						  <script>
 							var stEp = "{{$mini->stevilo_epruvet_RdMoRuZe}}";
 			  				var arrStringovEp = stEp.split(" ");
-			  				$("#rdeca_{{$mini->sifra_dn}}").html(arrStringovEp[0]);
-			  				$("#modra_{{$mini->sifra_dn}}").html(arrStringovEp[1]);
-			  				$("#rumena_{{$mini->sifra_dn}}").html(arrStringovEp[2]);
-			  				$("#zelena_{{$mini->sifra_dn}}").html(arrStringovEp[3]);
+			  				$("#rdeca_{{$mini->sifra_obisk}}").html(arrStringovEp[0]);
+			  				$("#modra_{{$mini->sifra_obisk}}").html(arrStringovEp[1]);
+			  				$("#rumena_{{$mini->sifra_obisk}}").html(arrStringovEp[2]);
+			  				$("#zelena_{{$mini->sifra_obisk}}").html(arrStringovEp[3]);
 						  </script>
 					  </div>
 				  </div>

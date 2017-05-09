@@ -212,8 +212,8 @@
 						<td><label>{{$mini->naslov_pacienta.', '.$mini->kraj_pacienta}}</label></td>
 						<td><label>{{$mini->ime_vrsta_obiska}}</label></td>
 						<td >		
-							<button type="button" class="btn btn-info btn-block" data-toggle="modal" data-target="#podrobnosti{{$mini->sifra_dn}}"><span class="glyphicon glyphicon-plus"></span></button>
-							<div class="modal fade" id="podrobnosti{{$mini->sifra_dn}}" role="dialog">
+							<button type="button" class="btn btn-info btn-block" data-toggle="modal" data-target="#podrobnosti{{$mini->sifra_obisk}}"><span class="glyphicon glyphicon-plus"></span></button>
+							<div class="modal fade" id="podrobnosti{{$mini->sifra_obisk}}" role="dialog">
 								<div class="modal-dialog modal-lg">
 								  <div class="modal-content">
 									<div class="modal-header">

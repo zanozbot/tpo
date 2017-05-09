@@ -20,7 +20,7 @@
 			 	@foreach ($obiskiPacienta as $mini)
 					<tr>
 						<td><label>{{$mini->sifra_obisk}}</label></td>
-						<td><label id="pr_dat_ne_{{$mini->sifra_obisk}}">{{$mini->datum_obiska}}</label></td>
+						<td><label id="pr_dat_ne_{{$mini->sifra_obisk}}"></label></td>
 						<script>
 						  	var prvotniDatumPl = "{{$mini->datum_obiska}}";
 						  	var arrStringovPl = prvotniDatumPl.split("-");

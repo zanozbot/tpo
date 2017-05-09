@@ -168,28 +168,28 @@ class SeznamObiskovController extends Controller
 	        $odDatum = $request['predvideniOdDatum'];
 	       	list($dan, $mesec, $leto) = explode(".", $odDatum);
 	        $odDatum = $leto.'-'.$mesec.'-'.$dan;;
-			$mix->whereDate('delovni_nalog.created_at', '>', date($odDatum));
+			$mix->whereDate('plan.datum_plan', '>', date($odDatum));
 		}
 		if($request['predvideniDoDatum']){
 			//Sprememba formata datuma
 	        $doDatum = $request['predvideniDoDatum'];
 	       	list($dan, $mesec, $leto) = explode(".", $doDatum);
 	        $doDatum = $leto.'-'.$mesec.'-'.$dan;;
-			$mix->whereDate('delovni_nalog.created_at', '<', date($doDatum));
+			$mix->whereDate('plan.datum_plan', '<', date($doDatum));
 		}
 		if($request['dejanskiOdDatum']){
 			//Sprememba formata datuma
 	        $odDatum = $request['dejanskiOdDatum'];
 	       	list($dan, $mesec, $leto) = explode(".", $odDatum);
 	        $odDatum = $leto.'-'.$mesec.'-'.$dan;;
-			$mix->whereDate('delovni_nalog.created_at', '>', date($odDatum));
+			$mix->whereDate('plan.datum_plan', '>', date($odDatum));
 		}
 		if($request['dejanskiDoDatum']){
 			//Sprememba formata datuma
 	        $doDatum = $request['dejanskiDoDatum'];
 	       	list($dan, $mesec, $leto) = explode(".", $doDatum);
 	        $doDatum = $leto.'-'.$mesec.'-'.$dan;;
-			$mix->whereDate('delovni_nalog.created_at', '<', date($doDatum));
+			$mix->whereDate('plan.datum_plan', '<', date($doDatum));
 		}
 		if($request['pacient'] != "-"){
 			$mix->where('pacient.stevilka_KZZ', '=', $request['pacient']);
