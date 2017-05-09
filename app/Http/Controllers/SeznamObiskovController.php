@@ -162,31 +162,31 @@ class SeznamObiskovController extends Controller
     				->join('izvajalec_zd', 'izvajalec_zd.sifra_zd', '=', 'delavec.sifra_zd')
     				->join('plan', 'plan.sifra_plan', '=', 'obisk.sifra_plan')
         			->orderBy('obisk.sifra_obisk', 'asc');
-
+        			
 		if($request['predvideniOdDatum']){
 			//Sprememba formata datuma
-	        $odDatum = $request['odDatum'];
+	        $odDatum = $request['predvideniOdDatum'];
 	       	list($dan, $mesec, $leto) = explode(".", $odDatum);
 	        $odDatum = $leto.'-'.$mesec.'-'.$dan;;
 			$mix->whereDate('delovni_nalog.created_at', '>', date($odDatum));
 		}
 		if($request['predvideniDoDatum']){
 			//Sprememba formata datuma
-	        $doDatum = $request['odDatum'];
+	        $doDatum = $request['predvideniDoDatum'];
 	       	list($dan, $mesec, $leto) = explode(".", $doDatum);
 	        $doDatum = $leto.'-'.$mesec.'-'.$dan;;
 			$mix->whereDate('delovni_nalog.created_at', '<', date($doDatum));
 		}
 		if($request['dejanskiOdDatum']){
 			//Sprememba formata datuma
-	        $odDatum = $request['odDatum'];
+	        $odDatum = $request['dejanskiOdDatum'];
 	       	list($dan, $mesec, $leto) = explode(".", $odDatum);
 	        $odDatum = $leto.'-'.$mesec.'-'.$dan;;
 			$mix->whereDate('delovni_nalog.created_at', '>', date($odDatum));
 		}
 		if($request['dejanskiDoDatum']){
 			//Sprememba formata datuma
-	        $doDatum = $request['odDatum'];
+	        $doDatum = $request['dejanskiDoDatum'];
 	       	list($dan, $mesec, $leto) = explode(".", $doDatum);
 	        $doDatum = $leto.'-'.$mesec.'-'.$dan;;
 			$mix->whereDate('delovni_nalog.created_at', '<', date($doDatum));

@@ -77,7 +77,9 @@
 					</li>
 					<li>
 						<a href="{{route('poduporabnik')}}"><span class="glyphicon glyphicon-user"></span> Poduporabniki</a>
-
+					</li>
+					<li>
+						<a href="{{route('seznamObiskovPacient')}}"><span class="glyphicon glyphicon-list"></span> Seznam obiskov</a>
 					</li>
 					@endif
 					<li>
