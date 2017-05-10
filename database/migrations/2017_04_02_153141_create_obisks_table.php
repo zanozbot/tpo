@@ -20,6 +20,7 @@ class CreateObisksTable extends Migration
             $table->integer('originalna_sifra_plan');
             $table->integer('sifra_ps');
             $table->date('datum_obiska');
+            $table->date('datum_opravljenosti_obiska')->nullable();
             $table->boolean('opravljen')->default(false);
             $table->boolean('nadomesca')->default(false);
         });

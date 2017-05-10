@@ -47,6 +47,7 @@ class SeznamObiskovController extends Controller
 		$mix = $mix->get(array(
 					'obisk.sifra_obisk',
 					'datum_obiska as prvotni_datum_obiska',
+					'datum_opravljenosti_obiska as dejanski_datum_obiska',
                     'pacient.ime as ime_pacienta',
                     'pacient.priimek as priimek_pacienta',
                     'email',
@@ -182,14 +183,14 @@ class SeznamObiskovController extends Controller
 	        $odDatum = $request['dejanskiOdDatum'];
 	       	list($dan, $mesec, $leto) = explode(".", $odDatum);
 	        $odDatum = $leto.'-'.$mesec.'-'.$dan;;
-			$mix->whereDate('plan.datum_plan', '>', date($odDatum));
+			$mix->whereDate('datum_opravljenosti_obiska', '>', date($odDatum));
 		}
 		if($request['dejanskiDoDatum']){
 			//Sprememba formata datuma
 	        $doDatum = $request['dejanskiDoDatum'];
 	       	list($dan, $mesec, $leto) = explode(".", $doDatum);
 	        $doDatum = $leto.'-'.$mesec.'-'.$dan;;
-			$mix->whereDate('plan.datum_plan', '<', date($doDatum));
+			$mix->whereDate('datum_opravljenosti_obiska', '<', date($doDatum));
 		}
 		if($request['pacient'] != "-"){
 			$mix->where('pacient.stevilka_KZZ', '=', $request['pacient']);
@@ -226,6 +227,7 @@ class SeznamObiskovController extends Controller
 		$filteredMix = $mix->get(array(
 	                            'obisk.sifra_obisk',
 								'datum_obiska as prvotni_datum_obiska',
+								'datum_opravljenosti_obiska as dejanski_datum_obiska',
 			                    'pacient.ime as ime_pacienta',
 			                    'pacient.priimek as priimek_pacienta',
 			                    'email',

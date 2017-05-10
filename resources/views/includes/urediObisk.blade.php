@@ -96,6 +96,7 @@
 						echo "<div class=\"input-group-addon\">";
 						echo "<span class=\"glyphicon glyphicon-th\"></span>";
 						echo "</div>";
+						echo "<script>$('.datepicker').datepicker({format: 'dd.mm.yyyy', clearBtn: true, autoclose: true});</script>";
 						echo "</div>";
 						echo "<input type=\"number\" name=\"$aktivnost->aid teza\" class=\"form-control input-sm\" placeholder=\"Porodna teza otroka [g]\" >";
 						echo "<input type=\"number\" name=\"$aktivnost->aid visina\" class=\"form-control input-sm\" placeholder=\"Porodna visina otroka [cm]\" >";
@@ -337,16 +338,14 @@
 		</div>
 		@endisset
 		@php
-			//na voljo imas spremenljivko $datumPlan, ki nosi datum plana
-			$time = Carbon\Carbon::now()->addHours(2);
+			//$time = Carbon\Carbon::now()->addHours(2);
 			//TODO: Tu najdite datum plana in ga primerjajte z $time
-			//$datumPlan = Carbon\Carbon::now()->addHours(-22);
-			$diffInDays = $time->diff($datumPlan)->days;
-			if($diffInDays >= 1){
+			//$diffInDays = $time->diff($datumPlan)->days;
+			//if($diffInDays >= 1){
 				echo "<div class=\"checkbox\">";
-				  echo "<label><input type=\"checkbox\" value=\"razlikaVDnevihPotrditev\" required> Datuma sta različna. Ste prepričani, da želite nadaljevati? $datumPlan</label>";
+				  echo "<label><input type=\"checkbox\" value=\"razlikaVDnevihPotrditev\" required> Datuma sta različna. Ste prepričani, da želite nadaljevati?</label>";
 				echo "</div>";
-			}
+			//}
 		@endphp
 		<input type="submit" value="Vnesi podatke" class="btn btn-info btn-block" >	
 		<input type="hidden" name="_token" value="{{ Session::token() }}"/>

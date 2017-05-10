@@ -307,11 +307,11 @@ class PlanController extends Controller
 							]);
 					}
 				}
-
-				
 			}
 		}
 		$datum = Plan::where('sifra_plan', '=', $sifraPlan)->value('datum_plan');
+		$obiskOp = Obisk::where('sifra_obisk', '=', $sifraObisk)->update(['opravljen' => 1]);
+		$obiskOpDat = Obisk::where('sifra_obisk', '=', $sifraObisk)->update(['datum_opravljenosti_obiska' => $datum]);
 		return redirect()->route('plan')->with(['sifraPlan' => $sifraPlan, 'datumPlana' => $datum]);
 	}
 
@@ -373,6 +373,7 @@ class PlanController extends Controller
 		        	$mix1[$i]->obiski = Obisk::where('obisk.sifra_dn', '=', $mix1[$i]->sifra_dn)->where('opravljen', '=', 0)
 		        				->join('delovni_nalog', 'delovni_nalog.sifra_dn', '=', 'obisk.sifra_dn')
 		        				->where('datum_obvezen', '=', 0)
+		        				->where('opravljen', '=', 0)
 								->where('sifra_plan', '!=', $sifraPlan)->get();
 		        }
 		        for ($i=0; $i < count($mix1); $i++) { 
@@ -458,8 +459,9 @@ class PlanController extends Controller
                         ));
 
 		        for ($i=0; $i < count($mix2); $i++) { 
-		        	$mix2[$i]->obiski = Obisk::where('obisk.sifra_dn', '=', $mix2[$i]->sifra_dn)->where('opravljen', '=', 0)
-								->where('sifra_plan', '=', $sifraPlan)->get();
+		        	$mix2[$i]->obiski = Obisk::where('obisk.sifra_dn', '=', $mix2[$i]->sifra_dn)
+		        							->where('opravljen', '=', 0)
+											->where('sifra_plan', '=', $sifraPlan)->get();
 		        }
 		        for ($i=0; $i < count($mix2); $i++){
 
