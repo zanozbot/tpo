@@ -29,7 +29,7 @@
 	<div class="panel panel-default">			
 	  <div class="panel-heading">
 		<h3 class="panel-title">Izvajanje aktivnosti</h3>
-				<form role="form" method="POST" action="{{ route('vnesiPodatke', ['sifraNaloga' => $obisk->sifra_obisk]) }}">
+				<form role="form" method="POST" action="{{ route('vnesiPodatke', ['sifraObisk' => $obisk->sifra_obisk, 'sifraPlan' => $sifraPlan]) }}">
 		@php
 			$datumArray = [14];
 			$motenoArray = [17, 47];
@@ -337,13 +337,14 @@
 		</div>
 		@endisset
 		@php
+			//na voljo imas spremenljivko $datumPlan, ki nosi datum plana
 			$time = Carbon\Carbon::now()->addHours(2);
 			//TODO: Tu najdite datum plana in ga primerjajte z $time
-			$datumPlan = Carbon\Carbon::now()->addHours(-22);
+			//$datumPlan = Carbon\Carbon::now()->addHours(-22);
 			$diffInDays = $time->diff($datumPlan)->days;
 			if($diffInDays >= 1){
 				echo "<div class=\"checkbox\">";
-				  echo "<label><input type=\"checkbox\" value=\"razlikaVDnevihPotrditev\" required> Datuma sta različna. Ste prepričani, da želite nadaljevati? </label>";
+				  echo "<label><input type=\"checkbox\" value=\"razlikaVDnevihPotrditev\" required> Datuma sta različna. Ste prepričani, da želite nadaljevati? $datumPlan</label>";
 				echo "</div>";
 			}
 		@endphp

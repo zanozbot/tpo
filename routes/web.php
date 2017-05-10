@@ -13,8 +13,6 @@
 Route::get('/email', 'RegistrationController@register')->name('register_post');
 Route::get('/confirm-account/{token}', 'RegistrationController@confirm')->name('confirm-account');
 
-Route::post('/vnesiPodatke/{sifraObisk}', 'PlanController@vnesiPodatke')->name('vnesiPodatke');
-
 Route::get('/', function () {
     return view('pages.welcome');
 })->name('home');
@@ -77,6 +75,7 @@ Route::post('/', 'UporabnikController@login')->name('login');
 	Route::get('/plan', 'PlanController@index')->name('plan');
 	Route::get('/plan/dodaj/{sifraPlan}/{sifraObiska}', 'PlanController@dodaj')->name('dodaj_plan');
 	Route::get('/plan/odstrani/{sifraPlan}/{sifraObiska}', 'PlanController@odstrani')->name('odstrani_plan');
+	Route::post('/plan/vnesiPodatke/{sifraObisk}/{sifraPlan}', 'PlanController@vnesiPodatke')->name('vnesiPodatke');
 
 	// Nalog
 	Route::get('/nalog', 'DelovniNalogController@index')->name('nalog');

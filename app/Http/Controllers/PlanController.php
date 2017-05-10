@@ -18,7 +18,8 @@ use Carbon\Carbon;
 class PlanController extends Controller
 {
 
-	public function vnesiPodatke(Request $request, $sifraObisk){
+	public function vnesiPodatke(Request $request, $sifraObisk, $sifraPlan){
+		
 		foreach ($request->all() as $key => $value){
 			if (is_numeric($key)){
 				$porocilo = Porocilo::where('sifra_obisk', '=', $sifraObisk)
@@ -310,7 +311,8 @@ class PlanController extends Controller
 				
 			}
 		}
-		return redirect()->route('plan');
+		$datum = Plan::where('sifra_plan', '=', $sifraPlan)->value('datum_plan');
+		return redirect()->route('plan')->with(['sifraPlan' => $sifraPlan, 'datumPlana' => $datum]);
 	}
 
     public function index() {
@@ -503,7 +505,7 @@ class PlanController extends Controller
 		        										'datum_rojstva'
 		        										));
 		        }
-		        $datum = Plan::where('sifra_plan', '=', $sifraPlan)->get(array('datum_plan'));
+		        $datum = Plan::where('sifra_plan', '=', $sifraPlan)->value('datum_plan');
 		    	return view('pages.plan', ['datumPlan' => $datum, 'sifraPlan' => $sifraPlan, 'sifraSestre' => $sifraSestre, 'mix1' => $mix1, 'mix2' => $mix2]);
             } else {
                 return redirect()->route('home');

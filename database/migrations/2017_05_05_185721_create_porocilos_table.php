@@ -17,7 +17,7 @@ class CreatePorocilosTable extends Migration
             $table->increments('pid');
             $table->integer('sifra_obisk');
             $table->integer('aid'); // sifra aktivnosti
-            $table->string('opis');
+            $table->string('opis')->nullable();
             $table->timestamps();
         });
     }
