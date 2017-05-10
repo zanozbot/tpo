@@ -13,6 +13,8 @@
 Route::get('/email', 'RegistrationController@register')->name('register_post');
 Route::get('/confirm-account/{token}', 'RegistrationController@confirm')->name('confirm-account');
 
+Route::post('/vnesiPodatke/{sifraObisk}', 'PlanController@vnesiPodatke')->name('vnesiPodatke');
+
 Route::get('/', function () {
     return view('pages.welcome');
 })->name('home');

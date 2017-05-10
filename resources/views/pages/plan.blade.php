@@ -89,6 +89,7 @@
 						<th><label>Naslov</label></th>
 						<th><label>Vrsta obiska</label></th>
 						<th></th>
+						<th></th>
 					  </tr>
 					</thead>
 					<tbody>
@@ -114,8 +115,10 @@
 										<td><label>{{$mini->ime_pacienta.' '.$mini->priimek_pacienta}}</label></td>
 										<td><label>{{$mini->naslov_pacienta.', '.$mini->kraj_pacienta}}</label></td>
 										<td><label>{{$mini->ime_vrsta_obiska}}</label></td>
-										<td>		
-											<button type="button" class="btn btn-info btn-block" data-toggle="modal" data-target="#podrobnosti{{$obisk->sifra_obisk}}"><span class="glyphicon glyphicon-plus"></span></button>
+																				
+										<td >
+										
+											<button type="button" class="btn btn-info btn-block" data-toggle="modal" data-target="#podrobnosti{{$obisk->sifra_obisk}}"><span class="glyphicon glyphicon-pencil"></span></button>
 											<div class="modal fade" id="podrobnosti{{$obisk->sifra_obisk}}" role="dialog">
 												<div class="modal-dialog modal-lg">
 												  <div class="modal-content">
@@ -124,7 +127,9 @@
 													</div>
 													<div class="modal-body">
 													<div class="container-fluid">
-													  @include('includes.nalogPlan')
+														
+													  @include('includes.urediObisk', array('aktivnosti'=>$mini->aktivnosti, 'aktivnostiNovorojencek'=>$mini->aktivnostiNovorojencek, 'obisk'=>$obisk, 'sifraPlan'=>$sifraPlan))
+
 													</div>
 													</div>
 												  </div>
@@ -137,6 +142,7 @@
 						@endforeach
 					  </tbody>
 					</table>
+
 				  </div>
 				</div>
 			</div>
