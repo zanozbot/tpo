@@ -31,4 +31,12 @@ class PatronaznaSestra extends Model
     public function obisk() {
         return $this->hasMany('App\Obisk', 'sifra_ps', 'sifra_ps');
     }
+
+    public function je_nadomescana() {
+        return $this->hasMany('App\Nadomescanje', 'sifra_ps', 'sifra_ps');
+    }
+
+    public function nadomesca() {
+        return $this->hasMany('App\Nadomescanje', 'sifra_ps', 'nadomestna_sifra_ps');
+    }
 }

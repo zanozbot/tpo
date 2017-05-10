@@ -10,6 +10,10 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::get('/dolocitevNadomescanja', 'NadomescanjeController@index')->name('dolocitev_nadomescanja');
+Route::post('/dolocitevNadomescanja', 'NadomescanjeController@nastaviNadomescanje');
+
 Route::get('/email', 'RegistrationController@register')->name('register_post');
 Route::get('/confirm-account/{token}', 'RegistrationController@confirm')->name('confirm-account');
 

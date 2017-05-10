@@ -29,4 +29,8 @@ class Obisk extends Model
     public function porocilo() {
         return $this->hasMany('App\Porocilo', 'sifra_obisk', 'sifra_obisk');
     }
+
+    public function nadomesca() {
+        return $this->hasOne('App\Nadomescanje', 'sifra_obisk', 'sifra_obisk');
+    }
 }
