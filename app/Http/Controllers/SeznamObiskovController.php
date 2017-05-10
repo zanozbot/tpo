@@ -11,6 +11,7 @@ use App\Obisk;
 use App\PatronaznaSestra;
 use App\Delavec;
 use App\Plan;
+use App\Porocilo;
 use Auth;
 
 class SeznamObiskovController extends Controller
@@ -113,6 +114,10 @@ class SeznamObiskovController extends Controller
         										'pacient.ime as ime_pacienta',
         										'datum_rojstva'
         										));
+
+       		$mix[$i]->porocilo = Porocilo::join('aktivnost', 'porocilo.aid', '=', 'aktivnost.aid')
+       										->where('porocilo.sifra_obisk', '=', $mix[$i]->sifra_obisk)
+       										->get();
         }
 
 		$izdajatelji = Delavec::join('uporabnik', 'delavec.id_uporabnik', '=', 'uporabnik.id_uporabnik')
@@ -228,6 +233,7 @@ class SeznamObiskovController extends Controller
 	                            'obisk.sifra_obisk',
 								'datum_obiska as prvotni_datum_obiska',
 								'datum_opravljenosti_obiska as dejanski_datum_obiska',
+								'opravljen',
 			                    'pacient.ime as ime_pacienta',
 			                    'pacient.priimek as priimek_pacienta',
 			                    'email',

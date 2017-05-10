@@ -101,7 +101,6 @@
 						echo "<div class=\"input-group-addon\">";
 						echo "<span class=\"glyphicon glyphicon-th\"></span>";
 						echo "</div>";
-						echo "<script>$('.datepicker').datepicker({format: 'dd.mm.yyyy', clearBtn: true, autoclose: true});</script>";
 						echo "</div>";
 						echo "<input type=\"number\" name=\"$aktivnost->aid teza\" class=\"form-control input-sm\" placeholder=\"Porodna teza otroka [g]\" >";
 						echo "<input type=\"number\" name=\"$aktivnost->aid visina\" class=\"form-control input-sm\" placeholder=\"Porodna visina otroka [cm]\" >";
@@ -338,6 +337,7 @@
 						
 					}
 				}
+			echo "<script>$('.datepicker').datepicker({format: 'dd.mm.yyyy', clearBtn: true, autoclose: true});</script>";
 		@endphp
 		
 		</div>

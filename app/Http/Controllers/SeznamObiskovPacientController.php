@@ -11,6 +11,7 @@ use App\Obisk;
 use App\PatronaznaSestra;
 use App\Delavec;
 use App\Plan;
+use App\Porocilo;
 use Auth;
 
 class SeznamObiskovPacientController extends Controller
@@ -29,11 +30,12 @@ class SeznamObiskovPacientController extends Controller
     				->join('izvajalec_zd', 'izvajalec_zd.sifra_zd', '=', 'delavec.sifra_zd')
     				->join('plan', 'plan.sifra_plan', '=', 'obisk.sifra_plan')
     				->where('uporabnik.id_uporabnik', '=', Auth::user()->id_uporabnik)
+    				->where('opravljen', '=', 1)
         			->orderBy('obisk.sifra_obisk', 'asc')
 					->get(array(
 							'obisk.sifra_obisk',
 							'datum_obiska as prvotni_datum_obiska',
-							'uporabnik.id_uporabnik',
+							'datum_opravljenosti_obiska as dejanski_datum_obiska',
 		                    'pacient.ime as ime_pacienta',
 		                    'pacient.priimek as priimek_pacienta',
 		                    'email',
@@ -99,6 +101,10 @@ class SeznamObiskovPacientController extends Controller
         										'pacient.ime as ime_pacienta',
         										'datum_rojstva'
         										));
+
+       		$obiskiPacienta[$i]->porocilo = Porocilo::join('aktivnost', 'porocilo.aid', '=', 'aktivnost.aid')
+       										->where('porocilo.sifra_obisk', '=', $obiskiPacienta[$i]->sifra_obisk)
+       										->get();
         }
 
 
@@ -113,12 +119,13 @@ class SeznamObiskovPacientController extends Controller
         			->join('delavec', 'delavec.sifra_delavec', '=', 'delovni_nalog.sifra_delavec')
     				->join('izvajalec_zd', 'izvajalec_zd.sifra_zd', '=', 'delavec.sifra_zd')
     				->join('plan', 'plan.sifra_plan', '=', 'obisk.sifra_plan')
-    				->where('pacient.pac_stevilka_KZZ', '=', $prijavljenPacient)
+    				->where('uporabnik.id_uporabnik', '=', Auth::user()->id_uporabnik)
+    				->where('opravljen', '=', 1)
         			->orderBy('obisk.sifra_obisk', 'asc')
 					->get(array(
 							'obisk.sifra_obisk',
 							'datum_obiska as prvotni_datum_obiska',
-							'uporabnik.id_uporabnik',
+							'datum_opravljenosti_obiska as dejanski_datum_obiska',
 		                    'pacient.ime as ime_pacienta',
 		                    'pacient.priimek as priimek_pacienta',
 		                    'email',
@@ -153,7 +160,6 @@ class SeznamObiskovPacientController extends Controller
 		                    'plan.sifra_plan',
 		                    'plan.datum_plan as predvideni_datum_obiska'
         ));
-
         for ($i=0; $i < count($obiskiPoduporabnikov); $i++) {
         	$datum_obiska = Plan::where('sifra_plan', '=', $obiskiPoduporabnikov[$i]->sifra_plan)->get();
         	$obiskiPoduporabnikov[$i]->datum_obiska = $datum_obiska[0]->datum_plan;
@@ -184,6 +190,10 @@ class SeznamObiskovPacientController extends Controller
         										'pacient.ime as ime_pacienta',
         										'datum_rojstva'
         										));
+
+       		$obiskiPoduporabnikov[$i]->porocilo = Porocilo::join('aktivnost', 'porocilo.aid', '=', 'aktivnost.aid')
+       										->where('porocilo.sifra_obisk', '=', $obiskiPoduporabnikov[$i]->sifra_obisk)
+       										->get();
         }
 
 		return view('pages.seznamobiskpacient', ['obiskiPacienta' => $obiskiPacienta, 'obiskiPoduporabnikov' => $obiskiPoduporabnikov]);
