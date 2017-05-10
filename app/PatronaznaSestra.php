@@ -37,6 +37,6 @@ class PatronaznaSestra extends Model
     }
 
     public function nadomesca() {
-        return $this->hasMany('App\Nadomescanje', 'nadomestna_sifra_ps', 'sifra_ps');
+        return $this->hasMany('App\Nadomescanje', 'sifra_ps', 'nadomestna_sifra_ps');
     }
 }

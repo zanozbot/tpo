@@ -39,6 +39,9 @@
 					<li>
 						<a href="{{route('seznamObiskov')}}"><span class="glyphicon glyphicon-list"></span> Seznam obiskov</a>
 					</li>
+					<li>
+						<a href="{{route('dolocitev_nadomescanja')}}"><span class="glyphicon glyphicon-th-large"></span> Določitev nadomeščanja</a>
+					</li>
 					@endif
 					<!-- Trenutno funkcionalnost ni podprta
 					@if (Auth::check() && (Auth::user()->sifra_vloga == 4))

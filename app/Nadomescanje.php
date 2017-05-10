@@ -14,12 +14,14 @@ class Nadomescanje extends Model
     // Model will not be timestamped
     public $timestamps = false;
 
+	protected $fillable = ['sifra_ps', 'sifra_obisk', 'zacetek', 'konec', 'nadomestna_sifra_ps'];
+
     public function patronazna_sestra() {
     	return $this->belongsTo('App\PatronaznaSestra', 'sifra_ps', 'sifra_ps');
     }
 
     public function nadomestna_patronazna_sestra() {
-    	return $this->belongsTo('App\PatronaznaSestra', 'sifra_ps', 'nadomestna_sifra_ps');
+    	return $this->belongsTo('App\PatronaznaSestra', 'nadomestna_sifra_ps', 'sifra_ps');
     }
 
     public function obisk() {
