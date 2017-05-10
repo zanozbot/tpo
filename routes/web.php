@@ -85,4 +85,5 @@ Route::post('/', 'UporabnikController@login')->name('login');
 	Route::post('/seznamNalogov', 'SeznamNalogovController@filter')->name('filterSeznamNalogov');
 	Route::get('/seznamObiskov', 'SeznamObiskovController@index')->name('seznamObiskov');
 	Route::post('/seznamObiskov', 'SeznamObiskovController@filter')->name('filterSeznamObiskov');
+	Route::get('/seznamObiskovPacient', 'SeznamObiskovPacientController@index')->name('seznamObiskovPacient');
 //});
