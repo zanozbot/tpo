@@ -259,7 +259,6 @@
 			<div class="panel-heading">
 			<h3 class="panel-title">Izvajanje aktivnosti novorojenčku</h3>
 			@php
-			var_dump($mini->otroci);
 			foreach($mini->otroci as $otrok){
 				echo "<div class=\"form-group\">";
 				echo "<label class=\"label label-primary\">Ime in priimek novorojenčka</label>";
