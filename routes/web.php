@@ -85,4 +85,6 @@ Route::post('/', 'UporabnikController@login')->name('login');
 	Route::get('/seznamObiskov', 'SeznamObiskovController@index')->name('seznamObiskov');
 	Route::post('/seznamObiskov', 'SeznamObiskovController@filter')->name('filterSeznamObiskov');
 	Route::get('/seznamObiskovPacient', 'SeznamObiskovPacientController@index')->name('seznamObiskovPacient');
+	Route::get('/seznamObiskovVceraj', 'SeznamObiskovVcerajController@index')->name('seznamObiskovVceraj');
+	Route::post('/seznamObiskovVceraj/vnesiPodatke/{sifraObisk}/{sifraPlan}', 'SeznamObiskovVcerajController@vnesiPodatke')->name('seznamObiskovVcerajVnesiPodatke');
 //});

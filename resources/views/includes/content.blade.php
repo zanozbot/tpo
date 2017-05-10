@@ -63,6 +63,9 @@
 					<li>
 						<a href="{{route('seznamObiskov')}}"><span class="glyphicon glyphicon-list"></span> Seznam obiskov</a>
 					</li>
+					<li>
+						<a href="{{route('seznamObiskovVceraj')}}"><span class="glyphicon glyphicon-list"></span> Seznam včerajšnih obiskov</a>
+					</li>
 					@endif
 					@if (Auth::user()->sifra_vloga == 6)
 

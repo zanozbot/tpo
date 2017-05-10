@@ -123,7 +123,9 @@
 				  </div>
 				</div>
 			</div>
-			@if ($mini->ime_vrsta_obiska == 'Odvzem krvi')
+			@if ($mini->ime_vrsta_obiska == 'Obisk nosečnice')
+
+			@elseif ($mini->ime_vrsta_obiska == 'Odvzem krvi')
 			<div class="panel panel-default">			
 			  <div class="panel-heading">
 				<h3 class="panel-title">5 - Odvzem krvi</h3>

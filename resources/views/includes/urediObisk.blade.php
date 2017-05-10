@@ -29,7 +29,12 @@
 	<div class="panel panel-default">			
 	  <div class="panel-heading">
 		<h3 class="panel-title">Izvajanje aktivnosti</h3>
-				<form role="form" method="POST" action="{{ route('vnesiPodatke', ['sifraObisk' => $obisk->sifra_obisk, 'sifraPlan' => $sifraPlan]) }}">
+		@if ($vceraj == 1)
+			<form role="form" method="POST" action="{{ route('seznamObiskovVcerajVnesiPodatke', ['sifraObisk' => $obisk->sifra_obisk, 'sifraPlan' => $sifraPlan]) }}">
+		@else
+			<form role="form" method="POST" action="{{ route('vnesiPodatke', ['sifraObisk' => $obisk->sifra_obisk, 'sifraPlan' => $sifraPlan]) }}">
+		@endif
+
 		@php
 			$datumArray = [14];
 			$motenoArray = [17, 47];
@@ -338,14 +343,11 @@
 		</div>
 		@endisset
 		@php
-			//$time = Carbon\Carbon::now()->addHours(2);
-			//TODO: Tu najdite datum plana in ga primerjajte z $time
-			//$diffInDays = $time->diff($datumPlan)->days;
-			//if($diffInDays >= 1){
+			if($vceraj == 1){
 				echo "<div class=\"checkbox\">";
-				  echo "<label><input type=\"checkbox\" value=\"razlikaVDnevihPotrditev\" required> Datuma sta različna. Ste prepričani, da želite nadaljevati?</label>";
+				  echo "<label><input type=\"checkbox\" value=\"razlikaVDnevihPotrditev\" required> Obisk je bil opravljen včeraj. Ali ste prepričani, da želite nadaljevati?</label>";
 				echo "</div>";
-			//}
+			}
 		@endphp
 		<input type="submit" value="Vnesi podatke" class="btn btn-info btn-block" >	
 		<input type="hidden" name="_token" value="{{ Session::token() }}"/>
