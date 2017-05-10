@@ -23,7 +23,7 @@
 								<div class="form-group">
 								  <label class="label label-primary">Izdajalec</label>
 									@if (Auth::user()->sifra_vloga != 2)
-									  <select class="selectpicker form-control input-sm" name="pacient" required>
+									  <select class="selectpicker form-control input-sm" name="izdajatelj" required>
 				                    	<option> - </option>
 									  	@foreach ($izdajatelji as $izdajatelj)
 						                    <option value="{{$izdajatelj->sifra_delavca}}">{{ $izdajatelj->ime_delavca . " " . $izdajatelj->priimek_delavca . " | " . $izdajatelj->ime_vloge }}</option>
@@ -75,7 +75,7 @@
 				                  @else 
 								  	@foreach ($sestre as $sestra)
 					                  	@if ($sestra->id_sestre == Auth::user()->id_uporabnik)
-											<input type="text" class="form-control input-sm" name="zadolzenaSestra" value="{{$sestra->sifra_ps}} " disabled="true"></input>
+											<input type="text" class="form-control input-sm" name="nadomestnaSestra" value="{{$sestra->sifra_ps}} " disabled="true"></input>
 					                  	@endif
 					                  @endforeach
 				                  @endif
@@ -206,6 +206,9 @@
 			</thead>
 			<tbody>
 			 	@foreach ($mix as $mini)
+			 		@if ($mini->pac_stevilka_KZZ != -1 && $mini->ime_vrsta_obiska == "Obisk otročnice")
+
+			 		@else
 					<tr>
 						<td><label>{{$mini->sifra_obisk}}</label></td>
 						<td><label>{{$mini->ime_pacienta.' '.$mini->priimek_pacienta}}</label></td>
@@ -229,6 +232,7 @@
 							</div>
 						</td>
 					</tr>
+					@endif
 				@endforeach
 			</tbody>
 		  </table>
