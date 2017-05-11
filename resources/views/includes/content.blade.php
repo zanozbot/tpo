@@ -100,8 +100,14 @@
 
 					</li>
 					<li>
-						<a class="line">Datum zadnje prijave: {{ Auth::user()->datum_prijave }}</a>
+						<a id="datum_zadnje_prijave" class="line"></a>
 					</li>
+					<script>
+					  	var prvotniDatum = "{{ Auth::user()->datum_prijave }}";
+					  	var arrStringov = prvotniDatum.split("-");
+					  	var preurejeniDatum = arrStringov[2].concat(".".concat(arrStringov[1].concat(".".concat(arrStringov[0]))));
+					  	$("#datum_zadnje_prijave").html("Datum zadnje prijave: "+preurejeniDatum);
+					  </script>
 				</ul>
 
 			</div>

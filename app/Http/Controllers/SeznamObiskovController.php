@@ -353,6 +353,10 @@ class SeznamObiskovController extends Controller
         										'pacient.ime as ime_pacienta',
         										'datum_rojstva'
         										));
+
+     		$filteredMix[$i]->porocilo = Porocilo::join('aktivnost', 'porocilo.aid', '=', 'aktivnost.aid')
+       										->where('porocilo.sifra_obisk', '=', $filteredMix[$i]->sifra_obisk)
+       										->get();
         }
 
         $izdajatelji = Delavec::join('uporabnik', 'delavec.id_uporabnik', '=', 'uporabnik.id_uporabnik')
