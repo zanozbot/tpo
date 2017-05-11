@@ -108,5 +108,21 @@ class UporabnikiSeeder extends Seeder
                 'spol' => 'z',
                 'postna_stevilka' => '3000'
         ]);
+
+        $u6 = Uporabnik::create([
+            'sifra_vloga' => '4',
+            'ime' => 'Mihaela',
+            'priimek' => 'Sestraričnina',
+            'email' => 'mihaela@gmail.com',
+            'geslo' => bcrypt('mihaela'),
+            'tel_stevilka' => '051000004',
+            'aktiviran' => true
+        ]);
+        $ps2 = PatronaznaSestra::create([
+                'sifra_zd' => '12521',
+                'sifra_ps' => '12345',
+                'sifra_okolis' => '4',
+                'id_uporabnik' => $u6->id_uporabnik
+        ]);
     }
 }
