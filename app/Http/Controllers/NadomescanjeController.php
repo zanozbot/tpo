@@ -61,8 +61,8 @@ class NadomescanjeController extends Controller
 					'konec' => $konec,//$request['konec'],
 					'sifra_obisk' => $obisk->sifra_obisk
 				]);
-				$obisk->sifra_ps = $nadomestna_ps->sifra_ps;
-				$obisk->save();
+				//$obisk->sifra_ps = $nadomestna_ps->sifra_ps;
+				//$obisk->save();
 
 			}
 		}

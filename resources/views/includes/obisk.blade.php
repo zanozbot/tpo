@@ -199,231 +199,70 @@
 							    <label class="label label-primary">Družinska anamneza: Odnosi v družini, odnos družine do okolja, bivalni pogoji, ekonomske razmere, zdravstveno stanje družinskih članov, zdravstvena prosvetljenost in vzgojenost.</label>
 								<div class="form-control nalog" name="vrstaStoritve"><label>{{$mini->porocilo[15]->opis}}</label></div>
 							</div>
-							@if ($mini->porocilo[16]->aid == 17 && $mini->porocilo[17]->aid != 18)
-								<div class="form-group">
-								    <label class="label label-primary">Izražanje čustev.</label>
-									<div class="form-control nalog" name="vrstaStoritve"><label id="cus_{{$mini->sifra_obisk}}"></label></div>
-								</div>
-								<script>
-									var stEp = "{{$mini->porocilo[16]->opis}}";
-					  				var arrStringovCu = stEp.split("&quot;");
-					  				var msg = "Je moteno."
-					  				if (arrStringovCu[3] == "niMoteno"){
-					  					msg = "Ni moteno."
-					  				}
-					  				$("#cus_{{$mini->sifra_obisk}}").html(msg+" Opis: "+arrStringovCu[7]);
-								</script>
-								<div class="form-group">
-								    <label class="label label-primary">Fizična obremenjenost.</label>
-									<div class="form-control nalog" name="vrstaStoritve"><label></label></div>
-								</div>
-								<div class="form-group">
-								    <label class="label label-primary">Krvni pritisk: sistolični, diastolični.</label>
-									<div class="form-control nalog" name="vrstaStoritve"><label id="kri_{{$mini->sifra_obisk}}"></label></div>
-								</div>
-								<script>
-									var stEp = "{{$mini->porocilo[17]->opis}}";
-					  				var arrStringovKr = stEp.split("&quot;");
-					  				var sis = "";
-					  				var dia = "";
-					  				if(arrStringovKr[3] != "dia"){
-					  					sis = "Sistolični "+arrStringovKr[3];
-					  				}
-					  				if(arrStringovKr[7] != undefined){
-					  					dia = "Diastolični "+arrStringovKr[7];
-					  				}
-					  				$("#kri_{{$mini->sifra_obisk}}").html(sis+". "+dia);
-								</script>
-								<div class="form-group">
-								    <label class="label label-primary">Srčni utrip.</label>
-									<div class="form-control nalog" name="vrstaStoritve"><label>{{$mini->porocilo[18]->opis}}</label></div>
-								</div>
-								<div class="form-group">
-								    <label class="label label-primary">Dihanje.</label>
-									<div class="form-control nalog" name="vrstaStoritve"><label>{{$mini->porocilo[19]->opis}}</label></div>
-								</div>
-								<div class="form-group">
-								    <label class="label label-primary">Telesna temperatura.</label>
-									<div class="form-control nalog" name="vrstaStoritve"><label>{{$mini->porocilo[20]->opis}}</label></div>
-								</div>
-								<div class="form-group">
-								    <label class="label label-primary">Telesna teža pred nosečnostjo.</label>
-									<div class="form-control nalog" name="vrstaStoritve"><label>{{$mini->porocilo[21]->opis}}</label></div>
-								</div>
-								<div class="form-group">
-								    <label class="label label-primary">Trenutna telesna teža.</label>
-									<div class="form-control nalog" name="vrstaStoritve"><label>{{$mini->porocilo[22]->opis}}</label></div>
-								</div>
-							@elseif ($mini->porocilo[16]->aid == 18)
-								<div class="form-group">
-								    <label class="label label-primary">Izražanje čustev.</label>
-									<div class="form-control nalog" name="vrstaStoritve"><label></label></div>
-								</div>
-								<div class="form-group">
-								    <label class="label label-primary">Fizična obremenjenost.</label>
-									<div class="form-control nalog" name="vrstaStoritve"><label id="fiz_{{$mini->sifra_obisk}}"></label></div>
-								</div>
-								<script>
-									var stEp = "{{$mini->porocilo[16]->opis}}";
-					  				var arrStringovCu = stEp.split("&quot;");
-					  				var msg = "Nizka obremenjenost."
-					  				if (arrStringovCu[3] == "srednja"){
-					  					msg = "Srednja obremenjenost."
-					  				} else if (arrStringovCu[3] == "visoka"){
-					  					msg = "Visoka obremenjenost."
-					  				}
-					  				$("#fiz_{{$mini->sifra_obisk}}").html(msg+" Opis: "+arrStringovCu[7]);
-								</script>
-								<div class="form-group">
-								    <label class="label label-primary">Krvni pritisk: sistolični, diastolični.</label>
-									<div class="form-control nalog" name="vrstaStoritve"><label id="kri_{{$mini->sifra_obisk}}"></label></div>
-								</div>
-								<script>
-									var stEp = "{{$mini->porocilo[17]->opis}}";
-					  				var arrStringovKr = stEp.split("&quot;");
-					  				var sis = "";
-					  				var dia = "";
-					  				if(arrStringovKr[3] != "dia"){
-					  					sis = "Sistolični "+arrStringovKr[3];
-					  				}
-					  				if(arrStringovKr[7] != undefined){
-					  					dia = "Diastolični "+arrStringovKr[7];
-					  				}
-					  				$("#kri_{{$mini->sifra_obisk}}").html(sis+". "+dia);
-								</script>
-								<div class="form-group">
-								    <label class="label label-primary">Srčni utrip.</label>
-									<div class="form-control nalog" name="vrstaStoritve"><label>{{$mini->porocilo[18]->opis}}</label></div>
-								</div>
-								<div class="form-group">
-								    <label class="label label-primary">Dihanje.</label>
-									<div class="form-control nalog" name="vrstaStoritve"><label>{{$mini->porocilo[19]->opis}}</label></div>
-								</div>
-								<div class="form-group">
-								    <label class="label label-primary">Telesna temperatura.</label>
-									<div class="form-control nalog" name="vrstaStoritve"><label>{{$mini->porocilo[20]->opis}}</label></div>
-								</div>
-								<div class="form-group">
-								    <label class="label label-primary">Telesna teža pred nosečnostjo.</label>
-									<div class="form-control nalog" name="vrstaStoritve"><label>{{$mini->porocilo[21]->opis}}</label></div>
-								</div>
-								<div class="form-group">
-								    <label class="label label-primary">Trenutna telesna teža.</label>
-									<div class="form-control nalog" name="vrstaStoritve"><label>{{$mini->porocilo[22]->opis}}</label></div>
-								</div>
-							@elseif ($mini->porocilo[16]->aid == 17 && $mini->porocilo[17]->aid == 18)
-								<div class="form-group">
-								    <label class="label label-primary">Izražanje čustev.</label>
-									<div class="form-control nalog" name="vrstaStoritve"><label id="cus_{{$mini->sifra_obisk}}"></label></div>
-								</div>
-								<script>
-									var stEp = "{{$mini->porocilo[16]->opis}}";
-					  				var arrStringovCu = stEp.split("&quot;");
-					  				var msg = "Je moteno."
-					  				if (arrStringovCu[3] == "niMoteno"){
-					  					msg = "Ni moteno."
-					  				}
-					  				$("#cus_{{$mini->sifra_obisk}}").html(msg+" Opis: "+arrStringovCu[7]);
-								</script>
-								<div class="form-group">
-								    <label class="label label-primary">Fizična obremenjenost.</label>
-									<div class="form-control nalog" name="vrstaStoritve"><label id="fiz_{{$mini->sifra_obisk}}"></label></div>
-								</div>
-								<script>
-									var stEp = "{{$mini->porocilo[17]->opis}}";
-					  				var arrStringovCu = stEp.split("&quot;");
-					  				var msg = "Nizka obremenjenost."
-					  				if (arrStringovCu[3] == "srednja"){
-					  					msg = "Srednja obremenjenost."
-					  				} else if (arrStringovCu[3] == "visoka"){
-					  					msg = "Visoka obremenjenost."
-					  				}
-					  				$("#fiz_{{$mini->sifra_obisk}}").html(msg+" Opis: "+arrStringovCu[7]);
-								</script>
-								<div class="form-group">
-								    <label class="label label-primary">Krvni pritisk: sistolični, diastolični.</label>
-									<div class="form-control nalog" name="vrstaStoritve"><label id="kri_{{$mini->sifra_obisk}}"></label></div>
-								</div>
-								<script>
-									var stEp = "{{$mini->porocilo[18]->opis}}";
-					  				var arrStringovKr = stEp.split("&quot;");
-					  				var sis = "";
-					  				var dia = "";
-					  				if(arrStringovKr[3] != "dia"){
-					  					sis = "Sistolični "+arrStringovKr[3];
-					  				}
-					  				if(arrStringovKr[7] != undefined){
-					  					dia = "Diastolični "+arrStringovKr[7];
-					  				}
-					  				$("#kri_{{$mini->sifra_obisk}}").html(sis+". "+dia);
-								</script>
-								<div class="form-group">
-								    <label class="label label-primary">Srčni utrip.</label>
-									<div class="form-control nalog" name="vrstaStoritve"><label>{{$mini->porocilo[19]->opis}}</label></div>
-								</div>
-								<div class="form-group">
-								    <label class="label label-primary">Dihanje.</label>
-									<div class="form-control nalog" name="vrstaStoritve"><label>{{$mini->porocilo[20]->opis}}</label></div>
-								</div>
-								<div class="form-group">
-								    <label class="label label-primary">Telesna temperatura.</label>
-									<div class="form-control nalog" name="vrstaStoritve"><label>{{$mini->porocilo[21]->opis}}</label></div>
-								</div>
-								<div class="form-group">
-								    <label class="label label-primary">Telesna teža pred nosečnostjo.</label>
-									<div class="form-control nalog" name="vrstaStoritve"><label>{{$mini->porocilo[22]->opis}}</label></div>
-								</div>
-								<div class="form-group">
-								    <label class="label label-primary">Trenutna telesna teža.</label>
-									<div class="form-control nalog" name="vrstaStoritve"><label>{{$mini->porocilo[23]->opis}}</label></div>
-								</div>
-							@else
-								<div class="form-group">
-								    <label class="label label-primary">Izražanje čustev.</label>
-									<div class="form-control nalog" name="vrstaStoritve"><label></label></div>
-								</div>
-								<div class="form-group">
-								    <label class="label label-primary">Fizična obremenjenost.</label>
-									<div class="form-control nalog" name="vrstaStoritve"><label></label></div>
-								</div>
-								<div class="form-group">
-								    <label class="label label-primary">Krvni pritisk: sistolični, diastolični.</label>
-									<div class="form-control nalog" name="vrstaStoritve"><label id="kri_{{$mini->sifra_obisk}}"></label></div>
-								</div>
-								<script>
-									var stEp = "{{$mini->porocilo[16]->opis}}";
-					  				var arrStringovKr = stEp.split("&quot;");
-					  				var sis = "";
-					  				var dia = "";
-					  				if(arrStringovKr[3] != "dia"){
-					  					sis = "Sistolični "+arrStringovKr[3]+". ";
-					  				}
-					  				if(arrStringovKr[7] != undefined){
-					  					dia = "Diastolični "+arrStringovKr[7];
-					  				}
-					  				$("#kri_{{$mini->sifra_obisk}}").html(sis+dia);
-								</script>
-								<div class="form-group">
-								    <label class="label label-primary">Srčni utrip.</label>
-									<div class="form-control nalog" name="vrstaStoritve"><label>{{$mini->porocilo[17]->opis}}</label></div>
-								</div>
-								<div class="form-group">
-								    <label class="label label-primary">Dihanje.</label>
-									<div class="form-control nalog" name="vrstaStoritve"><label>{{$mini->porocilo[18]->opis}}</label></div>
-								</div>
-								<div class="form-group">
-								    <label class="label label-primary">Telesna temperatura.</label>
-									<div class="form-control nalog" name="vrstaStoritve"><label>{{$mini->porocilo[19]->opis}}</label></div>
-								</div>
-								<div class="form-group">
-								    <label class="label label-primary">Telesna teža pred nosečnostjo.</label>
-									<div class="form-control nalog" name="vrstaStoritve"><label>{{$mini->porocilo[20]->opis}}</label></div>
-								</div>
-								<div class="form-group">
-								    <label class="label label-primary">Trenutna telesna teža.</label>
-									<div class="form-control nalog" name="vrstaStoritve"><label>{{$mini->porocilo[21]->opis}}</label></div>
-								</div>
-							@endif
+								@php
+									$i = 16;
+									$json = $mini->porocilo[$i]->opis;
+									$obj = json_decode($json);
+									$msg = "";
+									if ($mini->porocilo[$i]->aid == 17){
+										if ($obj->{'mot'} === "moteno") {
+											$msg = $msg."Je moteno. ";
+										} else if ($obj->{'mot'} === "niMoteno"){
+											$msg = $msg."Ni moteno. ";
+										}
+										if ($obj->{'opis'} !== null) {
+											$msg = $msg."Opis: ".$obj->{'opis'}.". ";
+										}
+										$i = $i + 1;
+									}
+									echo "<div class=\"form-group\"><label class=\"label label-primary\">Izražanje čustev.</label><div class=\"form-control nalog\" name=\"vrstaStoritve\"><label>".$msg."</label></div></div>";
+
+									$json = $mini->porocilo[$i]->opis;
+									$obj = json_decode($json);
+									$msg = "";
+									if ($mini->porocilo[$i]->aid == 18){
+										if ($obj->{'fizicna'} === "nizka") {
+											$msg = $msg."Nizka obremenjenost. ";
+										} else if ($obj->{'fizicna'} === "srednja"){
+											$msg = $msg."Srednja obremenjenost. ";
+										} else  if ($obj->{'fizicna'} === "visoka"){
+											$msg = $msg."Visoka obremenjenost. ";
+										}
+										if ($obj->{'opis'} !== null) {
+											$msg = $msg."Opis: ".$obj->{'opis'}.". ";
+										}
+										$i = $i + 1;
+									}
+									echo "<div class=\"form-group\"><label class=\"label label-primary\">Fizična obremenjenost.</label><div class=\"form-control nalog\" name=\"vrstaStoritve\"><label>".$msg."</label></div></div>";
+
+							    	$json = $mini->porocilo[$i]->opis;
+									$obj = json_decode($json);
+									$msg = "";
+									if ($obj->{'sis'} !== null) {
+										$msg = $msg."Sistolični: ".$obj->{'sis'}.". ";
+									}
+									if ($obj->{'dia'} !== null) {
+										$msg = $msg."Diastolični: ".$obj->{'dia'}.". ";
+									}
+									echo "<div class=\"form-group\"><label class=\"label label-primary\">Krvni pritisk: sistolični, diastolični.</label><div class=\"form-control nalog\" name=\"vrstaStoritve\"><label>".$msg."</label></div></div>";
+									$i = $i + 1;
+
+									echo "<div class=\"form-group\"><label class=\"label label-primary\">Srčni utrip.</label><div class=\"form-control nalog\" name=\"vrstaStoritve\"><label>".$mini->porocilo[$i]->opis."</label></div></div>";
+									$i = $i + 1;
+
+									echo "<div class=\"form-group\"><label class=\"label label-primary\">Dihanje.</label><div class=\"form-control nalog\" name=\"vrstaStoritve\"><label>".$mini->porocilo[$i]->opis."</label></div></div>";
+									$i = $i + 1;
+
+									echo "<div class=\"form-group\"><label class=\"label label-primary\">Telesna temperatura.</label><div class=\"form-control nalog\" name=\"vrstaStoritve\"><label>".$mini->porocilo[$i]->opis."</label></div></div>";
+									$i = $i + 1;
+
+									echo "<div class=\"form-group\"><label class=\"label label-primary\">Telesna teža pred nosečnostjo.</label><div class=\"form-control nalog\" name=\"vrstaStoritve\"><label>".$mini->porocilo[$i]->opis."</label></div></div>";
+									$i = $i + 1;
+
+									echo "<div class=\"form-group\"><label class=\"label label-primary\">Trenutna telesna teža.</label><div class=\"form-control nalog\" name=\"vrstaStoritve\"><label>".$mini->porocilo[$i]->opis."</label></div></div>";
+									$i = $i + 1;
+
+								@endphp
 						  </div>
 					  </div>
 					</div>
@@ -909,32 +748,32 @@
 								  </tr>
 								</thead>
 								<tbody>
-								  <tr>
-									<td><label>Rdeča</label></td>
-									<td><label id="rdeca_{{$mini->sifra_obisk}}"></label></td>
-								  </tr>
-								  <tr>
-									<td><label>Modra</label></td>
-									<td><label id="modra_{{$mini->sifra_obisk}}"></label></td>
-								  </tr>
-								  <tr>
-									<td><label>Rumena</label></td>
-									<td><label id="rumena_{{$mini->sifra_obisk}}"></label></td>
-								  </tr>
-								  <tr>
-									<td><label>Zelena</label></td>
-									<td><label id="zelena_{{$mini->sifra_obisk}}"></label></td>
-								  </tr>
+									@php
+										$json = $mini->porocilo[0]->opis;
+										$obj = json_decode($json);
+										$rd = "";
+										$mo = "";
+										$ru = "";
+										$ze = "";
+										if ($obj->{'rdeca'} !== null) {
+											$rd = $obj->{'rdeca'};
+										}
+										if ($obj->{'modra'} !== null) {
+											$mo = $obj->{'modra'};
+										}
+										if ($obj->{'rumena'} !== null) {
+											$ru = $obj->{'rumena'};
+										}
+										if ($obj->{'zelena'} !== null) {
+											$ze = $obj->{'zelena'};
+										}
+										echo "<tr><td><label>Rdeča</label></td><td><label>".$rd."</label></td></tr>";
+										echo "<tr><td><label>Modra</label></td><td><label>".$mo."</label></td></tr>";
+										echo "<tr><td><label>Rumena</label></td><td><label>".$ru."</label></td></tr>";
+										echo "<tr><td><label>Zelena</label></td><td><label>".$ze."</label></td></tr>";
+									@endphp
 								</tbody>
 							  </table>
-							  <script>
-								var stEp = "{{$mini->porocilo[0]->opis}}";
-				  				var arrStringovEp = stEp.split("&quot;");
-				  				$("#rdeca_{{$mini->sifra_obisk}}").html(arrStringovEp[3]);
-				  				$("#modra_{{$mini->sifra_obisk}}").html(arrStringovEp[7]);
-				  				$("#rumena_{{$mini->sifra_obisk}}").html(arrStringovEp[11]);
-				  				$("#zelena_{{$mini->sifra_obisk}}").html(arrStringovEp[15]);
-							  </script>
 							  <div class="form-group">
 							    <label class="label label-primary">Pogovor, nasvet in vzpodbuda.</label>
 								<div class="form-control nalog" name="vrstaStoritve"><label>{{$mini->porocilo[1]->opis}}</label></div>

@@ -177,25 +177,61 @@ class SeznamObiskovController extends Controller
         			->join('bolezen', 'bolezen.sifra_bolezen', '=', 'delovni_nalog.sifra_bolezen')
     				->join('delavec', 'delavec.sifra_delavec', '=', 'delovni_nalog.sifra_delavec')
     				->join('izvajalec_zd', 'izvajalec_zd.sifra_zd', '=', 'delavec.sifra_zd')
-    				->join('plan', 'plan.sifra_plan', '=', 'obisk.sifra_plan')
-        			->orderBy('obisk.sifra_obisk', 'asc');
+    				->join('plan', 'plan.sifra_plan', '=', 'obisk.sifra_plan');        			
+
+    	
         if(isset($forceSestra)){
+        	$arrForceNadomestna = array();
 			$nadomescanjeSestra = PatronaznaSestra::where('sifra_okolis', '=',  $forceSestra)->value('sifra_ps');
 			$nadomescanja = Nadomescanje::all();
+			$obiski = Obisk::all();
 			foreach ($nadomescanja as $nadomescanje) {
 				if ($nadomescanje->nadomestna_sifra_ps == $nadomescanjeSestra){
-					$mix->orwhere('obisk.sifra_obisk', '=', $nadomescanje->sifra_obisk);
+					array_push($arrForceNadomestna, $nadomescanje->sifra_obisk);
 				}
 			}
-		} else if($request['nadomestnaSestra'] != "-"){
+			foreach ($obiski as $obisk) {
+				if ($obisk->sifra_ps == $nadomescanjeSestra){
+					array_push($arrForceNadomestna, $obisk->sifra_obisk);
+				}
+			}
+			$mix->whereIn('obisk.sifra_obisk', $arrForceNadomestna);
+		} else if($request['nadomestnaSestra'] != "-" && $request['zadolzenaSestra'] != "-"){
+			$arrForceNadomestna = array();
+			$nadomescanjeSestra = $request['nadomestnaSestra'];
+			$zadolzenostSestra = $request['zadolzenaSestra'];
+			$nadomescanja = Nadomescanje::all();
+			$obiski = Obisk::all();
+			foreach ($nadomescanja as $nadomescanje) {
+				if ($nadomescanje->nadomestna_sifra_ps == $nadomescanjeSestra){
+					array_push($arrForceNadomestna, $nadomescanje->sifra_obisk);
+				}
+			}
+			foreach ($obiski as $obisk) {
+				if ($obisk->sifra_ps == $zadolzenostSestra){
+					array_push($arrForceNadomestna, $obisk->sifra_obisk);
+				}
+			}
+			$mix->whereIn('obisk.sifra_obisk', $arrForceNadomestna);
+		} else if ($request['nadomestnaSestra'] == "-" && $request['zadolzenaSestra'] != "-") {
+			$sestra = PatronaznaSestra::where('sifra_ps', '=', $request['zadolzenaSestra'])->get();
+			if(count($sestra) > 0)
+		    	$okolisSestre = $sestra[0]->sifra_okolis;
+		    else 
+		    	$okolisSestre = "nope";
+		    $mix->where('pacient.sifra_okolis', '=', $okolisSestre);
+		} else  if ($request['nadomestnaSestra'] != "-" && $request['zadolzenaSestra'] == "-"){
+			$arrForceNadomestna = array();
 			$nadomescanjeSestra = $request['nadomestnaSestra'];
 			$nadomescanja = Nadomescanje::all();
 			foreach ($nadomescanja as $nadomescanje) {
 				if ($nadomescanje->nadomestna_sifra_ps == $nadomescanjeSestra){
-					$mix->orwhere('obisk.sifra_obisk', '=', $nadomescanje->sifra_obisk);
+					array_push($arrForceNadomestna, $nadomescanje->sifra_obisk);
 				}
 			}
+			$mix->whereIn('obisk.sifra_obisk', $arrForceNadomestna);
 		}
+		
 		
 		if($request['predvideniOdDatum']){
 			//Sprememba formata datuma
@@ -246,19 +282,8 @@ class SeznamObiskovController extends Controller
 			$mix->where('delovni_nalog.sifra_delavec', '=', $request['izdajatelj']);
 		}
 
-		if(isset($forceSestra)){
-			$mix->where('pacient.sifra_okolis', '=', $forceSestra);
-		}
-		else if($request['zadolzenaSestra'] != "-"){
-			$sestra = PatronaznaSestra::where('sifra_ps', '=', $request['zadolzenaSestra'])->get();
-			if(count($sestra) > 0)
-		    	$okolisSestre = $sestra[0]->sifra_okolis;
-		    else 
-		    	$okolisSestre = "nope";
-		    $mix->where('pacient.sifra_okolis', '=', $okolisSestre);
-		}
-
-		$filteredMix = $mix->get(array(
+		$filteredMix = $mix->orderBy('obisk.sifra_obisk', 'asc')
+							->get(array(
 	                            'obisk.sifra_obisk',
 								'datum_obiska as prvotni_datum_obiska',
 								'datum_opravljenosti_obiska as dejanski_datum_obiska',
