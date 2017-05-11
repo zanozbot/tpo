@@ -124,6 +124,7 @@
 				</div>
 			</div>
 		</div>
+		@if ($mini->opravljen == 1)
 		<div class="col-xs-12 col-sm-12 col-md-0">
 			<div class="panel panel-default">			
 			  <div class="panel-heading">
@@ -1032,6 +1033,7 @@
 				@endif
 			</div>
 		</div>
+	@endif
   </div>
 </div>
 

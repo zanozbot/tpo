@@ -36,6 +36,7 @@ class SeznamObiskovPacientController extends Controller
 							'obisk.sifra_obisk',
 							'datum_obiska as prvotni_datum_obiska',
 							'datum_opravljenosti_obiska as dejanski_datum_obiska',
+                            'opravljen',
 		                    'pacient.ime as ime_pacienta',
 		                    'pacient.priimek as priimek_pacienta',
 		                    'email',
@@ -119,13 +120,15 @@ class SeznamObiskovPacientController extends Controller
         			->join('delavec', 'delavec.sifra_delavec', '=', 'delovni_nalog.sifra_delavec')
     				->join('izvajalec_zd', 'izvajalec_zd.sifra_zd', '=', 'delavec.sifra_zd')
     				->join('plan', 'plan.sifra_plan', '=', 'obisk.sifra_plan')
-    				->where('uporabnik.id_uporabnik', '=', Auth::user()->id_uporabnik)
     				->where('opravljen', '=', 1)
+    				->where('pac_stevilka_KZZ', '=', $prijavljenPacient)
+    				->where('vrsta_obiska.ime', '!=', "Obisk otročnice")
         			->orderBy('obisk.sifra_obisk', 'asc')
 					->get(array(
 							'obisk.sifra_obisk',
 							'datum_obiska as prvotni_datum_obiska',
 							'datum_opravljenosti_obiska as dejanski_datum_obiska',
+                            'opravljen',
 		                    'pacient.ime as ime_pacienta',
 		                    'pacient.priimek as priimek_pacienta',
 		                    'email',
@@ -160,6 +163,7 @@ class SeznamObiskovPacientController extends Controller
 		                    'plan.sifra_plan',
 		                    'plan.datum_plan as predvideni_datum_obiska'
         ));
+
         for ($i=0; $i < count($obiskiPoduporabnikov); $i++) {
         	$datum_obiska = Plan::where('sifra_plan', '=', $obiskiPoduporabnikov[$i]->sifra_plan)->get();
         	$obiskiPoduporabnikov[$i]->datum_obiska = $datum_obiska[0]->datum_plan;

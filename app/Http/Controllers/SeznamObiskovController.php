@@ -12,6 +12,7 @@ use App\PatronaznaSestra;
 use App\Delavec;
 use App\Plan;
 use App\Porocilo;
+use App\Nadomescanje;
 use Auth;
 
 class SeznamObiskovController extends Controller
@@ -45,6 +46,17 @@ class SeznamObiskovController extends Controller
 		if(isset($forceSestra)){
 			$mix->where('pacient.sifra_okolis', '=', $forceSestra);
 		}
+
+		if(isset($forceSestra)){
+			$nadomescanjeSestra = PatronaznaSestra::where('sifra_okolis', '=',  $forceSestra)->value('sifra_ps');
+			$nadomescanja = Nadomescanje::all();
+			foreach ($nadomescanja as $nadomescanje) {
+				if ($nadomescanje->nadomestna_sifra_ps == $nadomescanjeSestra){
+					$mix->orwhere('obisk.sifra_obisk', '=', $nadomescanje->sifra_obisk);
+				}
+			}
+		}
+
 		$mix = $mix->get(array(
 					'obisk.sifra_obisk',
 					'datum_obiska as prvotni_datum_obiska',
@@ -139,7 +151,6 @@ class SeznamObiskovController extends Controller
 		        							'uporabnik.priimek as priimek',
 		        							'patronazna_sestra.sifra_ps as sifra_ps',
 		        							'patronazna_sestra.id_uporabnik as id_sestre'));
-
 		return view('pages.seznamobisk', ['mix' => $mix, 'pacienti' => $pacienti, 'sestre' => $sestre, 'izdajatelji' => $izdajatelji]);
     }
 
@@ -168,7 +179,24 @@ class SeznamObiskovController extends Controller
     				->join('izvajalec_zd', 'izvajalec_zd.sifra_zd', '=', 'delavec.sifra_zd')
     				->join('plan', 'plan.sifra_plan', '=', 'obisk.sifra_plan')
         			->orderBy('obisk.sifra_obisk', 'asc');
-        			
+        if(isset($forceSestra)){
+			$nadomescanjeSestra = PatronaznaSestra::where('sifra_okolis', '=',  $forceSestra)->value('sifra_ps');
+			$nadomescanja = Nadomescanje::all();
+			foreach ($nadomescanja as $nadomescanje) {
+				if ($nadomescanje->nadomestna_sifra_ps == $nadomescanjeSestra){
+					$mix->orwhere('obisk.sifra_obisk', '=', $nadomescanje->sifra_obisk);
+				}
+			}
+		} else if($request['nadomestnaSestra'] != "-"){
+			$nadomescanjeSestra = $request['nadomestnaSestra'];
+			$nadomescanja = Nadomescanje::all();
+			foreach ($nadomescanja as $nadomescanje) {
+				if ($nadomescanje->nadomestna_sifra_ps == $nadomescanjeSestra){
+					$mix->orwhere('obisk.sifra_obisk', '=', $nadomescanje->sifra_obisk);
+				}
+			}
+		}
+		
 		if($request['predvideniOdDatum']){
 			//Sprememba formata datuma
 	        $odDatum = $request['predvideniOdDatum'];
@@ -214,8 +242,8 @@ class SeznamObiskovController extends Controller
 		if(isset($forceZdravnik)){
 			$mix->where('delovni_nalog.sifra_delavec', '=', $forceZdravnik);
 		}
-		else if($request['izdajalec']){
-			$mix->where('delovni_nalog.sifra_delavec', '=', $request['izdajalec']);
+		else if($request['izdajatelj'] != "-"){
+			$mix->where('delovni_nalog.sifra_delavec', '=', $request['izdajatelj']);
 		}
 
 		if(isset($forceSestra)){
@@ -229,6 +257,7 @@ class SeznamObiskovController extends Controller
 		    	$okolisSestre = "nope";
 		    $mix->where('pacient.sifra_okolis', '=', $okolisSestre);
 		}
+
 		$filteredMix = $mix->get(array(
 	                            'obisk.sifra_obisk',
 								'datum_obiska as prvotni_datum_obiska',
@@ -301,25 +330,25 @@ class SeznamObiskovController extends Controller
         										));
         }
 
-        $izdajatelji = DelovniNalog::join('delavec', 'delovni_nalog.sifra_delavec', '=', 'delavec.sifra_delavec')
-									->join('uporabnik', 'delavec.id_uporabnik', '=', 'uporabnik.id_uporabnik')
-									->join('vloga', 'uporabnik.sifra_vloga', '=', 'vloga.sifra_vloga')
-									->get(array(
-												'uporabnik.ime as ime_delavca',
-												'priimek as priimek_delavca',
-												'delavec.sifra_delavec as sifra_delavca',
-												'vloga.ime as ime_vloge'
-										));
+        $izdajatelji = Delavec::join('uporabnik', 'delavec.id_uporabnik', '=', 'uporabnik.id_uporabnik')
+							->join('vloga', 'uporabnik.sifra_vloga', '=', 'vloga.sifra_vloga')
+							->get(array(
+										'uporabnik.ime as ime_delavca',
+										'priimek as priimek_delavca',
+										'delavec.sifra_delavec as sifra_delavca',
+										'vloga.ime as ime_vloge',
+										'uporabnik.id_uporabnik'
+								));
         $pacienti = Pacient::get(array(
                                     'pacient.ime as ime_pacienta',
-                                    'stevilka_KZZ'));
+                                    'stevilka_KZZ',
+                                    'pacient.priimek as priimek_pacienta'));
         $sestre = PatronaznaSestra::join('uporabnik', 'patronazna_sestra.id_uporabnik', '=', 'uporabnik.id_uporabnik')
-        					->get(array(
-        							'uporabnik.ime as ime',
-        							'uporabnik.priimek as priimek',
-        							'patronazna_sestra.sifra_ps as sifra_ps',
-        							'patronazna_sestra.id_uporabnik as id_sestre'));
-
+        						  ->get(array(
+		        							'uporabnik.ime as ime',
+		        							'uporabnik.priimek as priimek',
+		        							'patronazna_sestra.sifra_ps as sifra_ps',
+		        							'patronazna_sestra.id_uporabnik as id_sestre'));
     	return view('pages.seznamobisk', ['mix' => $filteredMix, 'pacienti' => $pacienti, 'sestre' => $sestre, 'izdajatelji' => $izdajatelji]);
     }
     
