@@ -95,4 +95,8 @@ Route::post('/', 'UporabnikController@login')->name('login');
   //Material
   Route::get('/material', 'MaterialController@index')->name('material');
   Route::post('/material', 'MaterialController@show')->name('show_material');
+
+  //Material
+  Route::get('/zakljucekNadomescanja', 'ZakljucekNadomescanjaController@index')->name('zakljucek_nadomescanja');
+  Route::post('/zakljucekNadomescanja', 'ZakljucekNadomescanjaController@end')->name('end_zakljucek_nadomescanja');
 //});

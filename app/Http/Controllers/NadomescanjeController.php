@@ -48,25 +48,24 @@ class NadomescanjeController extends Controller
         $ps = PatronaznaSestra::find($request['sifra_ps']);
         $nadomestna_ps = PatronaznaSestra::find($request['nadomestna_sifra_ps']);
         $obiski = $ps->obisk;
-		
+
 		$zacetek = Carbon::createFromFormat('d.m.Y', $request['zacetek']);
 		$konec = Carbon::createFromFormat('d.m.Y', $request['konec']);
-
 		foreach ($obiski as $obisk) {
 			$datum = Carbon::createFromFormat('Y-m-d', $obisk->datum_obiska);
 			if($datum->between($zacetek, $konec, true)) {
 				Nadomescanje::create([
 					'sifra_ps' => $ps->sifra_ps,
 					'nadomestna_sifra_ps' => $nadomestna_ps->sifra_ps,
-					'zacetek' => $request['zacetek'],
-					'konec' => $request['konec'],
+					'zacetek' => $zacetek,//$request['zacetek'],
+					'konec' => $konec,//$request['konec'],
 					'sifra_obisk' => $obisk->sifra_obisk
 				]);
 				$obisk->sifra_ps = $nadomestna_ps->sifra_ps;
 				$obisk->save();
+
 			}
 		}
-
         return redirect()->route('dolocitev_nadomescanja')->with('status', 'Uspeh.');
     }
 }

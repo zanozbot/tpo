@@ -42,6 +42,9 @@
 					<li>
 						<a href="{{route('dolocitev_nadomescanja')}}"><span class="glyphicon glyphicon-th-large"></span> Določitev nadomeščanja</a>
 					</li>
+					<li>
+						<a href="{{route('zakljucek_nadomescanja')}}"><span class="glyphicon glyphicon-th-large"></span> Zaključek nadomeščanja</a>
+					</li>
 					@endif
 					<!-- Trenutno funkcionalnost ni podprta
 					@if (Auth::check() && (Auth::user()->sifra_vloga == 4))
