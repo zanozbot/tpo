@@ -32,9 +32,9 @@
 												<td><label>{{$sestra->uporabnik->ime}}</label></td>
 												<td><label>{{$sestra->uporabnik->priimek}}</label></td>
 												@if($sestra->opravljeno)
-												<td style='background-color: rgb(150,255,150);'><label>Ne</label></td>
+												<td style='background-color: rgb(150,255,150);'><label>Vsi realizirani</label></td>
 												@else
-												<td style='background-color: rgb(255,150,150);'><label>Da</label></td>
+												<td style='background-color: rgb(255,150,150);'><label>Niso realizirani</label></td>
 												<td>
 													<form role="form" method="post">
 													<input type="hidden" name="sifra" value="{{$sestra->sifra_ps}}"/>

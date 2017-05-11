@@ -56,6 +56,7 @@ class ZakljucekNadomescanjaController extends Controller
 			$konec=Carbon::createFromFormat('Y-m-d', $nadomescanje->konec);
 			if($time->gte($konec)){
 				$nadomescanje->obisk->sifra_ps=$sifra;
+				$nadomescanje->obisk->nadomesca = false;
 				$nadomescanje->delete();
 			}
 		}
