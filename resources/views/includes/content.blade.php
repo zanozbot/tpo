@@ -20,10 +20,10 @@
 						<a href="{{route('nalog')}}"><span class="glyphicon glyphicon-plus"></span> Nov nalog</a>
 					</li>
 					<li>
-						<a href="{{route('seznamNalogov')}}"><span class="glyphicon glyphicon-list"></span> Seznam nalogov</a>
+						<a href="{{route('seznamNalogov')}}"><span class="glyphicon glyphicon-list"></span> Nalogi</a>
 					</li>
 					<li>
-						<a href="{{route('seznamObiskov')}}"><span class="glyphicon glyphicon-list"></span> Seznam obiskov</a>
+						<a href="{{route('seznamObiskov')}}"><span class="glyphicon glyphicon-list"></span> Obiski</a>
 					</li>
 					@endif
 					@if (Auth::user()->sifra_vloga == 3)
@@ -34,10 +34,10 @@
 						<a href="{{route('nalog')}}"><span class="fa fa-calendar-plus-o"></span> Nov nalog</a>
 					</li>
 					<li>
-						<a href="{{route('seznamNalogov')}}"><span class="glyphicon glyphicon-list"></span> Seznam nalogov</a>
+						<a href="{{route('seznamNalogov')}}"><span class="glyphicon glyphicon-list"></span> Nalogi</a>
 					</li>
 					<li>
-						<a href="{{route('seznamObiskov')}}"><span class="glyphicon glyphicon-list"></span> Seznam obiskov</a>
+						<a href="{{route('seznamObiskov')}}"><span class="glyphicon glyphicon-list"></span> Obiski</a>
 					</li>
 					<li>
 						<a href="{{route('dolocitev_nadomescanja')}}"><span class="glyphicon glyphicon-th-large"></span> Določitev nadomeščanja</a>
@@ -58,16 +58,19 @@
 						<a class="vloga">Patronažna sestra</a>
 					</li>
 					<li>
-						<a href="{{route('datumPlan')}}"><span class="glyphicon glyphicon-calendar"></span> Plan obiskov</a>
+						<a href="{{route('datumPlan')}}"><span class="glyphicon glyphicon-calendar"></span> Plan</a>
 					</li>
 					<li>
-						<a href="{{route('seznamNalogov')}}"><span class="glyphicon glyphicon-list"></span> Seznam nalogov</a>
+						<a href="{{route('material')}}"><span class="glyphicon glyphicon-list"></span> Material</a>
 					</li>
 					<li>
-						<a href="{{route('seznamObiskov')}}"><span class="glyphicon glyphicon-list"></span> Seznam obiskov</a>
+						<a href="{{route('seznamNalogov')}}"><span class="glyphicon glyphicon-list"></span> Nalogi</a>
 					</li>
 					<li>
-						<a href="{{route('seznamObiskovVceraj')}}"><span class="glyphicon glyphicon-list"></span> Seznam včerajšnih obiskov</a>
+						<a href="{{route('seznamObiskov')}}"><span class="glyphicon glyphicon-list"></span> Obiski</a>
+					</li>
+					<li>
+						<a href="{{route('seznamObiskovVceraj')}}"><span class="glyphicon glyphicon-list"></span> Včerajšni obiski</a>
 					</li>
 					@endif
 					@if (Auth::user()->sifra_vloga == 6)
@@ -85,7 +88,7 @@
 						<a href="{{route('poduporabnik')}}"><span class="glyphicon glyphicon-user"></span> Poduporabniki</a>
 					</li>
 					<li>
-						<a href="{{route('seznamObiskovPacient')}}"><span class="glyphicon glyphicon-list"></span> Seznam obiskov</a>
+						<a href="{{route('seznamObiskovPacient')}}"><span class="glyphicon glyphicon-list"></span> Obiski</a>
 					</li>
 					@endif
 					<li>

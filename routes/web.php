@@ -91,4 +91,8 @@ Route::post('/', 'UporabnikController@login')->name('login');
 	Route::get('/seznamObiskovPacient', 'SeznamObiskovPacientController@index')->name('seznamObiskovPacient');
 	Route::get('/seznamObiskovVceraj', 'SeznamObiskovVcerajController@index')->name('seznamObiskovVceraj');
 	Route::post('/seznamObiskovVceraj/vnesiPodatke/{sifraObisk}/{sifraPlan}', 'SeznamObiskovVcerajController@vnesiPodatke')->name('seznamObiskovVcerajVnesiPodatke');
+
+  //Material
+  Route::get('/material', 'MaterialController@index')->name('material');
+  Route::post('/material', 'MaterialController@show')->name('show_material');
 //});

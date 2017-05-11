@@ -18,7 +18,7 @@ class DatumPlanController extends Controller
         } else {
            return redirect()->route('home');
         }
-    	
+
     }
 
     public function create(Request $request) {
