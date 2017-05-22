@@ -14,13 +14,13 @@
 					<div class="col-lg-6">
 					  <div class="form-group">
 						<label class="label label-primary">Številka izvajalca</label>
-						<div class="form-control nalog" name="stIzvajalca"><label>{{$mini->sifra_zd}}</label></div>
+						<div class="form-control nalog" name="stIzvajalca"><label>{{$obisk->sifra_zd}}</label></div>
 					  </div>
 					</div>
 				  </div>
 				  <div class="form-group">
 					<label class="label label-primary">Naziv izvajalca</label>
-					<div class="form-control nalog" name="nazivIzvajalca"><label>{{$mini->naziv_izvajalca}}</label></div>
+					<div class="form-control nalog" name="nazivIzvajalca"><label>{{$obisk->naziv_izvajalca}}</label></div>
 				  </div>
 			  </div>
 			</div>
@@ -31,51 +31,51 @@
 			  <div class="panel-body">
 				  <div class="form-group">
 					<label class="label label-primary">Številka zavarovane osebe</label>
-					<div class="form-control nalog" name="stZavOsebe"><label>{{$mini->stevilka_KZZ}}</label></div>
+					<div class="form-control nalog" name="stZavOsebe"><label>{{$obisk->stevilka_KZZ}}</label></div>
 				  </div>
 				  <div class="form-group">
 					<label class="label label-primary">Datum rojstva</label>
 					<div class="form-control nalog" name="rojstvoZavOsebe"><label id="dat_roj_{{$obisk->sifra_obisk}}"></label></div>
 				  </div>
 				  <script>
-				  	var prvotniDatum = "{{$mini->datum_rojstva}}";
+				  	var prvotniDatum = "{{$obisk->datum_rojstva}}";
 				  	var arrStringov = prvotniDatum.split("-");
 				  	var preurejeniDatum = arrStringov[2].concat(".".concat(arrStringov[1].concat(".".concat(arrStringov[0]))));
 				  	$("#dat_roj_{{$obisk->sifra_obisk}}").html(preurejeniDatum);
 				  </script>
 				  <div class="form-group">
 					<label class="label label-primary">Priimek</label>
-					<div class="form-control nalog" name="priimekZavOsebe"><label>{{$mini->priimek_pacienta}}</label></div>
+					<div class="form-control nalog" name="priimekZavOsebe"><label>{{$obisk->priimek_pacienta}}</label></div>
 				  </div>
 				  <div class="form-group">
 					<label class="label label-primary">Ime</label>
-					<div class="form-control nalog" name="imeZavOsebe"><label>{{$mini->ime_pacienta}}</label></div>
+					<div class="form-control nalog" name="imeZavOsebe"><label>{{$obisk->ime_pacienta}}</label></div>
 				  </div>
 				  <div class="form-group">
 					<label class="label label-primary">Ulica in hišna številka</label>
-					<div class="form-control nalog" name="ulicaZavOsebe"><label>{{$mini->naslov_pacienta}}</label></div>
+					<div class="form-control nalog" name="ulicaZavOsebe"><label>{{$obisk->naslov_pacienta}}</label></div>
 				  </div>
 				  <div class="row">
 					<div class="col-lg-6">
 					  <div class="form-group">
 						<label class="label label-primary">Poštna številka</label>
-						<div class="form-control nalog" name="postaZavOsebe"><label>{{$mini->posta_pacient}}</label></div>
+						<div class="form-control nalog" name="postaZavOsebe"><label>{{$obisk->posta_pacient}}</label></div>
 					  </div>
 					</div>
 					<div class="col-lg-6">
 					  <div class="form-group">
 						<label class="label label-primary">Kraj</label>
-						<div class="form-control nalog" name="krajZavOsebe"><label>{{$mini->kraj_poste}}</label></div>
+						<div class="form-control nalog" name="krajZavOsebe"><label>{{$obisk->kraj_poste}}</label></div>
 					  </div>
 					</div>
 				  </div>	 
 				  <div class="form-group">
 					<label class="label label-primary">Email</label>
-					<div class="form-control nalog" name="emailZavOsebe"><label>{{$mini->email}}</label></div>
+					<div class="form-control nalog" name="emailZavOsebe"><label>{{$obisk->email}}</label></div>
 				  </div>
 				  <div class="form-group">
 					<label class="label label-primary">Telefonska številka</label>
-					<div class="form-control nalog" name="telZavOsebe"><label>{{$mini->tel_stevilka}}</label></div>
+					<div class="form-control nalog" name="telZavOsebe"><label>{{$obisk->tel_stevilka}}</label></div>
 				  </div>			  
 			  </div>
 			</div>
@@ -88,7 +88,7 @@
 			  <div class="panel-body">
 				  <div class="form-group">
 					<label class="label label-primary">Številka zdravnika</label>
-					<div class="form-control nalog" name="stZdravnika"><label>{{$mini->sifra_delavca}}</label></div>
+					<div class="form-control nalog" name="stZdravnika"><label>{{$obisk->sifra_delavca}}</label></div>
 				  </div>
 			  </div>
 			</div>
@@ -99,12 +99,12 @@
 			  <div class="panel-body">					  
 				  <div class="form-group">
 				    <label class="label label-primary">Ime storitve</label>
-					<div class="form-control nalog" name="vrstaStoritve"><label>{{$mini->ime_vrsta_obiska}}</label></div>
+					<div class="form-control nalog" name="vrstaStoritve"><label>{{$obisk->ime_vrsta_obiska}}</label></div>
 				  </div>
 				</div>
 				<div class="form-group" >
 					<label class="label label-primary">Vrsta storitve</label>
-					@if ($mini->preventivni == 1)
+					@if ($obisk->preventivni == 1)
 						<label class="checkbox-inline"><input type="checkbox" name="vrstaZdravnik" disabled checked>Preventivni</label>
 						<label class="checkbox-inline"><input type="checkbox" name="vrstaZdravnik" disabled>Kurativni</label>
 					@else
@@ -120,11 +120,11 @@
 			  <div class="panel-body">
 			  	  <div class="form-group">
 				    <label class="label label-primary">Šifra bolezni</label>
-					<div class="form-control nalog" name="vrstaStoritve"><label>{{$mini->sifra_bolezni}}</label></div>
+					<div class="form-control nalog" name="vrstaStoritve"><label>{{$obisk->sifra_bolezni}}</label></div>
 				  </div>				  
 				  <div class="form-group">
 				    <label class="label label-primary">Ime bolezni</label>
-					<div class="form-control nalog" name="vrstaStoritve"><label>{{$mini->ime_bolezni}}</label></div>
+					<div class="form-control nalog" name="vrstaStoritve"><label>{{$obisk->ime_bolezni}}</label></div>
 				  </div>
 				</div>
 			</div>
@@ -135,11 +135,11 @@
 			  <div class="panel-body">
 			  	  <div class="form-group">
 				    <label class="label label-primary">Šifra sestre</label>
-					<div class="form-control nalog" name="vrstaStoritve"><label>{{$mini->pacienti[0]->sifra_ps}}</label></div>
+					<div class="form-control nalog" name="vrstaStoritve"><label>{{$obisk->pacienti[0]->sifra_ps}}</label></div>
 				  </div>
 				</div>
 			</div>
-			@if ($mini->ime_vrsta_obiska == 'Odvzem krvi')
+			@if ($obisk->ime_vrsta_obiska == 'Odvzem krvi')
 			<div class="panel panel-default">			
 			  <div class="panel-heading">
 				<h3 class="panel-title">7 - Odvzem krvi</h3>
@@ -178,7 +178,7 @@
 							</tbody>
 						  </table>
 						  <script>
-							var stEp = "{{$mini->stevilo_epruvet_RdMoRuZe}}";
+							var stEp = "{{$obisk->stevilo_epruvet_RdMoRuZe}}";
 			  				var arrStringovEp = stEp.split(" ");
 			  				$("#rdeca_{{$obisk->sifra_obisk}}").html(arrStringovEp[0]);
 			  				$("#modra_{{$obisk->sifra_obisk}}").html(arrStringovEp[1]);
@@ -189,7 +189,7 @@
 				  </div>
 			  </div>
 			</div>
-			@elseif ($mini->ime_vrsta_obiska == 'Aplikacija injekcij')
+			@elseif ($obisk->ime_vrsta_obiska == 'Aplikacija injekcij')
 			<div class="panel panel-default">			
 			  <div class="panel-heading">
 				<h3 class="panel-title">7 - Aplikacija injekcij</h3>
@@ -212,7 +212,7 @@
 							  </tr>
 							</thead>
 							<tbody>
-							@foreach ($mini->zdravila as $zdravilo)
+							@foreach ($obisk->zdravila as $zdravilo)
 							  <tr>
 								<td><label>{{$zdravilo->sifra_zdravila}}</label></td>
 								<td><label>{{$zdravilo->ime_zdravila}}</label></td>
@@ -225,7 +225,7 @@
 				  </div>
 			  </div>
 			</div>
-			@elseif ($mini->ime_vrsta_obiska == 'Obisk otročnice')
+			@elseif ($obisk->ime_vrsta_obiska == 'Obisk otročnice')
 			<div class="panel panel-default">			
 			  <div class="panel-heading">
 				<h3 class="panel-title">7 - Obisk otročnice</h3>
@@ -248,7 +248,7 @@
 							  </tr>
 							</thead>
 							<tbody>
-							  @foreach ($mini->otroci as $otrok)
+							  @foreach ($obisk->otroci as $otrok)
 							  <tr>
 								<td><label>{{$otrok->stevilka_KZZ}}</label></td>
 								<td><label>{{$otrok->ime}} {{$otrok->priimek}}</label></td>
@@ -286,7 +286,7 @@
 		  </tr>
 		</thead>
 		<tbody>
-		@foreach ($mini->obiski as $obiskIn)
+		@foreach ($obisk->obiski as $obiskIn)
 		  <tr>
 			<td><label>{{$obiskIn->sifra_obisk}}</label></td>
 			<td><label id="dat_obiska_{{$obisk->sifra_obisk}}_{{$obiskIn->sifra_obisk}}"></label></td>
