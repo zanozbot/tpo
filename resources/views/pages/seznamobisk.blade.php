@@ -201,6 +201,7 @@
 				<th><label>Pacient</label></th>
 				<th><label>Naslov</label></th>
 				<th><label>Vrsta obiska</label></th>
+				<th><label>Opravljen</label></th>
 				<th></th>
 			  </tr>
 			</thead>
@@ -220,6 +221,11 @@
 						<td><label>{{$obisk->ime_pacienta.' '.$obisk->priimek_pacienta}}</label></td>
 						<td><label>{{$obisk->naslov_pacienta.', '.$obisk->kraj_pacienta}}</label></td>
 						<td><label>{{$obisk->ime_vrsta_obiska}}</label></td>
+						@if ($obisk->opravljen == 1)
+							<td><span class="glyphicon glyphicon-ok"></span></td>
+						@else
+							<td><span class="glyphicon glyphicon-remove"></span></td>
+						@endif
 						<td >		
 							<button type="button" class="btn btn-info btn-block" data-toggle="modal" data-target="#podrobnosti{{$obisk->sifra_obisk}}"><span class="glyphicon glyphicon-search"></span></button>
 							<div class="modal fade" id="podrobnosti{{$obisk->sifra_obisk}}" role="dialog">

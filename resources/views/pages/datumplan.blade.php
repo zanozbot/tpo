@@ -30,6 +30,7 @@
 						<script>
 							$('.datepicker').datepicker({
 								format: "dd.mm.yyyy",
+								startDate: "today",
 								todayBtn: "linked",
 								clearBtn: true,
 								autoclose: true,

@@ -64,6 +64,7 @@ class SeznamObiskovController extends Controller
                     'pacient.ime as ime_pacienta',
                     'pacient.priimek as priimek_pacienta',
                     'email',
+                    'opravljen',
                     'tel_stevilka',
                     'stevilka_KZZ',
                     'pac_stevilka_KZZ',
@@ -238,28 +239,28 @@ class SeznamObiskovController extends Controller
 	        $odDatum = $request['predvideniOdDatum'];
 	       	list($dan, $mesec, $leto) = explode(".", $odDatum);
 	        $odDatum = $leto.'-'.$mesec.'-'.$dan;;
-			$mix->whereDate('plan.datum_plan', '>', date($odDatum));
+			$mix->whereDate('plan.datum_plan', '>=', date($odDatum));
 		}
 		if($request['predvideniDoDatum']){
 			//Sprememba formata datuma
 	        $doDatum = $request['predvideniDoDatum'];
 	       	list($dan, $mesec, $leto) = explode(".", $doDatum);
 	        $doDatum = $leto.'-'.$mesec.'-'.$dan;;
-			$mix->whereDate('plan.datum_plan', '<', date($doDatum));
+			$mix->whereDate('plan.datum_plan', '<=', date($doDatum));
 		}
 		if($request['dejanskiOdDatum']){
 			//Sprememba formata datuma
 	        $odDatum = $request['dejanskiOdDatum'];
 	       	list($dan, $mesec, $leto) = explode(".", $odDatum);
 	        $odDatum = $leto.'-'.$mesec.'-'.$dan;;
-			$mix->whereDate('datum_opravljenosti_obiska', '>', date($odDatum));
+			$mix->whereDate('datum_opravljenosti_obiska', '>=', date($odDatum));
 		}
 		if($request['dejanskiDoDatum']){
 			//Sprememba formata datuma
 	        $doDatum = $request['dejanskiDoDatum'];
 	       	list($dan, $mesec, $leto) = explode(".", $doDatum);
 	        $doDatum = $leto.'-'.$mesec.'-'.$dan;;
-			$mix->whereDate('datum_opravljenosti_obiska', '<', date($doDatum));
+			$mix->whereDate('datum_opravljenosti_obiska', '<=', date($doDatum));
 		}
 		if($request['pacient'] != "-"){
 			$mix->where('pacient.stevilka_KZZ', '=', $request['pacient']);

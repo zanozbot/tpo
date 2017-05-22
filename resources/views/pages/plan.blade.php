@@ -40,7 +40,7 @@
 										  	var preurejeniDatumPl = arrStringovPl[2].concat(".".concat(arrStringovPl[1].concat(".".concat(arrStringovPl[0]))));
 										  	$("#pr_dat_ne_{{$obisk->sifra_obisk}}").html(preurejeniDatumPl);
 										</script>
-										<td><label>{{$obisk->sifra_obisk.' '.$obisk->priimek_pacienta}}</label></td>
+										<td><label>{{$obisk->ime_pacienta.' '.$obisk->priimek_pacienta}}</label></td>
 										<td><label>{{$obisk->naslov_pacienta.', '.$obisk->kraj_pacienta}}</label></td>
 										<td><label>{{$obisk->ime_vrsta_obiska}}</label></td>
 										<td >

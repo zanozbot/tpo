@@ -120,7 +120,7 @@ class DelovniNalogController extends Controller
                 'koncniDatum' => $prevKoncniDatum,
                 'obveznoDrzanjeDatuma' => 'required'
             ], $messages, $customAttributes);
-
+        
         //Sprememba formata datuma
         $datumZacetni = $request['datumPrvegaObiska'];
        	list($dan, $mesec, $leto) = explode(".", $datumZacetni);
