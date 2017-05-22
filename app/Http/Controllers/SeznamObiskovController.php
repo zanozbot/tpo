@@ -41,7 +41,7 @@ class SeznamObiskovController extends Controller
         			->join('delavec', 'delavec.sifra_delavec', '=', 'delovni_nalog.sifra_delavec')
     				->join('izvajalec_zd', 'izvajalec_zd.sifra_zd', '=', 'delavec.sifra_zd')
     				->join('plan', 'plan.sifra_plan', '=', 'obisk.sifra_plan')
-        			->orderBy('obisk.sifra_obisk', 'asc');
+        			->orderBy('plan.datum_plan', 'asc');
 
 		if(isset($forceSestra)){
 			$mix->where('pacient.sifra_okolis', '=', $forceSestra);
@@ -282,7 +282,7 @@ class SeznamObiskovController extends Controller
 			$mix->where('delovni_nalog.sifra_delavec', '=', $request['izdajatelj']);
 		}
 
-		$filteredMix = $mix->orderBy('obisk.sifra_obisk', 'asc')
+		$filteredMix = $mix->orderBy('plan.datum_plan', 'asc')
 							->get(array(
 	                            'obisk.sifra_obisk',
 								'datum_obiska as prvotni_datum_obiska',

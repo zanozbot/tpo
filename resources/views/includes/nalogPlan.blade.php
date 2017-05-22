@@ -139,9 +139,9 @@
 				  </div>
 				</div>
 			</div>
-			@if ($obisk->ime_vrsta_obiska == 'Odvzem krvi')
-			<div class="panel panel-default">			
+			<div class="panel panel-default">
 			  <div class="panel-heading">
+			@if ($obisk->ime_vrsta_obiska == 'Odvzem krvi')
 				<h3 class="panel-title">7 - Odvzem krvi</h3>
 			  </div>
 			  <div class="panel-body">					  
@@ -190,15 +190,11 @@
 			  </div>
 			</div>
 			@elseif ($obisk->ime_vrsta_obiska == 'Aplikacija injekcij')
-			<div class="panel panel-default">			
-			  <div class="panel-heading">
 				<h3 class="panel-title">7 - Aplikacija injekcij</h3>
 			  </div>
 			  <div class="panel-body">					  
 				  <div class="form-group">
 					<div class="form-control nalog" name="vrstaStoritve">
-					
-
 					  <div class="panel-heading">
 						<h3 class="panel-title">Zdravila</h3>
 					  </div>
@@ -226,15 +222,11 @@
 			  </div>
 			</div>
 			@elseif ($obisk->ime_vrsta_obiska == 'Obisk otročnice')
-			<div class="panel panel-default">			
-			  <div class="panel-heading">
 				<h3 class="panel-title">7 - Obisk otročnice</h3>
 			  </div>
 			  <div class="panel-body">					  
 				  <div class="form-group">
 					<div class="form-control nalog" name="vrstaStoritve">
-					
-
 					  <div class="panel-heading">
 						<h3 class="panel-title">Otroci</h3>
 					  </div>

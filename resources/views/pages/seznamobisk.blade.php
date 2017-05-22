@@ -197,7 +197,7 @@
 		  <table class="table ">
 			<thead>
 			  <tr>
-				<th><label>Šifra obiska</label></th>
+				<th><label>Datum obiska</label></th>
 				<th><label>Pacient</label></th>
 				<th><label>Naslov</label></th>
 				<th><label>Vrsta obiska</label></th>
@@ -205,18 +205,24 @@
 			  </tr>
 			</thead>
 			<tbody>
-			 	@foreach ($mix as $mini)
-			 		@if ($mini->pac_stevilka_KZZ != -1 && $mini->ime_vrsta_obiska == "Obisk otročnice")
+			 	@foreach ($mix as $obisk)
+			 		@if ($obisk->pac_stevilka_KZZ != -1 && $obisk->ime_vrsta_obiska == "Obisk otročnice")
 
 			 		@else
 					<tr>
-						<td><label>{{$mini->sifra_obisk}}</label></td>
-						<td><label>{{$mini->ime_pacienta.' '.$mini->priimek_pacienta}}</label></td>
-						<td><label>{{$mini->naslov_pacienta.', '.$mini->kraj_pacienta}}</label></td>
-						<td><label>{{$mini->ime_vrsta_obiska}}</label></td>
+						<td><label id="datum_obiska_{{$obisk->sifra_obisk}}"></label></td>
+						<script>
+						  	var prvotniDatumPl = "{{$obisk->predvideni_datum_obiska}}";
+						  	var arrStringovPl = prvotniDatumPl.split("-");
+						  	var preurejeniDatumPl = arrStringovPl[2].concat(".".concat(arrStringovPl[1].concat(".".concat(arrStringovPl[0]))));
+						  	$("#datum_obiska_{{$obisk->sifra_obisk}}").html(preurejeniDatumPl);
+						</script>
+						<td><label>{{$obisk->ime_pacienta.' '.$obisk->priimek_pacienta}}</label></td>
+						<td><label>{{$obisk->naslov_pacienta.', '.$obisk->kraj_pacienta}}</label></td>
+						<td><label>{{$obisk->ime_vrsta_obiska}}</label></td>
 						<td >		
-							<button type="button" class="btn btn-info btn-block" data-toggle="modal" data-target="#podrobnosti{{$mini->sifra_obisk}}"><span class="glyphicon glyphicon-plus"></span></button>
-							<div class="modal fade" id="podrobnosti{{$mini->sifra_obisk}}" role="dialog">
+							<button type="button" class="btn btn-info btn-block" data-toggle="modal" data-target="#podrobnosti{{$obisk->sifra_obisk}}"><span class="glyphicon glyphicon-search"></span></button>
+							<div class="modal fade" id="podrobnosti{{$obisk->sifra_obisk}}" role="dialog">
 								<div class="modal-dialog modal-lg">
 								  <div class="modal-content">
 									<div class="modal-header">
