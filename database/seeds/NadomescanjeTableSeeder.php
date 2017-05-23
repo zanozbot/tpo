@@ -18,7 +18,7 @@ class NadomescanjeTableSeeder extends Seeder
     public function run()
     {
 
-    	$delovni_nalog = DelovniNalog::create([
+    	/*$delovni_nalog = DelovniNalog::create([
     		'sifra_delavec' => '33124',
             'sifra_bolezen' => 'A00',
             'sifra_vrsta_obisk' => 10,
@@ -63,6 +63,6 @@ class NadomescanjeTableSeeder extends Seeder
         	'zacetek' => '2017-05-06',
         	'konec' => '2017-05-10',
         	'nadomestna_sifra_ps' => '12345'
-        ]);
+        ]);*/
     }
 }
