@@ -37,7 +37,9 @@ class ZakljucekNadomescanjaController extends Controller
 									$sestra['opravljeno']=false;
 								}
 							}
+
 						}
+						$sestre=$sestre->where('opravljeno',false);
 						return view('pages.zakljucek_nadomescanja',["sestre"=>$sestre]);
 					} else {
 							return redirect()->route('home');
@@ -60,7 +62,7 @@ class ZakljucekNadomescanjaController extends Controller
 				$nadomescanje->delete();
 			}
 		}
-		return redirect()->route('zakljucek_nadomescanja');
+		return redirect()->route('zakljucek_nadomescanja')->with('status', 'Obiski so bili uspešno dodeljeni prvotni sestri.');
 
 	}
 
