@@ -31,7 +31,7 @@ class SeznamObiskovPacientController extends Controller
     				->join('plan', 'plan.sifra_plan', '=', 'obisk.sifra_plan')
     				->where('uporabnik.id_uporabnik', '=', Auth::user()->id_uporabnik)
     				->where('opravljen', '=', 1)
-        			->orderBy('obisk.sifra_obisk', 'asc')
+        			->orderBy('datum_opravljenosti_obiska', 'asc')
 					->get(array(
 							'obisk.sifra_obisk',
 							'datum_obiska as prvotni_datum_obiska',

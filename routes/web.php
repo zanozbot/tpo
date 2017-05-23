@@ -77,9 +77,9 @@ Route::post('/', 'UporabnikController@login')->name('login');
 	Route::get('/datumplan', 'DatumPlanController@index')->name('datumPlan');
 	Route::post('/datumplan', 'DatumPlanController@create')->name('create_datumPlan');
 	Route::get('/plan', 'PlanController@index')->name('plan');
-	Route::get('/plan/dodaj/{sifraPlan}/{sifraObiska}', 'PlanController@dodaj')->name('dodaj_plan');
-	Route::get('/plan/odstrani/{sifraPlan}/{sifraObiska}', 'PlanController@odstrani')->name('odstrani_plan');
-	Route::post('/plan/vnesiPodatke/{sifraObisk}/{sifraPlan}', 'PlanController@vnesiPodatke')->name('vnesiPodatke');
+	Route::get('/plan/dodaj/{sifraPlan}/{sifraObiska}/{izbraniDatum}', 'PlanController@dodaj')->name('dodaj_plan');
+	Route::get('/plan/odstrani/{sifraPlan}/{sifraObiska}/{izbraniDatum}', 'PlanController@odstrani')->name('odstrani_plan');
+	Route::post('/plan/vnesiPodatke/{sifraObisk}/{sifraPlan}/{izbraniDatum}', 'PlanController@vnesiPodatke')->name('vnesiPodatke');
 
 	// Nalog
 	Route::get('/nalog', 'DelovniNalogController@index')->name('nalog');

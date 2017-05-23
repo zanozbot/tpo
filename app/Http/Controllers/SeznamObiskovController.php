@@ -178,61 +178,20 @@ class SeznamObiskovController extends Controller
         			->join('bolezen', 'bolezen.sifra_bolezen', '=', 'delovni_nalog.sifra_bolezen')
     				->join('delavec', 'delavec.sifra_delavec', '=', 'delovni_nalog.sifra_delavec')
     				->join('izvajalec_zd', 'izvajalec_zd.sifra_zd', '=', 'delavec.sifra_zd')
-    				->join('plan', 'plan.sifra_plan', '=', 'obisk.sifra_plan');        			
+    				->join('plan', 'plan.sifra_plan', '=', 'obisk.sifra_plan');
 
-    	
-        if(isset($forceSestra)){
-        	$arrForceNadomestna = array();
-			$nadomescanjeSestra = PatronaznaSestra::where('sifra_okolis', '=',  $forceSestra)->value('sifra_ps');
-			$nadomescanja = Nadomescanje::all();
-			$obiski = Obisk::all();
-			foreach ($nadomescanja as $nadomescanje) {
-				if ($nadomescanje->nadomestna_sifra_ps == $nadomescanjeSestra){
-					array_push($arrForceNadomestna, $nadomescanje->sifra_obisk);
-				}
-			}
-			foreach ($obiski as $obisk) {
-				if ($obisk->sifra_ps == $nadomescanjeSestra){
-					array_push($arrForceNadomestna, $obisk->sifra_obisk);
-				}
-			}
-			$mix->whereIn('obisk.sifra_obisk', $arrForceNadomestna);
+		if(isset($forceSestra)){
+			$s = PatronaznaSestra::where('sifra_okolis', '=', $forceSestra)->value('sifra_ps');
+        	$mix->where('obisk.sifra_ps', '=', $s);
+        	$mix->orWhere('obisk.sifra_nadomestne_ps', '=', $s);
 		} else if($request['nadomestnaSestra'] != "-" && $request['zadolzenaSestra'] != "-"){
-			$arrForceNadomestna = array();
-			$nadomescanjeSestra = $request['nadomestnaSestra'];
-			$zadolzenostSestra = $request['zadolzenaSestra'];
-			$nadomescanja = Nadomescanje::all();
-			$obiski = Obisk::all();
-			foreach ($nadomescanja as $nadomescanje) {
-				if ($nadomescanje->nadomestna_sifra_ps == $nadomescanjeSestra){
-					array_push($arrForceNadomestna, $nadomescanje->sifra_obisk);
-				}
-			}
-			foreach ($obiski as $obisk) {
-				if ($obisk->sifra_ps == $zadolzenostSestra){
-					array_push($arrForceNadomestna, $obisk->sifra_obisk);
-				}
-			}
-			$mix->whereIn('obisk.sifra_obisk', $arrForceNadomestna);
+        	$mix->where('obisk.sifra_ps', '=', $request['zadolzenaSestra']);
+        	$mix->orWhere('obisk.sifra_nadomestne_ps', '=', $request['nadomestnaSestra']);
 		} else if ($request['nadomestnaSestra'] == "-" && $request['zadolzenaSestra'] != "-") {
-			$sestra = PatronaznaSestra::where('sifra_ps', '=', $request['zadolzenaSestra'])->get();
-			if(count($sestra) > 0)
-		    	$okolisSestre = $sestra[0]->sifra_okolis;
-		    else 
-		    	$okolisSestre = "nope";
-		    $mix->where('pacient.sifra_okolis', '=', $okolisSestre);
+        	$mix->where('obisk.sifra_ps', '=', $request['zadolzenaSestra']);
 		} else  if ($request['nadomestnaSestra'] != "-" && $request['zadolzenaSestra'] == "-"){
-			$arrForceNadomestna = array();
-			$nadomescanjeSestra = $request['nadomestnaSestra'];
-			$nadomescanja = Nadomescanje::all();
-			foreach ($nadomescanja as $nadomescanje) {
-				if ($nadomescanje->nadomestna_sifra_ps == $nadomescanjeSestra){
-					array_push($arrForceNadomestna, $nadomescanje->sifra_obisk);
-				}
-			}
-			$mix->whereIn('obisk.sifra_obisk', $arrForceNadomestna);
+        	$mix->where('obisk.sifra_nadomestne_ps', '=', $request['nadomestnaSestra']);
 		}
-		
 		
 		if($request['predvideniOdDatum']){
 			//Sprememba formata datuma

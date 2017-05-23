@@ -18,7 +18,7 @@ use Carbon\Carbon;
 class PlanController extends Controller
 {
 
-	public function vnesiPodatke(Request $request, $sifraObisk, $sifraPlan){
+	public function vnesiPodatke(Request $request, $sifraObisk, $sifraPlan, $izbraniDatum){
 		
 		foreach ($request->all() as $key => $value){
 			if (is_numeric($key)){
@@ -312,15 +312,19 @@ class PlanController extends Controller
 		$datum = Plan::where('sifra_plan', '=', $sifraPlan)->value('datum_plan');
 		$obiskOp = Obisk::where('sifra_obisk', '=', $sifraObisk)->update(['opravljen' => 1]);
 		$obiskOpDat = Obisk::where('sifra_obisk', '=', $sifraObisk)->update(['datum_opravljenosti_obiska' => $datum]);
-		return redirect()->route('plan')->with(['sifraPlan' => $sifraPlan, 'datumPlana' => $datum, 'vceraj' => 0]);
+		return redirect()->route('plan')->with(['sifraPlan' => $sifraPlan, 'izbraniDatum' => $izbraniDatum, 'datumPlana' => $datum, 'vceraj' => 0]);
 	}
 
     public function index() {
     	$sifraPlan = 0;
+    	$izbraniDatum = 0;
 		if (Auth::check()) {
             if (Auth::user()->sifra_vloga == 4){
                 if (session()->has('sifraPlan')){
 		        	$sifraPlan = session('sifraPlan');
+		        }
+		        if (session()->has('izbraniDatum')){
+		        	$izbraniDatum = session('izbraniDatum');
 		        }
 
 		        //pridobivanje šifre delavca
@@ -539,7 +543,7 @@ class PlanController extends Controller
 		        }
 
 		        $datum = Plan::where('sifra_plan', '=', $sifraPlan)->value('datum_plan');
-		    	return view('pages.plan', ['datumPlan' => $datum, 'sifraPlan' => $sifraPlan, 'sifraSestre' => $sifraSestre, 'mix1' => $mix1, 'mix2' => $mix2, 'nepotrebniObiski' => $nepotrebniObiski, 'vceraj' => 0]);
+		    	return view('pages.plan', ['datumPlan' => $datum, 'izbraniDatum' => $izbraniDatum, 'sifraPlan' => $sifraPlan, 'sifraSestre' => $sifraSestre, 'mix1' => $mix1, 'mix2' => $mix2, 'nepotrebniObiski' => $nepotrebniObiski, 'vceraj' => 0]);
             } else {
                 return redirect()->route('home');
             }
@@ -548,12 +552,12 @@ class PlanController extends Controller
         }        
     }
 
-    public function dodaj($sifraPlan, $sifraObiska) {
+    public function dodaj($sifraPlan, $sifraObiska, $izbraniDatum) {
     	if (Auth::check()) {
             if (Auth::user()->sifra_vloga == 4){
                 $obisk = Obisk::where('sifra_obisk', '=', $sifraObiska)->update(['sifra_plan' => $sifraPlan]);
     	
-    			return redirect()->route('plan')->with(['sifraPlan' => $sifraPlan, 'vceraj' => 0]);
+    			return redirect()->route('plan')->with(['sifraPlan' => $sifraPlan, 'izbraniDatum' => $izbraniDatum, 'vceraj' => 0]);
             } else {
                 return redirect()->route('home');
             }
@@ -563,14 +567,14 @@ class PlanController extends Controller
     	
     }
 
-    public function odstrani($sifraPlan, $sifraObiska) {
+    public function odstrani($sifraPlan, $sifraObiska, $izbraniDatum) {
     	if (Auth::check()) {
             if (Auth::user()->sifra_vloga == 4){
             	$originalSifraPlana = Obisk::where('sifra_obisk', '=', $sifraObiska)->get();
             	$originalSifraPlana = $originalSifraPlana[0]->originalna_sifra_plan;
                 $obisk = Obisk::where('sifra_obisk', '=', $sifraObiska)->update(['sifra_plan' => $originalSifraPlana]);
     	
-    			return redirect()->route('plan')->with(['sifraPlan' => $sifraPlan, 'vceraj' => 0]);
+    			return redirect()->route('plan')->with(['sifraPlan' => $sifraPlan, 'izbraniDatum' => $izbraniDatum, 'vceraj' => 0]);
             } else {
                 return redirect()->route('home');
             }

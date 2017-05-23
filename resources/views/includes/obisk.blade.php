@@ -60,6 +60,21 @@
 				  </div>			  
 			  </div>
 			</div>
+			<div class="panel panel-default">			
+			  <div class="panel-heading">
+				<h3 class="panel-title">4 - Zadolžena patronažna sestra</h3>
+			  </div>
+			  <div class="panel-body">
+			  	  <div class="form-group">
+				    <label class="label label-primary">Šifra sestre</label>
+					<div class="form-control nalog" name="vrstaStoritve"><label>{{$obisk->sestra[0]->sifra_ps}}</label></div>
+				  </div>
+				  <div class="form-group">
+				    <label class="label label-primary">Ime sestre</label>
+					<div class="form-control nalog" name="vrstaStoritve"><label>{{$obisk->sestra[0]->ime}} {{$obisk->sestra[0]->priimek}}</label></div>
+				  </div>
+				</div>
+			</div>
 		</div>
 		<div class="col-xs-12 col-sm-8 col-md-6">
 			<div class="panel panel-default">			
@@ -67,6 +82,10 @@
 				<h3 class="panel-title">2 - Storitev</h3>
 			  </div>
 			  <div class="panel-body">					  
+				<div class="form-group">
+				    <label class="label label-primary">Šifra obiska</label>
+					<div class="form-control nalog" name="vrstaStoritve"><label>{{$obisk->sifra_obisk}}</label></div>
+				</div>
 				<div class="form-group">
 				    <label class="label label-primary">Ime obiska</label>
 					<div class="form-control nalog" name="vrstaStoritve"><label>{{$obisk->ime_vrsta_obiska}}</label></div>
@@ -105,21 +124,6 @@
 				  <div class="form-group">
 				    <label class="label label-primary">Ime bolezni</label>
 					<div class="form-control nalog" name="vrstaStoritve"><label>{{$obisk->ime_bolezni}}</label></div>
-				  </div>
-				</div>
-			</div>
-			<div class="panel panel-default">			
-			  <div class="panel-heading">
-				<h3 class="panel-title">4 - Zadolžena patronažna sestra</h3>
-			  </div>
-			  <div class="panel-body">
-			  	  <div class="form-group">
-				    <label class="label label-primary">Šifra sestre</label>
-					<div class="form-control nalog" name="vrstaStoritve"><label>{{$obisk->sestra[0]->sifra_ps}}</label></div>
-				  </div>
-				  <div class="form-group">
-				    <label class="label label-primary">Ime sestre</label>
-					<div class="form-control nalog" name="vrstaStoritve"><label>{{$obisk->sestra[0]->ime}} {{$obisk->sestra[0]->priimek}}</label></div>
 				  </div>
 				</div>
 			</div>
@@ -646,41 +650,6 @@
 					  </div>
 					</div>
 				  </div>
-				  <div class="panel-body">					  
-					  <div class="form-group">
-						<div class="form-control nalog" name="vrstaStoritve">
-						  <div class="panel-heading">
-							<h3 class="panel-title">Otroci</h3>
-						  </div>
-						  <div class="panel-body">
-							  <table class="table table-bordered">
-								<thead>
-								  <tr>
-									<th>Številka KZZ</th>
-									<th>Ime</th>
-									<th>Datum rojstva</th>
-								  </tr>
-								</thead>
-								<tbody>
-								  @foreach ($obisk->otroci as $otrok)
-								  <tr>
-									<td><label>{{$otrok->stevilka_KZZ}}</label></td>
-									<td><label>{{$otrok->ime}} {{$otrok->priimek}}</label></td>
-									<td><label id="dat_roj_ot_{{$obisk->sifra_dn}}_{{$otrok->stevilka_KZZ}}"></label></td>
-									<script>
-									  	var prvotniDatumOt = "{{$otrok->datum_rojstva}}";
-									  	var arrStringovOt = prvotniDatumOt.split("-");
-									  	var preurejeniDatumOt = arrStringovOt[2].concat(".".concat(arrStringovOt[1].concat(".".concat(arrStringovOt[0]))));
-									  	$("#dat_roj_ot_{{$obisk->sifra_dn}}_{{$otrok->stevilka_KZZ}}").html(preurejeniDatumOt);
-									</script>
-								  </tr>
-								  @endforeach
-								</tbody>
-							  </table>
-						  </div>
-					  </div>
-				    </div>
-				  </div>
 				@elseif ($obisk->ime_vrsta_obiska == 'Preventiva starostnika')
 					<div class="panel-body">					  
 					  <div class="form-group">
@@ -831,35 +800,6 @@
 						  </div>
 					  </div>
 					</div>
-				  </div>
-				  <div class="panel-body">					  
-					  <div class="form-group">
-						<div class="form-control nalog" name="vrstaStoritve">
-						  <div class="panel-heading">
-							<h3 class="panel-title">Zdravila</h3>
-						  </div>
-						  <div class="panel-body">
-							  <table class="table table-bordered">
-								<thead>
-								  <tr>
-									<th>Šifra zdravila</th>
-									<th>Ime zdravila</th>
-									<th>Opis zdravila</th>
-								  </tr>
-								</thead>
-								<tbody>
-								@foreach ($obisk->zdravila as $zdravilo)
-								  <tr>
-									<td><label>{{$zdravilo->sifra_zdravila}}</label></td>
-									<td><label>{{$zdravilo->ime_zdravila}}</label></td>
-									<td><label>{{$zdravilo->opis_zdravila}}</label></td>
-								  </tr>
-								@endforeach
-								</tbody>
-							  </table>
-						  </div>
-					  </div>
-				    </div>
 				  </div>
 				</div>
 				@elseif ($obisk->ime_vrsta_obiska == 'Odvzem krvi')

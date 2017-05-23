@@ -283,7 +283,7 @@
 		@if ($vceraj == 1)
 			<form role="form" method="POST" action="{{ route('seznamObiskovVcerajVnesiPodatke', ['sifraObisk' => $obisk->sifra_obisk, 'sifraPlan' => $sifraPlan]) }}">
 		@else
-			<form role="form" method="POST" action="{{ route('vnesiPodatke', ['sifraObisk' => $obisk->sifra_obisk, 'sifraPlan' => $sifraPlan]) }}">
+			<form role="form" method="POST" action="{{ route('vnesiPodatke', ['sifraObisk' => $obisk->sifra_obisk, 'sifraPlan' => $sifraPlan, 'izbraniDatum' => $izbraniDatum]) }}">
 		@endif
 
 		@php

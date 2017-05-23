@@ -58,7 +58,8 @@ class MaterialController extends Controller
 			if($plan->first()){
 					$sifraPlan = Plan::where('datum_plan', '=', $datumPlana)->get();
 					$sifraPlan = $sifraPlan[0]->sifra_plan;
-					$obiski=Obisk::where('sifra_plan',$sifraPlan)->get();
+					$obiski = Obisk::where('sifra_plan',$sifraPlan)
+									->where('opravljen', '=', 0)->get();
 					$stzdravila=Zdravilo::get();
 					foreach ($stzdravila as $zdravilo) {
 							$zdravilo['kolicina'] = 0;

@@ -29,9 +29,9 @@
 			   					@if (!in_array($obisk->sifra_obisk, $nepotrebniObiski))
 									<tr>
 									@if ($obisk->datum_obvezen == 1)
-										<td><button type="button" onclick="window.location='{{ url('plan/dodaj') }}/{{$sifraPlan}}/{{$sifra = $obisk->sifra_obisk}}'" class="btn btn-default" name="{{$sifra = $obisk->sifra_obisk}}" disabled>Dodaj</button></td>
+										<td><button type="button" onclick="window.location='{{ url('plan/dodaj') }}/{{$sifraPlan}}/{{$sifra = $obisk->sifra_obisk}}/{{$izbraniDatum}}'" class="btn btn-default" name="{{$sifra = $obisk->sifra_obisk}}" disabled>Dodaj</button></td>
 									@else
-										<td><button type="button" onclick="window.location='{{ url('plan/dodaj') }}/{{$sifraPlan}}/{{$sifra = $obisk->sifra_obisk}}'" class="btn btn-default" name="{{$sifra = $obisk->sifra_obisk}}">Dodaj</button></td>
+										<td><button type="button" onclick="window.location='{{ url('plan/dodaj') }}/{{$sifraPlan}}/{{$sifra = $obisk->sifra_obisk}}/{{$izbraniDatum}}'" class="btn btn-default" name="{{$sifra = $obisk->sifra_obisk}}">Dodaj</button></td>
 									@endif
 										<td><label id="pr_dat_ne_{{$obisk->sifra_obisk}}"></label></td>
 										<script>
@@ -73,7 +73,7 @@
 			<div class="col-xs-12 col-sm-12 col-md-12 ">
 				<div class="panel panel-default">
 				  <div class="panel-heading">
-					<h3 class="panel-title">Planirani obiski za izbrani datum</h3>
+					<h3 class="panel-title">Planirani obiski za <label>{{$izbraniDatum}}</label></h3>
 				  </div>
 				  <div class="panel-body">
 				  <table class="table">
@@ -95,9 +95,9 @@
 			   				@else
 						  		<tr>
 						  			@if ($obisk->datum_obvezen == 1)
-						  				<td><button type="button" onclick="window.location='{{ url('plan/odstrani') }}/{{$sifraPlan}}/{{$sifra = $obisk->sifra_obisk}}'" class="btn btn-default" name="{{$sifra = $obisk->sifra_obisk}}" disabled>Odstrani</button></td>
+						  				<td><button type="button" onclick="window.location='{{ url('plan/odstrani') }}/{{$sifraPlan}}/{{$sifra = $obisk->sifra_obisk}}/{{$izbraniDatum}}'" class="btn btn-default" name="{{$sifra = $obisk->sifra_obisk}}" disabled>Odstrani</button></td>
 						  			@else
-										<td><button type="button" onclick="window.location='{{ url('plan/odstrani') }}/{{$sifraPlan}}/{{$sifra = $obisk->sifra_obisk}}'" class="btn btn-default" name="{{$sifra = $obisk->sifra_obisk}}">Odstrani</button></td>
+										<td><button type="button" onclick="window.location='{{ url('plan/odstrani') }}/{{$sifraPlan}}/{{$sifra = $obisk->sifra_obisk}}/{{$izbraniDatum}}'" class="btn btn-default" name="{{$sifra = $obisk->sifra_obisk}}">Odstrani</button></td>
 						  			@endif
 									<td><label id="pr_dat_pl_{{$obisk->sifra_obisk}}"></label></td>
 									<script>
