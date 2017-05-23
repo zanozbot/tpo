@@ -55,8 +55,8 @@ class ZakljucekNadomescanjaController extends Controller
 		foreach($nadomescanja as $nadomescanje){
 			$konec=Carbon::createFromFormat('Y-m-d', $nadomescanje->konec);
 			if($time->gte($konec)){
-				$nadomescanje->obisk->sifra_ps=$sifra;
-				$nadomescanje->obisk->nadomesca = false;
+				$obisk = Obisk::where('sifra_obisk', '=', $nadomescanje->sifra_obisk)
+							->update(['nadomescanje' => 0, 'sifra_nadomestne_ps' => NULL]);
 				$nadomescanje->delete();
 			}
 		}
