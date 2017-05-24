@@ -526,26 +526,22 @@ class PlanController extends Controller
 		        										'datum_rojstva'
 		        										));
 
-		     		if ($i > 0){
-		     			$jeNepotreben = 0;
-		     			for ($j = 0; $j < count($zeVIzpisu); $j++){
-		     				if ($zeVIzpisu[$j] == $mix1[$i]->sifra_dn) {
-		     					array_push($nepotrebniObiski, $mix1[$i]->sifra_obisk);
-		     					$jeNepotreben = 1;
-		     				}
-		     			}
-		     			for ($j = 0; $j < count($nepotrebniNalogi); $j++){
-		     				if ($nepotrebniNalogi[$j] == $mix1[$i]->sifra_dn) {
-		     					array_push($nepotrebniObiski, $mix1[$i]->sifra_obisk);
-		     					$jeNepotreben = 1;
-		     				}
-		     			}
-		     			if ($jeNepotreben == 0){
-		     				array_push($zeVIzpisu, $mix1[$i]->sifra_dn);
-		     			}
-		     		} else {
-		     			array_push($zeVIzpisu, $mix1[$i]->sifra_dn);
-		     		}
+	     			$jeNepotreben = 0;
+	     			for ($j = 0; $j < count($zeVIzpisu); $j++){
+	     				if ($zeVIzpisu[$j] == $mix1[$i]->sifra_dn) {
+	     					array_push($nepotrebniObiski, $mix1[$i]->sifra_obisk);
+	     					$jeNepotreben = 1;
+	     				}
+	     			}
+	     			for ($j = 0; $j < count($nepotrebniNalogi); $j++){
+	     				if ($nepotrebniNalogi[$j] == $mix1[$i]->sifra_dn) {
+	     					array_push($nepotrebniObiski, $mix1[$i]->sifra_obisk);
+	     					$jeNepotreben = 1;
+	     				}
+	     			}
+	     			if ($jeNepotreben == 0){
+	     				array_push($zeVIzpisu, $mix1[$i]->sifra_dn);
+	     			}
 		        }
 
 		        $datum = Plan::where('sifra_plan', '=', $sifraPlan)->value('datum_plan');

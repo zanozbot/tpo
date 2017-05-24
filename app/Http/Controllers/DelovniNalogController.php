@@ -196,12 +196,23 @@ class DelovniNalogController extends Controller
             $korak = $stDni/$request['steviloObiskov'];
             $datumObiska = $datumZacetni;
             for ($x = 1; $x <= $request['steviloObiskov']-1; $x++) {
+
+                //preverjanje ali je datum sobota ali nedelja
+                $novDatumObiska = $datumObiska;
+                if (date('N', strtotime($novDatumObiska)) == 6) {
+                    //datum je na soboto
+                    $novDatumObiska = date('Y-m-d', strtotime('-1 day', strtotime($novDatumObiska)));
+                } else if (date('N', strtotime($novDatumObiska)) == 7){
+                    //datum je na nedeljo
+                    $novDatumObiska = date('Y-m-d', strtotime('+1 day', strtotime($novDatumObiska)));
+                }
+
                 //kreiraj ali dodaj v plan
-                $plan = Plan::where('datum_plan', $datumObiska)->where('sifra_ps_plan', '=', $sifraPS)->get();
-                if(!$plan->first()){
+                $plan = Plan::where('datum_plan', $novDatumObiska)->where('sifra_ps_plan', '=', $sifraPS)->get();
+                if(!count($plan)){
                     //plan v bazi še ne obstaja
                     $planCreate = Plan::create([
-                            'datum_plan' => $datumObiska,
+                            'datum_plan' => $novDatumObiska,
                             'sifra_ps_plan' => $sifraPS
                         ]);
                     $sifraPlan = $planCreate->sifra_plan;
@@ -215,15 +226,6 @@ class DelovniNalogController extends Controller
                     $originalnaSifraPlana = $sifraPlan;
                 }
 
-                //preverjanje ali je datum sobota ali nedelja
-                $novDatumObiska = $datumObiska;
-                if (date('N', strtotime($novDatumObiska)) == 6) {
-                    //datum je na soboto
-                    $novDatumObiska = date('Y-m-d', strtotime('-1 day', strtotime($novDatumObiska)));
-                } else if (date('N', strtotime($novDatumObiska)) == 7){
-                    //datum je na nedeljo
-                    $novDatumObiska = date('Y-m-d', strtotime('+1 day', strtotime($novDatumObiska)));
-                }
                 $obisk = Obisk::create([
                     'sifra_dn' => $sifraNovegaDN,
                     'sifra_plan' => $sifraPlan,
@@ -258,12 +260,22 @@ class DelovniNalogController extends Controller
             $datumObiska = $datumZacetni;
             for ($x = 0; $x < $request['steviloObiskov']; $x++) {
                 
+                //preverjanje ali je datum sobota ali nedelja
+                $novDatumObiska = $datumObiska;
+                if (date('N', strtotime($novDatumObiska)) == 6) {
+                    //datum je na soboto
+                    $novDatumObiska = date('Y-m-d', strtotime('-1 day', strtotime($novDatumObiska)));
+                } else if (date('N', strtotime($novDatumObiska)) == 7){
+                    //datum je na nedeljo
+                    $novDatumObiska = date('Y-m-d', strtotime('+1 day', strtotime($novDatumObiska)));
+                }
+
                 //kreiraj ali dodaj v plan
-                $plan = Plan::where('datum_plan', $datumObiska)->where('sifra_ps_plan', '=', $sifraPS)->get();
+                $plan = Plan::where('datum_plan', $novDatumObiska)->where('sifra_ps_plan', '=', $sifraPS)->get();
                 if(!$plan->first()){
                     //plan v bazi še ne obstaja
                     $planCreate = Plan::create([
-                            'datum_plan' => $datumObiska,
+                            'datum_plan' => $novDatumObiska,
                             'sifra_ps_plan' => $sifraPS
                         ]);
                     $sifraPlan = $planCreate->sifra_plan;
@@ -277,15 +289,6 @@ class DelovniNalogController extends Controller
                     $originalnaSifraPlana = $sifraPlan;
                 }
 
-                //preverjanje ali je datum sobota ali nedelja
-                $novDatumObiska = $datumObiska;
-                if (date('N', strtotime($novDatumObiska)) == 6) {
-                    //datum je na soboto
-                    $novDatumObiska = date('Y-m-d', strtotime('-1 day', strtotime($novDatumObiska)));
-                } else if (date('N', strtotime($novDatumObiska)) == 7){
-                    //datum je na nedeljo
-                    $novDatumObiska = date('Y-m-d', strtotime('+1 day', strtotime($novDatumObiska)));
-                }
                 $obisk = Obisk::create([
                     'sifra_dn' => $sifraNovegaDN,
                     'sifra_plan' => $sifraPlan,

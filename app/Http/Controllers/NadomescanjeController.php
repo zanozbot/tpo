@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Nadomescanje;
 use App\PatronaznaSestra;
 use App\Obisk;
+use App\Plan;
 use Carbon\Carbon;
 
 class NadomescanjeController extends Controller
@@ -49,11 +50,25 @@ class NadomescanjeController extends Controller
         $nadomestna_ps = PatronaznaSestra::find($request['nadomestna_sifra_ps']);
         $obiski = $ps->obisk;
 
+        $planiZaIzbris = array();
+        $planiZaUpdate = array();
 		$zacetek = Carbon::createFromFormat('d.m.Y', $request['zacetek']);
 		$konec = Carbon::createFromFormat('d.m.Y', $request['konec']);
 		foreach ($obiski as $obisk) {
-			$datum = Carbon::createFromFormat('Y-m-d', $obisk->datum_obiska);
+            $datumPlan = Plan::where('sifra_plan', '=', $obisk->sifra_plan)->value('datum_plan');
+			$datum = Carbon::createFromFormat('Y-m-d', $datumPlan);
 			if($datum->between($zacetek, $konec, true)) {
+
+                $plannadomestne = Plan::where('datum_plan', '=', $datumPlan)->where('sifra_ps_plan', '=', $nadomestna_ps->sifra_ps)->get();
+                if(!count($plannadomestne)) {
+                    //plan nadomestne sestre za ta datum še ne obstaja
+                    array_push($planiZaUpdate, Plan::where('datum_plan', '=', $datumPlan)->where('sifra_ps_plan', '=', $ps->sifra_ps)->value('sifra_plan'));
+                } else {
+                    //plan nadomestne sestre za ta datum že obstaja
+                    $obisk->sifra_plan = $plannadomestne[0]->sifra_plan;
+                    array_push($planiZaIzbris, Plan::where('datum_plan', '=', $datumPlan)->where('sifra_ps_plan', '=', $ps->sifra_ps)->value('sifra_plan'));
+                }
+
 				Nadomescanje::create([
 					'sifra_ps' => $ps->sifra_ps,
 					'nadomestna_sifra_ps' => $nadomestna_ps->sifra_ps,
@@ -63,10 +78,17 @@ class NadomescanjeController extends Controller
 				]);
 				$obisk->sifra_nadomestne_ps = $nadomestna_ps->sifra_ps;
                 $obisk->nadomescanje = 1;
-				$obisk->save();
 
+				$obisk->save();                
 			}
 		}
+
+        foreach ($planiZaIzbris as $p){
+            $plan = Plan::where('sifra_plan', '=', $p)->delete();
+        }
+        foreach ($planiZaUpdate as $p){
+            Plan::where('sifra_plan', '=', $p)->update(['sifra_ps_plan' => $nadomestna_ps->sifra_ps]);
+        }
         return redirect()->route('dolocitev_nadomescanja')->with('status', 'Uspeh.');
     }
 }

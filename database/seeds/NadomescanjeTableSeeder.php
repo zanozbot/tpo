@@ -34,6 +34,7 @@ class NadomescanjeTableSeeder extends Seeder
 
         $plan = Plan::create([
             'sifra_plan' => 1,
+            'sifra_ps_plan' => '12345',
             'datum_plan' => '2017-05-10'
         ]);
 

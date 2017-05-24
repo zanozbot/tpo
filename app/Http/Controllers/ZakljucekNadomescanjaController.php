@@ -54,14 +54,36 @@ class ZakljucekNadomescanjaController extends Controller
 		$sifra=$request['sifra'];
 		$nadomescanja=Nadomescanje::where('sifra_ps',$sifra)->get();
 		$time=Carbon::now();
+
+		$planiZaIzbris = array();
+        $planiZaUpdate = array();
 		foreach($nadomescanja as $nadomescanje){
 			$konec=Carbon::createFromFormat('Y-m-d', $nadomescanje->konec);
 			if($time->gte($konec)){
-				$obisk = Obisk::where('sifra_obisk', '=', $nadomescanje->sifra_obisk)
-							->update(['nadomescanje' => 0, 'sifra_nadomestne_ps' => NULL]);
+				$obisk = Obisk::where('sifra_obisk', $nadomescanje->sifra_obisk)->get();
+				$trenutniPlan = Plan::where('sifra_plan', '=', $obisk[0]->sifra_plan)->get();
+
+				$planZadolzene = Plan::where('datum_plan', '=', $trenutniPlan[0]->datum_plan)->where('sifra_ps_plan', '=', $nadomescanje->sifra_ps)->get();
+                if(!count($planZadolzene)) {
+                    //plan zadolžene sestre za ta datum še ne obstaja
+                    Obisk::where('sifra_obisk', $nadomescanje->sifra_obisk)->update(['nadomescanje' => 0, 'sifra_nadomestne_ps' => NULL]);
+                    array_push($planiZaUpdate, $trenutniPlan[0]->sifra_plan);
+                } else {
+                    //plan zadolžene sestre za ta datum že obstaja
+                    Obisk::where('sifra_obisk', $nadomescanje->sifra_obisk)->update(['nadomescanje' => 0, 'sifra_nadomestne_ps' => NULL, 'sifra_plan' => $planZadolzene[0]->sifra_plan]);
+                    array_push($planiZaIzbris, Plan::where('datum_plan', '=', $trenutniPlan[0]->datum_plan)->where('sifra_ps_plan', '=', $nadomescanje->sifra_nadomestne_ps)->value('sifra_plan'));
+                }
+	
 				$nadomescanje->delete();
 			}
 		}
+
+		foreach ($planiZaIzbris as $p){
+            $plan = Plan::where('sifra_plan', '=', $p)->delete();
+        }
+        foreach ($planiZaUpdate as $p){
+            Plan::where('sifra_plan', '=', $p)->update(['sifra_ps_plan' => $nadomescanja[0]->sifra_ps]);
+        }
 		return redirect()->route('zakljucek_nadomescanja')->with('status', 'Obiski so bili uspešno dodeljeni prvotni sestri.');
 
 	}
