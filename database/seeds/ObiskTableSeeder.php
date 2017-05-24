@@ -26,7 +26,7 @@ class ObiskTableSeeder extends Seeder
                 'sifra_ps' => 12345,
                 'sifra_nadomestne_ps' => 20142,
                 'datum_obiska' => '2017-05-25',
-                'datum_opravljenosti_obiska' => '2017-05-25',
+                'datum_opravljenosti_obiska' => '2017-05-23',
                 'opravljen' => 1,
                 'nadomescanje' => 1,
             ),

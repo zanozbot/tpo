@@ -11,15 +11,16 @@ use App\Pacient;
 use App\Obisk;
 use App\PatronaznaSestra;
 use App\Delavec;
-use App\Aktivnost;
 use App\Plan;
 use App\Porocilo;
+use App\Nadomescanje;
+use App\Aktivnost;
 use Auth;
 
 class SeznamObiskovVcerajController extends Controller
 {
 
-	public function vnesiPodatke(Request $request, $sifraObisk, $sifraPlan){
+	public function vnesiPodatke(Request $request, $sifraObisk){
 		
 		foreach ($request->all() as $key => $value){
 			if (is_numeric($key)){
@@ -316,62 +317,69 @@ class SeznamObiskovVcerajController extends Controller
 
 	public function index() {
 
-		$datumPlan = Carbon::yesterday()->toDateString();
+		$sifraPlan = 0;
+    	$izbraniDatum = 0;
 
-		$mix2 = DelovniNalog::join('delovni_nalog_pacient', 'delovni_nalog.sifra_dn', '=', 'delovni_nalog_pacient.delovni_nalog_sifra_dn')
-        				->join('pacient', 'delovni_nalog_pacient.pacient_stevilka_KZZ', '=', 'pacient.stevilka_KZZ')
-        				->join('uporabnik', 'pacient.id_uporabnik', '=', 'uporabnik.id_uporabnik')
-        				->join('delavec', 'delavec.sifra_delavec', '=', 'delovni_nalog.sifra_delavec')
-        				->join('izvajalec_zd', 'izvajalec_zd.sifra_zd', '=', 'delavec.sifra_zd')
-        				->join('posta', 'posta.postna_stevilka', '=', 'pacient.postna_stevilka')
-        				->join('vrsta_obiska', 'delovni_nalog.sifra_vrsta_obisk', '=', 'vrsta_obiska.sifra_vrsta_obisk')
-        				->join('bolezen', 'bolezen.sifra_bolezen', '=', 'delovni_nalog.sifra_bolezen')
-        				->orderBy('delovni_nalog.sifra_dn', 'asc')
-                        ->get(array(
-		                            'pacient.ime as ime_pacienta',
-		                            'pacient.priimek as priimek_pacienta',
-		                            'email',
-		                            'tel_stevilka',
-		                            'stevilka_KZZ',
-		                            'pac_stevilka_KZZ',
-		                            'pacient.postna_stevilka as posta_pacient',
-		                            'sifra_okolis',
-		                            'pacient.ulica as naslov_pacienta',
-		                            'pacient.kraj as kraj_pacienta',
-		                            'datum_rojstva',
-		                            'spol',
-		                            'delovni_nalog.sifra_dn',
-		                            'vrsta_obiska.sifra_vrsta_obisk',
-		                            'vrsta_obiska.ime as ime_vrsta_obiska',
-		                            'stevilo_epruvet_RdMoRuZe',
-		                            'datum_prvega_obiska',
-		                            'datum_koncnega_obiska',
-		                            'datum_obvezen',
-		                            'stevilo_obiskov',
-		                            'casovni_interval',
-		                            'izvajalec_zd.sifra_zd',
-		                            'izvajalec_zd.postna_stevilka as posta_izvajalec',
-		                            'delavec.sifra_delavec as sifra_delavca',
-		                            'izvajalec_zd.naziv as naziv_izvajalca',
-		                            'izvajalec_zd.naslov as naslov_izvajalca',
-		                            'posta.kraj as kraj_poste',
-		                            'vrsta_obiska.ime as ime_vrsta_obiska',
-		                            'preventivni',
-		                            'bolezen.sifra_bolezen as sifra_bolezni',
-		                            'bolezen.ime as ime_bolezni'
-                        ));
-
-		//najdi sestro
+        //najdi sestro
         $sifraPS = Auth::user()->id_uporabnik;
         $sifraPS = PatronaznaSestra::where('id_uporabnik', '=', $sifraPS)->value('sifra_ps');
 
-        for ($i=0; $i < count($mix2); $i++) { 
-        	$mix2[$i]->obiski = Obisk::join('plan', 'obisk.sifra_plan', '=', 'plan.sifra_plan')
-        							->where('obisk.sifra_dn', '=', $mix2[$i]->sifra_dn)
-        							->where('opravljen', '=', 1)
-									->where('datum_plan', '=', $datumPlan)
-									->where('sifra_ps_plan', '=', $sifraPS)->get();
+		$mix2 = Obisk::join('delovni_nalog', 'obisk.sifra_dn', '=', 'delovni_nalog.sifra_dn')
+			->join('delovni_nalog_pacient', 'delovni_nalog.sifra_dn', '=', 'delovni_nalog_pacient.delovni_nalog_sifra_dn')
+			->join('pacient', 'delovni_nalog_pacient.pacient_stevilka_KZZ', '=', 'pacient.stevilka_KZZ')
+			->join('posta', 'posta.postna_stevilka', '=', 'pacient.postna_stevilka')
+			->join('uporabnik', 'pacient.id_uporabnik', '=', 'uporabnik.id_uporabnik')
+			->join('vrsta_obiska', 'delovni_nalog.sifra_vrsta_obisk', '=', 'vrsta_obiska.sifra_vrsta_obisk')
+			->join('bolezen', 'bolezen.sifra_bolezen', '=', 'delovni_nalog.sifra_bolezen')
+			->join('delavec', 'delavec.sifra_delavec', '=', 'delovni_nalog.sifra_delavec')
+			->join('izvajalec_zd', 'izvajalec_zd.sifra_zd', '=', 'delavec.sifra_zd')
+			->where('datum_opravljenosti_obiska', date('Y-m-d',strtotime("-1 days")))
+			->where('obisk.sifra_ps', '=', $sifraPS)
+			->orderBy('datum_opravljenosti_obiska', 'asc')
+			->get(array(
+						'sifra_obisk',
+                        'pacient.ime as ime_pacienta',
+                        'pacient.priimek as priimek_pacienta',
+                        'email',
+                        'tel_stevilka',
+                        'stevilka_KZZ',
+                        'pac_stevilka_KZZ',
+                        'pacient.postna_stevilka as posta_pacient',
+                        'sifra_okolis',
+                        'pacient.ulica as naslov_pacienta',
+                        'pacient.kraj as kraj_pacienta',
+                        'datum_rojstva',
+                        'spol',
+                        'obisk.sifra_ps',
+                        'obisk.sifra_nadomestne_ps',
+                        'delovni_nalog.sifra_dn',
+                        'vrsta_obiska.sifra_vrsta_obisk',
+                        'vrsta_obiska.ime as ime_vrsta_obiska',
+                        'stevilo_epruvet_RdMoRuZe',
+                        'datum_prvega_obiska',
+                        'datum_koncnega_obiska',
+                        'datum_obvezen',
+                        'stevilo_obiskov',
+                        'casovni_interval',
+                        'izvajalec_zd.sifra_zd',
+                        'izvajalec_zd.postna_stevilka as posta_izvajalec',
+                        'delavec.sifra_delavec as sifra_delavca',
+                        'izvajalec_zd.naziv as naziv_izvajalca',
+                        'izvajalec_zd.naslov as naslov_izvajalca',
+                        'posta.kraj as kraj_poste',
+                        'vrsta_obiska.ime as ime_vrsta_obiska',
+                        'preventivni',
+                        'datum_obiska',
+                        'bolezen.sifra_bolezen as sifra_bolezni',
+                        'bolezen.ime as ime_bolezni',
+                        'Nadomescanje'
+                ));
 
+        for ($i=0; $i < count($mix2); $i++) {
+        	$mix2[$i]->obiski = Obisk::where('obisk.sifra_dn', '=', $mix2[$i]->sifra_dn)
+        							->where('opravljen', '=', 0)
+									->where('sifra_plan', '=', $sifraPlan)->get();
+        
         	$mix2[$i]->aktivnosti = Aktivnost::where('sifra_storitve', '=', $mix2[$i]->sifra_vrsta_obisk)->get();
         	if($mix2[$i]->sifra_vrsta_obisk == 20)
         		$mix2[$i]->aktivnostiNovorojencek = Aktivnost::where('sifra_storitve', '=', "30")->get();
@@ -411,9 +419,8 @@ class SeznamObiskovVcerajController extends Controller
         										'datum_rojstva'
         										));
         }
-        $sifraPlan = Plan::where('datum_plan', '=', $datumPlan)->value('sifra_plan');
 
-		return view('pages.seznamobiskvceraj', ['datumPlan' => $datumPlan, 'sifraPlan' => $sifraPlan,'mix2' => $mix2, 'vceraj' => 1]);
+		return view('pages.seznamobiskvceraj', ['mix' => $mix2, 'vceraj' => 1]);
     }
     
 }
