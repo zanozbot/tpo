@@ -29,8 +29,8 @@ class NadomescanjeTableSeeder extends Seeder
             1 => 
             array (
                 'nid' => 2,
-                'zacetek' => '2017-05-25',
-                'konec' => '2017-05-29',
+                'zacetek' => '2017-05-22',
+                'konec' => '2017-05-23',
                 'sifra_ps' => 12345,
                 'nadomestna_sifra_ps' => 20142,
                 'sifra_obisk' => 3,
