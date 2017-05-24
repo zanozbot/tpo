@@ -25,10 +25,25 @@ class UporabnikiSeeder extends Seeder
             'tel_stevilka' => '051000002',
             'aktiviran' => true
         ]);
-        $zdravnik = Delavec::create([
+        $zdravnik1 = Delavec::create([
         		'sifra_zd' => '05900',
         		'sifra_delavec' => '33124',
         		'id_uporabnik' => $u1->id_uporabnik
+        ]);
+
+        $u12 = Uporabnik::create([
+            'sifra_vloga' => '2',
+            'ime' => 'Gregor',
+            'priimek' => 'Hiša',
+            'email' => 'gregor@gmail.com',
+            'geslo' => bcrypt('gregor'),
+            'tel_stevilka' => '051000003',
+            'aktiviran' => true
+        ]);
+        $zdravnik2 = Delavec::create([
+                'sifra_zd' => '06501',
+                'sifra_delavec' => '53424',
+                'id_uporabnik' => $u12->id_uporabnik
         ]);
 
         $u2 = Uporabnik::create([
@@ -87,7 +102,7 @@ class UporabnikiSeeder extends Seeder
 
         $u5 = Uporabnik::create([
             'sifra_vloga' => '6',
-            'ime' => 'Otrok',
+            'ime' => 'Otrokica',
             'priimek' => 'Debevc',
             'email' => 'otrok@gmail.com',
             'geslo' => bcrypt('otrok'),
@@ -96,17 +111,63 @@ class UporabnikiSeeder extends Seeder
         ]);
 
         $pacient = Pacient::create([
+            'id_uporabnik' => $u5->id_uporabnik,
+            'stevilka_KZZ' => '1234567892',
+            'pac_stevilka_KZZ' => '1234567890',
+            'ime' => 'Otrokica',
+            'priimek' => 'Debevc',
+            'sifra_okolis' => '3',
+            'ulica' => 'Novomeška cesta 5',
+            'kraj' => 'Črna na Koroškem',
+            'datum_rojstva' => Carbon::createFromDate(2016, 10, 12, 'Europe/London'),
+            'spol' => 'z',
+            'postna_stevilka' => '3000'
+        ]);
+
+        $u5 = Uporabnik::create([
+            'sifra_vloga' => '6',
+            'ime' => 'Rodilka',
+            'priimek' => 'Bokmalu',
+            'email' => 'rodilka@gmail.com',
+            'geslo' => bcrypt('rodilka'),
+            'tel_stevilka' => '051000008',
+            'aktiviran' => true
+        ]);
+
+        $pacient = Pacient::create([
                 'id_uporabnik' => $u5->id_uporabnik,
-                'stevilka_KZZ' => '12345',
-                'pac_stevilka_KZZ' => '1234567890',
-                'ime' => 'Otrok',
-                'priimek' => 'Debevc',
-                'sifra_okolis' => '3',
-                'ulica' => 'Novomeška cesta 5',
-                'kraj' => 'Črna na Koroškem',
-                'datum_rojstva' => Carbon::createFromDate(2016, 10, 12, 'Europe/London'),
+                'stevilka_KZZ' => '1234647123',
+                'ime' => 'Rodilka',
+                'priimek' => 'Bokmalu',
+                'sifra_okolis' => '7',
+                'ulica' => 'Koroška ulica 2',
+                'kraj' => 'Koper',
+                'datum_rojstva' => Carbon::createFromDate(1980, 11, 9, 'Europe/London'),
                 'spol' => 'z',
-                'postna_stevilka' => '3000'
+                'postna_stevilka' => '6000'
+        ]);
+
+        $u5 = Uporabnik::create([
+            'sifra_vloga' => '6',
+            'ime' => 'Karhitro',
+            'priimek' => 'Bourml',
+            'email' => 'karhitro@gmail.com',
+            'geslo' => bcrypt('karhitro'),
+            'tel_stevilka' => '051000009',
+            'aktiviran' => true
+        ]);
+
+        $pacient = Pacient::create([
+                'id_uporabnik' => $u5->id_uporabnik,
+                'stevilka_KZZ' => '1465567123',
+                'ime' => 'Karhitro',
+                'priimek' => 'Bourml',
+                'sifra_okolis' => '7',
+                'ulica' => 'Logaška ulica 2',
+                'kraj' => 'Logatec',
+                'datum_rojstva' => Carbon::createFromDate(1925, 8, 4, 'Europe/London'),
+                'spol' => 'm',
+                'postna_stevilka' => '1000'
         ]);
 
         $u6 = Uporabnik::create([
@@ -121,7 +182,7 @@ class UporabnikiSeeder extends Seeder
         $ps2 = PatronaznaSestra::create([
                 'sifra_zd' => '12521',
                 'sifra_ps' => '12345',
-                'sifra_okolis' => '4',
+                'sifra_okolis' => '7',
                 'id_uporabnik' => $u6->id_uporabnik
         ]);
     }
