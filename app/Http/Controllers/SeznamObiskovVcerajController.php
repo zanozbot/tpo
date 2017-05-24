@@ -361,19 +361,21 @@ class SeznamObiskovVcerajController extends Controller
 		                            'bolezen.ime as ime_bolezni'
                         ));
 
+		//najdi sestro
+        $sifraPS = Auth::user()->id_uporabnik;
+        $sifraPS = PatronaznaSestra::where('id_uporabnik', '=', $sifraPS)->value('sifra_ps');
+
         for ($i=0; $i < count($mix2); $i++) { 
         	$mix2[$i]->obiski = Obisk::join('plan', 'obisk.sifra_plan', '=', 'plan.sifra_plan')
         							->where('obisk.sifra_dn', '=', $mix2[$i]->sifra_dn)
         							->where('opravljen', '=', 1)
-									->where('datum_plan', '=', $datumPlan)->get();
-        }
-        for ($i=0; $i < count($mix2); $i++){
+									->where('datum_plan', '=', $datumPlan)
+									->where('sifra_ps_plan', '=', $sifraPS)->get();
 
         	$mix2[$i]->aktivnosti = Aktivnost::where('sifra_storitve', '=', $mix2[$i]->sifra_vrsta_obisk)->get();
         	if($mix2[$i]->sifra_vrsta_obisk == 20)
         		$mix2[$i]->aktivnostiNovorojencek = Aktivnost::where('sifra_storitve', '=', "30")->get();
-        }
-        for ($i=0; $i < count($mix2); $i++) { 
+
         	$mix2[$i]->zdravila = DelovniNalog::join('delovni_nalog_zdravilo', 'delovni_nalog.sifra_dn', '=', 'delovni_nalog_zdravilo.delovni_nalog_sifra_dn')
         									->join('zdravilo', 'zdravilo.sifra_zdravilo', '=', 'delovni_nalog_zdravilo.zdravilo_sifra_zdravilo')
         									->get(array(
@@ -381,8 +383,7 @@ class SeznamObiskovVcerajController extends Controller
         										'zdravilo.ime as ime_zdravila',
         										'zdravilo.opis as opis_zdravila'
         										));
-        }
-		for ($i=0; $i < count($mix2); $i++) { 
+
         	$mix2[$i]->pacienti = DelovniNalog::join('delovni_nalog_pacient', 'delovni_nalog.sifra_dn', '=', 'delovni_nalog_pacient.delovni_nalog_sifra_dn')
         									->join('pacient', 'pacient.stevilka_KZZ', '=', 'delovni_nalog_pacient.pacient_stevilka_KZZ')
         									->join('uporabnik', 'pacient.id_uporabnik', '=', 'uporabnik.id_uporabnik')
@@ -394,8 +395,7 @@ class SeznamObiskovVcerajController extends Controller
         										'datum_rojstva',
         										'sifra_ps'
         										));
-        }
-        for ($i=0; $i < count($mix2); $i++) { 
+
         	$mix2[$i]->otroci = DelovniNalog::join('delovni_nalog_pacient', 'delovni_nalog.sifra_dn', '=', 'delovni_nalog_pacient.delovni_nalog_sifra_dn')
         									->join('pacient', 'delovni_nalog_pacient.pacient_stevilka_KZZ', '=', 'pacient.pac_stevilka_KZZ')
         									->join('uporabnik', 'pacient.id_uporabnik', '=', 'uporabnik.id_uporabnik')

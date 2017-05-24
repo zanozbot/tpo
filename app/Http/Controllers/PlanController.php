@@ -331,6 +331,10 @@ class PlanController extends Controller
 		        $sifraSestre = PatronaznaSestra::where('id_uporabnik', '=', Auth::user()->id_uporabnik)->get();
 		        $sifraSestre = $sifraSestre[0]->sifra_ps;
 
+		        //najdi sestro
+		        $sifraPS = Auth::user()->id_uporabnik;
+		        $sifraPS = PatronaznaSestra::where('id_uporabnik', '=', $sifraPS)->value('sifra_ps');
+
 		        $nepotrebniObiski = array();
 		        $nepotrebniNalogi = array();
         		$zeVIzpisu = array();
@@ -344,8 +348,9 @@ class PlanController extends Controller
         			->join('delavec', 'delavec.sifra_delavec', '=', 'delovni_nalog.sifra_delavec')
     				->join('izvajalec_zd', 'izvajalec_zd.sifra_zd', '=', 'delavec.sifra_zd')
     				->where('opravljen', '=', 0)
+    				->where('obisk.sifra_ps', '=', $sifraPS)
 					->where('obisk.sifra_plan', '=', $sifraPlan)
-        			->orderBy('datum_obiska', 'asc')
+					->orderBy('datum_obiska', 'asc')
         			->get(array(
         						'sifra_obisk',
 	                            'pacient.ime as ime_pacienta',
@@ -440,6 +445,7 @@ class PlanController extends Controller
     				->join('izvajalec_zd', 'izvajalec_zd.sifra_zd', '=', 'delavec.sifra_zd')
     				->where('datum_obvezen', '=', 0)
     				->where('opravljen', '=', 0)
+					->where('obisk.sifra_ps', '=', $sifraPS)
 					->where('obisk.sifra_plan', '!=', $sifraPlan)
         			->orderBy('datum_obiska', 'asc')
         			->get(array(

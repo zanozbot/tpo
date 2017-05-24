@@ -52,13 +52,17 @@ class MaterialController extends Controller
 			list($dan, $mesec, $leto) = explode(".", $datumPlana);
 			$datumPlana = $leto.'-'.$mesec.'-'.$dan;
 
-			$plan = Plan::where('datum_plan', $datumPlana)->get();
+			//najdi sestro
+	        $sifraPS = Auth::user()->id_uporabnik;
+	        $sifraPS = PatronaznaSestra::where('id_uporabnik', '=', $sifraPS)->value('sifra_ps');
 
+			$plan = Plan::where('datum_plan', $datumPlana)->where('sifra_ps_plan', '=', $sifraPS)->get();
+	
 			//Preveri če je takrat že plan
 			if($plan->first()){
-					$sifraPlan = Plan::where('datum_plan', '=', $datumPlana)->get();
+					$sifraPlan = Plan::where('datum_plan', '=', $datumPlana)->where('sifra_ps_plan', '=', $sifraPS)->get();
 					$sifraPlan = $sifraPlan[0]->sifra_plan;
-					$obiski = Obisk::where('sifra_plan',$sifraPlan)
+					$obiski = Obisk::where('sifra_plan', $sifraPlan)
 									->where('opravljen', '=', 0)->get();
 					$stzdravila=Zdravilo::get();
 					foreach ($stzdravila as $zdravilo) {

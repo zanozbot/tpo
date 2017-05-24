@@ -37,12 +37,12 @@
 							  <label class="label label-primary">Zadolžena patronažna sestra</label>
 							  <!--<input type="text" class="form-control input-sm" name="zadolzenaSestra" placeholder="Šifra patronažne sestre"></input>-->
 							  @if (Auth::user()->sifra_vloga != 4)
-							  <select class="selectpicker form-control input-sm" name="zadolzenaSestra" required>
-			                    <option> - </option>
-			                  @foreach ($sestre as $sestra)
-			                    <option value="{{$sestra->sifra_ps}}">{{ $sestra->ime . " " . $sestra->priimek }}</option>
-			                  @endforeach
-			                  </select>
+								  <select class="selectpicker form-control input-sm" name="zadolzenaSestra" required>
+				                    <option> - </option>
+					                  @foreach ($sestre as $sestra)
+					                    <option value="{{$sestra->sifra_ps}}">{{ $sestra->ime . " " . $sestra->priimek }}</option>
+					                  @endforeach
+				                  </select>
 			                  @else 
 				                  @foreach ($sestre as $sestra)
 				                  	@if ($sestra->id_sestre == Auth::user()->id_uporabnik)
@@ -50,10 +50,23 @@
 				                  	@endif
 				                  @endforeach
 			                  @endif
-							</div>
-							<div class="form-group">
+			                  </div>
+			                  <div class="form-group">
 							  <label class="label label-primary">Nadomestna patronažna sestra</label>
-							  <input type="text" class="form-control input-sm" name="nadomestnaSestra" placeholder="Šifra patronažne sestre"></input>
+			                  @if (Auth::user()->sifra_vloga != 4)
+								  <select class="selectpicker form-control input-sm" name="nadomestnaSestra" required>
+				                    <option> - </option>
+					                  @foreach ($sestre as $sestra)
+					                    <option value="{{$sestra->sifra_ps}}">{{ $sestra->ime . " " . $sestra->priimek }}</option>
+					                  @endforeach
+				                  </select>
+			                  @else 
+				                  @foreach ($sestre as $sestra)
+				                  	@if ($sestra->id_sestre == Auth::user()->id_uporabnik)
+										<input type="text" class="form-control input-sm" name="nadomestnaSestra" value="{{$sestra->sifra_ps}} " disabled="true"></input>
+				                  	@endif
+				                  @endforeach
+			                  @endif
 							</div>
 						</div>
 						<div class="col-xs-12 col-sm-12 col-md-6">
@@ -135,7 +148,7 @@
 						<td><label>{{$mini->naslov_pacienta.', '.$mini->kraj_pacienta}}</label></td>
 						<td><label>{{$mini->ime_vrsta_obiska}}</label></td>
 						<td >		
-							<button type="button" class="btn btn-info btn-block" data-toggle="modal" data-target="#podrobnosti{{$mini->sifra_dn}}"><span class="glyphicon glyphicon-plus"></span></button>
+							<button type="button" class="btn btn-info btn-block" data-toggle="modal" data-target="#podrobnosti{{$mini->sifra_dn}}"><span class="glyphicon glyphicon-search"></span></button>
 							<div class="modal fade" id="podrobnosti{{$mini->sifra_dn}}" role="dialog">
 								<div class="modal-dialog modal-lg">
 								  <div class="modal-content">

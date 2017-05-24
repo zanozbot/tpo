@@ -101,7 +101,11 @@
 				  <div class="panel-heading">
 					<h3 class="panel-title">4 - Storitev</h3>
 				  </div>
-				  <div class="panel-body">					  
+				  <div class="panel-body">
+				  	<div class="form-group">
+					    <label class="label label-primary">Šifra obiska</label>
+						<div class="form-control nalog" name="vrstaStoritve"><label>{{$obisk->sifra_obisk}}</label></div>
+					  </div>			  
 					  <div class="form-group">
 					    <label class="label label-primary">Ime storitve</label>
 						<div class="form-control nalog" name="vrstaStoritve"><label>{{$obisk->ime_vrsta_obiska}}</label></div>

@@ -197,17 +197,17 @@ class DelovniNalogController extends Controller
             $datumObiska = $datumZacetni;
             for ($x = 1; $x <= $request['steviloObiskov']-1; $x++) {
                 //kreiraj ali dodaj v plan
-                $plan = Plan::where('datum_plan', $datumObiska)->get();
+                $plan = Plan::where('datum_plan', $datumObiska)->where('sifra_ps_plan', '=', $sifraPS)->get();
                 if(!$plan->first()){
                     //plan v bazi še ne obstaja
                     $planCreate = Plan::create([
-                            'datum_plan' => $datumObiska
+                            'datum_plan' => $datumObiska,
+                            'sifra_ps_plan' => $sifraPS
                         ]);
                     $sifraPlan = $planCreate->sifra_plan;
                 } else {
                     //plan v bazi že obstaja
-                    $sifraPlan = Plan::where('datum_plan', '=', $datumObiska)->get();
-                    $sifraPlan = $sifraPlan[0]->sifra_plan;
+                    $sifraPlan = $plan[0]->sifra_plan;
                 }
                 if ($datumObvezen == 0){
                     $originalnaSifraPlana = -1;
@@ -259,17 +259,17 @@ class DelovniNalogController extends Controller
             for ($x = 0; $x < $request['steviloObiskov']; $x++) {
                 
                 //kreiraj ali dodaj v plan
-                $plan = Plan::where('datum_plan', $datumObiska)->get();
+                $plan = Plan::where('datum_plan', $datumObiska)->where('sifra_ps_plan', '=', $sifraPS)->get();
                 if(!$plan->first()){
                     //plan v bazi še ne obstaja
                     $planCreate = Plan::create([
-                            'datum_plan' => $datumObiska
+                            'datum_plan' => $datumObiska,
+                            'sifra_ps_plan' => $sifraPS
                         ]);
                     $sifraPlan = $planCreate->sifra_plan;
                 } else {
                     //plan v bazi že obstaja
-                    $sifraPlan = Plan::where('datum_plan', '=', $datumObiska)->get();
-                    $sifraPlan = $sifraPlan[0]->sifra_plan;
+                    $sifraPlan = $plan[0]->sifra_plan;
                 }
                 if ($datumObvezen == 0){
                     $originalnaSifraPlana = -1;

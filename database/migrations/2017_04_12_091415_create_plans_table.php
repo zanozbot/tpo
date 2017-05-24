@@ -16,6 +16,7 @@ class CreatePlansTable extends Migration
         Schema::create('plan', function (Blueprint $table) {
             $table->increments('sifra_plan');
             $table->date('datum_plan');
+            $table->integer('sifra_ps_plan');
         });
     }
 
