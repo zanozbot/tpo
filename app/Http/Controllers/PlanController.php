@@ -356,6 +356,8 @@ class PlanController extends Controller
 	                            'pacient.ime as ime_pacienta',
 	                            'pacient.priimek as priimek_pacienta',
 	                            'email',
+	                            'obisk.sifra_ps',
+	                            'obisk.sifra_nadomestne_ps',
 	                            'tel_stevilka',
 	                            'stevilka_KZZ',
 	                            'pac_stevilka_KZZ',
@@ -384,7 +386,8 @@ class PlanController extends Controller
 	                            'preventivni',
 	                            'datum_obiska',
 	                            'bolezen.sifra_bolezen as sifra_bolezni',
-	                            'bolezen.ime as ime_bolezni'
+	                            'bolezen.ime as ime_bolezni',
+	                            'nadomescanje'
                         ));
 
 		        for ($i=0; $i < count($mix2); $i++) {
@@ -395,6 +398,10 @@ class PlanController extends Controller
 		        	$mix2[$i]->aktivnosti = Aktivnost::where('sifra_storitve', '=', $mix2[$i]->sifra_vrsta_obisk)->get();
 		        	if($mix2[$i]->sifra_vrsta_obisk == 20)
 		        		$mix2[$i]->aktivnostiNovorojencek = Aktivnost::where('sifra_storitve', '=', "30")->get();
+
+		        	$mix2[$i]->sestra = PatronaznaSestra::join('uporabnik', 'uporabnik.id_uporabnik', '=', 'patronazna_sestra.id_uporabnik')
+        										->where('sifra_okolis', '=', $mix2[$i]->sifra_okolis)
+        										->get();
 
 		        	$mix2[$i]->zdravila = DelovniNalog::join('delovni_nalog_zdravilo', 'delovni_nalog.sifra_dn', '=', 'delovni_nalog_zdravilo.delovni_nalog_sifra_dn')
 		        									->join('zdravilo', 'zdravilo.sifra_zdravilo', '=', 'delovni_nalog_zdravilo.zdravilo_sifra_zdravilo')
@@ -458,6 +465,8 @@ class PlanController extends Controller
 	                            'pac_stevilka_KZZ',
 	                            'pacient.postna_stevilka as posta_pacient',
 	                            'sifra_okolis',
+	                            'obisk.sifra_ps',
+	                            'obisk.sifra_nadomestne_ps',
 	                            'pacient.ulica as naslov_pacienta',
 	                            'pacient.kraj as kraj_pacienta',
 	                            'datum_rojstva',
@@ -482,6 +491,7 @@ class PlanController extends Controller
 	                            'datum_obiska',
 	                            'bolezen.sifra_bolezen as sifra_bolezni',
 	                            'bolezen.ime as ime_bolezni',
+	                            'nadomescanje'
                         ));
 
 		        for ($i=0; $i < count($mix1); $i++) { 
@@ -490,6 +500,10 @@ class PlanController extends Controller
 					        				->where('datum_obvezen', '=', 0)
 					        				->where('opravljen', '=', 0)
 											->where('sifra_plan', '!=', $sifraPlan)->get();
+
+					$mix1[$i]->sestra = PatronaznaSestra::join('uporabnik', 'uporabnik.id_uporabnik', '=', 'patronazna_sestra.id_uporabnik')
+        										->where('sifra_okolis', '=', $mix1[$i]->sifra_okolis)
+        										->get();
 
 		        	$mix1[$i]->zdravila = DelovniNalog::join('delovni_nalog_zdravilo', 'delovni_nalog.sifra_dn', '=', 'delovni_nalog_zdravilo.delovni_nalog_sifra_dn')
 		        									->join('zdravilo', 'zdravilo.sifra_zdravilo', '=', 'delovni_nalog_zdravilo.zdravilo_sifra_zdravilo')

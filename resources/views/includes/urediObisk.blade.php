@@ -102,24 +102,26 @@
 					<h3 class="panel-title">4 - Storitev</h3>
 				  </div>
 				  <div class="panel-body">
-				  	<div class="form-group">
-					    <label class="label label-primary">Šifra obiska</label>
-						<div class="form-control nalog" name="vrstaStoritve"><label>{{$obisk->sifra_obisk}}</label></div>
-					  </div>			  
-					  <div class="form-group">
-					    <label class="label label-primary">Ime storitve</label>
-						<div class="form-control nalog" name="vrstaStoritve"><label>{{$obisk->ime_vrsta_obiska}}</label></div>
+				  	<div class="panel-body">					  
+				<div class="form-group">
+				    <label class="label label-primary">Šifra obiska</label>
+					<div class="form-control nalog" name="vrstaStoritve"><label>{{$obisk->sifra_obisk}}</label></div>
+						</div>
+						<div class="form-group">
+						    <label class="label label-primary">Ime obiska</label>
+							<div class="form-control nalog" name="vrstaStoritve"><label>{{$obisk->ime_vrsta_obiska}}</label></div>
+						</div>
+						<div class="form-group" >
+							<label class="label label-primary">Vrsta obiska</label>
+							@if ($obisk->preventivni == 1)
+								<label class="checkbox-inline"><input type="checkbox" name="vrstaZdravnik" disabled checked>Preventivni</label>
+								<label class="checkbox-inline"><input type="checkbox" name="vrstaZdravnik" disabled>Kurativni</label>
+							@else
+								<label class="checkbox-inline"><input type="checkbox" name="vrstaZdravnik" disabled>Preventivni</label>
+								<label class="checkbox-inline"><input type="checkbox" name="vrstaZdravnik" disabled checked>Kurativni</label>
+							@endif
+						</div>
 					  </div>
-					</div>
-					<div class="form-group" >
-						<label class="label label-primary">Vrsta storitve</label>
-						@if ($obisk->preventivni == 1)
-							<label class="checkbox-inline"><input type="checkbox" name="vrstaZdravnik" disabled checked>Preventivni</label>
-							<label class="checkbox-inline"><input type="checkbox" name="vrstaZdravnik" disabled>Kurativni</label>
-						@else
-							<label class="checkbox-inline"><input type="checkbox" name="vrstaZdravnik" disabled>Preventivni</label>
-							<label class="checkbox-inline"><input type="checkbox" name="vrstaZdravnik" disabled checked>Kurativni</label>
-						@endif
 					</div>
 				</div>
 				<div class="panel panel-default">			
@@ -144,7 +146,17 @@
 				  <div class="panel-body">
 				  	  <div class="form-group">
 					    <label class="label label-primary">Šifra sestre</label>
-						<div class="form-control nalog" name="vrstaStoritve"><label>{{$obisk->pacienti[0]->sifra_ps}}</label></div>
+						<div class="form-control nalog" name="vrstaStoritve"><label>{{$obisk->sifra_ps}}</label></div>
+					  </div>
+					  <div class="form-group" >
+						<label class="label label-primary">Nadomeščanje</label>
+						@if ($obisk->nadomescanje == 1)
+							<label class="checkbox-inline"><input type="checkbox" name="nadomescanje" disabled checked>Da</label>
+							<label class="checkbox-inline"><input type="checkbox" name="nadomescanje" disabled>Ne</label>
+						@else
+							<label class="checkbox-inline"><input type="checkbox" name="nadomescanje" disabled>Da</label>
+							<label class="checkbox-inline"><input type="checkbox" name="nadomescanje" disabled checked>Ne</label>
+						@endif
 					  </div>
 					</div>
 				</div>
@@ -285,7 +297,7 @@
 	  <div class="panel-heading">
 		<h3 class="panel-title">Izvajanje aktivnosti</h3>
 		@if ($vceraj == 1)
-			<form role="form" method="POST" action="{{ route('seznamObiskovVcerajVnesiPodatke', ['sifraObisk' => $obisk->sifra_obisk, 'sifraPlan' => $sifraPlan]) }}">
+			<form role="form" method="POST" action="{{ route('seznamObiskovVcerajVnesiPodatke', ['sifraObisk' => $obisk->sifra_obisk]) }}">
 		@else
 			<form role="form" method="POST" action="{{ route('vnesiPodatke', ['sifraObisk' => $obisk->sifra_obisk, 'sifraPlan' => $sifraPlan, 'izbraniDatum' => $izbraniDatum]) }}">
 		@endif
@@ -307,7 +319,7 @@
 			$oksigenacijaArray = [90];
 			$terapijaArray = [91];
 			$kriArray = [82];
-			foreach($aktivnosti as $aktivnost){
+			foreach($obisk->aktivnosti as $aktivnost){
 				echo "<div class=\"form-group\">";
 				echo "<label class=\"label label-primary\">$aktivnost->ime_aktivnosti</label>";
 				$porocila = $obisk->porocilo;
