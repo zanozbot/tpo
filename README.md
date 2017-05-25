@@ -66,3 +66,4 @@ Po spremembi .env datoteke poženi naslednji ukaz:
 
 ## Hrošči in njihovo odpravljanje
 https://hackmd.io/s/HyOP-Rsal
+

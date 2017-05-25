@@ -281,7 +281,7 @@
 						<div class="form-control nalog" name="vrstaStoritve">
 						  <div class="panel-body">
 						  	<div class="form-group">
-							    <label class="label label-primary">Seznanitev nosečnice o normalnem poteku nosečnosti in o spremembah na telesu.</label>
+							    <label class="label label-primary">Seznanitev nosečnice.</label>
 								<div class="form-control nalog" name="vrstaStoritve"><label>{{$obisk->porocilo[0]->opis}}</label></div>
 							</div>
 							<div class="form-group">
@@ -297,7 +297,7 @@
 								<div class="form-control nalog" name="vrstaStoritve"><label>{{$obisk->porocilo[3]->opis}}</label></div>
 							</div>
 							<div class="form-group">
-							    <label class="label label-primary">Pogovor in vključevanje partnerja v nosečnost in porod ter po prihodu domov.</label>
+							    <label class="label label-primary">Pogovor in vključevanje partnerja v nosečnost.</label>
 								<div class="form-control nalog" name="vrstaStoritve"><label>{{$obisk->porocilo[4]->opis}}</label></div>
 							</div>
 							<div class="form-group">
@@ -317,31 +317,38 @@
 								<div class="form-control nalog" name="vrstaStoritve"><label>{{$obisk->porocilo[8]->opis}}</label></div>
 							</div>
 							<div class="form-group">
-							    <label class="label label-primary">Svetovanje o primernem režim življenja, telesne vaje, gibanje na svežem zraku.</label>
+							    <label class="label label-primary">Svetovanje o primernem režim življenja.</label>
 								<div class="form-control nalog" name="vrstaStoritve"><label>{{$obisk->porocilo[9]->opis}}</label></div>
 							</div>
 							<div class="form-group">
-							    <label class="label label-primary">Odsvetovanje razvad kot so uživanje alkohola, kajenje, uživanje zdravil in drog.</label>
+							    <label class="label label-primary">Odsvetovanje razvad.</label>
 								<div class="form-control nalog" name="vrstaStoritve"><label>{{$obisk->porocilo[10]->opis}}</label></div>
 							</div>
 							<div class="form-group">
-							    <label class="label label-primary">Seznanitev nosočnice z nevšečnostmi in svetovanje glede lajšanja težav zaradi nevšečnosti (slabosti, bruhanja, zaprtja, pogostih mikcij, nespečnosti, zgage, ...).</label>
+							    <label class="label label-primary">Seznanitev nosočnice z nevšečnostmi in svetovanje.</label>
 								<div class="form-control nalog" name="vrstaStoritve"><label>{{$obisk->porocilo[11]->opis}}</label></div>
 							</div>
 							<div class="form-group">
-							    <label class="label label-primary">Seznanitev nosečnice s pravicami do starševskega dopusta (porodniški dopust, pravica do dopusta za nego in varstvo otroka, pravica do očetovskega dopusta) in o uveljavljanju pravic povezanih </label>
+							    <label class="label label-primary">Seznanitev nosečnice s pravicami do starševskega dopusta.</label>
 								<div class="form-control nalog" name="vrstaStoritve"><label>{{$obisk->porocilo[12]->opis}}</label></div>
 							</div>
 							<div class="form-group">
 							    <label class="label label-primary">Pričakovan datum poroda.</label>
-								<div class="form-control nalog" name="vrstaStoritve"><label>{{$obisk->porocilo[13]->opis}}</label></div>
+								<div class="form-control nalog" name="vrstaStoritve"><label id="ooo_{{$obisk->sifra_obisk}}"></label></div>
 							</div>
+							<script>
+							  	var prvotniDatum = "{{$obisk->porocilo[13]->opis}}";
+							  	console.log(prvotniDatum);
+							  	var arrStringov = prvotniDatum.split("/");
+							  	var preurejeniDatum = arrStringov[1].concat(".".concat(arrStringov[0].concat(".".concat(arrStringov[2]))));
+							  	$("#ooo_{{$obisk->sifra_obisk}}").html(preurejeniDatum);
+							  </script>
 							<div class="form-group">
 							    <label class="label label-primary">Anamneza: počutje, telesni znaki nosečnosti.</label>
 								<div class="form-control nalog" name="vrstaStoritve"><label>{{$obisk->porocilo[14]->opis}}</label></div>
 							</div>
 							<div class="form-group">
-							    <label class="label label-primary">Družinska anamneza: Odnosi v družini, odnos družine do okolja, bivalni pogoji, ekonomske razmere, zdravstveno stanje družinskih članov, zdravstvena prosvetljenost in vzgojenost.</label>
+							    <label class="label label-primary">Družinska anamneza.</label>
 								<div class="form-control nalog" name="vrstaStoritve"><label>{{$obisk->porocilo[15]->opis}}</label></div>
 							</div>
 								@php
@@ -451,7 +458,7 @@
 								<div class="form-control nalog" name="vrstaStoritve"><label>{{$obisk->porocilo[3]->opis}}</label></div>
 							</div>
 							<div class="form-group">
-							    <label class="label label-primary">Zdravstveno vzgojno delo glede pravilnega rokovanja z novorojenčkom, učenje tehnike nege novorojenčka.</label>
+							    <label class="label label-primary">Zdravstveno vzgojno delo.</label>
 								<div class="form-control nalog" name="vrstaStoritve"><label>{{$obisk->porocilo[4]->opis}}</label></div>
 							</div>
 							<div class="form-group">
@@ -467,7 +474,7 @@
 								<div class="form-control nalog" name="vrstaStoritve"><label>{{$obisk->porocilo[7]->opis}}</label></div>
 							</div>
 							<div class="form-group">
-							    <label class="label label-primary">Svetovanje o spalnih potrebah otročnice, pravilni negi in higienskem režimu v poporodnem obdobju.</label>
+							    <label class="label label-primary">Svetovanje o spalnih potrebah otročnice, pravilni negi in higienskem režimu.</label>
 								<div class="form-control nalog" name="vrstaStoritve"><label>{{$obisk->porocilo[8]->opis}}</label></div>
 							</div>
 							<div class="form-group">
@@ -530,7 +537,7 @@
 								<div class="form-control nalog" name="vrstaStoritve"><label>{{$obisk->porocilo[20]->opis}}</label></div>
 							</div>
 							<div class="form-group">
-							    <label class="label label-primary">Družinska anamneza: odnosi v družini, odnos družine do okolja, bivalni pogoji, ekonomske razmere, zdravstveno stanje družinskih članov, zdravstvena prosvetljenost in vzgojenost.</label>
+							    <label class="label label-primary">Družinska anamneza.</label>
 								<div class="form-control nalog" name="vrstaStoritve"><label>{{$obisk->porocilo[21]->opis}}</label></div>
 							</div>
 								@php

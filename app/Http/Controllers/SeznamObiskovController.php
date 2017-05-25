@@ -184,8 +184,13 @@ class SeznamObiskovController extends Controller
 
 		if(isset($forceSestra)){
 			$s = PatronaznaSestra::where('sifra_okolis', '=', $forceSestra)->value('sifra_ps');
-        	$mix->where('obisk.sifra_ps', '=', $s);
-        	$mix->orWhere('obisk.sifra_nadomestne_ps', '=', $s);
+        	//$mix->where('obisk.sifra_ps', '=', $s);
+        	//$mix->orWhere('obisk.sifra_nadomestne_ps', '=', $s);
+        	$mix->where(function($query) use ($s) {
+        		$query->where('obisk.sifra_ps', '=', $s)
+        			->orWhere('obisk.sifra_nadomestne_ps', '=', $s);
+        	});
+        	//return $lul->get();
 		} else if($request['nadomestnaSestra'] != "-" && $request['zadolzenaSestra'] != "-"){
         	$mix->where('obisk.sifra_ps', '=', $request['zadolzenaSestra']);
         	$mix->orWhere('obisk.sifra_nadomestne_ps', '=', $request['nadomestnaSestra']);

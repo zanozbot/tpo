@@ -84,13 +84,13 @@ class AktivnostTableSeeder extends Seeder
                 	'sifra_storitve' => '10',
                     'ime_storitve' => 'Obisk nosečnice',
                     'sifra_aktivnosti' => '120',
-                    'ime_aktivnosti' => 'Seznanitev nosočnice z nevšečnostmi in svetovanje glede lajšanja težav zaradi nevšečnosti (slabosti, bruhanja, zaprtja, pogostih mikcij, nespečnosti, zgage, ...).'
+                    'ime_aktivnosti' => 'Seznanitev nosočnice z nevšečnostmi in svetovanje.'
                 ],
                 [
                 	'sifra_storitve' => '10',
                     'ime_storitve' => 'Obisk nosečnice',
                     'sifra_aktivnosti' => '130',
-                    'ime_aktivnosti' => 'Seznanitev nosečnice s pravicami do starševskega dopusta (porodniški dopust, pravica do dopusta za nego in varstvo otroka, pravica do očetovskega dopusta) in o uveljavljanju pravic povezanih z rojstvom otroka (pravica do paketa, otroški dodatek, zdravstveno zavarovanje, rojstni list, ureditev očetovstva).'
+                    'ime_aktivnosti' => 'Seznanitev nosečnice s pravicami do starševskega dopusta.'
                 ],
                 [
                 	'sifra_storitve' => '10',
@@ -108,7 +108,7 @@ class AktivnostTableSeeder extends Seeder
                 	'sifra_storitve' => '10',
                     'ime_storitve' => 'Obisk nosečnice',
                     'sifra_aktivnosti' => '160',
-                    'ime_aktivnosti' => 'Družinska anamneza: Odnosi v družini, odnos družine do okolja, bivalni pogoji, ekonomske razmere, zdravstveno stanje družinskih članov, zdravstvena prosvetljenost in vzgojenost.'
+                    'ime_aktivnosti' => 'Družinska anamneza.'
                 ],
                 [
                 	'sifra_storitve' => '10',
@@ -186,7 +186,7 @@ class AktivnostTableSeeder extends Seeder
                 	'sifra_storitve' => '20',
                     'ime_storitve' => 'Obisk otročnice',
                     'sifra_aktivnosti' => '50',
-                    'ime_aktivnosti' => 'Zdravstveno vzgojno delo glede pravilnega rokovanja z novorojenčkom, učenje tehnike nege novorojenčka.'
+                    'ime_aktivnosti' => 'Zdravstveno vzgojno delo glede pravilnega rokovanja z novorojenčkom.'
                 ],
                 [
                 	'sifra_storitve' => '20',
@@ -210,7 +210,7 @@ class AktivnostTableSeeder extends Seeder
                 	'sifra_storitve' => '20',
                     'ime_storitve' => 'Obisk otročnice',
                     'sifra_aktivnosti' => '90',
-                    'ime_aktivnosti' => 'Svetovanje o spalnih potrebah otročnice, pravilni negi in higienskem režimu v poporodnem obdobju.'
+                    'ime_aktivnosti' => 'Svetovanje o spalnih potrebah otročnice, pravilni negi in higienskem režimu.'
                 ],
                 [
                 	'sifra_storitve' => '20',
@@ -288,7 +288,7 @@ class AktivnostTableSeeder extends Seeder
                 	'sifra_storitve' => '20',
                     'ime_storitve' => 'Obisk otročnice',
                     'sifra_aktivnosti' => '220',
-                    'ime_aktivnosti' => 'Družinska anamneza: odnosi v družini, odnos družine do okolja, bivalni pogoji, ekonomske razmere, zdravstveno stanje družinskih članov, zdravstvena prosvetljenost in vzgojenost.'
+                    'ime_aktivnosti' => 'Družinska anamneza.'
                 ],
                 [
                 	'sifra_storitve' => '20',
@@ -504,7 +504,7 @@ class AktivnostTableSeeder extends Seeder
                 	'sifra_storitve' => '60',
                     'ime_storitve' => 'Odvzem krvi',
                     'sifra_aktivnosti' => '10',
-                    'ime_aktivnosti' => 'Odvzem krvi. Naročnik označi, katere epruvete je potrebno napolniti (rdeča, modra, rumena, zelena).'
+                    'ime_aktivnosti' => 'Odvzem krvi.'
                 ],
                 [
                 	'sifra_storitve' => '60',
