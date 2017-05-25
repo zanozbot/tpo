@@ -338,9 +338,13 @@
 
 				}
 				else if (in_array($aktivnost->aid, $terapijaArray)){
+					echo "<div class=\"input-group\">";
 					echo "<label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" name=\"$aktivnost->aid terapija\" value=\"da\" >Da</label><label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" name=\"$aktivnost->aid terapija\" value=\"delno\" >Delno</label><label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" name=\"$aktivnost->aid terapija\" value=\"ne\" >Ne</label>";
+					echo "</div>";
+					echo "<div class=\"input-group\">";
 					echo "<span class=\"input-group-addon\">Opis</span>";
 					echo "<input type=\"text\" name=\"$aktivnost->aid opis\" class=\"form-control input-sm\" placeholder=\"Opis\" >";
+					echo "</div>";
 				}
 				else if (in_array($aktivnost->aid, $oksigenacijaArray)){
 						echo "<div class=\"input-group\">";
@@ -352,6 +356,8 @@
 						echo "<div class=\"input-group\">";
 						echo "<span class=\"input-group-addon\">mmol/L</span>";
 						echo "<input type=\"number\" name=\"$aktivnost->aid num\" class=\"form-control input-sm\" placeholder=\"\" >";
+						echo "</div>";
+						echo "<div class=\"input-group\">";
 						echo "<span class=\"input-group-addon\">Opis</span>";
 						echo "<input type=\"text\" name=\"$aktivnost->aid opis\" class=\"form-control input-sm\" placeholder=\"Opis\" >";
 						echo "</div>";
@@ -365,28 +371,43 @@
 						$dec_opis = $decoded->opis;
 						echo "<div class=\"input-group\">";
 						echo "<div class=\"datepicker input-group date\" data-provide=\"datepicker\">";
-						echo "<input type=\"text\" class=\"form-control\" 
-						value=\"$dec_datum\" name=\"$aktivnost->aid datum\" disabled>";
 						echo "<div class=\"input-group-addon\">";
 						echo "<span class=\"glyphicon glyphicon-th\"></span>";
 						echo "</div>";
+						echo "<input type=\"text\" class=\"form-control\" 
+						value=\"$dec_datum\" name=\"$aktivnost->aid datum\" disabled>";
 						echo "</div>";
+						echo "</div>";
+						echo "<div class=\"input-group\">";
 						echo "<span class=\"input-group-addon\">g</span>";
 						echo "<input type=\"number\" name=\"$aktivnost->aid teza\" class=\"form-control input-sm\" value=\"$dec_teza\" placeholder=\"Porodna teza otroka\" disabled>";
+						echo "</div>";
+						echo "<div class=\"input-group\">";
 						echo "<span class=\"input-group-addon\">cm</span>";
 						echo "<input type=\"number\" name=\"$aktivnost->aid visina\" class=\"form-control input-sm\" value=\"$dec_visina\" placeholder=\"Porodna visina otroka\" disabled>";
+						echo "</div>";
+						echo "<div class=\"input-group\">";
 						echo "<input type=\"text\" name=\"$aktivnost->aid opis\" class=\"form-control input-sm\" value=\"$dec_opis\" disabled>";
 						echo "</div>";
 					} else {
 						echo "<div class=\"input-group\">";
 						echo "<div class=\"datepicker input-group date\" data-provide=\"datepicker\">";
-						echo "<input type=\"text\" class=\"form-control\" placeholder=\"Datum rojstva otroka dd.mm.llll\" name=\"$aktivnost->aid datum\">";
 						echo "<div class=\"input-group-addon\">";
 						echo "<span class=\"glyphicon glyphicon-th\"></span>";
 						echo "</div>";
+						echo "<input type=\"text\" class=\"form-control\" placeholder=\"Datum rojstva otroka dd.mm.llll\" name=\"$aktivnost->aid datum\">";
 						echo "</div>";
+						echo "</div>";
+						echo "<div class=\"input-group\">";
+						echo "<span class=\"input-group-addon\">g</span>";
 						echo "<input type=\"number\" name=\"$aktivnost->aid teza\" class=\"form-control input-sm\" placeholder=\"Porodna teza otroka [g]\" >";
+						echo "</div>";
+						echo "<div class=\"input-group\">";
+						echo "<span class=\"input-group-addon\">cm</span>";
 						echo "<input type=\"number\" name=\"$aktivnost->aid visina\" class=\"form-control input-sm\" placeholder=\"Porodna visina otroka [cm]\" >";
+						echo "</div>";
+						echo "<div class=\"input-group\">";
+						echo "<span class=\"input-group-addon\">Opis</span>";
 						echo "<input type=\"text\" name=\"$aktivnost->aid opis\" class=\"form-control input-sm\" placeholder=\"Opis\" >";
 						echo "</div>";
 					}
@@ -400,10 +421,23 @@
 							$dec_okus = $decoded->okus;
 							$dec_otip = $decoded->otip;
 							echo "<div class=\"input-group\">";
+							echo "<span class=\"input-group-addon\">Vid</span>";
 							echo "<input type=\"text\" name=\"$aktivnost->aid vid\" class=\"form-control input-sm\" value=\"$dec_vid \" >";
+							echo "</div>";
+							echo "<div class=\"input-group\">";
+							echo "<span class=\"input-group-addon\">Vonj</span>";
 							echo "<input type=\"text\" name=\"$aktivnost->aid vonj\" class=\"form-control input-sm\" value=\"$dec_vonj\" >";
+							echo "</div>";
+							echo "<div class=\"input-group\">";
+							echo "<span class=\"input-group-addon\">Sluh</span>";
 							echo "<input type=\"text\" name=\"$aktivnost->aid sluh\" class=\"form-control input-sm\" value=\"$dec_sluh\" >";
+							echo "</div>";
+							echo "<div class=\"input-group\">";
+							echo "<span class=\"input-group-addon\">Okus</span>";
 							echo "<input type=\"text\" name=\"$aktivnost->aid okus\" class=\"form-control input-sm\" value=\"$dec_okus\" >";
+							echo "</div>";
+							echo "<div class=\"input-group\">";
+							echo "<span class=\"input-group-addon\">Otip</span>";
 							echo "<input type=\"text\" name=\"$aktivnost->aid otip\" class=\"form-control input-sm\" value=\"$dec_otip\" >";
 							echo "</div>";
 						} else {
@@ -411,12 +445,19 @@
 							echo "<span class=\"input-group-addon\">Vid</span>";
 							echo "<input type=\"text\" name=\"$aktivnost->aid vid\" class=\"form-control input-sm\" placeholder=\"Opis vida\" >";
 							echo "</div>";
+							echo "<div class=\"input-group\">";
 							echo "<span class=\"input-group-addon\">Vonj</span>";
 							echo "<input type=\"text\" name=\"$aktivnost->aid vonj\" class=\"form-control input-sm\" placeholder=\"Opis vonja\" >";
+							echo "</div>";
+							echo "<div class=\"input-group\">";
 							echo "<span class=\"input-group-addon\">Sluh</span>";
 							echo "<input type=\"text\" name=\"$aktivnost->aid sluh\" class=\"form-control input-sm\" placeholder=\"Opis sluha\" >";
+							echo "</div>";
+							echo "<div class=\"input-group\">";
 							echo "<span class=\"input-group-addon\">Okus</span>";
 							echo "<input type=\"text\" name=\"$aktivnost->aid okus\" class=\"form-control input-sm\" placeholder=\"Opis okusa\" >";
+							echo "</div>";
+							echo "<div class=\"input-group\">";
 							echo "<span class=\"input-group-addon\">Otip</span>";
 							echo "<input type=\"text\" name=\"$aktivnost->aid otip\" class=\"form-control input-sm\" placeholder=\"Opis otipa\" >";
 							echo "</div>";
@@ -430,6 +471,8 @@
 							echo "<div class=\"input-group\">";
 							echo "<span class=\"input-group-addon\">Urin</span>";
 							echo "<input type=\"text\" name=\"$aktivnost->aid urin\" class=\"form-control input-sm\" value=\"$dec_urin\" >";
+							echo "</div>";
+							echo "<div class=\"input-group\">";
 							echo "<span class=\"input-group-addon\">Blato</span>";
 							echo "<input type=\"text\" name=\"$aktivnost->aid blato\" class=\"form-control input-sm\" value=\"$dec_blato\" >";
 							echo "</div>";
@@ -437,6 +480,8 @@
 							echo "<div class=\"input-group\">";
 							echo "<span class=\"input-group-addon\">Urin</span>";
 							echo "<input type=\"text\" name=\"$aktivnost->aid urin\" class=\"form-control input-sm\" placeholder=\"Opis urina\" >";
+							echo "</div>";
+							echo "<div class=\"input-group\">";
 							echo "<span class=\"input-group-addon\">Blato</span>";
 							echo "<input type=\"text\" name=\"$aktivnost->aid blato\" class=\"form-control input-sm\" placeholder=\"Opis blata\" >";
 							echo "</div>";
@@ -457,16 +502,36 @@
 							$dec_rumena = $decoded->rumena;
 							$dec_zelena = $decoded->zelena;
 							echo "<div class=\"input-group\">";
+							echo "<span class=\"input-group-addon\">Rdeca</span>";
 							echo "<input type=\"number\" name=\"$aktivnost->aid rdeca\" class=\"form-control input-sm\" value=\"$dec_rdeca\" >";
+							echo "</div>";
+							echo "<div class=\"input-group\">";
+							echo "<span class=\"input-group-addon\">Modra</span>";
 							echo "<input type=\"number\" name=\"$aktivnost->aid modra\" class=\"form-control input-sm\" value=\"$dec_modra\" >";
+							echo "</div>";
+							echo "<div class=\"input-group\">";
+							echo "<span class=\"input-group-addon\">Rumena</span>";
 							echo "<input type=\"number\" name=\"$aktivnost->aid rumena\" class=\"form-control input-sm\" value=\"$dec_rumena\" >";
+							echo "</div>";
+							echo "<div class=\"input-group\">";
+							echo "<span class=\"input-group-addon\">Zelena</span>";
 							echo "<input type=\"number\" name=\"$aktivnost->aid zelena\" class=\"form-control input-sm\" value=\"$dec_zelena\" >";
 							echo "</div>";
 						} else {
 							echo "<div class=\"input-group\">";
+							echo "<span class=\"input-group-addon\">Rdeca</span>";
 							echo "<input type=\"number\" name=\"$aktivnost->aid rdeca\" class=\"form-control input-sm\" placeholder=\"Rdeca\" >";
+							echo "</div>";
+							echo "<div class=\"input-group\">";
+							echo "<span class=\"input-group-addon\">Modra</span>";
 							echo "<input type=\"number\" name=\"$aktivnost->aid modra\" class=\"form-control input-sm\" placeholder=\"Modra\" >";
+							echo "</div>";
+							echo "<div class=\"input-group\">";
+							echo "<span class=\"input-group-addon\">Rumena</span>";
 							echo "<input type=\"number\" name=\"$aktivnost->aid rumena\" class=\"form-control input-sm\" placeholder=\"Rumena\" >";
+							echo "</div>";
+							echo "<div class=\"input-group\">";
+							echo "<span class=\"input-group-addon\">Zelena</span>";
 							echo "<input type=\"number\" name=\"$aktivnost->aid zelena\" class=\"form-control input-sm\" placeholder=\"Zelena\" >";
 							echo "</div>";
 						}
@@ -491,6 +556,8 @@
 							echo "<div class=\"input-group\">";
 							echo "<span class=\"input-group-addon\">mm Hg Sistolični</span>";
 							echo "<input type=\"number\" name=\"$aktivnost->aid sis\" class=\"form-control input-sm\" value=\"$dec_sis\" placeholder=\"Sistolični (mm Hg)\" >";
+							echo "</div>";
+							echo "<div class=\"input-group\">";
 							echo "<span class=\"input-group-addon\">mm Hg Diastolični</span>";
 							echo "<input type=\"number\" name=\"$aktivnost->aid dia\" class=\"form-control input-sm\" value=\"$dec_dia\" placeholder=\"Diastolični (mm Hg)\" >";
 							echo "</div>";
@@ -498,6 +565,8 @@
 							echo "<div class=\"input-group\">";
 							echo "<span class=\"input-group-addon\">mm Hg Sistolični</span>";
 							echo "<input type=\"number\" name=\"$aktivnost->aid sis\" class=\"form-control input-sm\" placeholder=\"Sistolični (mm Hg)\" >";
+							echo "</div>";
+							echo "<div class=\"input-group\">";
 							echo "<span class=\"input-group-addon\">mm Hg Diastolični</span>";
 							echo "<input type=\"number\" name=\"$aktivnost->aid dia\" class=\"form-control input-sm\" placeholder=\"Diastolični (mm Hg)\" >";
 							echo "</div>";
@@ -530,6 +599,8 @@
 							echo "<label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" name=\"$aktivnost->aid odvisnost\" value=\"pomocSvojcev\" >Pomoč svojcev</label><label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" name=\"$aktivnost->aid odvisnost\" value=\"pomocDrugih\" checked >Pomoč drugih</label>";
 
 						} 
+						echo "</div>";
+						echo "<div class=\"input-group\">";
 						echo "<span class=\"input-group-addon\">Opis</span>";
 						echo "<input type=\"text\" name=\"$aktivnost->aid opis\" class=\"form-control input-sm\" value=\"$dec_opis\" >";
 						echo "</div>";
@@ -537,6 +608,9 @@
 						echo "<div class=\"input-group\">";
 						echo "<label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" name=\"$aktivnost->aid odvisnost\" value =\"samostojen\" >Samostojen</label><label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" name=\"$aktivnost->aid odvisnost\" value=\"delnoOdvisen\" >Delno odvisen</label><label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" name=\"$aktivnost->aid odvisnost\" value=\"povsemOdvisen\" >Povsem odvisen</label>";
 						echo "<label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" name=\"$aktivnost->aid odvisnost\" value=\"pomocSvojcev\" >Pomoč svojcev</label><label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" name=\"$aktivnost->aid odvisnost\" value=\"pomocDrugih\" >Pomoč drugih</label>";
+						
+						echo "</div>";
+						echo "<div class=\"input-group\">";
 						echo "<span class=\"input-group-addon\">Opis</span>";
 						echo "<input type=\"text\" name=\"$aktivnost->aid opis\" class=\"form-control input-sm\" placeholder=\"Opis\" >";
 						echo "</div>";
@@ -561,6 +635,8 @@
 					}else {
 						echo "<div class=\"input-group\">";
 						echo "<label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" name=\"$aktivnost->aid mot\" value=\"moteno\" >Moteno</label><label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" name=\"$aktivnost->aid mot\" value=\"niMoteno\" >Ni moteno</label>";
+						echo "</div>";
+						echo "<div class=\"input-group\">";
 						echo "<span class=\"input-group-addon\">Opis</span>";
 						echo "<input type=\"text\" name=\"$aktivnost->aid opis\" class=\"form-control input-sm\" placeholder=\"Opis\" >";
 						echo "</div>";
@@ -582,12 +658,16 @@
 							echo "<div class=\"input-group\">";
 							echo "<label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" name=\"$aktivnost->aid fizicna\" value=\"nizka\" >Nizka</label><label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" name=\"$aktivnost->aid fizicna\" value=\"srednja\" >Srednja</label><label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" name=\"$aktivnost->aid fizicna\" value=\"visoka\" checked >Visoka</label>";
 						}
+						echo "</div>";
+						echo "<div class=\"input-group\">";
 						echo "<span class=\"input-group-addon\">Opis</span>";
 						echo "<input type=\"text\" name=\"$aktivnost->aid opis\" class=\"form-control input-sm\" value=\"$dec_opis\"placeholder=\"Opis\" >";
 						echo "</div>";
 					} else {
 						echo "<div class=\"input-group\">";
 						echo "<label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" name=\"$aktivnost->aid fizicna\" value=\"nizka\" >Nizka</label><label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" name=\"$aktivnost->aid fizicna\" value=\"srednja\" >Srednja</label><label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" name=\"$aktivnost->aid fizicna\" value=\"visoka\" >Visoka</label>";
+						echo "</div>";
+						echo "<div class=\"input-group\">";
 						echo "<span class=\"input-group-addon\">Opis</span>";
 						echo "<input type=\"text\" name=\"$aktivnost->aid opis\" class=\"form-control input-sm\" placeholder=\"Opis\" >";
 						echo "</div>";
@@ -636,11 +716,13 @@
 						echo "<label class=\"label label-primary\">$aktivnostNovorojencek->ime_aktivnosti</label>";
 						if (in_array($aktivnostNovorojencek->aid, $gArray)){
 								echo "<div class=\"input-group\">";
+								echo "<span class=\"input-group-addon\">Trenutna teza [g]</span>";
 								echo "<input type=\"number\" name=\"$aktivnostNovorojencek->aid\" class=\"form-control input-sm\" value=\"$opis\" placeholder=\"Trenutna teza [g]\" >";
 								echo "</div>";
 						}
 						else if (in_array($aktivnostNovorojencek->aid, $cmArray)){
 								echo "<div class=\"input-group\">";
+								echo "<span class=\"input-group-addon\">Trenutna visina [cm]</span>";
 								echo "<input type=\"number\" name=\"$aktivnostNovorojencek->aid\" class=\"form-control input-sm\" value=\"$opis\" placeholder=\"Trenutna visina [cm]\" >";
 								echo "</div>";
 						} 
@@ -656,12 +738,18 @@
 									echo "<div class=\"input-group\">";
 									echo "<label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" value=\"ne\" name=\"$aktivnostNovorojencek->aid dane\" checked >Da</label><label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" value=\"da\" name=\"$aktivnostNovorojencek->aid dane\" >Ne</label>";
 								}
+								echo "</div>";
+								echo "<div class=\"input-group\">";
+								echo "<span class=\"input-group-addon\">Opis</span>";
 								echo "<input type=\"text\" name=\"$aktivnostNovorojencek->aid opis\" class=\"form-control input-sm opis\" value=\"$dec_opis\" placeholder=\"Opis\" >";
 								echo "</div>";
 
 							} else {
 								echo "<div class=\"input-group\">";
 								echo "<label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" value=\"ne\" name=\"$aktivnostNovorojencek->aid dane\" >Da</label><label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" value=\"da\" name=\"$aktivnostNovorojencek->aid dane\" >Ne</label>";
+								echo "</div>";
+								echo "<div class=\"input-group\">";
+								echo "<span class=\"input-group-addon\">Opis</span>";
 								echo "<input type=\"text\" name=\"$aktivnostNovorojencek->aid opis\" class=\"form-control input-sm opis\" placeholder=\"Opis\" >";
 								echo "</div>";
 							} 
@@ -690,17 +778,24 @@
 									echo "<div class=\"input-group\">";
 									echo "<label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" value=\"ni\" name=\"$aktivnostNovorojencek->aid defekacija\" >Ni posebnosti</label><label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" value=\"mikcija\" name=\"$aktivnostNovorojencek->aid defekacija\" >Mikcija</label><label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" value=\"defekacija\" name=\"$aktivnostNovorojencek->aid defekacija\" >Defekacija</label><label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" value=\"kolike\" name=\"$aktivnostNovorojencek->aid defekacija\" >Kolike</label><label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" value=\"polivanje\" name=\"$aktivnostNovorojencek->aid defekacija\" >Polivanje</label><label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" value=\"bruhanje\" name=\"$aktivnostNovorojencek->aid defekacija\" checked >Bruhanje</label>";
 								}
+								echo "</div>";
+								echo "<div class=\"input-group\">";
+								echo "<span class=\"input-group-addon\">Opis</span>";
 								echo "<input type=\"text\" name=\"$aktivnostNovorojencek->aid opis\" class=\"form-control input-sm\" value=\"$dec_opis\" >";
 								echo "</div>";
 							} else {
 								echo "<div class=\"input-group\">";
 								echo "<label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" value=\"ni\" name=\"$aktivnostNovorojencek->aid defekacija\" >Ni posebnosti</label><label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" value=\"mikcija\" name=\"$aktivnostNovorojencek->aid defekacija\" >Mikcija</label><label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" value=\"defekacija\" name=\"$aktivnostNovorojencek->aid defekacija\" >Defekacija</label><label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" value=\"kolike\" name=\"$aktivnostNovorojencek->aid defekacija\" >Kolike</label><label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" value=\"polivanje\" name=\"$aktivnostNovorojencek->aid defekacija\" >Polivanje</label><label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" value=\"bruhanje\" name=\"$aktivnostNovorojencek->aid defekacija\" >Bruhanje</label>";
+								echo "</div>";
+								echo "<div class=\"input-group\">";
+								echo "<span class=\"input-group-addon\">Opis</span>";
 								echo "<input type=\"text\" name=\"$aktivnostNovorojencek->aid opis\" class=\"form-control input-sm\" placeholder=\"Opis\" >";
 								echo "</div>";
 							} 
 						}
 						else {
 							echo "<div class=\"input-group\">";
+							echo "<span class=\"input-group-addon\">Opis</span>";
 							echo "<input type=\"text\" name=\"$aktivnostNovorojencek->aid\" class=\"form-control input-sm\" value=\"$opis\" placeholder=\"Opis\" >";
 							echo "</div>";
 						}
