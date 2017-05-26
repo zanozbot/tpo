@@ -23,8 +23,9 @@ class DatabaseSeeder extends Seeder
         $this->call(SorodstvenoRazmerjeTableSeeder::class);
         $this->call(UporabnikiSeeder::class);
         $this->call(AktivnostTableSeeder::class);
-        $this->call(NadomescanjeTableSeeder::class);
+        
         // Newly generated seeders
+        $this->call(NadomescanjeTableSeeder::class);
         $this->call(DelovniNalogTableSeeder::class);
         $this->call(DelovniNalogPacientTableSeeder::class);
         $this->call(DelovniNalogZdraviloTableSeeder::class);
