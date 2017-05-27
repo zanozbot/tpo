@@ -11,6 +11,24 @@
 |
 */
 
+Route::get('/vrsteMeritev', 'SifrantController@vrste_meritev');
+Route::post('/vrsteMeritev', 'SifrantController@post_vrste_meritev');
+
+Route::get('/vrsteZdravil', 'SifrantController@vrste_zdravil');
+Route::post('/vrsteZdravil', 'SifrantController@post_vrste_zdravil');
+
+Route::get('/vrsteBolezni', 'SifrantController@vrste_bolezni');
+Route::post('/vrsteBolezni', 'SifrantController@post_vrste_bolezni');
+
+Route::get('/vrsteRazmerij', 'SifrantController@vrste_razmerij');
+Route::post('/vrsteRazmerij', 'SifrantController@post_vrste_razmerij');
+
+Route::get('/vrsteUporabniskihVlog', 'SifrantController@vrste_uporabniskih_vlog');
+Route::post('/vrsteUporabniskihVlog', 'SifrantController@post_vrste_uporabniskih_vlog');
+
+Route::get('/vrsteObiskov', 'SifrantController@vrste_obiskov');
+Route::post('/vrsteObiskov', 'SifrantController@post_vrste_obiskov');
+
 Route::get('/dolocitevNadomescanja', 'NadomescanjeController@index')->name('dolocitev_nadomescanja');
 Route::post('/dolocitevNadomescanja', 'NadomescanjeController@nastaviNadomescanje');
 

@@ -9,6 +9,8 @@ class Bolezen extends Model
     protected $table = 'bolezen';
     protected $primaryKey = 'sifra_bolezen';
 
+    protected $fillable = ['sifra_bolezen', 'ime', 'izbrisan'];
+
     // Primary key will not be auto incremented
     public $incrementing = false;
     // Model will not be timestamped

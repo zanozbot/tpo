@@ -17,6 +17,7 @@ class CreateZdravilosTable extends Migration
             $table->string('sifra_zdravilo');
             $table->string('ime', 200);
             $table->string('opis', 200);
+            $table->boolean('izbrisan')->default(false);
         });
     }
 

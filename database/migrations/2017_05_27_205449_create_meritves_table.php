@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateVlogasTable extends Migration
+class CreateMeritvesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class CreateVlogasTable extends Migration
      */
     public function up()
     {
-        Schema::create('vloga', function (Blueprint $table) {
-            $table->integer('sifra_vloga');
-            $table->string('ime', 200);
+        Schema::create('meritve', function (Blueprint $table) {
+            $table->string('sifra_meritev');
+            $table->string('ime');
             $table->boolean('izbrisan')->default(false);
         });
     }
@@ -27,6 +27,6 @@ class CreateVlogasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('vloga');
+        Schema::dropIfExists('meritve');
     }
 }

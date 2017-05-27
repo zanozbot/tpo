@@ -18,6 +18,7 @@ class CreateVrstaObiskasTable extends Migration
             $table->boolean('preventivni');
             $table->string('ime');
             $table->string('meritve', 400)->default('');
+            $table->boolean('izbrisan')->default(false);
         });
     }
 

@@ -9,6 +9,8 @@ class SorodstvenoRazmerje extends Model
     protected $table = 'sorodstveno_razmerje';
     protected $primaryKey = 'sifra_razmerje';
 
+    protected $fillable = ['sifra_razmerje', 'ime', 'izbrisan'];
+
     // Primary key will not be auto incremented
     public $incrementing = false;
     // Model will not be timestamped

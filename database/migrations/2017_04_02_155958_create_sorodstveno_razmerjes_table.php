@@ -16,6 +16,7 @@ class CreateSorodstvenoRazmerjesTable extends Migration
         Schema::create('sorodstveno_razmerje', function (Blueprint $table) {
             $table->string('sifra_razmerje');
             $table->string('ime');
+            $table->boolean('izbrisan')->default(false);
         });
     }
 

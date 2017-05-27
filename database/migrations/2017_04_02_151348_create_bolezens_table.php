@@ -16,6 +16,7 @@ class CreateBolezensTable extends Migration
         Schema::create('bolezen', function (Blueprint $table) {
             $table->string('sifra_bolezen');
             $table->string('ime', 200);
+            $table->boolean('izbrisan')->default(false);
         });
     }
 

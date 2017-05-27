@@ -1,5 +1,6 @@
 # Patronažna služba
 *Skupinsko delo pri predmetu Tehnologije programske opreme po Scrum metodologiji*
+Aplikacija je dosegljiva na naslednjem naslovu http://tpo-patronazna-sluzba.herokuapp.com/
 
 ## Namestitev
 - prenos in namestitev wamp stežnika za Windows ([povezava](http://www.wampserver.com/en/))
