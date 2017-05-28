@@ -17,6 +17,7 @@ class CreateVrstaObiskasTable extends Migration
             $table->integer('sifra_vrsta_obisk');
             $table->boolean('preventivni');
             $table->string('ime');
+            $table->integer('cena');
             $table->string('meritve', 400)->default('');
             $table->boolean('izbrisan')->default(false);
         });

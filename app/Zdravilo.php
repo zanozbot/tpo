@@ -9,7 +9,7 @@ class Zdravilo extends Model
     protected $table = 'zdravilo';
     protected $primaryKey = 'sifra_zdravilo';
 
-    protected $fillable = ['sifra_zdravilo', 'ime', 'izbrisan', 'opis'];
+    protected $fillable = ['sifra_zdravilo', 'ime', 'izbrisan', 'opis', 'cena'];
 
     // Primary key will not be auto incremented
     public $incrementing = false;

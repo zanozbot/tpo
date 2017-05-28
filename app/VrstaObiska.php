@@ -9,7 +9,7 @@ class VrstaObiska extends Model
     protected $table = 'vrsta_obiska';
     protected $primaryKey = 'sifra_vrsta_obisk';
 
-    protected $fillable = ['sifra_vrsta_obisk', 'ime', 'preventivni', 'izbrisan'];
+    protected $fillable = ['sifra_vrsta_obisk', 'ime', 'preventivni', 'izbrisan', 'cena'];
 
     // Primary key will not be auto incremented
     public $incrementing = false;
