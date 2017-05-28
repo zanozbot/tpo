@@ -31,6 +31,9 @@
 					<li>
 						<a href="{{route('seznamObiskov')}}"><span class="glyphicon glyphicon-list"></span> Obiski</a>
 					</li>
+					<li>
+						<a href="{{route('prikazMeritev')}}"><span class="glyphicon glyphicon-list-alt"></span> Prikaz meritev</a>
+					</li>
 					@endif
 					@if (Auth::user()->sifra_vloga == 3)
 					<li>
@@ -84,6 +87,9 @@
 					<li>
 						<a href="{{route('seznamObiskovVceraj')}}"><span class="glyphicon glyphicon-list"></span> Včerajšni obiski</a>
 					</li>
+					<li>
+						<a href="{{route('prikazMeritev')}}"><span class="glyphicon glyphicon-list-alt"></span> Prikaz meritev</a>
+					</li>
 					@endif
 					@if (Auth::user()->sifra_vloga == 6)
 
@@ -101,6 +107,9 @@
 					</li>
 					<li>
 						<a href="{{route('seznamObiskovPacient')}}"><span class="glyphicon glyphicon-list"></span> Obiski</a>
+					</li>
+					<li>
+						<a href="{{route('prikazMeritev')}}"><span class="glyphicon glyphicon-list-alt"></span> Prikaz meritev</a>
 					</li>
 					@endif
 					<li>
