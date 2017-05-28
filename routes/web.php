@@ -10,6 +10,8 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/prikazMeritev', 'PrikazMeritevController@izberi_meritev')->name('prikazMeritev');
+Route::post('/prikazMeritev', 'PrikazMeritevController@post_izberi_meritev');
 
 Route::get('/', function () {
     return view('pages.welcome');
