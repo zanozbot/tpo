@@ -46,6 +46,9 @@
 						<a href="{{route('seznamObiskov')}}"><span class="glyphicon glyphicon-list"></span> Obiski</a>
 					</li>
 					<li>
+						<a href="{{route('obracun_storitev')}}"><span class="glyphicon glyphicon-euro"></span> Obračun storitev</a>
+					</li>
+					<li>
 						<a href="{{route('dolocitev_nadomescanja')}}"><span class="glyphicon glyphicon-th-large"></span> Določitev nadomeščanja</a>
 					</li>
 					<li>
