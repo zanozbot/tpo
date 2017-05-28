@@ -11,22 +11,30 @@
 |
 */
 
-Route::get('/vrsteMeritev', 'SifrantController@vrste_meritev');
+Route::get('/sifranti', 'AdministratorController@sifranti')->name('sifranti');
+
+Route::get('/uporabniki', 'SifrantController@uporabniki')->name('uporabniki');
+Route::post('/uporabniki', 'SifrantController@post_uporabniki');
+
+Route::get('/vrsteIzvajalcev', 'SifrantController@vrste_izvajalcev')->name('izvajalci');
+Route::post('/vrsteIzvajalcev', 'SifrantController@post_vrste_izvajalcev');
+
+Route::get('/vrsteMeritev', 'SifrantController@vrste_meritev')->name('meritve');
 Route::post('/vrsteMeritev', 'SifrantController@post_vrste_meritev');
 
-Route::get('/vrsteZdravil', 'SifrantController@vrste_zdravil');
+Route::get('/vrsteZdravil', 'SifrantController@vrste_zdravil')->name('zdravila');
 Route::post('/vrsteZdravil', 'SifrantController@post_vrste_zdravil');
 
-Route::get('/vrsteBolezni', 'SifrantController@vrste_bolezni');
+Route::get('/vrsteBolezni', 'SifrantController@vrste_bolezni')->name('bolezni');
 Route::post('/vrsteBolezni', 'SifrantController@post_vrste_bolezni');
 
-Route::get('/vrsteRazmerij', 'SifrantController@vrste_razmerij');
+Route::get('/vrsteRazmerij', 'SifrantController@vrste_razmerij')->name('razmerja');
 Route::post('/vrsteRazmerij', 'SifrantController@post_vrste_razmerij');
 
-Route::get('/vrsteUporabniskihVlog', 'SifrantController@vrste_uporabniskih_vlog');
+Route::get('/vrsteUporabniskihVlog', 'SifrantController@vrste_uporabniskih_vlog')->name('vloge');
 Route::post('/vrsteUporabniskihVlog', 'SifrantController@post_vrste_uporabniskih_vlog');
 
-Route::get('/vrsteObiskov', 'SifrantController@vrste_obiskov');
+Route::get('/vrsteObiskov', 'SifrantController@vrste_obiskov')->name('obiski');
 Route::post('/vrsteObiskov', 'SifrantController@post_vrste_obiskov');
 
 Route::get('/dolocitevNadomescanja', 'NadomescanjeController@index')->name('dolocitev_nadomescanja');

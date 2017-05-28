@@ -23,7 +23,7 @@ class ProfilController extends Controller
 	}
 	public function index() {
     	$okolisi = Okolis::all();
-		$razmerja = SorodstvenoRazmerje::all();
+		$razmerja = SorodstvenoRazmerje::where('izbrisan', false)->get();
 		$glavni = Auth::user()->pacient[0];
 		$glavni->datum_rojstva=$this->datum($glavni->datum_rojstva);
 		$poste = Posta::all();

@@ -9,6 +9,9 @@ use App\SorodstvenoRazmerje;
 use App\Bolezen;
 use App\Zdravilo;
 use App\Meritve;
+use App\IzvajalecZD;
+use App\Posta;
+use App\Uporabnik;
 
 class SifrantController extends Controller
 {
@@ -231,9 +234,72 @@ class SifrantController extends Controller
 
     	return redirect()->back();
     }
-    
-    /* TODO:
-    * Sifrant zdravstvenih delavcev (zdravnikov in patronaznih sester)
-	* Sifrant izvajalcev zdravstvene dejavnosti
-	*/
+
+    public function vrste_izvajalcev() {
+    	$poste = Posta::all();
+    	$izvajalci = IzvajalecZD::where('izbrisan', false)->get();
+    	return view('pages.seznam_vrste_izvajalcev', ['izvajalci' => $izvajalci, 'poste' => $poste]);
+    }
+
+    public function post_vrste_izvajalcev(Request $request) {
+    	$method = $request['method'];
+		switch ($method) {
+				case 'posodobi':
+					$izvajalec = IzvajalecZD::find($request['sifra']);
+
+					$izvajalec->postna_stevilka = $request['posta'];
+					$izvajalec->naziv = $request['naziv'];
+					$izvajalec->naslov = $request['naslov'];
+					$izvajalec->save();
+					return redirect()->back();
+
+				case 'izbrisi':
+					$izvajalec = IzvajalecZD::find($request['sifra']);
+					$izvajalec->izbrisan = 1;
+					$izvajalec->save();
+					return redirect()->back();
+
+				case 'dodaj':
+					if(IzvajalecZD::find($request['sifra'])) {
+						return redirect()->back()->with('warning', "Šifra že obstaja!");
+					}
+					IzvajalecZD::create([
+						'sifra_zd' => $request['sifra'],
+						'postna_stevilka' => $request['posta'],
+						'naziv' => $request['naziv'],
+						'naslov' => $request['naslov']
+					]);
+					return redirect()->back();
+			}	
+
+
+    	return redirect()->back();
+    }
+
+    public function uporabniki() {
+    	$uporabniki = Uporabnik::whereNotIn('sifra_vloga', [1,6])->get();
+    	return view('pages.seznam_uporabnikov', ['uporabniki' => $uporabniki]);
+    }
+
+    public function post_uporabniki(Request $request) {
+    	$method = $request['method'];
+		
+		switch ($method) {
+				case 'posodobi':
+					$uporabnik = Uporabnik::find($request['id']);
+
+					$uporabnik->email = $request['email'];
+					$uporabnik->ime = $request['ime'];
+					$uporabnik->priimek = $request['priimek'];
+					$uporabnik->tel_stevilka = $request['stevilka'];
+					if(strlen($request['geslo']) >= 8) {
+						$uporabnik->geslo = bcrypt($request['geslo']);
+					}
+					$uporabnik->save();
+					return redirect()->back();
+			}	
+
+
+    	return redirect()->back();
+    }
 }

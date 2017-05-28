@@ -23,7 +23,7 @@ class PoduporabnikController extends Controller
 	}
 	public function index() {
     	$okolisi = Okolis::all();
-		$razmerja = SorodstvenoRazmerje::all();
+		$razmerja = SorodstvenoRazmerje::where('izbrisan', false)->get();
 		$glavni = Auth::user()->pacient[0];				
 		$poduporabniki = Pacient::where('pac_stevilka_KZZ', $glavni->stevilka_KZZ)
 						->join('sorodstveno_razmerje', 'pacient.sifra_razmerje', '=', 'sorodstveno_razmerje.sifra_razmerje')

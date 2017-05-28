@@ -9,6 +9,8 @@ class IzvajalecZD extends Model
     protected $table = 'izvajalec_zd';
     protected $primaryKey = 'sifra_zd';
 
+    protected $fillable = ['sifra_zd', 'postna_stevilka', 'izbrisan', 'naziv', 'naslov'];
+
     // Primary key will not be auto incremented
     public $incrementing = false;
     // Model will not be timestamped

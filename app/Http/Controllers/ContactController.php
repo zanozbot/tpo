@@ -12,7 +12,7 @@ use Auth;
 class ContactController extends Controller
 {
 	public function index() {
-		$razmerja = SorodstvenoRazmerje::all();
+		$razmerja = SorodstvenoRazmerje::where('izbrisan', false)->get();
 		$kontakti = KontaktnaOseba::where('id_uporabnik', Auth::user()->id_uporabnik)
 					->join('sorodstveno_razmerje', 'kontaktna_oseba.sifra_razmerje', '=', 'sorodstveno_razmerje.sifra_razmerje')
 					->get(array(

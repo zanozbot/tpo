@@ -14,8 +14,11 @@ use App\Okolis;
 class AdministratorController extends Controller
 {
     public function index() {
-    	$vloge = Vloga::where('sifra_vloga', '>', 1)->where('sifra_vloga', '<', 6)->get();
-        $izvajalci = IzvajalecZD::all();
+    	$vloge = Vloga::where('sifra_vloga', '>', 1)
+                ->where('sifra_vloga', '<', 6)
+                ->where('izbrisan', false)
+                ->get();
+        $izvajalci = IzvajalecZD::where('izbrisan', false)->get();
         $okolisi = Okolis::all();
     	return view('pages.admin', ['vloge' => $vloge, 'izvajalci' => $izvajalci, 'okolisi' => $okolisi]);
     }
@@ -81,5 +84,9 @@ class AdministratorController extends Controller
     	}
 
     	return redirect()->route('admin')->with('status', true);
+    }
+
+    public function sifranti() {
+        return view('pages.sifranti');
     }
 }

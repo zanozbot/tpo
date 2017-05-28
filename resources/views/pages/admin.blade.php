@@ -3,23 +3,7 @@
 {{ HTML::script('js/admin.js') }}
 	<div class="container">
 		<div class="row">
-			<div class="col-xs-12 col-sm-12 col-md-2">			
-				<div class="panel panel-default">
-				  <div class="panel-heading">
-					<h3 class="panel-title">Orodja</h3>
-				  </div>
-				  <div class="panel-body">
-					<div class="list-group">
-						<button type="button" class="list-group-item list-group-item-action active">Ustvari račun</button>
-						<button type="button" class="list-group-item list-group-item-action">TBD</button>
-						<button type="button" class="list-group-item list-group-item-action">TBD</button>
-						<button type="button" class="list-group-item list-group-item-action">TBD</button>
-						<button type="button" class="list-group-item list-group-item-action" >TBD</button>
-					</div>
-				  </div>
-				</div>
-			</div>
-			<div class="col-xs-12 col-sm-12 col-md-10 ">
+			<div class="col-xs-12 col-sm-12 col-md-12 ">
 				<div class="panel panel-default">			
 				  <div class="panel-heading">
 					<h3 class="panel-title">Ustvari račun zdravstvenega osebja</h3>

@@ -11,6 +11,12 @@
 					<li>
 						<a href="{{ url('admin') }}"><span class="glyphicon glyphicon-user"></span> Dodaj osebje</a>
 					</li>
+					<li>
+						<a href="{{ url('sifranti') }}"><span class="glyphicon glyphicon-th-list"></span> Šifranti</a>
+					</li>
+					<li>
+						<a href="{{ url('uporabniki') }}"><span class="glyphicon glyphicon-pencil"></span> Zdravstveno osebje</a>
+					</li>
 					@endif
 					@if (Auth::user()->sifra_vloga == 2)
 					<li>

@@ -18,6 +18,7 @@ class CreateIzvajalecZdTable extends Migration
             $table->integer('postna_stevilka')->references('postna_stevilka')->on('posta');
             $table->string('naziv', 200);
             $table->string('naslov', 200);
+            $table->boolean('izbrisan')->default(false);
         });
     }
 

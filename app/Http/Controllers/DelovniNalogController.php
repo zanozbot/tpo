@@ -19,8 +19,8 @@ class DelovniNalogController extends Controller
     public function index() {
         if (Auth::check()) {
             if (Auth::user()->sifra_vloga == 3 || Auth::user()->sifra_vloga == 2){
-                $bolezni = Bolezen::all();
-                $zdravila = Zdravilo::all();
+                $bolezni = Bolezen::where('izbrisan', false)->get();
+                $zdravila = Zdravilo::where('izbrisan', false)->get();
                 $pacienti = Pacient::get(array(
                                     'pacient.ime as ime_pacienta',
                                     'stevilka_KZZ',
@@ -40,8 +40,8 @@ class DelovniNalogController extends Controller
 
     public function create(Request $request) {
 
-        $bolezni = Bolezen::all();
-        $zdravila = Zdravilo::all();
+        $bolezni = Bolezen::where('izbrisan', false)->get();
+        $zdravila = Zdravilo::where('izbrisan', false)->get();
 
 
     	$messages = [

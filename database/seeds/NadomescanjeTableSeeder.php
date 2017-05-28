@@ -30,7 +30,7 @@ class NadomescanjeTableSeeder extends Seeder
             array (
                 'nid' => 2,
                 'zacetek' => '2017-05-22',
-                'konec' => '2017-05-23',
+                'konec' => '2017-05-23', // Spremeni za prikaz nadomescanja
                 'sifra_ps' => 12345,
                 'nadomestna_sifra_ps' => 20142,
                 'sifra_obisk' => 3,
