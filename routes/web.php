@@ -10,8 +10,6 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/prikazMeritev', 'PrikazMeritevController@izberi_meritev')->name('prikazMeritev');
-Route::post('/prikazMeritev', 'PrikazMeritevController@post_izberi_meritev');
 
 Route::get('/', function () {
     return view('pages.welcome');
@@ -111,3 +109,8 @@ Route::post('/zakljucekNadomescanja', 'ZakljucekNadomescanjaController@end')->na
 
 // Obracun storitev
 Route::get('/obracunStoritev', 'ObracunStoritevController@index')->name('obracun_storitev');
+Route::post('/obracunStoritev', 'ObracunStoritevController@post_obracun_storitev')->name('post_obracun_storitev');
+
+// Prikaz meritev
+Route::get('/prikazMeritev', 'PrikazMeritevController@izberi_meritev')->name('prikazMeritev');
+Route::post('/prikazMeritev', 'PrikazMeritevController@post_izberi_meritev');

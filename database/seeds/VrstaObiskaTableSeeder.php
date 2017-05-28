@@ -18,37 +18,37 @@ class VrstaObiskaTableSeeder extends Seeder
                 	'sifra_vrsta_obisk' => '10',
                     'preventivni' => true,
                     'ime' => 'Obisk nosečnice',
-                    'cena' => 65
+                    'cena' => 65.99
                 ],
                 [
                 	'sifra_vrsta_obisk' => '20',
                     'preventivni' => true,
                     'ime' => 'Obisk otročnice',
-                    'cena' => 53
+                    'cena' => 53.99
                 ],
                 [
                 	'sifra_vrsta_obisk' => '40',
                     'preventivni' => true,
                     'ime' => 'Preventiva starostnika',
-                    'cena' => 91
+                    'cena' => 91.99
                 ],
                 [
                 	'sifra_vrsta_obisk' => '50',
                     'preventivni' => false,
                     'ime' => 'Aplikacija injekcij',
-                    'cena' => 88
+                    'cena' => 88.99
                 ],
                 [
                 	'sifra_vrsta_obisk' => '60',
                     'preventivni' => false,
                     'ime' => 'Odvzem krvi',
-                    'cena' => 70
+                    'cena' => 70.99
                 ],
                 [
                 	'sifra_vrsta_obisk' => '70',
                     'preventivni' => false,
                     'ime' => 'Kontrola zdravstvenega stanja',
-                    'cena' => 79
+                    'cena' => 79.99
                 ],
             ]);
         }
