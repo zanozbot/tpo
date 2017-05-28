@@ -28,6 +28,7 @@ class SifrantController extends Controller
 
 					$vrstaObiska->ime = $request['ime'];
 					$vrstaObiska->preventivni = $request['preventivni'];
+					$vrstaObiska->cena = $request['cena'];
 					$vrstaObiska->save();
 					return redirect()->back();
 
@@ -44,7 +45,8 @@ class SifrantController extends Controller
 					VrstaObiska::create([
 						'sifra_vrsta_obisk' => $request['sifra'],
 						'ime' => $request['ime'],
-						'preventivni' => $request['preventivni']
+						'preventivni' => $request['preventivni'],
+						'cena' => $request['cena']
 					]);
 					return redirect()->back();
 			}	
@@ -174,6 +176,7 @@ class SifrantController extends Controller
 
 					$zdravilo->ime = $request['ime'];
 					$zdravilo->opis = $request['opis'];
+					$zdravilo->cena = $request['cena'];
 					$zdravilo->save();
 					return redirect()->back();
 
@@ -190,7 +193,8 @@ class SifrantController extends Controller
 					Zdravilo::create([
 						'sifra_zdravilo' => $request['sifra'],
 						'ime' => $request['ime'],
-						'opis' => $request['opis']
+						'opis' => $request['opis'],
+						'cena' => $request['cena']
 					]);
 					return redirect()->back();
 			}	

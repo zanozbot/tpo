@@ -26,9 +26,10 @@ class DelovniNalogController extends Controller
                                     'stevilka_KZZ',
                                     'pacient.priimek as priimek_pacienta'));
                 if(Auth::user()->sifra_vloga == 3){
-                    $vrsteObiska = VrstaObiska::where('preventivni', 1)->get();
+                    $vrsteObiska = VrstaObiska::where('preventivni', 1)
+                                    ->where('izbrisan', false)->get();
                 } else if (Auth::user()->sifra_vloga == 2){
-                    $vrsteObiska = VrstaObiska::all();
+                    $vrsteObiska = VrstaObiska::where('izbrisan', false)->get();
                 }
                 return view('pages.nalog', ['pacienti' => $pacienti, 'bolezni' => $bolezni, 'zdravila' => $zdravila, 'vrsteObiska' => $vrsteObiska, 'errPacient' => '']);
             } else {

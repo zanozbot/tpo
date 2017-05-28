@@ -51,6 +51,7 @@
 					<th><label class="label label-primary">Šifra</label></th>
 					<th><label class="label label-primary">Ime</label></th>
 					<th><label class="label label-primary">Opis</label></th>
+					<th><label class="label label-primary">Cena</label></th>
 					<th></th>
 					<th></th>
 				  </tr>
@@ -63,6 +64,7 @@
 						<td><label>{{ $zdravilo->sifra_zdravilo }}</label></td>
 						<td><label>{{ $zdravilo->ime }}</label></td>
 						<td><label>{{ $zdravilo->opis }}</label></td>
+						<td><label>{{ $zdravilo->cena }}€</label></td>
 						<td>
 							<button type="button" class="btn btn-info btn-block" data-toggle="modal" data-target="#podrobnosti{{ $zdravilo->sifra_zdravilo }}"><span class="glyphicon glyphicon-pencil"></span></button>
 							<div class="modal fade" id="podrobnosti{{ $zdravilo->sifra_zdravilo }}" role="dialog">

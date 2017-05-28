@@ -19,6 +19,11 @@
 						<label class="label label-primary">Opis zdravila</label>
 						<input style="width: 100%" type="text" class="form-control" name="opis" required="true" value="{{ $zdravilo->opis }}">
 					</div>
+					<label class="label label-primary">Cena zdravila</label>
+					<div class="input-group" style="width: 100%">						
+				    	<input style="width: 100%" type="number" step="0.01" class="form-control" name="cena" value="{{ $zdravilo->cena }}" required="true">
+				    	<span class="input-group-addon"><i class="glyphicon glyphicon-euro"></i></span>
+				 	</div>
 					<input type="submit" value="Posodobi" class="btn btn-info btn-block" >
 					<input type="hidden" name="method" value="posodobi"/>
 					<input type="hidden" name="_token" value="{{ Session::token() }}"/>
@@ -46,6 +51,11 @@
 						<label class="label label-primary">Opis zdravila</label>
 						<input style="width: 100%" type="text" class="form-control" name="opis" required="true">
 					</div>
+					<label class="label label-primary">Cena zdravila</label>
+					<div class="input-group" style="width: 100%">						
+				    	<input style="width: 100%" type="number" step="0.01" class="form-control" name="cena" required="true">
+				    	<span class="input-group-addon"><i class="glyphicon glyphicon-euro"></i></span>
+				 	</div>
 					<input type="submit" value="Dodaj" class="btn btn-info btn-block" >
 					<input type="hidden" name="method" value="dodaj"/>
 					<input type="hidden" name="_token" value="{{ Session::token() }}"/>

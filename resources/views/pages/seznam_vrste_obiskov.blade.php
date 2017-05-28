@@ -51,6 +51,7 @@
 					<th><label class="label label-primary">Šifra</label></th>
 					<th><label class="label label-primary">Preventivni</label></th>
 					<th><label class="label label-primary">Ime</label></th>
+					<th><label class="label label-primary">Cena</label></th>
 					<th></th>
 					<th></th>
 				  </tr>
@@ -63,6 +64,7 @@
 						<td><label>{{ $vrstaObiska->sifra_vrsta_obisk }}</label></td>
 						<td><label>{{ $vrstaObiska->preventivni ? 'Da' : 'Ne' }}</label></td>
 						<td><label>{{ $vrstaObiska->ime }}</label></td>
+						<td><label>{{ $vrstaObiska->cena }}€</label></td>
 						<td>
 							<button type="button" class="btn btn-info btn-block" data-toggle="modal" data-target="#podrobnosti{{ $vrstaObiska->sifra_vrsta_obisk }}"><span class="glyphicon glyphicon-pencil"></span></button>
 							<div class="modal fade" id="podrobnosti{{ $vrstaObiska->sifra_vrsta_obisk }}" role="dialog">
