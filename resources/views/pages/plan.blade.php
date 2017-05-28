@@ -14,25 +14,34 @@
 						<thead>
 						  <tr>
 							<th></th>
-						<th><label>Prvotni datum obiska</label></th>
-						<th><label>Pacient</label></th>
-						<th><label>Naslov</label></th>
-						<th><label>Vrsta obiska</label></th>
-						<th></th>
+							<th></th>
+							<th><label>Prvotni datum obiska</label></th>
+							<th><label>Pacient</label></th>
+							<th><label>Naslov</label></th>
+							<th><label>Vrsta obiska</label></th>
+							<th></th>
 						  </tr>
 						</thead>
 						<tbody>
+						<script>
+						  	var st = 1;
+						</script>
 						@foreach ($mix1 as $obisk)
 							@if ($obisk->ime_vrsta_obiska == 'Obisk otročnice' && $obisk->pac_stevilka_KZZ != -1)
 
 			   				@else
 			   					@if (!in_array($obisk->sifra_obisk, $nepotrebniObiski))
 									<tr>
-									@if ($obisk->datum_obvezen == 1)
-										<td><button type="button" onclick="window.location='{{ url('plan/dodaj') }}/{{$sifraPlan}}/{{$sifra = $obisk->sifra_obisk}}/{{$izbraniDatum}}'" class="btn btn-default" name="{{$sifra = $obisk->sifra_obisk}}" disabled>Dodaj</button></td>
-									@else
-										<td><button type="button" onclick="window.location='{{ url('plan/dodaj') }}/{{$sifraPlan}}/{{$sifra = $obisk->sifra_obisk}}/{{$izbraniDatum}}'" class="btn btn-default" name="{{$sifra = $obisk->sifra_obisk}}">Dodaj</button></td>
-									@endif
+										<td><label id="stevilcenje_{{$obisk->sifra_obisk}}"></label></td>
+										<script>
+										  	$("#stevilcenje_{{$obisk->sifra_obisk}}").html(st);
+										  	st++;
+										</script>
+										@if ($obisk->datum_obvezen == 1)
+											<td><button type="button" onclick="window.location='{{ url('plan/dodaj') }}/{{$sifraPlan}}/{{$sifra = $obisk->sifra_obisk}}/{{$izbraniDatum}}'" class="btn btn-default" name="{{$sifra = $obisk->sifra_obisk}}" disabled>Dodaj</button></td>
+										@else
+											<td><button type="button" onclick="window.location='{{ url('plan/dodaj') }}/{{$sifraPlan}}/{{$sifra = $obisk->sifra_obisk}}/{{$izbraniDatum}}'" class="btn btn-default" name="{{$sifra = $obisk->sifra_obisk}}">Dodaj</button></td>
+										@endif
 										<td><label id="pr_dat_ne_{{$obisk->sifra_obisk}}"></label></td>
 										<script>
 										  	var prvotniDatumPl = "{{$obisk->datum_obiska}}";
@@ -80,20 +89,28 @@
 				    <thead>
 					  <tr>
 						<th></th>
+						<th></th>
 						<th><label>Prvotni datum obiska</label></th>
 						<th><label>Pacient</label></th>
 						<th><label>Naslov</label></th>
 						<th><label>Vrsta obiska</label></th>
 						<th></th>
-						<th></th>
 					  </tr>
 					</thead>
 					<tbody>
+						<script>
+						  	var st2 = 1;
+						</script>
 					  	@foreach ($mix2 as $obisk)
 					  		@if ($obisk->ime_vrsta_obiska == 'Obisk otročnice' && $obisk->pac_stevilka_KZZ != -1)
 
 			   				@else
 						  		<tr>
+						  			<td><label id="stevilcenje2_{{$obisk->sifra_obisk}}"></label></td>
+									<script>
+									  	$("#stevilcenje2_{{$obisk->sifra_obisk}}").html(st2);
+									  	st2++;
+									</script>
 						  			@if ($obisk->datum_obvezen == 1)
 						  				<td><button type="button" onclick="window.location='{{ url('plan/odstrani') }}/{{$sifraPlan}}/{{$sifra = $obisk->sifra_obisk}}/{{$izbraniDatum}}'" class="btn btn-default" name="{{$sifra = $obisk->sifra_obisk}}" disabled>Odstrani</button></td>
 						  			@else
@@ -109,9 +126,7 @@
 									<td><label>{{$obisk->ime_pacienta.' '.$obisk->priimek_pacienta}}</label></td>
 									<td><label>{{$obisk->naslov_pacienta.', '.$obisk->kraj_pacienta}}</label></td>
 									<td><label>{{$obisk->ime_vrsta_obiska}}</label></td>
-																			
 									<td >
-									
 										<button type="button" class="btn btn-info btn-block" data-toggle="modal" data-target="#podrobnosti{{$obisk->sifra_obisk}}"><span class="glyphicon glyphicon-pencil"></span></button>
 										<div class="modal fade" id="podrobnosti{{$obisk->sifra_obisk}}" role="dialog">
 											<div class="modal-dialog modal-lg">

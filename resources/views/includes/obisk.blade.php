@@ -65,21 +65,21 @@
 				<h3 class="panel-title">4 - Zadolžena patronažna sestra</h3>
 			  </div>
 			  <div class="panel-body">
+			  	  <div class="form-group">
+				    <label class="label label-primary">Šifra sestre</label>
+					<div class="form-control nalog" name="vrstaStoritve"><label>{{$obisk->sestra[0]->sifra_ps}}</label></div>
+				  </div>
+				  <div class="form-group">
+				    <label class="label label-primary">Ime sestre</label>
+					<div class="form-control nalog" name="vrstaStoritve"><label>{{$obisk->sestra[0]->ime.' '.$obisk->sestra[0]->priimek}}</label></div>
+				  </div>
 			  	@if ($obisk->nadomescanje == 1)
-					<div class="form-group">
-					    <label class="label label-primary">Šifra sestre</label>
-						<div class="form-control nalog" name="vrstaStoritve"><label>{{$obisk->sifra_nadomestne_ps}}</label></div>
-					  </div>
 					  <div class="form-group" >
 						<label class="label label-primary">Nadomeščanje</label>
 						<label class="checkbox-inline"><input type="checkbox" name="nadomescanje" disabled checked>Da</label>
 						<label class="checkbox-inline"><input type="checkbox" name="nadomescanje" disabled>Ne</label>
 					  </div>
 				@else
-					<div class="form-group">
-					    <label class="label label-primary">Šifra sestre</label>
-						<div class="form-control nalog" name="vrstaStoritve"><label>{{$obisk->sifra_ps}}</label></div>
-					  </div>
 					  <div class="form-group" >
 						<label class="label label-primary">Nadomeščanje</label>
 						<label class="checkbox-inline"><input type="checkbox" name="nadomescanje" disabled>Da</label>
@@ -106,12 +106,21 @@
 				<div class="form-group">
 				    <label class="label label-primary">Datum obiska</label>
 					<div class="form-control nalog" name="datumStoritve"><label id="dat_ob_{{$obisk->sifra_obisk}}"></label></div>
-					<script>
-					  	var prvotniDatum = "{{$obisk->predvideni_datum_obiska}}";
-					  	var arrStringov = prvotniDatum.split("-");
-					  	var preurejeniDatum = arrStringov[2].concat(".".concat(arrStringov[1].concat(".".concat(arrStringov[0]))));
-					  	$("#dat_ob_{{$obisk->sifra_obisk}}").html(preurejeniDatum);
-					</script>
+					@if ($obisk->opravljen == 1)
+						<script>
+						  	var prvotniDatum = "{{$obisk->dejanski_datum_obiska}}";
+						  	var arrStringov = prvotniDatum.split("-");
+						  	var preurejeniDatum = arrStringov[2].concat(".".concat(arrStringov[1].concat(".".concat(arrStringov[0]))));
+						  	$("#dat_ob_{{$obisk->sifra_obisk}}").html(preurejeniDatum);
+						</script>
+					@else
+						<script>
+						  	var prvotniDatum = "{{$obisk->predvideni_datum_obiska}}";
+						  	var arrStringov = prvotniDatum.split("-");
+						  	var preurejeniDatum = arrStringov[2].concat(".".concat(arrStringov[1].concat(".".concat(arrStringov[0]))));
+						  	$("#dat_ob_{{$obisk->sifra_obisk}}").html(preurejeniDatum);
+						</script>
+					@endif
 				</div>
 				<div class="form-group" >
 					<label class="label label-primary">Vrsta obiska</label>

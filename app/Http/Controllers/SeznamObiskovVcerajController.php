@@ -333,46 +333,51 @@ class SeznamObiskovVcerajController extends Controller
 			->join('bolezen', 'bolezen.sifra_bolezen', '=', 'delovni_nalog.sifra_bolezen')
 			->join('delavec', 'delavec.sifra_delavec', '=', 'delovni_nalog.sifra_delavec')
 			->join('izvajalec_zd', 'izvajalec_zd.sifra_zd', '=', 'delavec.sifra_zd')
+			->join('plan', 'obisk.sifra_plan', '=', 'plan.sifra_plan')
 			->where('datum_opravljenosti_obiska', date('Y-m-d',strtotime("-1 days")))
 			->where('obisk.sifra_ps', '=', $sifraPS)
 			->orderBy('datum_opravljenosti_obiska', 'asc')
 			->get(array(
-						'sifra_obisk',
-                        'pacient.ime as ime_pacienta',
-                        'pacient.priimek as priimek_pacienta',
-                        'email',
-                        'tel_stevilka',
-                        'stevilka_KZZ',
-                        'pac_stevilka_KZZ',
-                        'pacient.postna_stevilka as posta_pacient',
-                        'sifra_okolis',
-                        'pacient.ulica as naslov_pacienta',
-                        'pacient.kraj as kraj_pacienta',
-                        'datum_rojstva',
-                        'spol',
-                        'obisk.sifra_ps',
-                        'obisk.sifra_nadomestne_ps',
-                        'delovni_nalog.sifra_dn',
-                        'vrsta_obiska.sifra_vrsta_obisk',
-                        'vrsta_obiska.ime as ime_vrsta_obiska',
-                        'stevilo_epruvet_RdMoRuZe',
-                        'datum_prvega_obiska',
-                        'datum_koncnega_obiska',
-                        'datum_obvezen',
-                        'stevilo_obiskov',
-                        'casovni_interval',
-                        'izvajalec_zd.sifra_zd',
-                        'izvajalec_zd.postna_stevilka as posta_izvajalec',
-                        'delavec.sifra_delavec as sifra_delavca',
-                        'izvajalec_zd.naziv as naziv_izvajalca',
-                        'izvajalec_zd.naslov as naslov_izvajalca',
-                        'posta.kraj as kraj_poste',
-                        'vrsta_obiska.ime as ime_vrsta_obiska',
-                        'preventivni',
-                        'datum_obiska',
-                        'bolezen.sifra_bolezen as sifra_bolezni',
-                        'bolezen.ime as ime_bolezni',
-                        'Nadomescanje'
+						'obisk.sifra_obisk',
+						'datum_obiska as prvotni_datum_obiska',
+						'datum_opravljenosti_obiska as dejanski_datum_obiska',
+	                    'pacient.ime as ime_pacienta',
+	                    'pacient.priimek as priimek_pacienta',
+	                    'email',
+	                    'opravljen',
+	                    'nadomescanje',
+	                    'tel_stevilka',
+	                    'stevilka_KZZ',
+	                    'pac_stevilka_KZZ',
+	                    'pacient.postna_stevilka as posta_pacient',
+	                    'sifra_okolis',
+	                    'pacient.ulica as naslov_pacienta',
+	                    'pacient.kraj as kraj_pacienta',
+	                    'datum_rojstva',
+	                    'spol',
+	                    'obisk.sifra_ps',
+	                    'obisk.sifra_nadomestne_ps',
+	                    'delovni_nalog.sifra_dn',
+	                    'vrsta_obiska.sifra_vrsta_obisk',
+	                    'vrsta_obiska.ime as ime_vrsta_obiska',
+	                    'stevilo_epruvet_RdMoRuZe',
+	                    'datum_prvega_obiska',
+	                    'datum_koncnega_obiska',
+	                    'datum_obvezen',
+	                    'stevilo_obiskov',
+	                    'casovni_interval',
+	                    'izvajalec_zd.sifra_zd',
+	                    'izvajalec_zd.postna_stevilka as posta_izvajalec',
+	                    'delavec.sifra_delavec as sifra_delavca',
+	                    'izvajalec_zd.naziv as naziv_izvajalca',
+	                    'izvajalec_zd.naslov as naslov_izvajalca',
+	                    'posta.kraj as kraj_poste',
+	                    'vrsta_obiska.ime as ime_vrsta_obiska',
+	                    'preventivni',
+	                    'bolezen.sifra_bolezen as sifra_bolezni',
+	                    'bolezen.ime as ime_bolezni',
+	                    'plan.sifra_plan',
+	                    'plan.datum_plan as predvideni_datum_obiska'
                 ));
 
         for ($i=0; $i < count($mix2); $i++) {
@@ -380,6 +385,18 @@ class SeznamObiskovVcerajController extends Controller
         							->where('opravljen', '=', 0)
 									->where('sifra_plan', '=', $sifraPlan)->get();
         
+			$mix2[$i]->sestra = PatronaznaSestra::join('uporabnik', 'uporabnik.id_uporabnik', '=', 'patronazna_sestra.id_uporabnik')
+        										->where('sifra_okolis', '=', $mix2[$i]->sifra_okolis)
+        										->get();
+        	$nadomescanja = Nadomescanje::where('sifra_obisk', $mix2[$i]->sifra_obisk)
+        								->where('sifra_ps', $mix2[$i]->sestra[0]->sifra_ps)
+        								->get();
+        	if(count($nadomescanja)){
+        		$mix2[$i]->sestra = PatronaznaSestra::join('uporabnik', 'uporabnik.id_uporabnik', '=', 'patronazna_sestra.id_uporabnik')
+        										->where('sifra_ps', $nadomescanja[0]->nadomestna_sifra_ps)
+        										->get();
+        	}
+
         	$mix2[$i]->aktivnosti = Aktivnost::where('sifra_storitve', '=', $mix2[$i]->sifra_vrsta_obisk)->get();
         	if($mix2[$i]->sifra_vrsta_obisk == 20)
         		$mix2[$i]->aktivnostiNovorojencek = Aktivnost::where('sifra_storitve', '=', "30")->get();

@@ -77,6 +77,12 @@ class PlanTableSeeder extends Seeder
                 'datum_plan' => '2017-06-07',
                 'sifra_ps_plan' => 12345,
             ),
+            9 => 
+            array (
+                'sifra_plan' => 11,
+                'datum_plan' => '2017-05-27',
+                'sifra_ps_plan' => 20142,
+            ),
         ));
         
         

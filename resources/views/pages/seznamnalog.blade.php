@@ -16,7 +16,7 @@
 	            		{{ csrf_field() }}
 						<div class="col-xs-12 col-sm-12 col-md-6">
 							<div class="form-group">
-							  <label class="label label-primary">Izdajalec</label>
+							  <label class="label label-primary">Izdajatelj</label>
 							  @if (Auth::user()->sifra_vloga == 3)
 							  	<input type="text" class="form-control input-sm" name="izdajalec" placeholder=""></input>
 							  @else 
@@ -128,7 +128,7 @@
 		  <table class="table ">
 			<thead>
 			  <tr>
-				<th><label>Šifra naloga</label></th>
+				<th></th>
 				<th><label>Pacient</label></th>
 				<th><label>Naslov</label></th>
 				<th><label>Vrsta naloga</label></th>
@@ -136,14 +136,17 @@
 			  </tr>
 			</thead>
 			<tbody>
+				<script>
+				  	var st = 1;
+				</script>
 			   @foreach ($mix as $mini)
-			    <!-- TODO: Ko je šifra naloga ista, se izpiše le prvi
-			    AFNAif ($mini->ime_vrsta_obiska == 'Obisk otročnice' && $mini->pac_stevilka_KZZ != -1)
-
-			   	AFNAelse-->
 			   	@if (!isset($prejsnjaSifra) || $prejsnjaSifra != $mini->sifra_dn)
 					<tr>
-						<td><label>{{$mini->sifra_dn}}</label></td>
+						<td><label id="stevilcenje_{{$mini->sifra_dn}}"></label></td>
+						<script>
+						  	$("#stevilcenje_{{$mini->sifra_dn}}").html(st);
+						  	st++;
+						</script>
 						<td><label>{{$mini->ime_pacienta.' '.$mini->priimek_pacienta}}</label></td>
 						<td><label>{{$mini->naslov_pacienta.', '.$mini->kraj_pacienta}}</label></td>
 						<td><label>{{$mini->ime_vrsta_obiska}}</label></td>

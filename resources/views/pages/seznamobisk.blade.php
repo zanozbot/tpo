@@ -197,20 +197,40 @@
 		  <table class="table ">
 			<thead>
 			  <tr>
-				<th><label>Datum obiska</label></th>
+				<th></th>
+				<th><label>Vrsta obiska</label></th>
 				<th><label>Pacient</label></th>
 				<th><label>Naslov</label></th>
-				<th><label>Vrsta obiska</label></th>
+				<th><label>Patronažna sestra</label></th>
+				<th><label>Nadomeščanje</label></th>
+				<th><label>Datum obiska</label></th>
 				<th><label>Opravljen</label></th>
 				<th></th>
 			  </tr>
 			</thead>
 			<tbody>
+				<script>
+				  	var st = 1;
+				</script>
 			 	@foreach ($mix as $obisk)
 			 		@if ($obisk->pac_stevilka_KZZ != -1 && $obisk->ime_vrsta_obiska == "Obisk otročnice")
 
 			 		@else
 					<tr>
+						<td><label id="stevilcenje_{{$obisk->sifra_obisk}}"></label></td>
+						<script>
+						  	$("#stevilcenje_{{$obisk->sifra_obisk}}").html(st);
+						  	st++;
+						</script>
+						<td><label>{{$obisk->ime_vrsta_obiska}}</label></td>
+						<td><label>{{$obisk->ime_pacienta.' '.$obisk->priimek_pacienta}}</label></td>
+						<td><label>{{$obisk->naslov_pacienta.', '.$obisk->kraj_pacienta}}</label></td>
+						<td><label>{{$obisk->sestra[0]->ime.' '.$obisk->sestra[0]->priimek}}</label></td>
+						@if ($obisk->nadomescanje == 1)
+							<td><span class="glyphicon glyphicon-ok"></span></td>
+						@else
+							<td><span class="glyphicon glyphicon-remove"></span></td>
+						@endif
 						<td><label id="datum_obiska_{{$obisk->sifra_obisk}}"></label></td>
 						<script>
 						  	var prvotniDatumPl = "{{$obisk->predvideni_datum_obiska}}";
@@ -218,9 +238,6 @@
 						  	var preurejeniDatumPl = arrStringovPl[2].concat(".".concat(arrStringovPl[1].concat(".".concat(arrStringovPl[0]))));
 						  	$("#datum_obiska_{{$obisk->sifra_obisk}}").html(preurejeniDatumPl);
 						</script>
-						<td><label>{{$obisk->ime_pacienta.' '.$obisk->priimek_pacienta}}</label></td>
-						<td><label>{{$obisk->naslov_pacienta.', '.$obisk->kraj_pacienta}}</label></td>
-						<td><label>{{$obisk->ime_vrsta_obiska}}</label></td>
 						@if ($obisk->opravljen == 1)
 							<td><span class="glyphicon glyphicon-ok"></span></td>
 						@else

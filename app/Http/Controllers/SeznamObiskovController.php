@@ -65,6 +65,7 @@ class SeznamObiskovController extends Controller
                     'pacient.priimek as priimek_pacienta',
                     'email',
                     'opravljen',
+                    'nadomescanje',
                     'tel_stevilka',
                     'stevilka_KZZ',
                     'pac_stevilka_KZZ',
@@ -106,6 +107,14 @@ class SeznamObiskovController extends Controller
         	$mix[$i]->sestra = PatronaznaSestra::join('uporabnik', 'uporabnik.id_uporabnik', '=', 'patronazna_sestra.id_uporabnik')
         										->where('sifra_okolis', '=', $mix[$i]->sifra_okolis)
         										->get();
+        	$nadomescanja = Nadomescanje::where('sifra_obisk', $mix[$i]->sifra_obisk)
+        								->where('sifra_ps', $mix[$i]->sestra[0]->sifra_ps)
+        								->get();
+        	if(count($nadomescanja)){
+        		$mix[$i]->sestra = PatronaznaSestra::join('uporabnik', 'uporabnik.id_uporabnik', '=', 'patronazna_sestra.id_uporabnik')
+        										->where('sifra_ps', $nadomescanja[0]->nadomestna_sifra_ps)
+        										->get();
+        	}
 
         	$mix[$i]->zdravila = DelovniNalog::join('delovni_nalog_zdravilo', 'delovni_nalog.sifra_dn', '=', 'delovni_nalog_zdravilo.delovni_nalog_sifra_dn')
         									->join('zdravilo', 'zdravilo.sifra_zdravilo', '=', 'delovni_nalog_zdravilo.zdravilo_sifra_zdravilo')
@@ -251,46 +260,47 @@ class SeznamObiskovController extends Controller
 
 		$filteredMix = $mix->orderBy('plan.datum_plan', 'asc')
 							->get(array(
-	                            'obisk.sifra_obisk',
-								'datum_obiska as prvotni_datum_obiska',
-								'datum_opravljenosti_obiska as dejanski_datum_obiska',
-								'opravljen',
-			                    'pacient.ime as ime_pacienta',
-			                    'pacient.priimek as priimek_pacienta',
-			                    'email',
-			                    'tel_stevilka',
-			                    'stevilka_KZZ',
-			                    'pac_stevilka_KZZ',
-			                    'pacient.postna_stevilka as posta_pacient',
-			                    'sifra_okolis',
-			                    'pacient.ulica as naslov_pacienta',
-			                    'pacient.kraj as kraj_pacienta',
-			                    'datum_rojstva',
-			                    'spol',
-			                    'obisk.sifra_ps',
-                        		'obisk.sifra_nadomestne_ps',
-			                    'delovni_nalog.sifra_dn',
-			                    'vrsta_obiska.sifra_vrsta_obisk',
-			                    'vrsta_obiska.ime as ime_vrsta_obiska',
-			                    'stevilo_epruvet_RdMoRuZe',
-			                    'datum_prvega_obiska',
-			                    'datum_koncnega_obiska',
-			                    'datum_obvezen',
-			                    'stevilo_obiskov',
-			                    'casovni_interval',
-			                    'izvajalec_zd.sifra_zd',
-			                    'izvajalec_zd.postna_stevilka as posta_izvajalec',
-			                    'delavec.sifra_delavec as sifra_delavca',
-			                    'izvajalec_zd.naziv as naziv_izvajalca',
-			                    'izvajalec_zd.naslov as naslov_izvajalca',
-			                    'posta.kraj as kraj_poste',
-			                    'vrsta_obiska.ime as ime_vrsta_obiska',
-			                    'preventivni',
-			                    'bolezen.sifra_bolezen as sifra_bolezni',
-			                    'bolezen.ime as ime_bolezni',
-			                    'plan.sifra_plan',
-			                    'plan.datum_plan as predvideni_datum_obiska'
-                        ));
+										'obisk.sifra_obisk',
+										'datum_obiska as prvotni_datum_obiska',
+										'datum_opravljenosti_obiska as dejanski_datum_obiska',
+					                    'pacient.ime as ime_pacienta',
+					                    'pacient.priimek as priimek_pacienta',
+					                    'email',
+					                    'opravljen',
+					                    'nadomescanje',
+					                    'tel_stevilka',
+					                    'stevilka_KZZ',
+					                    'pac_stevilka_KZZ',
+					                    'pacient.postna_stevilka as posta_pacient',
+					                    'sifra_okolis',
+					                    'pacient.ulica as naslov_pacienta',
+					                    'pacient.kraj as kraj_pacienta',
+					                    'datum_rojstva',
+					                    'spol',
+					                    'obisk.sifra_ps',
+					                    'obisk.sifra_nadomestne_ps',
+					                    'delovni_nalog.sifra_dn',
+					                    'vrsta_obiska.sifra_vrsta_obisk',
+					                    'vrsta_obiska.ime as ime_vrsta_obiska',
+					                    'stevilo_epruvet_RdMoRuZe',
+					                    'datum_prvega_obiska',
+					                    'datum_koncnega_obiska',
+					                    'datum_obvezen',
+					                    'stevilo_obiskov',
+					                    'casovni_interval',
+					                    'izvajalec_zd.sifra_zd',
+					                    'izvajalec_zd.postna_stevilka as posta_izvajalec',
+					                    'delavec.sifra_delavec as sifra_delavca',
+					                    'izvajalec_zd.naziv as naziv_izvajalca',
+					                    'izvajalec_zd.naslov as naslov_izvajalca',
+					                    'posta.kraj as kraj_poste',
+					                    'vrsta_obiska.ime as ime_vrsta_obiska',
+					                    'preventivni',
+					                    'bolezen.sifra_bolezen as sifra_bolezni',
+					                    'bolezen.ime as ime_bolezni',
+					                    'plan.sifra_plan',
+					                    'plan.datum_plan as predvideni_datum_obiska'
+					        ));
 
 		for ($i=0; $i < count($filteredMix); $i++) {
         	$datum_obiska = Plan::where('sifra_plan', '=', $filteredMix[$i]->sifra_plan)->get();
@@ -299,6 +309,14 @@ class SeznamObiskovController extends Controller
         	$filteredMix[$i]->sestra = PatronaznaSestra::join('uporabnik', 'uporabnik.id_uporabnik', '=', 'patronazna_sestra.id_uporabnik')
         										->where('sifra_okolis', '=', $filteredMix[$i]->sifra_okolis)
         										->get();
+        	$nadomescanja = Nadomescanje::where('sifra_obisk', $filteredMix[$i]->sifra_obisk)
+        								->where('sifra_ps', $filteredMix[$i]->sestra[0]->sifra_ps)
+        								->get();
+        	if(count($nadomescanja)){
+        		$filteredMix[$i]->sestra = PatronaznaSestra::join('uporabnik', 'uporabnik.id_uporabnik', '=', 'patronazna_sestra.id_uporabnik')
+        										->where('sifra_ps', $nadomescanja[0]->nadomestna_sifra_ps)
+        										->get();
+        	}
 
         	$filteredMix[$i]->zdravila = DelovniNalog::join('delovni_nalog_zdravilo', 'delovni_nalog.sifra_dn', '=', 'delovni_nalog_zdravilo.delovni_nalog_sifra_dn')
         									->join('zdravilo', 'zdravilo.sifra_zdravilo', '=', 'delovni_nalog_zdravilo.zdravilo_sifra_zdravilo')
