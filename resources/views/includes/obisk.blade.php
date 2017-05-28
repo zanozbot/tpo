@@ -73,19 +73,19 @@
 				    <label class="label label-primary">Ime sestre</label>
 					<div class="form-control nalog" name="vrstaStoritve"><label>{{$obisk->sestra[0]->ime.' '.$obisk->sestra[0]->priimek}}</label></div>
 				  </div>
-			  	@if ($obisk->nadomescanje == 1)
-					  <div class="form-group" >
-						<label class="label label-primary">Nadomeščanje</label>
-						<label class="checkbox-inline"><input type="checkbox" name="nadomescanje" disabled checked>Da</label>
-						<label class="checkbox-inline"><input type="checkbox" name="nadomescanje" disabled>Ne</label>
-					  </div>
-				@else
-					  <div class="form-group" >
-						<label class="label label-primary">Nadomeščanje</label>
-						<label class="checkbox-inline"><input type="checkbox" name="nadomescanje" disabled>Da</label>
-						<label class="checkbox-inline"><input type="checkbox" name="nadomescanje" disabled checked>Ne</label>
-					  </div>
-				@endif
+				  	@if ($obisk->nadomescanje == 1)
+						  <div class="form-group" >
+							<label class="label label-primary">Nadomeščanje</label>
+							<label class="checkbox-inline"><input type="checkbox" name="nadomescanje" disabled checked>Da</label>
+							<label class="checkbox-inline"><input type="checkbox" name="nadomescanje" disabled>Ne</label>
+						  </div>
+					@else
+						  <div class="form-group" >
+							<label class="label label-primary">Nadomeščanje</label>
+							<label class="checkbox-inline"><input type="checkbox" name="nadomescanje" disabled>Da</label>
+							<label class="checkbox-inline"><input type="checkbox" name="nadomescanje" disabled checked>Ne</label>
+						  </div>
+					@endif
 				</div>
 			</div>
 		</div>

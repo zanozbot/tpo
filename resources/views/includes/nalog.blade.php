@@ -96,21 +96,21 @@
 			  <div class="panel-heading">
 				<h3 class="panel-title">4 - Storitev</h3>
 			  </div>
-			  <div class="panel-body">					  
+			    <div class="panel-body">					  
 				  <div class="form-group">
 				    <label class="label label-primary">Ime storitve</label>
 					<div class="form-control nalog" name="vrstaStoritve"><label>{{$mini->ime_vrsta_obiska}}</label></div>
 				  </div>
-				</div>
-				<div class="form-group" >
-					<label class="label label-primary">Vrsta storitve</label>
-					@if ($mini->preventivni == 1)
-						<label class="checkbox-inline"><input type="checkbox" name="vrstaZdravnik" disabled checked>Preventivni</label>
-						<label class="checkbox-inline"><input type="checkbox" name="vrstaZdravnik" disabled>Kurativni</label>
-					@else
-						<label class="checkbox-inline"><input type="checkbox" name="vrstaZdravnik" disabled>Preventivni</label>
-						<label class="checkbox-inline"><input type="checkbox" name="vrstaZdravnik" disabled checked>Kurativni</label>
-					@endif
+					<div class="form-group" >
+						<label class="label label-primary">Vrsta obiska</label>
+						@if ($mini->preventivni == 1)
+							<label class="checkbox-inline"><input type="checkbox" name="vrstaZdravnik" disabled checked>Preventivni</label>
+							<label class="checkbox-inline"><input type="checkbox" name="vrstaZdravnik" disabled>Kurativni</label>
+						@else
+							<label class="checkbox-inline"><input type="checkbox" name="vrstaZdravnik" disabled>Preventivni</label>
+							<label class="checkbox-inline"><input type="checkbox" name="vrstaZdravnik" disabled checked>Kurativni</label>
+						@endif
+					</div>
 				</div>
 			</div>
 			<div class="panel panel-default">			

@@ -25,7 +25,12 @@ class DelovniNalogController extends Controller
                                     'pacient.ime as ime_pacienta',
                                     'stevilka_KZZ',
                                     'pacient.priimek as priimek_pacienta'));
-            return view('pages.nalog', ['pacienti' => $pacienti, 'bolezni' => $bolezni, 'zdravila' => $zdravila, 'errPacient' => '']);
+                if(Auth::user()->sifra_vloga == 3){
+                    $vrsteObiska = VrstaObiska::where('preventivni', 1)->get();
+                } else if (Auth::user()->sifra_vloga == 2){
+                    $vrsteObiska = VrstaObiska::all();
+                }
+                return view('pages.nalog', ['pacienti' => $pacienti, 'bolezni' => $bolezni, 'zdravila' => $zdravila, 'vrsteObiska' => $vrsteObiska, 'errPacient' => '']);
             } else {
                 return redirect()->route('home');
             }
@@ -299,11 +304,17 @@ class DelovniNalogController extends Controller
                 $datumObiska = date('Y-m-d', strtotime($datumObiska.' + '.$korak.' days'));
             }
         }
+        
         $pacienti = Pacient::get(array(
                                     'pacient.ime as ime_pacienta',
                                     'stevilka_KZZ',
                                     'pacient.priimek as priimek_pacienta'));
-        return redirect()->route('nalog')->with('status', true,'pacienti',$pacienti);
+        if(Auth::user()->sifra_vloga == 3){
+            $vrsteObiska = VrstaObiska::where('preventivni', 1)->get();
+        } else if (Auth::user()->sifra_vloga == 2){
+            $vrsteObiska = VrstaObiska::all();
+        }
+        return redirect()->route('nalog')->with(['status' => true, 'pacienti' => $pacienti, 'vrsteObiska' =>$vrsteObiska]);
     }
 }
 

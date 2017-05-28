@@ -36,14 +36,9 @@
             <div class="form-group">
               <label class="label label-primary">Naloge</label>
               <select class="selectpicker form-control input-sm" name="nalogeObiska">
-                <option {{ (Request::old("nalogeObiska") == 'Obisk nosečnice' ? "selected":"") }}>Obisk nosečnice</option>
-                <option {{ (Request::old("nalogeObiska") == 'Obisk otročnice' ? "selected":"") }}>Obisk otročnice</option>
-                <option {{ (Request::old("nalogeObiska") == 'Preventiva starostnika' ? "selected":"") }}>Preventiva starostnika</option>
-              @if (Auth::user()->sifra_vloga == 2)
-                <option {{ (Request::old("nalogeObiska") == "Aplikacija injekcij" ? "selected":"") }}>Aplikacija injekcij</option>
-                <option {{ (Request::old("nalogeObiska") == 'Odvzem krvi' ? "selected":"") }}>Odvzem krvi</option>
-                <option {{ (Request::old("nalogeObiska") == 'Kontrola zdravstvenega stanja' ? "selected":"") }}>Kontrola zdravstvenega stanja</option>
-              @endif
+                @foreach ($vrsteObiska as $vrstaObiska)
+                  <option {{ (Request::old("nalogeObiska") == $vrstaObiska->ime ? "selected":"") }}>{{$vrstaObiska->ime}}</option>
+                @endforeach
               </select>
             </div>
             <script type="text/javascript">
