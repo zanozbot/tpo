@@ -1,16 +1,21 @@
 @extends('layouts.default')
 @section('content')
 <div class="container">
-	<div class="panel panel-default">			
+	@if(session('status'))
+		<div class="alert alert-warning">
+			{{ session('status') }}
+		</div>
+	@endif
+	<div class="panel panel-default">
 	  <div class="panel-heading">
 		<h3 class="panel-title">Seznam Nalogov</h3>
 	  </div>
 	  <div class="panel-body">
-			  <div class="panel panel-default">			
+			  <div class="panel panel-default">
 				  <div class="panel-heading">
 					<h3 class="panel-title">Filter</h3>
 				  </div>
-				  <div class="panel-body"> 
+				  <div class="panel-body">
 					<div class="row">
 					<form role="form" action="{{ route('filterSeznamNalogov') }}" method="post">
 	            		{{ csrf_field() }}
@@ -19,7 +24,7 @@
 							  <label class="label label-primary">Izdajatelj</label>
 							  @if (Auth::user()->sifra_vloga == 3)
 							  	<input type="text" class="form-control input-sm" name="izdajalec" placeholder=""></input>
-							  @else 
+							  @else
 							  <input type="text" class="form-control input-sm" name="izdajalec" placeholder="Med izdajalci lahko išče le vodja" disabled="true"></input>
 							  @endif
 							</div>
@@ -43,7 +48,7 @@
 					                    <option value="{{$sestra->sifra_ps}}">{{ $sestra->ime . " " . $sestra->priimek }}</option>
 					                  @endforeach
 				                  </select>
-			                  @else 
+			                  @else
 				                  @foreach ($sestre as $sestra)
 				                  	@if ($sestra->id_sestre == Auth::user()->id_uporabnik)
 										<input type="text" class="form-control input-sm" name="zadolzenaSestra" value="{{$sestra->sifra_ps}} " disabled="true"></input>
@@ -60,7 +65,7 @@
 					                    <option value="{{$sestra->sifra_ps}}">{{ $sestra->ime . " " . $sestra->priimek }}</option>
 					                  @endforeach
 				                  </select>
-			                  @else 
+			                  @else
 				                  @foreach ($sestre as $sestra)
 				                  	@if ($sestra->id_sestre == Auth::user()->id_uporabnik)
 										<input type="text" class="form-control input-sm" name="nadomestnaSestra" value="{{$sestra->sifra_ps}} " disabled="true"></input>
@@ -77,10 +82,10 @@
 									<option>-</option>
 									<option>Obisk nosečnice</option>
 									<option>Obisk otročnice</option>
-									<option>Preventiva starostnika</option>	
+									<option>Preventiva starostnika</option>
 									<option>Aplikacija injekcij</option>
 									<option>Odvzem krvi</option>
-									<option>Kontrola zdravstvenega stanja</option>	
+									<option>Kontrola zdravstvenega stanja</option>
 								  </select>
 								</div>
 							</form>
@@ -100,7 +105,7 @@
 									todayHighlight: true
 								});
 							  </script>
-							</div>	
+							</div>
 							<div class="form-group" name="doDatumDiv">
 							  <label class="label label-primary">Do datuma</label>
 							  <div class="datepicker input-group date" data-provide="datepicker">
@@ -124,7 +129,7 @@
 					</div>
 				  </div>
 			  </div>
-			  
+
 		  <table class="table ">
 			<thead>
 			  <tr>
@@ -133,6 +138,9 @@
 				<th><label>Naslov</label></th>
 				<th><label>Vrsta naloga</label></th>
 				<th></th>
+				@if (Auth::user()->sifra_vloga == 3 || Auth::user()->sifra_vloga == 2)
+				<th></th>
+				@endif
 			  </tr>
 			</thead>
 			<tbody>
@@ -150,7 +158,7 @@
 						<td><label>{{$mini->ime_pacienta.' '.$mini->priimek_pacienta}}</label></td>
 						<td><label>{{$mini->naslov_pacienta.', '.$mini->kraj_pacienta}}</label></td>
 						<td><label>{{$mini->ime_vrsta_obiska}}</label></td>
-						<td >		
+						<td>
 							<button type="button" class="btn btn-info btn-block" data-toggle="modal" data-target="#podrobnosti{{$mini->sifra_dn}}"><span class="glyphicon glyphicon-search"></span></button>
 							<div class="modal fade" id="podrobnosti{{$mini->sifra_dn}}" role="dialog">
 								<div class="modal-dialog modal-lg">
@@ -167,6 +175,15 @@
 								</div>
 							</div>
 						</td>
+						@if (Auth::user()->sifra_vloga == 3 || Auth::user()->sifra_vloga == 2)
+						<td>
+							<form role="form" method="POST" action="{{ route('filterSeznamNalogov') }}">
+								<button type="submit" class="btn btn-info btn-block"><span class="glyphicon glyphicon-trash"></button>
+								<input type="hidden" name="deleteNalog" value="{{ $mini->sifra_dn }}"/>
+								<input type="hidden" name="_token" value="{{ Session::token() }}"/>
+							</form>
+						</button></td>
+						@endif
 					</tr>
 				@endif
 				@php ($prejsnjaSifra = $mini->sifra_dn)

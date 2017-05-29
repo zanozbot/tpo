@@ -88,10 +88,10 @@ class SeznamNalogovController extends Controller
 		                            'bolezen.sifra_bolezen as sifra_bolezni',
 		                            'bolezen.ime as ime_bolezni'
                         ));
-		        for ($i=0; $i < count($mix); $i++) { 
+		        for ($i=0; $i < count($mix); $i++) {
 		        	$mix[$i]->obiski = Obisk::where('sifra_dn', '=', $mix[$i]->sifra_dn)->get();
 		        }
-		        for ($i=0; $i < count($mix); $i++) { 
+		        for ($i=0; $i < count($mix); $i++) {
 		        	$mix[$i]->zdravila = DelovniNalog::join('delovni_nalog_zdravilo', 'delovni_nalog.sifra_dn', '=', 'delovni_nalog_zdravilo.delovni_nalog_sifra_dn')
 		        									->join('zdravilo', 'zdravilo.sifra_zdravilo', '=', 'delovni_nalog_zdravilo.zdravilo_sifra_zdravilo')
 		        									->get(array(
@@ -100,7 +100,7 @@ class SeznamNalogovController extends Controller
 		        										'zdravilo.opis as opis_zdravila'
 		        										));
 		        }
-		        for ($i=0; $i < count($mix); $i++) { 
+		        for ($i=0; $i < count($mix); $i++) {
 		        	$mix[$i]->pacienti = DelovniNalog::join('delovni_nalog_pacient', 'delovni_nalog.sifra_dn', '=', 'delovni_nalog_pacient.delovni_nalog_sifra_dn')
 		        									->join('pacient', 'pacient.stevilka_KZZ', '=', 'delovni_nalog_pacient.pacient_stevilka_KZZ')
 		        									->join('uporabnik', 'pacient.id_uporabnik', '=', 'uporabnik.id_uporabnik')
@@ -113,7 +113,7 @@ class SeznamNalogovController extends Controller
 		        										'sifra_ps'
 		        										));
 		        }
-		        for ($i=0; $i < count($mix); $i++) { 
+		        for ($i=0; $i < count($mix); $i++) {
 		        	$mix[$i]->otroci = DelovniNalog::join('delovni_nalog_pacient', 'delovni_nalog.sifra_dn', '=', 'delovni_nalog_pacient.delovni_nalog_sifra_dn')
 		        									->join('pacient', 'delovni_nalog_pacient.pacient_stevilka_KZZ', '=', 'pacient.pac_stevilka_KZZ')
 		        									->join('uporabnik', 'pacient.id_uporabnik', '=', 'uporabnik.id_uporabnik')
@@ -130,7 +130,7 @@ class SeznamNalogovController extends Controller
 		        										));
 		        }
 
-        for ($i=0; $i < count($mix); $i++) { 
+        for ($i=0; $i < count($mix); $i++) {
         	$mix[$i]->obiski = Obisk::where('sifra_dn', '=', $mix[$i]->sifra_dn)->get();
         }
         $pacienti = Pacient::get(array(
@@ -147,7 +147,7 @@ class SeznamNalogovController extends Controller
     }
 
     public function filter(Request $request){
-    	if(Auth::check()){
+    if(Auth::check()){
 			//Zdravnik
 			if(Auth::user()->sifra_vloga == 2){
 				$delavec = Delavec::where('delavec.id_uporabnik', '=', Auth::user()->id_uporabnik)->get();
@@ -159,6 +159,24 @@ class SeznamNalogovController extends Controller
 				$forceSestra = $sestra[0]->sifra_okolis;
 			}
 		}
+
+		if ($request->has('deleteNalog')) {
+			$nalog=DelovniNalog::find($request['deleteNalog']);
+			$delavec = Delavec::where('id_uporabnik', Auth::user()->id_uporabnik)->first();
+			if($nalog->sifra_delavec!=$delavec->sifra_delavec)
+				return redirect()->route('seznamNalogov')->with(['status' => "Delovni nalog je izdala druga oseba"]);
+			$obiski=Obisk::where('sifra_dn',$nalog->sifra_dn)->get();
+			foreach($obiski as $obisk){
+				if($obisk->opravljen)
+							return redirect()->route('seznamNalogov')->with(['status' => "Delovni nalog ima že opravljene obiske"]);
+			}
+			foreach($obiski as $obisk){
+				$obisk->delete();
+			}
+			$nalog->delete();
+
+			return redirect()->route('seznamNalogov');
+    }
 		$mix = DelovniNalog::query();
 
 		$mix = DelovniNalog::join('delovni_nalog_pacient', 'delovni_nalog.sifra_dn', '=', 'delovni_nalog_pacient.delovni_nalog_sifra_dn')
@@ -208,7 +226,7 @@ class SeznamNalogovController extends Controller
 			$sestra = PatronaznaSestra::where('sifra_ps', '=', $request['zadolzenaSestra'])->get();
 			if(count($sestra) > 0)
 		    	$okolisSestre = $sestra[0]->sifra_okolis;
-		    else 
+		    else
 		    	$okolisSestre = "nope";
 		    $mix->where('pacient.sifra_okolis', '=', $okolisSestre);
 		}
@@ -245,10 +263,10 @@ class SeznamNalogovController extends Controller
 	                            'bolezen.sifra_bolezen as sifra_bolezni',
 	                            'bolezen.ime as ime_bolezni'
                         ));
-		for ($i=0; $i < count($filteredMix); $i++) { 
+		for ($i=0; $i < count($filteredMix); $i++) {
         	$filteredMix[$i]->obiski = Obisk::where('sifra_dn', '=', $filteredMix[$i]->sifra_dn)->get();
         }
-        for ($i=0; $i < count($filteredMix); $i++) { 
+        for ($i=0; $i < count($filteredMix); $i++) {
         	$filteredMix[$i]->zdravila = DelovniNalog::join('delovni_nalog_zdravilo', 'delovni_nalog.sifra_dn', '=', 'delovni_nalog_zdravilo.delovni_nalog_sifra_dn')
         									->join('zdravilo', 'zdravilo.sifra_zdravilo', '=', 'delovni_nalog_zdravilo.zdravilo_sifra_zdravilo')
         									->get(array(
@@ -257,7 +275,7 @@ class SeznamNalogovController extends Controller
         										'zdravilo.opis as opis_zdravila'
         										));
         }
-        for ($i=0; $i < count($filteredMix); $i++) { 
+        for ($i=0; $i < count($filteredMix); $i++) {
         	$filteredMix[$i]->pacienti = DelovniNalog::join('delovni_nalog_pacient', 'delovni_nalog.sifra_dn', '=', 'delovni_nalog_pacient.delovni_nalog_sifra_dn')
         									->join('pacient', 'pacient.stevilka_KZZ', '=', 'delovni_nalog_pacient.pacient_stevilka_KZZ')
         									->join('uporabnik', 'pacient.id_uporabnik', '=', 'uporabnik.id_uporabnik')
@@ -270,7 +288,7 @@ class SeznamNalogovController extends Controller
         										'sifra_ps'
         										));
         }
-        for ($i=0; $i < count($filteredMix); $i++) { 
+        for ($i=0; $i < count($filteredMix); $i++) {
         	$filteredMix[$i]->otroci = DelovniNalog::join('delovni_nalog_pacient', 'delovni_nalog.sifra_dn', '=', 'delovni_nalog_pacient.delovni_nalog_sifra_dn')
         									->join('pacient', 'delovni_nalog_pacient.pacient_stevilka_KZZ', '=', 'pacient.pac_stevilka_KZZ')
         									->join('uporabnik', 'pacient.id_uporabnik', '=', 'uporabnik.id_uporabnik')
@@ -294,8 +312,9 @@ class SeznamNalogovController extends Controller
         							'uporabnik.ime as ime',
         							'uporabnik.priimek as priimek',
         							'patronazna_sestra.sifra_ps as sifra_ps',
-        							'patronazna_sestra.id_uporabnik as id_sestre')); 
+        							'patronazna_sestra.id_uporabnik as id_sestre'));
     	return view('pages.seznamnalog', ['mix' => $filteredMix, 'pacienti' => $pacienti, 'sestre' => $sestre]);
     }
-    
+
+
 }
