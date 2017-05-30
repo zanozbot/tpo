@@ -96,6 +96,10 @@
 			  </div>
 			  <div class="panel-body">					  
 				<div class="form-group">
+				    <label class="label label-primary">Šifra delovnega naloga</label>
+					<div class="form-control nalog" name="vrstaStoritve"><label>{{$obisk->sifra_dn}}</label></div>
+				</div>
+				<div class="form-group">
 				    <label class="label label-primary">Šifra obiska</label>
 					<div class="form-control nalog" name="vrstaStoritve"><label>{{$obisk->sifra_obisk}}</label></div>
 				</div>

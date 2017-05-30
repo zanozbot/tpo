@@ -423,19 +423,19 @@ class PlanController extends Controller
 		        										));
 
 		        	$mix2[$i]->otroci = DelovniNalog::join('delovni_nalog_pacient', 'delovni_nalog.sifra_dn', '=', 'delovni_nalog_pacient.delovni_nalog_sifra_dn')
-		        									->join('pacient', 'delovni_nalog_pacient.pacient_stevilka_KZZ', '=', 'pacient.pac_stevilka_KZZ')
-		        									->join('uporabnik', 'pacient.id_uporabnik', '=', 'uporabnik.id_uporabnik')
-		        									->where('delovni_nalog.sifra_dn', '=', $mix2[$i]->sifra_dn)
-		        									->where('pacient.pac_stevilka_KZZ', '=', $mix2[$i]->stevilka_KZZ)
-		        									->get(array(
-		        										'stevilka_KZZ',
-		        										'pacient.ime',
-		        										'pacient.priimek',
-		        										'pacient.datum_rojstva',
-		        										'pac_stevilka_KZZ',
-		        										'pacient.ime as ime_pacienta',
-		        										'datum_rojstva'
-		        										));
+                                                    ->join('pacient', 'delovni_nalog_pacient.pacient_stevilka_KZZ', '=', 'pacient.stevilka_KZZ')
+                                                    ->join('uporabnik', 'pacient.id_uporabnik', '=', 'uporabnik.id_uporabnik')
+                                                    ->where('delovni_nalog.sifra_dn', '=', $mix2[$i]->sifra_dn)
+                                                    ->where('pacient.pac_stevilka_KZZ', '!=', -1)
+                                                    ->get(array(
+                                                        'stevilka_KZZ',
+                                                        'pacient.ime',
+                                                        'pacient.priimek',
+                                                        'pacient.datum_rojstva',
+                                                        'pac_stevilka_KZZ',
+                                                        'pacient.ime as ime_pacienta',
+                                                        'datum_rojstva'
+                                                        ));
 
 		        	array_push($nepotrebniNalogi, $mix2[$i]->sifra_dn);
 		        }
@@ -525,19 +525,19 @@ class PlanController extends Controller
 		        										));
 
 		        	$mix1[$i]->otroci = DelovniNalog::join('delovni_nalog_pacient', 'delovni_nalog.sifra_dn', '=', 'delovni_nalog_pacient.delovni_nalog_sifra_dn')
-		        									->join('pacient', 'delovni_nalog_pacient.pacient_stevilka_KZZ', '=', 'pacient.pac_stevilka_KZZ')
-		        									->join('uporabnik', 'pacient.id_uporabnik', '=', 'uporabnik.id_uporabnik')
-		        									->where('delovni_nalog.sifra_dn', '=', $mix1[$i]->sifra_dn)
-		        									->where('pacient.pac_stevilka_KZZ', '=', $mix1[$i]->stevilka_KZZ)
-		        									->get(array(
-		        										'stevilka_KZZ',
-		        										'pacient.ime',
-		        										'pacient.priimek',
-		        										'pacient.datum_rojstva',
-		        										'pac_stevilka_KZZ',
-		        										'pacient.ime as ime_pacienta',
-		        										'datum_rojstva'
-		        										));
+                                                    ->join('pacient', 'delovni_nalog_pacient.pacient_stevilka_KZZ', '=', 'pacient.stevilka_KZZ')
+                                                    ->join('uporabnik', 'pacient.id_uporabnik', '=', 'uporabnik.id_uporabnik')
+                                                    ->where('delovni_nalog.sifra_dn', '=', $mix1[$i]->sifra_dn)
+                                                    ->where('pacient.pac_stevilka_KZZ', '!=', -1)
+                                                    ->get(array(
+                                                        'stevilka_KZZ',
+                                                        'pacient.ime',
+                                                        'pacient.priimek',
+                                                        'pacient.datum_rojstva',
+                                                        'pac_stevilka_KZZ',
+                                                        'pacient.ime as ime_pacienta',
+                                                        'datum_rojstva'
+                                                        ));
 
 		       		if ($mix1[$i]->pac_stevilka_KZZ != -1 && $mix1[$i]->sifra_vrsta_obisk == 20){
 		       			$mix1[$i]->nepotreben = 1;

@@ -125,19 +125,19 @@ class SeznamObiskovController extends Controller
         										));
 
         	$mix[$i]->otroci = DelovniNalog::join('delovni_nalog_pacient', 'delovni_nalog.sifra_dn', '=', 'delovni_nalog_pacient.delovni_nalog_sifra_dn')
-        									->join('pacient', 'delovni_nalog_pacient.pacient_stevilka_KZZ', '=', 'pacient.pac_stevilka_KZZ')
-        									->join('uporabnik', 'pacient.id_uporabnik', '=', 'uporabnik.id_uporabnik')
-        									->where('delovni_nalog.sifra_dn', '=', $mix[$i]->sifra_dn)
-        									->where('pacient.pac_stevilka_KZZ', '=', $mix[$i]->stevilka_KZZ)
-        									->get(array(
-        										'stevilka_KZZ',
-        										'pacient.ime',
-        										'pacient.priimek',
-        										'pacient.datum_rojstva',
-        										'pac_stevilka_KZZ',
-        										'pacient.ime as ime_pacienta',
-        										'datum_rojstva'
-        										));
+                                                    ->join('pacient', 'delovni_nalog_pacient.pacient_stevilka_KZZ', '=', 'pacient.stevilka_KZZ')
+                                                    ->join('uporabnik', 'pacient.id_uporabnik', '=', 'uporabnik.id_uporabnik')
+                                                    ->where('delovni_nalog.sifra_dn', '=', $mix[$i]->sifra_dn)
+                                                    ->where('pacient.pac_stevilka_KZZ', '!=', -1)
+                                                    ->get(array(
+                                                        'stevilka_KZZ',
+                                                        'pacient.ime',
+                                                        'pacient.priimek',
+                                                        'pacient.datum_rojstva',
+                                                        'pac_stevilka_KZZ',
+                                                        'pacient.ime as ime_pacienta',
+                                                        'datum_rojstva'
+                                                        ));
 
        		$mix[$i]->porocilo = Porocilo::join('aktivnost', 'porocilo.aid', '=', 'aktivnost.aid')
        										->where('porocilo.sifra_obisk', '=', $mix[$i]->sifra_obisk)
@@ -327,19 +327,19 @@ class SeznamObiskovController extends Controller
         										));
 
         	$filteredMix[$i]->otroci = DelovniNalog::join('delovni_nalog_pacient', 'delovni_nalog.sifra_dn', '=', 'delovni_nalog_pacient.delovni_nalog_sifra_dn')
-        									->join('pacient', 'delovni_nalog_pacient.pacient_stevilka_KZZ', '=', 'pacient.pac_stevilka_KZZ')
-        									->join('uporabnik', 'pacient.id_uporabnik', '=', 'uporabnik.id_uporabnik')
-        									->where('delovni_nalog.sifra_dn', '=', $filteredMix[$i]->sifra_dn)
-        									->where('pacient.pac_stevilka_KZZ', '=', $filteredMix[$i]->stevilka_KZZ)
-        									->get(array(
-        										'stevilka_KZZ',
-        										'pacient.ime',
-        										'pacient.priimek',
-        										'pacient.datum_rojstva',
-        										'pac_stevilka_KZZ',
-        										'pacient.ime as ime_pacienta',
-        										'datum_rojstva'
-        										));
+                                                    ->join('pacient', 'delovni_nalog_pacient.pacient_stevilka_KZZ', '=', 'pacient.stevilka_KZZ')
+                                                    ->join('uporabnik', 'pacient.id_uporabnik', '=', 'uporabnik.id_uporabnik')
+                                                    ->where('delovni_nalog.sifra_dn', '=', $filteredMix[$i]->sifra_dn)
+                                                    ->where('pacient.pac_stevilka_KZZ', '!=', -1)
+                                                    ->get(array(
+                                                        'stevilka_KZZ',
+                                                        'pacient.ime',
+                                                        'pacient.priimek',
+                                                        'pacient.datum_rojstva',
+                                                        'pac_stevilka_KZZ',
+                                                        'pacient.ime as ime_pacienta',
+                                                        'datum_rojstva'
+                                                        ));
 
      		$filteredMix[$i]->porocilo = Porocilo::join('aktivnost', 'porocilo.aid', '=', 'aktivnost.aid')
        										->where('porocilo.sifra_obisk', '=', $filteredMix[$i]->sifra_obisk)

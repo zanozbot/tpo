@@ -193,6 +193,7 @@ class DelovniNalogController extends Controller
         $okolis = $okolis[0]->sifra_okolis;
         $sifraPS = PatronaznaSestra::where('sifra_okolis', '=', $okolis)->get();
         $sifraPS = $sifraPS[0]->sifra_ps;
+        
         //kreiranje obiskov
         if ($datumKoncni) {
             $date1 = date_create((string)$datumZacetni);

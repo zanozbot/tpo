@@ -422,19 +422,19 @@ class SeznamObiskovVcerajController extends Controller
         										));
 
         	$mix2[$i]->otroci = DelovniNalog::join('delovni_nalog_pacient', 'delovni_nalog.sifra_dn', '=', 'delovni_nalog_pacient.delovni_nalog_sifra_dn')
-        									->join('pacient', 'delovni_nalog_pacient.pacient_stevilka_KZZ', '=', 'pacient.pac_stevilka_KZZ')
-        									->join('uporabnik', 'pacient.id_uporabnik', '=', 'uporabnik.id_uporabnik')
-        									->where('delovni_nalog.sifra_dn', '=', $mix2[$i]->sifra_dn)
-        									->where('pacient.pac_stevilka_KZZ', '=', $mix2[$i]->stevilka_KZZ)
-        									->get(array(
-        										'stevilka_KZZ',
-        										'pacient.ime',
-        										'pacient.priimek',
-        										'pacient.datum_rojstva',
-        										'pac_stevilka_KZZ',
-        										'pacient.ime as ime_pacienta',
-        										'datum_rojstva'
-        										));
+		        									->join('pacient', 'delovni_nalog_pacient.pacient_stevilka_KZZ', '=', 'pacient.stevilka_KZZ')
+		        									->join('uporabnik', 'pacient.id_uporabnik', '=', 'uporabnik.id_uporabnik')
+		        									->where('delovni_nalog.sifra_dn', '=', $mix2[$i]->sifra_dn)
+		        									->where('pacient.pac_stevilka_KZZ', '!=', -1)
+		        									->get(array(
+		        										'stevilka_KZZ',
+		        										'pacient.ime',
+		        										'pacient.priimek',
+		        										'pacient.datum_rojstva',
+		        										'pac_stevilka_KZZ',
+		        										'pacient.ime as ime_pacienta',
+		        										'datum_rojstva'
+		        										));
         }
 
 		return view('pages.seznamobiskvceraj', ['mix' => $mix2, 'vceraj' => 1]);
