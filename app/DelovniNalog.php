@@ -13,7 +13,7 @@ class DelovniNalog extends Model
     'datum_prvega_obiska', 'datum_koncnega_obiska', 'datum_obvezen', 'stevilo_obiskov', 'casovni_interval'];
 
     public function vrsta_obiska() {
-    	return $this->belongsTo('App\VrstaObiska');
+    	return $this->belongsTo('App\VrstaObiska', 'sifra_vrsta_obisk', 'sifra_vrsta_obisk');
     }
 
     public function bolezen() {

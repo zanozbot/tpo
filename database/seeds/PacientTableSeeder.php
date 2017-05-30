@@ -72,7 +72,7 @@ class PacientTableSeeder extends Seeder
                 'sifra_okolis' => 2,
                 'ulica' => 'Polje cesta XI',
                 'kraj' => 'Ljubljana',
-                'datum_rojstva' => '1966-09-21',
+                'datum_rojstva' => '1946-09-21',
                 'spol' => 'm',
                 'sifra_razmerje' => '/',
                 'id_uporabnik' => 6,

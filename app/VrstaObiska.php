@@ -17,6 +17,6 @@ class VrstaObiska extends Model
     public $timestamps = false;
 
     public function delovni_nalog() {
-    	return $this->hasMany('App\DelovniNalog');
+    	return $this->hasMany('App\DelovniNalog', 'sifra_vrsta_obisk', 'sifra_vrsta_obisk');
     }
 }

@@ -125,6 +125,30 @@ class DelovniNalogPacientTableSeeder extends Seeder
                 'pacient_stevilka_KZZ' => 1511111111,
                 'delovni_nalog_sifra_dn' => 15,
             ),
+            18 => 
+            array (
+                'id' => 19,
+                'pacient_stevilka_KZZ' => 1511111111,
+                'delovni_nalog_sifra_dn' => 16,
+            ),
+            19 => 
+            array (
+                'id' => 20,
+                'pacient_stevilka_KZZ' => 1311111111,
+                'delovni_nalog_sifra_dn' => 17,
+            ),
+            20 => 
+            array (
+                'id' => 21,
+                'pacient_stevilka_KZZ' => 1311111111,
+                'delovni_nalog_sifra_dn' => 18,
+            ),
+            21 => 
+            array (
+                'id' => 22,
+                'pacient_stevilka_KZZ' => 1311111111,
+                'delovni_nalog_sifra_dn' => 19,
+            ),
         ));
         
         

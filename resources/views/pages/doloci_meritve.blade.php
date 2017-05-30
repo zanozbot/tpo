@@ -25,7 +25,7 @@
 							  @foreach ($delovniNalogi as $delovniNalog)
 							  	{{ $pacient = $delovniNalog->pacient->first() }}
 							  	{{ $datum = Carbon\Carbon::parse($delovniNalog->datum_prvega_obiska)->format('d.m.Y') }}
-								<option value="{{ $delovniNalog->sifra_dn }}">{{ "Nalog ". $delovniNalog->sifra_dn . " - " . $pacient->ime. " " . $pacient->priimek . " - ". $datum }}</option>
+								<option value="{{ $delovniNalog->sifra_dn }}">{{ $datum . " - " .  $delovniNalog->vrsta_obiska->ime . " | " . $pacient->ime. " " . $pacient->priimek}}</option>
 							  @endforeach
 							  </select>
 						  </div>

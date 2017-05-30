@@ -24,6 +24,11 @@ class PrikazMeritevController extends Controller
     	} else {
     		$delovniNalogi = DelovniNalog::all();
     	}
+
+        $delovniNalogi = $delovniNalogi->sortBy(function($nalog){
+            return $nalog->datum_prvega_obiska;
+        })->values();
+
     	return view('pages.doloci_meritve', ['delovniNalogi' => $delovniNalogi]);
     }
 
@@ -49,10 +54,32 @@ class PrikazMeritevController extends Controller
 
     	foreach ($obiski as $obisk) {
     		if(Carbon::createFromFormat('Y-m-d', $obisk->datum_opravljenosti_obiska)->between($zacetek, $konec)) {
-    			$json = json_decode($obisk->porocilo->where('aid', 19)->first()->opis);
-				array_push($sistolicni, $json->{'sis'});
-				array_push($diastolicni, $json->{'dia'});
-				array_push($datum, Carbon::parse($obisk->datum_opravljenosti_obiska)->format('d.m.Y'));
+                $vrsta_obiska = $obisk->delovni_nalog->sifra_vrsta_obisk;
+                switch ($vrsta_obiska) {
+                    // Obisk nosecnice
+                    case 10:
+                        $porocilo = $obisk->porocilo->where('aid', 19)->first();
+                        break;
+                    // Obisk otrocnice
+                    case 20:
+                        $porocilo = $obisk->porocilo->where('aid', 40)->first();
+                        break;
+                    // Preventiva starostnika
+                    case 40:
+                    $porocilo = $obisk->porocilo->where('aid', 65)->first();
+                    break;
+                    // Kontrola zdravstvenega stanja
+                    case 70:
+                    $porocilo = $obisk->porocilo->where('aid', 85)->first();
+                    break;
+                }
+
+                if(!empty($porocilo)) {
+        			$json = json_decode($porocilo->opis);
+    				array_push($sistolicni, $json->{'sis'});
+    				array_push($diastolicni, $json->{'dia'});
+    				array_push($datum, Carbon::parse($obisk->datum_opravljenosti_obiska)->format('d.m.Y'));
+                }
     		}    		
     	}
     	return view('pages.prikaz_meritev', [

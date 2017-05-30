@@ -90,8 +90,7 @@ class SeznamNalogovController extends Controller
                         ));
 		        for ($i=0; $i < count($mix); $i++) {
 		        	$mix[$i]->obiski = Obisk::where('sifra_dn', '=', $mix[$i]->sifra_dn)->get();
-		        }
-		        for ($i=0; $i < count($mix); $i++) {
+
 		        	$mix[$i]->zdravila = DelovniNalog::join('delovni_nalog_zdravilo', 'delovni_nalog.sifra_dn', '=', 'delovni_nalog_zdravilo.delovni_nalog_sifra_dn')
 		        									->join('zdravilo', 'zdravilo.sifra_zdravilo', '=', 'delovni_nalog_zdravilo.zdravilo_sifra_zdravilo')
 		        									->get(array(
@@ -99,8 +98,7 @@ class SeznamNalogovController extends Controller
 		        										'zdravilo.ime as ime_zdravila',
 		        										'zdravilo.opis as opis_zdravila'
 		        										));
-		        }
-		        for ($i=0; $i < count($mix); $i++) {
+
 		        	$mix[$i]->pacienti = DelovniNalog::join('delovni_nalog_pacient', 'delovni_nalog.sifra_dn', '=', 'delovni_nalog_pacient.delovni_nalog_sifra_dn')
 		        									->join('pacient', 'pacient.stevilka_KZZ', '=', 'delovni_nalog_pacient.pacient_stevilka_KZZ')
 		        									->join('uporabnik', 'pacient.id_uporabnik', '=', 'uporabnik.id_uporabnik')
@@ -112,13 +110,12 @@ class SeznamNalogovController extends Controller
 		        										'datum_rojstva',
 		        										'sifra_ps'
 		        										));
-		        }
-		        for ($i=0; $i < count($mix); $i++) {
+
 		        	$mix[$i]->otroci = DelovniNalog::join('delovni_nalog_pacient', 'delovni_nalog.sifra_dn', '=', 'delovni_nalog_pacient.delovni_nalog_sifra_dn')
-		        									->join('pacient', 'delovni_nalog_pacient.pacient_stevilka_KZZ', '=', 'pacient.pac_stevilka_KZZ')
+		        									->join('pacient', 'delovni_nalog_pacient.pacient_stevilka_KZZ', '=', 'pacient.stevilka_KZZ')
 		        									->join('uporabnik', 'pacient.id_uporabnik', '=', 'uporabnik.id_uporabnik')
 		        									->where('delovni_nalog.sifra_dn', '=', $mix[$i]->sifra_dn)
-		        									->where('pacient.pac_stevilka_KZZ', '=', $mix[$i]->stevilka_KZZ)
+		        									->where('pacient.pac_stevilka_KZZ', '!=', -1)
 		        									->get(array(
 		        										'stevilka_KZZ',
 		        										'pacient.ime',
@@ -128,11 +125,10 @@ class SeznamNalogovController extends Controller
 		        										'pacient.ime as ime_pacienta',
 		        										'datum_rojstva'
 		        										));
-		        }
 
-        for ($i=0; $i < count($mix); $i++) {
-        	$mix[$i]->obiski = Obisk::where('sifra_dn', '=', $mix[$i]->sifra_dn)->get();
-        }
+        			$mix[$i]->obiski = Obisk::where('sifra_dn', '=', $mix[$i]->sifra_dn)->get();
+		    }
+
         $pacienti = Pacient::get(array(
                                     'pacient.ime as ime_pacienta',
                                     'stevilka_KZZ',
@@ -265,8 +261,7 @@ class SeznamNalogovController extends Controller
                         ));
 		for ($i=0; $i < count($filteredMix); $i++) {
         	$filteredMix[$i]->obiski = Obisk::where('sifra_dn', '=', $filteredMix[$i]->sifra_dn)->get();
-        }
-        for ($i=0; $i < count($filteredMix); $i++) {
+
         	$filteredMix[$i]->zdravila = DelovniNalog::join('delovni_nalog_zdravilo', 'delovni_nalog.sifra_dn', '=', 'delovni_nalog_zdravilo.delovni_nalog_sifra_dn')
         									->join('zdravilo', 'zdravilo.sifra_zdravilo', '=', 'delovni_nalog_zdravilo.zdravilo_sifra_zdravilo')
         									->get(array(
@@ -274,8 +269,7 @@ class SeznamNalogovController extends Controller
         										'zdravilo.ime as ime_zdravila',
         										'zdravilo.opis as opis_zdravila'
         										));
-        }
-        for ($i=0; $i < count($filteredMix); $i++) {
+
         	$filteredMix[$i]->pacienti = DelovniNalog::join('delovni_nalog_pacient', 'delovni_nalog.sifra_dn', '=', 'delovni_nalog_pacient.delovni_nalog_sifra_dn')
         									->join('pacient', 'pacient.stevilka_KZZ', '=', 'delovni_nalog_pacient.pacient_stevilka_KZZ')
         									->join('uporabnik', 'pacient.id_uporabnik', '=', 'uporabnik.id_uporabnik')
@@ -287,23 +281,23 @@ class SeznamNalogovController extends Controller
         										'datum_rojstva',
         										'sifra_ps'
         										));
-        }
-        for ($i=0; $i < count($filteredMix); $i++) {
+
         	$filteredMix[$i]->otroci = DelovniNalog::join('delovni_nalog_pacient', 'delovni_nalog.sifra_dn', '=', 'delovni_nalog_pacient.delovni_nalog_sifra_dn')
-        									->join('pacient', 'delovni_nalog_pacient.pacient_stevilka_KZZ', '=', 'pacient.pac_stevilka_KZZ')
-        									->join('uporabnik', 'pacient.id_uporabnik', '=', 'uporabnik.id_uporabnik')
-        									->where('delovni_nalog.sifra_dn', '=', $filteredMix[$i]->sifra_dn)
-        									->where('pacient.pac_stevilka_KZZ', '=', $filteredMix[$i]->stevilka_KZZ)
-        									->get(array(
-        										'stevilka_KZZ',
-        										'pacient.ime',
-        										'pacient.priimek',
-        										'pacient.datum_rojstva',
-        										'pac_stevilka_KZZ',
-        										'pacient.ime as ime_pacienta',
-        										'datum_rojstva'
-        										));
+		        									->join('pacient', 'delovni_nalog_pacient.pacient_stevilka_KZZ', '=', 'pacient.stevilka_KZZ')
+		        									->join('uporabnik', 'pacient.id_uporabnik', '=', 'uporabnik.id_uporabnik')
+		        									->where('delovni_nalog.sifra_dn', '=', $filteredMix[$i]->sifra_dn)
+		        									->where('pacient.pac_stevilka_KZZ', '!=', -1)
+		        									->get(array(
+		        										'stevilka_KZZ',
+		        										'pacient.ime',
+		        										'pacient.priimek',
+		        										'pacient.datum_rojstva',
+		        										'pac_stevilka_KZZ',
+		        										'pacient.ime as ime_pacienta',
+		        										'datum_rojstva'
+		        										));
         }
+        
         $pacienti = Pacient::get(array(
                                     'pacient.ime as ime_pacienta',
                                     'stevilka_KZZ'));
