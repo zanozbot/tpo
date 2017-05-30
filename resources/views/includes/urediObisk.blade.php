@@ -339,10 +339,13 @@
 			$terapijaArray = [91];
 			$kriArray = [82];
 			foreach($obisk->aktivnosti as $aktivnost){
+				if(!in_array($aktivnost->aid, $knjizicaArray)){
 				echo "<div class=\"form-group\">";
 				echo "<label class=\"label label-primary\">$aktivnost->ime_aktivnosti</label>";
+				}
 				$porocila = $obisk->porocilo;
 				$opis = null;
+
 
 				foreach($porocila as $porocilo){
 					if ($porocilo['aid'] == $aktivnost->aid){
@@ -352,7 +355,7 @@
 				if (in_array($aktivnost->aid, $srcniArray)){
 					echo "<div class=\"input-group\">";
 						echo "<span class=\"input-group-addon\">Udarci/minuto</span>";
-						echo "<input type=\"number\" name=\"$aktivnost->aid\" class=\"form-control input-sm\" value=\"$opis\" placeholder=\"Udarci na minuto\" >";
+						echo "<input type=\"number\" name=\"$aktivnost->aid\" class=\"form-control input-sm\" value=\"$opis\" placeholder=\"Udarci na minuto\" min=\"1\" max=\"200\">";
 					echo "</div>";
 
 				}
@@ -368,13 +371,13 @@
 				else if (in_array($aktivnost->aid, $oksigenacijaArray)){
 						echo "<div class=\"input-group\">";
 						echo "<span class=\"input-group-addon\">%</span>";
-						echo "<input type=\"number\" name=\"$aktivnost->aid\" class=\"form-control input-sm\" value=\"$opis\" placeholder=\"\" >";
+						echo "<input type=\"number\" name=\"$aktivnost->aid\" class=\"form-control input-sm\" value=\"$opis\" placeholder=\"\" min=\"0\" max=\"100\">";
 						echo "</div>";
 				}
 				else if (in_array($aktivnost->aid, $sladkorArray)){
 						echo "<div class=\"input-group\">";
 						echo "<span class=\"input-group-addon\">mmol/L</span>";
-						echo "<input type=\"number\" name=\"$aktivnost->aid num\" class=\"form-control input-sm\" placeholder=\"\" >";
+						echo "<input type=\"number\" name=\"$aktivnost->aid num\" class=\"form-control input-sm\" placeholder=\"\" min=\"0\" max=\"20\">";
 						echo "</div>";
 						echo "<div class=\"input-group\">";
 						echo "<span class=\"input-group-addon\">Opis</span>";
@@ -382,54 +385,16 @@
 						echo "</div>";
 				}
 				else if (in_array($aktivnost->aid, $knjizicaArray)){
-					if(isset($opis)){
-						$decoded = json_decode($opis);
-						$dec_datum = $decoded->datum;
-						$dec_teza = $decoded->teza;
-						$dec_visina = $decoded->visina;
-						$dec_opis = $decoded->opis;
-						echo "<div class=\"input-group\">";
-						echo "<div class=\"datepicker input-group date\" data-provide=\"datepicker\">";
-						echo "<div class=\"input-group-addon\">";
-						echo "<span class=\"glyphicon glyphicon-th\"></span>";
-						echo "</div>";
-						echo "<input type=\"text\" class=\"form-control\" 
-						value=\"$dec_datum\" name=\"$aktivnost->aid datum\" disabled>";
-						echo "</div>";
-						echo "</div>";
-						echo "<div class=\"input-group\">";
-						echo "<span class=\"input-group-addon\">g</span>";
-						echo "<input type=\"number\" name=\"$aktivnost->aid teza\" class=\"form-control input-sm\" value=\"$dec_teza\" placeholder=\"Porodna teza otroka\" disabled>";
-						echo "</div>";
-						echo "<div class=\"input-group\">";
-						echo "<span class=\"input-group-addon\">cm</span>";
-						echo "<input type=\"number\" name=\"$aktivnost->aid visina\" class=\"form-control input-sm\" value=\"$dec_visina\" placeholder=\"Porodna visina otroka\" disabled>";
-						echo "</div>";
-						echo "<div class=\"input-group\">";
-						echo "<input type=\"text\" name=\"$aktivnost->aid opis\" class=\"form-control input-sm\" value=\"$dec_opis\" disabled>";
-						echo "</div>";
-					} else {
-						echo "<div class=\"input-group\">";
-						echo "<div class=\"datepicker input-group date\" data-provide=\"datepicker\">";
-						echo "<div class=\"input-group-addon\">";
-						echo "<span class=\"glyphicon glyphicon-th\"></span>";
-						echo "</div>";
-						echo "<input type=\"text\" class=\"form-control\" placeholder=\"Datum rojstva otroka dd.mm.llll\" name=\"$aktivnost->aid datum\">";
-						echo "</div>";
-						echo "</div>";
-						echo "<div class=\"input-group\">";
-						echo "<span class=\"input-group-addon\">g</span>";
-						echo "<input type=\"number\" name=\"$aktivnost->aid teza\" class=\"form-control input-sm\" placeholder=\"Porodna teza otroka [g]\" >";
-						echo "</div>";
-						echo "<div class=\"input-group\">";
-						echo "<span class=\"input-group-addon\">cm</span>";
-						echo "<input type=\"number\" name=\"$aktivnost->aid visina\" class=\"form-control input-sm\" placeholder=\"Porodna visina otroka [cm]\" >";
-						echo "</div>";
-						echo "<div class=\"input-group\">";
-						echo "<span class=\"input-group-addon\">Opis</span>";
-						echo "<input type=\"text\" name=\"$aktivnost->aid opis\" class=\"form-control input-sm\" placeholder=\"Opis\" >";
-						echo "</div>";
-					}
+					
+
+
+
+
+
+
+
+
+
 				}
 				else if (in_array($aktivnost->aid, $cutilaArray)){
 						if(isset($opis)){
@@ -510,7 +475,7 @@
 				else if (in_array($aktivnost->aid, $kgArray)){
 						echo "<div class=\"input-group\">";
 						echo "<span class=\"input-group-addon\">kg</span>";
-						echo "<input type=\"number\" name=\"$aktivnost->aid\" class=\"form-control input-sm\" value=\"$opis\" placeholder=\"\" >";
+						echo "<input type=\"number\" name=\"$aktivnost->aid\" class=\"form-control input-sm\" value=\"$opis\" placeholder=\"\" min=\"0\" max=\"999\">";
 						echo "</div>";
 				}
 				else if (in_array($aktivnost->aid, $kriArray)){
@@ -558,13 +523,13 @@
 				else if (in_array($aktivnost->aid, $temperaturaArray)){
 						echo "<div class=\"input-group\">";
 						echo "<span class=\"input-group-addon\">°C</span>";
-						echo "<input type=\"number\" name=\"$aktivnost->aid\" class=\"form-control input-sm\" value=\"$opis\" placeholder=\"\" >";
+						echo "<input type=\"number\" name=\"$aktivnost->aid\" class=\"form-control input-sm\" value=\"$opis\" placeholder=\"\" min=\"10\" max=\"49\">";
 						echo "</div>";
 				}
 				else if (in_array($aktivnost->aid, $dihalniArray)){
 						echo "<div class=\"input-group\">";
 						echo "<span class=\"input-group-addon\">Vdihi/minuto</span>";
-						echo "<input type=\"number\" name=\"$aktivnost->aid\" class=\"form-control input-sm\" value=\"$opis\" placeholder=\"Vdihi na minuto\" >";
+						echo "<input type=\"number\" name=\"$aktivnost->aid\" class=\"form-control input-sm\" value=\"$opis\" placeholder=\"Vdihi na minuto\" min=\"1\" max=\"99\">";
 						echo "</div>";
 				}
 				else if (in_array($aktivnost->aid, $tlakArray)){
@@ -574,20 +539,20 @@
 							$dec_dia = $decoded->dia;
 							echo "<div class=\"input-group\">";
 							echo "<span class=\"input-group-addon\">mm Hg Sistolični</span>";
-							echo "<input type=\"number\" name=\"$aktivnost->aid sis\" class=\"form-control input-sm\" value=\"$dec_sis\" placeholder=\"Sistolični (mm Hg)\" >";
+							echo "<input type=\"number\" name=\"$aktivnost->aid sis\" class=\"form-control input-sm\" value=\"$dec_sis\" placeholder=\"Sistolični (mm Hg)\" min=\"20\" max=\"200\">";
 							echo "</div>";
 							echo "<div class=\"input-group\">";
 							echo "<span class=\"input-group-addon\">mm Hg Diastolični</span>";
-							echo "<input type=\"number\" name=\"$aktivnost->aid dia\" class=\"form-control input-sm\" value=\"$dec_dia\" placeholder=\"Diastolični (mm Hg)\" >";
+							echo "<input type=\"number\" name=\"$aktivnost->aid dia\" class=\"form-control input-sm\" value=\"$dec_dia\" placeholder=\"Diastolični (mm Hg)\" min=\"10\" max=\"100\">";
 							echo "</div>";
 						} else {
 							echo "<div class=\"input-group\">";
 							echo "<span class=\"input-group-addon\">mm Hg Sistolični</span>";
-							echo "<input type=\"number\" name=\"$aktivnost->aid sis\" class=\"form-control input-sm\" placeholder=\"Sistolični (mm Hg)\" >";
+							echo "<input type=\"number\" name=\"$aktivnost->aid sis\" class=\"form-control input-sm\" placeholder=\"Sistolični (mm Hg)\" min=\"20\" max=\"200\">";
 							echo "</div>";
 							echo "<div class=\"input-group\">";
 							echo "<span class=\"input-group-addon\">mm Hg Diastolični</span>";
-							echo "<input type=\"number\" name=\"$aktivnost->aid dia\" class=\"form-control input-sm\" placeholder=\"Diastolični (mm Hg)\" >";
+							echo "<input type=\"number\" name=\"$aktivnost->aid dia\" class=\"form-control input-sm\" placeholder=\"Diastolični (mm Hg)\" min=\"10\" max=\"100\">";
 							echo "</div>";
 						}
 				}
@@ -719,6 +684,58 @@
 				echo "<label class=\"label label-primary\">Ime in priimek novorojenčka</label>";
 				echo "<input type =\"text\" class=\"form-control nalog\" name=\"imePriimekZavOsebe\" value=\"$otrok->ime $otrok->priimek\" disabled></input>";
 				echo "</div>";
+				echo "<div class=\"form-group\">";
+				echo "<label class=\"label label-primary\">Pregled materinske knjižice in odpustnice iz porodnišnice. </label>";
+
+				if(isset($opis)){
+						$decoded = json_decode($opis);
+						$dec_datum = $decoded->datum;
+						$dec_teza = $decoded->teza;
+						$dec_visina = $decoded->visina;
+						$dec_opis = $decoded->opis;
+						echo "<div class=\"input-group\">";
+						echo "<div class=\"datepicker input-group date\" data-provide=\"datepicker\">";
+						echo "<div class=\"input-group-addon\">";
+						echo "<span class=\"glyphicon glyphicon-th\"></span>";
+						echo "</div>";
+						echo "<input type=\"text\" class=\"form-control\" 
+						value=\"$dec_datum\" name=\"$aktivnost->aid datum\" disabled>";
+						echo "</div>";
+						echo "</div>";
+						echo "<div class=\"input-group\">";
+						echo "<span class=\"input-group-addon\">g</span>";
+						echo "<input type=\"number\" name=\"$aktivnost->aid teza\" class=\"form-control input-sm\" value=\"$dec_teza\" placeholder=\"Porodna teza otroka\" disabled>";
+						echo "</div>";
+						echo "<div class=\"input-group\">";
+						echo "<span class=\"input-group-addon\">cm</span>";
+						echo "<input type=\"number\" name=\"$aktivnost->aid visina\" class=\"form-control input-sm\" value=\"$dec_visina\" placeholder=\"Porodna visina otroka\" disabled>";
+						echo "</div>";
+						echo "<div class=\"input-group\">";
+						echo "<input type=\"text\" name=\"$aktivnost->aid opis\" class=\"form-control input-sm\" value=\"$dec_opis\" disabled>";
+						echo "</div>";
+					} else {
+						echo "<div class=\"input-group\">";
+						echo "<div class=\"datepicker input-group date\" data-provide=\"datepicker\">";
+						echo "<div class=\"input-group-addon\">";
+						echo "<span class=\"glyphicon glyphicon-th\"></span>";
+						echo "</div>";
+						echo "<input type=\"text\" class=\"form-control\" placeholder=\"Datum rojstva otroka dd.mm.llll\" name=\"$aktivnost->aid datum\">";
+						echo "</div>";
+						echo "</div>";
+						echo "<div class=\"input-group\">";
+						echo "<span class=\"input-group-addon\">g</span>";
+						echo "<input type=\"number\" name=\"$aktivnost->aid teza\" class=\"form-control input-sm\" placeholder=\"Porodna teza otroka [g]\" min=\"100\" max=\"9999\">";
+						echo "</div>";
+						echo "<div class=\"input-group\">";
+						echo "<span class=\"input-group-addon\">cm</span>";
+						echo "<input type=\"number\" name=\"$aktivnost->aid visina\" class=\"form-control input-sm\" placeholder=\"Porodna visina otroka [cm]\" min=\"10\" max=\"99\">";
+						echo "</div>";
+						echo "<div class=\"input-group\">";
+						echo "<span class=\"input-group-addon\">Opis</span>";
+						echo "<input type=\"text\" name=\"$aktivnost->aid opis\" class=\"form-control input-sm\" placeholder=\"Opis\" >";
+						echo "</div>";
+					}
+				echo "</div>";
 				$gArray = [54];
 				$cmArray = [55];
 				$DaNeArray = [56,57];
@@ -736,13 +753,13 @@
 						if (in_array($aktivnostNovorojencek->aid, $gArray)){
 								echo "<div class=\"input-group\">";
 								echo "<span class=\"input-group-addon\">Trenutna teza [g]</span>";
-								echo "<input type=\"number\" name=\"$aktivnostNovorojencek->aid\" class=\"form-control input-sm\" value=\"$opis\" placeholder=\"Trenutna teza [g]\" >";
+								echo "<input type=\"number\" name=\"$aktivnostNovorojencek->aid\" class=\"form-control input-sm\" value=\"$opis\" placeholder=\"Trenutna teza [g]\" min=\"100\" max=\"99999\">";
 								echo "</div>";
 						}
 						else if (in_array($aktivnostNovorojencek->aid, $cmArray)){
 								echo "<div class=\"input-group\">";
 								echo "<span class=\"input-group-addon\">Trenutna visina [cm]</span>";
-								echo "<input type=\"number\" name=\"$aktivnostNovorojencek->aid\" class=\"form-control input-sm\" value=\"$opis\" placeholder=\"Trenutna visina [cm]\" >";
+								echo "<input type=\"number\" name=\"$aktivnostNovorojencek->aid\" class=\"form-control input-sm\" value=\"$opis\" placeholder=\"Trenutna visina [cm]\" min=\"10\" max=\"150\">";
 								echo "</div>";
 						} 
 						else if (in_array($aktivnostNovorojencek->aid, $DaNeArray)){
