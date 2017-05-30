@@ -101,7 +101,6 @@ class PoduporabnikController extends Controller
         }
 		$glavni = Auth::user()->pacient[0];
 		if(Pacient::where('stevilka_KZZ', '=', $request['stevilkaKarticeZavarovanja'])->exists()){
-				
 				Pacient::find($request['stevilkaKarticeZavarovanja']) ->update([
 					'postna_stevilka' => $request['posta'],
 					'ime' => $request['ime'],
@@ -116,21 +115,26 @@ class PoduporabnikController extends Controller
 				return redirect()->route('poduporabnik');
 		}
 		else {
-		$pacient = Pacient::create([
-			'stevilka_KZZ' => $request['stevilkaKarticeZavarovanja'],
-			'postna_stevilka' => $request['posta'],
-			'pac_stevilka_KZZ' => $glavni->stevilka_KZZ,
-			'ime' => $request['ime'],
-			'priimek' => $request['priimek'],
-			'sifra_razmerje' => $sifraRazmerje,
-			'sifra_okolis' => $sifraOkolis,
-			'ulica' => $request['ulica'],
-			'kraj' => $request['kraj'],
-			'datum_rojstva' => $datumRojstva,
-			'spol' => $spol,
-			'id_uporabnik' => -1
-		]);
-		return redirect()->route('poduporabnik')->with('status', true);
+			$uporabnik = Uporabnik::create([
+				'ime' => $request['ime'],
+				'priimek' => $request['priimek'],
+				'sifra_vloga' => 6
+			]);
+			$pacient = Pacient::create([
+				'stevilka_KZZ' => $request['stevilkaKarticeZavarovanja'],
+				'postna_stevilka' => $request['posta'],
+				'pac_stevilka_KZZ' => $glavni->stevilka_KZZ,
+				'ime' => $request['ime'],
+				'priimek' => $request['priimek'],
+				'sifra_razmerje' => $sifraRazmerje,
+				'sifra_okolis' => $sifraOkolis,
+				'ulica' => $request['ulica'],
+				'kraj' => $request['kraj'],
+				'datum_rojstva' => $datumRojstva,
+				'spol' => $spol,
+				'id_uporabnik' => $uporabnik->id_uporabnik
+			]);
+			return redirect()->route('poduporabnik')->with('status', true);
 		}
 
     }

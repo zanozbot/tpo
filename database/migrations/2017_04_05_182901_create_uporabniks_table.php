@@ -18,9 +18,9 @@ class CreateUporabniksTable extends Migration
             $table->integer('sifra_vloga');
             $table->string('ime');
             $table->string('priimek');
-            $table->string('email')->unique();
-            $table->string('geslo');
-            $table->string('tel_stevilka', 10);
+            $table->string('email')->unique()->nullable();
+            $table->string('geslo')->nullable();
+            $table->string('tel_stevilka', 10)->nullable();
             $table->boolean('aktiviran')->default(false);
             $table->date('datum_prijave')->nullable()->default(null);
             $table->rememberToken();
