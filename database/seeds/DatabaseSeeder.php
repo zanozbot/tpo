@@ -37,6 +37,6 @@ class DatabaseSeeder extends Seeder
         $this->call(DelovniNalogZdraviloTableSeeder::class);
         $this->call(ObiskTableSeeder::class);
         $this->call(PlanTableSeeder::class);
-        //$this->call(PorociloTableSeeder::class);
+        $this->call(PorociloTableSeeder::class);
     }
 }

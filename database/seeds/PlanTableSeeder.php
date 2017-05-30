@@ -209,6 +209,36 @@ class PlanTableSeeder extends Seeder
                 'datum_plan' => '2017-06-07',
                 'sifra_ps_plan' => 83312,
             ),
+            32 => 
+            array (
+                'sifra_plan' => 33,
+                'datum_plan' => '2017-06-01',
+                'sifra_ps_plan' => 83312,
+            ),
+            33 => 
+            array (
+                'sifra_plan' => 34,
+                'datum_plan' => '2017-06-02',
+                'sifra_ps_plan' => 83312,
+            ),
+            34 => 
+            array (
+                'sifra_plan' => 35,
+                'datum_plan' => '2017-06-03',
+                'sifra_ps_plan' => 83312,
+            ),
+            35 => 
+            array (
+                'sifra_plan' => 36,
+                'datum_plan' => '2017-06-02',
+                'sifra_ps_plan' => 12234,
+            ),
+            36 => 
+            array (
+                'sifra_plan' => 37,
+                'datum_plan' => '2017-05-31',
+                'sifra_ps_plan' => 12234,
+            ),
         ));
         
         

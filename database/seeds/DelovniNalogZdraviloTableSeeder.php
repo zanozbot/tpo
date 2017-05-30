@@ -65,6 +65,12 @@ class DelovniNalogZdraviloTableSeeder extends Seeder
                 'delovni_nalog_sifra_dn' => 15,
                 'zdravilo_sifra_zdravilo' => 'B01AC06',
             ),
+            8 => 
+            array (
+                'id' => 9,
+                'delovni_nalog_sifra_dn' => 18,
+                'zdravilo_sifra_zdravilo' => 'B01AC06',
+            ),
         ));
         
         
