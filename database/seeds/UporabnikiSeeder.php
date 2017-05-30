@@ -18,10 +18,10 @@ class UporabnikiSeeder extends Seeder
     {
         $u1 = Uporabnik::create([
         	'sifra_vloga' => '2',
-            'ime' => 'Zdravnik',
-            'priimek' => 'Zdravniški',
-            'email' => 'zdravnik@gmail.com',
-            'geslo' => bcrypt('zdravnik'),
+            'ime' => 'Zdravko',
+            'priimek' => 'Zdravič',
+            'email' => 'zdravko@gmail.com',
+            'geslo' => bcrypt('zdravko123'),
             'tel_stevilka' => '051000002',
             'aktiviran' => true
         ]);
@@ -33,10 +33,10 @@ class UporabnikiSeeder extends Seeder
 
         $u12 = Uporabnik::create([
             'sifra_vloga' => '2',
-            'ime' => 'Gregor',
-            'priimek' => 'Hiša',
-            'email' => 'gregor@gmail.com',
-            'geslo' => bcrypt('gregor'),
+            'ime' => 'Marko',
+            'priimek' => 'Markič',
+            'email' => 'marko@gmail.com',
+            'geslo' => bcrypt('marko123'),
             'tel_stevilka' => '051000003',
             'aktiviran' => true
         ]);
@@ -49,10 +49,10 @@ class UporabnikiSeeder extends Seeder
         $u2 = Uporabnik::create([
         	'sifra_vloga' => '3',
             'ime' => 'Vodja',
-            'priimek' => 'Patronaženski',
+            'priimek' => 'Vodjič',
             'email' => 'vodja@gmail.com',
-            'geslo' => bcrypt('vodja'),
-            'tel_stevilka' => '051000003',
+            'geslo' => bcrypt('vodja123'),
+            'tel_stevilka' => '051000013',
             'aktiviran' => true
         ]);
         $vodjaps = Delavec::create([
@@ -79,10 +79,10 @@ class UporabnikiSeeder extends Seeder
 
         $u4 = Uporabnik::create([
             'sifra_vloga' => '6',
-            'ime' => 'Pacient',
+            'ime' => 'Srečko',
             'priimek' => 'Debevc',
             'email' => 'pacient@gmail.com',
-            'geslo' => bcrypt('pacient'),
+            'geslo' => bcrypt('pacient123'),
             'tel_stevilka' => '051000006',
             'aktiviran' => true
         ]);
@@ -90,11 +90,11 @@ class UporabnikiSeeder extends Seeder
         $pacient = Pacient::create([
         		'id_uporabnik' => $u4->id_uporabnik,
         		'stevilka_KZZ' => '1234567890',
-				'ime' => 'Pacient',
+				'ime' => 'Srečko',
 				'priimek' => 'Debevc',
         		'sifra_okolis' => '3',
-        		'ulica' => 'Novomeška cesta 5',
-        		'kraj' => 'Črna na Koroškem',
+        		'ulica' => 'Rožna Dolina, cesta IV 45',
+        		'kraj' => 'Ljubljana',
         		'datum_rojstva' => Carbon::createFromDate(1996, 5, 12, 'Europe/London'),
                 'spol' => 'm',
                 'postna_stevilka' => '3000'

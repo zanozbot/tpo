@@ -47,7 +47,7 @@
 								<label class="label label-primary">Regija</label>
 								<select class="selectpicker form-control input-sm" name="okolis">
 								@foreach ($okolisi as $okolis)
-								<option {{ ($glavni->okolis == $okolis->ime ? "selected":"") }}>{{ $okolis->ime }}</option>
+								<option {{ ($glavni->sifra_okolis == $okolis->sifra_okolis ? "selected":"") }}>{{ $okolis->ime }}</option>
 								@endforeach
 								</select>
 							</div>

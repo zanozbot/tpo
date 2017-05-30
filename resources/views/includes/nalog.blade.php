@@ -233,8 +233,6 @@
 			  <div class="panel-body">					  
 				  <div class="form-group">
 					<div class="form-control nalog" name="vrstaStoritve">
-					
-
 					  <div class="panel-heading">
 						<h3 class="panel-title">Otroci</h3>
 					  </div>

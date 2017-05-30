@@ -21,17 +21,22 @@ class DatabaseSeeder extends Seeder
         $this->call(OkolisTableSeeder::class);
         $this->call(MaterialTableSeeder::class);
         $this->call(SorodstvenoRazmerjeTableSeeder::class);
-        $this->call(UporabnikiSeeder::class);
+        //$this->call(UporabnikiSeeder::class);
         $this->call(AktivnostTableSeeder::class);
         
         // Newly generated seeders
-        $this->call(NadomescanjeTableSeeder::class);
+        $this->call(MeritveTableSeeder::class);
+        $this->call(UporabnikTableSeeder::class);
+        $this->call(DelavecTableSeeder::class);
+        $this->call(PatronaznaSestraTableSeeder::class);
+        $this->call(PacientTableSeeder::class);
+        $this->call(DelovniNalogMaterialTableSeeder::class);
+        //$this->call(NadomescanjeTableSeeder::class);
         $this->call(DelovniNalogTableSeeder::class);
         $this->call(DelovniNalogPacientTableSeeder::class);
         $this->call(DelovniNalogZdraviloTableSeeder::class);
         $this->call(ObiskTableSeeder::class);
         $this->call(PlanTableSeeder::class);
-        $this->call(PorociloTableSeeder::class);
-        $this->call(MeritveTableSeeder::class);
+        //$this->call(PorociloTableSeeder::class);
     }
 }
