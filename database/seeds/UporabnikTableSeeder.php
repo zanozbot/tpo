@@ -212,6 +212,36 @@ class UporabnikTableSeeder extends Seeder
                 'created_at' => '2017-05-30 17:19:27',
                 'updated_at' => '2017-05-30 17:19:27',
             ),
+            13 => 
+            array (
+                'id_uporabnik' => 14,
+                'sifra_vloga' => 6,
+                'ime' => 'Iza',
+                'priimek' => 'Debevc',
+                'email' => NULL,
+                'geslo' => NULL,
+                'tel_stevilka' => NULL,
+                'aktiviran' => 1,
+                'datum_prijave' => NULL,
+                'remember_token' => NULL,
+                'created_at' => '2017-05-30 17:19:27',
+                'updated_at' => '2017-05-30 17:19:27',
+            ),
+            14 => 
+            array (
+                'id_uporabnik' => 15,
+                'sifra_vloga' => 6,
+                'ime' => 'Miha',
+                'priimek' => 'Debevc',
+                'email' => NULL,
+                'geslo' => NULL,
+                'tel_stevilka' => NULL,
+                'aktiviran' => 1,
+                'datum_prijave' => NULL,
+                'remember_token' => NULL,
+                'created_at' => '2017-05-30 17:19:27',
+                'updated_at' => '2017-05-30 17:19:27',
+            ),
         ));
         
         

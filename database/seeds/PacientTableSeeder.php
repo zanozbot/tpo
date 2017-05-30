@@ -45,7 +45,7 @@ class PacientTableSeeder extends Seeder
                 'datum_rojstva' => '2010-06-17',
                 'spol' => 'z',
                 'sifra_razmerje' => 'A1',
-                'id_uporabnik' => -1,
+                'id_uporabnik' => 14,
             ),
             2 => 
             array (
@@ -60,7 +60,7 @@ class PacientTableSeeder extends Seeder
                 'datum_rojstva' => '2017-03-10',
                 'spol' => 'm',
                 'sifra_razmerje' => 'A1',
-                'id_uporabnik' => -1,
+                'id_uporabnik' => 15,
             ),
             3 => 
             array (

@@ -118,7 +118,8 @@ class PoduporabnikController extends Controller
 			$uporabnik = Uporabnik::create([
 				'ime' => $request['ime'],
 				'priimek' => $request['priimek'],
-				'sifra_vloga' => 6
+				'sifra_vloga' => 6,
+				'aktiviran' => 1
 			]);
 			$pacient = Pacient::create([
 				'stevilka_KZZ' => $request['stevilkaKarticeZavarovanja'],
