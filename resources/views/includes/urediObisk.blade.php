@@ -137,11 +137,11 @@
 						<div class="form-group" >
 							<label class="label label-primary">Vrsta obiska</label>
 							@if ($obisk->preventivni == 1)
-								<label class="checkbox-inline"><input type="checkbox" name="vrstaZdravnik" readonly checked>Preventivni</label>
-								<label class="checkbox-inline"><input type="checkbox" name="vrstaZdravnik" readonly>Kurativni</label>
+								<label class="checkbox-inline"><input type="checkbox" name="vrstaZdravnik" disabled checked>Preventivni</label>
+								<label class="checkbox-inline"><input type="checkbox" name="vrstaZdravnik" disabled>Kurativni</label>
 							@else
-								<label class="checkbox-inline"><input type="checkbox" name="vrstaZdravnik" readonly>Preventivni</label>
-								<label class="checkbox-inline"><input type="checkbox" name="vrstaZdravnik" readonly checked>Kurativni</label>
+								<label class="checkbox-inline"><input type="checkbox" name="vrstaZdravnik" disabled>Preventivni</label>
+								<label class="checkbox-inline"><input type="checkbox" name="vrstaZdravnik" disabled checked>Kurativni</label>
 							@endif
 						</div>
 					  </div>
@@ -174,11 +174,11 @@
 					  <div class="form-group" >
 						<label class="label label-primary">Nadomeščanje</label>
 						@if ($obisk->nadomescanje == 1)
-							<label class="checkbox-inline"><input type="checkbox" name="nadomescanje" readonly checked>Da</label>
-							<label class="checkbox-inline"><input type="checkbox" name="nadomescanje" readonly>Ne</label>
+							<label class="checkbox-inline"><input type="checkbox" name="nadomescanje" disabled checked>Da</label>
+							<label class="checkbox-inline"><input type="checkbox" name="nadomescanje" disabled>Ne</label>
 						@else
-							<label class="checkbox-inline"><input type="checkbox" name="nadomescanje" readonly>Da</label>
-							<label class="checkbox-inline"><input type="checkbox" name="nadomescanje" readonly checked>Ne</label>
+							<label class="checkbox-inline"><input type="checkbox" name="nadomescanje" disabled>Da</label>
+							<label class="checkbox-inline"><input type="checkbox" name="nadomescanje" disabled checked>Ne</label>
 						@endif
 					  </div>
 					</div>

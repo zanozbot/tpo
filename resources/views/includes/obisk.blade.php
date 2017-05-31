@@ -435,7 +435,7 @@
 				@elseif ($obisk->ime_vrsta_obiska == 'Obisk otročnice')
 				  <div class="panel-body">					  
 					  <div class="form-group">
-						<div class="form-control nalog" name="vrstaStoritve">
+						<div class="form-control nalog">
 						  <div class="panel-body">
 							<div class="form-group">
 							    <label class="label label-primary">Kontrola vitalnih funkcij.</label>
@@ -583,7 +583,13 @@
 								}
 								echo "<div class=\"form-group\"><label class=\"label label-primary\">Fizična obremenjenost.</label><div class=\"form-control nalog\" name=\"vrstaStoritve\"><label>".$msg."</label></div></div>";
 
+								echo "</div></div></div>";
+
 								foreach ($obisk->otroci as $otrok) {
+
+									echo "<div class=\"form-group\">";
+									echo "<div class=\"form-control nalog\">";
+						  			echo "<div class=\"panel-body\">";
 
 									echo "<div class=\"form-group\">";
 									echo "<label class=\"label label-primary\">Ime in priimek novorojenčka</label>";
@@ -727,13 +733,12 @@
 									$obj = json_decode($json);
 									echo "<div class=\"form-group\"><label class=\"label label-primary\">Posebnosti.</label><div class=\"form-control nalog\" name=\"vrstaStoritve\"><label>".$obj->{'opis'}."</label></div></div>";
 									$i = $i + 1;
+
+									echo "</div></div></div>";
 								}
 							@endphp
-							</div>
-						</div>
 					  </div>
 					</div>
-				  </div>
 				@elseif ($obisk->ime_vrsta_obiska == 'Preventiva starostnika')
 					<div class="panel-body">					  
 					  <div class="form-group">
@@ -885,7 +890,6 @@
 					  </div>
 					</div>
 				  </div>
-				</div>
 				@elseif ($obisk->ime_vrsta_obiska == 'Odvzem krvi')
 				  <div class="panel-body">					  
 					  <div class="form-group">
