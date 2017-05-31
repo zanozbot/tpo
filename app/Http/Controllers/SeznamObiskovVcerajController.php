@@ -21,7 +21,6 @@ class SeznamObiskovVcerajController extends Controller
 {
 
 	public function vnesiPodatke(Request $request, $sifraObisk){
-		
 		foreach ($request->all() as $key => $value){
 			if (is_numeric($key)){
 				$porocilo = Porocilo::where('sifra_obisk', '=', $sifraObisk)

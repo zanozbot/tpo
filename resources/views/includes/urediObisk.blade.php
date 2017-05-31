@@ -806,7 +806,7 @@
 				$porocila = $obisk->porocilo;
 				foreach ($obisk->aktivnostiNovorojencek as $aktivnostNovorojencek){
 						$opis = null;
-						break;
+
 						foreach($porocila as $porocilo){
 							if ($porocilo['aid'] == $aktivnostNovorojencek->aid){
 								
@@ -814,26 +814,33 @@
 								if ($opis->KZZ == $otrok->stevilka_KZZ){
 
 									$opis = json_encode($opis);
-									echo $opis;
 									break;
-								}
-								echo $opis;
-								
+								}								
 							}
-						} 
+						}
 						echo "<div class=\"form-group\">";
 						echo "<label class=\"label label-primary\">$aktivnostNovorojencek->ime_aktivnosti</label>";
 						if (in_array($aktivnostNovorojencek->aid, $gArray)){
-								$decoded = json_decode($opis);
+
 								echo "<div class=\"input-group\">";
 								echo "<span class=\"input-group-addon\">Trenutna teza [g]</span>";
-								echo "<input type=\"number\" name=\"$aktivnostNovorojencek->aid $otrok->stevilka_KZZ\" class=\"form-control input-sm\" value=\"$decoded->opis\" placeholder=\"Trenutna teza [g]\" min=\"100\" max=\"99999\">";
+								if(isset($opis)){
+									$decoded = json_decode($opis);
+									echo "<input type=\"number\" name=\"$aktivnostNovorojencek->aid $otrok->stevilka_KZZ\" class=\"form-control input-sm\" value=\"$decoded->opis\" placeholder=\"Trenutna teza [g]\" min=\"100\" max=\"99999\">";
+								} else {
+									echo "<input type=\"number\" name=\"$aktivnostNovorojencek->aid $otrok->stevilka_KZZ\" class=\"form-control input-sm\" value=\"\" placeholder=\"Trenutna teza [g]\" min=\"100\" max=\"99999\">";
+								}
 								echo "</div>";
 						}
 						else if (in_array($aktivnostNovorojencek->aid, $cmArray)){
 								echo "<div class=\"input-group\">";
 								echo "<span class=\"input-group-addon\">Trenutna visina [cm]</span>";
-								echo "<input type=\"number\" name=\"$aktivnostNovorojencek->aid $otrok->stevilka_KZZ\" class=\"form-control input-sm\" value=\"$decoded->opis\" placeholder=\"Trenutna visina [cm]\" min=\"10\" max=\"150\">";
+								if(isset($opis)){
+									$decoded = json_decode($opis);
+									echo "<input type=\"number\" name=\"$aktivnostNovorojencek->aid $otrok->stevilka_KZZ\" class=\"form-control input-sm\" value=\"$decoded->opis\" placeholder=\"Trenutna visina [cm]\" min=\"10\" max=\"150\">";
+								} else {
+									echo "<input type=\"number\" name=\"$aktivnostNovorojencek->aid $otrok->stevilka_KZZ\" class=\"form-control input-sm\" value=\"\" placeholder=\"Trenutna visina [cm]\" min=\"10\" max=\"150\">";
+								}
 								echo "</div>";
 						} 
 						else if (in_array($aktivnostNovorojencek->aid, $DaNeArray)){
@@ -904,10 +911,14 @@
 							} 
 						}
 						else {
-							$decoded = json_decode($opis);
 							echo "<div class=\"input-group\">";
 							echo "<span class=\"input-group-addon\">Opis</span>";
-							echo "<input type=\"text\" name=\"$aktivnostNovorojencek->aid $otrok->stevilka_KZZ\" class=\"form-control input-sm\" value=\"$decoded->opis\" placeholder=\"Opis\" >";
+							if(isset($opis)){
+								$decoded = json_decode($opis);
+								echo "<input type=\"text\" name=\"$aktivnostNovorojencek->aid $otrok->stevilka_KZZ\" class=\"form-control input-sm\" value=\"$decoded->opis\" placeholder=\"Opis\" >";
+							} else {
+								echo "<input type=\"text\" name=\"$aktivnostNovorojencek->aid $otrok->stevilka_KZZ\" class=\"form-control input-sm\" value=\"\" placeholder=\"Opis\" >";
+							}
 							echo "</div>";
 						}
 						

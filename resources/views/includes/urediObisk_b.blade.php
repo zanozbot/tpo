@@ -137,11 +137,11 @@
 						<div class="form-group" >
 							<label class="label label-primary">Vrsta obiska</label>
 							@if ($obisk->preventivni == 1)
-								<label class="checkbox-inline"><input type="checkbox" name="vrstaZdravnik" disabled checked>Preventivni</label>
-								<label class="checkbox-inline"><input type="checkbox" name="vrstaZdravnik" disabled>Kurativni</label>
+								<label class="checkbox-inline"><input type="checkbox" name="vrstaZdravnik" readonly checked>Preventivni</label>
+								<label class="checkbox-inline"><input type="checkbox" name="vrstaZdravnik" readonly>Kurativni</label>
 							@else
-								<label class="checkbox-inline"><input type="checkbox" name="vrstaZdravnik" disabled>Preventivni</label>
-								<label class="checkbox-inline"><input type="checkbox" name="vrstaZdravnik" disabled checked>Kurativni</label>
+								<label class="checkbox-inline"><input type="checkbox" name="vrstaZdravnik" readonly>Preventivni</label>
+								<label class="checkbox-inline"><input type="checkbox" name="vrstaZdravnik" readonly checked>Kurativni</label>
 							@endif
 						</div>
 					  </div>
@@ -174,11 +174,11 @@
 					  <div class="form-group" >
 						<label class="label label-primary">Nadomeščanje</label>
 						@if ($obisk->nadomescanje == 1)
-							<label class="checkbox-inline"><input type="checkbox" name="nadomescanje" disabled checked>Da</label>
-							<label class="checkbox-inline"><input type="checkbox" name="nadomescanje" disabled>Ne</label>
+							<label class="checkbox-inline"><input type="checkbox" name="nadomescanje" readonly checked>Da</label>
+							<label class="checkbox-inline"><input type="checkbox" name="nadomescanje" readonly>Ne</label>
 						@else
-							<label class="checkbox-inline"><input type="checkbox" name="nadomescanje" disabled>Da</label>
-							<label class="checkbox-inline"><input type="checkbox" name="nadomescanje" disabled checked>Ne</label>
+							<label class="checkbox-inline"><input type="checkbox" name="nadomescanje" readonly>Da</label>
+							<label class="checkbox-inline"><input type="checkbox" name="nadomescanje" readonly checked>Ne</label>
 						@endif
 					  </div>
 					</div>
@@ -342,6 +342,7 @@
 			$oksigenacijaArray = [90];
 			$terapijaArray = [91];
 			$kriArray = [82];
+			$requiredArray = [];
 			foreach($obisk->aktivnosti as $aktivnost){
 				if(!in_array($aktivnost->aid, $knjizicaArray)){
 				echo "<div class=\"form-group\">";
@@ -387,18 +388,6 @@
 						echo "<span class=\"input-group-addon\">Opis</span>";
 						echo "<input type=\"text\" name=\"$aktivnost->aid opis\" class=\"form-control input-sm\" placeholder=\"Opis\" >";
 						echo "</div>";
-				}
-				else if (in_array($aktivnost->aid, $knjizicaArray)){
-					
-
-
-
-
-
-
-
-
-
 				}
 				else if (in_array($aktivnost->aid, $cutilaArray)){
 						if(isset($opis)){
@@ -476,11 +465,29 @@
 						}
 						
 				}
+				else if (in_array($aktivnost->aid, $knjizicaArray)){
+
+
+
+				}
 				else if (in_array($aktivnost->aid, $kgArray)){
+					if (!$obisk->obiski->isEmpty()){
+						$nosecnicaPrvegaObiska = $obisk->obiski[0]->nosecnicaPrvegaObiska;
+					} else {
+						$nosecnicaPrvegaObiska = null;
+					}
+					if($aktivnost->aid == '23' && $nosecnicaPrvegaObiska != null && !$nosecnicaPrvegaObiska->isEmpty()){
+						$teza = $nosecnicaPrvegaObiska->first()->opis;
+						echo "<div class=\"input-group\">";
+						echo "<span class=\"input-group-addon\">kg</span>";
+						echo "<input type=\"number\" name=\"$aktivnost->aid\" class=\"form-control input-sm\" value=\"$teza\" readonly>";
+						echo "</div>";
+					} else {
 						echo "<div class=\"input-group\">";
 						echo "<span class=\"input-group-addon\">kg</span>";
 						echo "<input type=\"number\" name=\"$aktivnost->aid\" class=\"form-control input-sm\" value=\"$opis\" placeholder=\"\" min=\"0\" max=\"999\">";
 						echo "</div>";
+					}
 				}
 				else if (in_array($aktivnost->aid, $kriArray)){
 						if(isset($opis)){
@@ -614,9 +621,17 @@
 							echo "<div class=\"input-group\">";
 							echo "<label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" name=\"$aktivnost->aid mot\" value=\"moteno\" checked >Moteno</label><label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" name=\"$aktivnost->aid mot\" value=\"niMoteno\" >Ni moteno</label><br/>";
 							echo "</div>";
+							echo "<div class=\"input-group\">";
+							echo "<span class=\"input-group-addon\">Opis</span>";
+							echo "<input type=\"text\" name=\"$aktivnost->aid opis\" class=\"form-control input-sm\" placeholder=\"Opis\" >";
+							echo "</div>";
 						} else if ($dec_mot == "niMoteno"){
 							echo "<div class=\"input-group\">";
 							echo "<label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" name=\"$aktivnost->aid mot\" value=\"moteno\" >Moteno</label><label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" name=\"$aktivnost->aid mot\" value=\"niMoteno\" checked >Ni moteno</label>";
+							echo "</div>";
+							echo "<div class=\"input-group\">";
+							echo "<span class=\"input-group-addon\">Opis</span>";
+							echo "<input type=\"text\" name=\"$aktivnost->aid opis\" class=\"form-control input-sm\" placeholder=\"Opis\" >";
 							echo "</div>";
 						} 				
 						
@@ -633,6 +648,9 @@
 				else if (in_array($aktivnost->aid, $nizSreVisArray)){
 					$dec_fizicna = "";
 					if(isset($opis)){
+						$decoded = json_decode($opis);
+						$dec_opis = $decoded->opis;
+						$dec_fizicna = $decoded->fizicna;
 						$decoded = json_decode($opis);
 						$dec_opis = $decoded->opis;
 						$dec_fizicna = $decoded->fizicna;
@@ -679,77 +697,125 @@
 			}
 			@endphp
 			</div>
-			@isset($aktivnostiNovorojencek)
+
+			@isset($obisk->aktivnostiNovorojencek)
 			<div class="panel-heading">
 			<h3 class="panel-title">Izvajanje aktivnosti novorojenčku</h3>
 			@php
+			if(!$obisk->obiski->isEmpty()){
+				$porocilaPrvegaObiska = $obisk->obiski[0]->porocilaPrvegaObiska;
+			} else {
+				$porocilaPrvegaObiska = null;
+			}
 			foreach($obisk->otroci as $otrok){
 				echo "<div class=\"form-group\">";
 				echo "<label class=\"label label-primary\">Ime in priimek novorojenčka</label>";
-				echo "<input type =\"text\" class=\"form-control nalog\" name=\"imePriimekZavOsebe\" value=\"$otrok->ime $otrok->priimek \" disabled></input>";
+				echo "<input type =\"text\" class=\"form-control nalog\" name=\"imePriimekZavOsebe\" value=\"$otrok->ime $otrok->priimek\" readonly></input>";
 				echo "</div>";
 				echo "<div class=\"form-group\">";
 				echo "<label class=\"label label-primary\">Pregled materinske knjižice in odpustnice iz porodnišnice. </label>";
-
-				if(isset($opis)){
-						$decoded = json_decode($opis);
-						$dec_datum = $decoded->datum;
-						$dec_teza = $decoded->teza;
-						$dec_visina = $decoded->visina;
-						$dec_opis = $decoded->opis;
-						echo "<div class=\"input-group\">";
-						echo "<div class=\"datepicker input-group date\" data-provide=\"datepicker\">";
-						echo "<div class=\"input-group-addon\">";
-						echo "<span class=\"glyphicon glyphicon-th\"></span>";
-						echo "</div>";
-						echo "<input type=\"text\" class=\"form-control\" 
-						value=\"$dec_datum\" name=\"$aktivnost->aid datum\" disabled>";
-						echo "</div>";
-						echo "</div>";
-						echo "<div class=\"input-group\">";
-						echo "<span class=\"input-group-addon\">g</span>";
-						echo "<input type=\"number\" name=\"$aktivnost->aid teza\" class=\"form-control input-sm\" value=\"$dec_teza\" placeholder=\"Porodna teza otroka\" disabled>";
-						echo "</div>";
-						echo "<div class=\"input-group\">";
-						echo "<span class=\"input-group-addon\">cm</span>";
-						echo "<input type=\"number\" name=\"$aktivnost->aid visina\" class=\"form-control input-sm\" value=\"$dec_visina\" placeholder=\"Porodna visina otroka\" disabled>";
-						echo "</div>";
-						echo "<div class=\"input-group\">";
-						echo "<input type=\"text\" name=\"$aktivnost->aid opis\" class=\"form-control input-sm\" value=\"$dec_opis\" disabled>";
-						echo "</div>";
-					} else {
-						echo "<div class=\"input-group\">";
-						echo "<div class=\"datepicker input-group date\" data-provide=\"datepicker\">";
-						echo "<div class=\"input-group-addon\">";
-						echo "<span class=\"glyphicon glyphicon-th\"></span>";
-						echo "</div>";
-						echo "<input type=\"text\" class=\"form-control\" placeholder=\"Datum rojstva otroka dd.mm.llll\" name=\"$aktivnost->aid datum\">";
-						echo "</div>";
-						echo "</div>";
-						echo "<div class=\"input-group\">";
-						echo "<span class=\"input-group-addon\">g</span>";
-						echo "<input type=\"number\" name=\"$aktivnost->aid teza\" class=\"form-control input-sm\" placeholder=\"Porodna teza otroka [g]\" min=\"100\" max=\"9999\">";
-						echo "</div>";
-						echo "<div class=\"input-group\">";
-						echo "<span class=\"input-group-addon\">cm</span>";
-						echo "<input type=\"number\" name=\"$aktivnost->aid visina\" class=\"form-control input-sm\" placeholder=\"Porodna visina otroka [cm]\" min=\"10\" max=\"99\">";
-						echo "</div>";
-						echo "<div class=\"input-group\">";
-						echo "<span class=\"input-group-addon\">Opis</span>";
-						echo "<input type=\"text\" name=\"$aktivnost->aid opis\" class=\"form-control input-sm\" placeholder=\"Opis\" >";
-						echo "</div>";
+				if($porocilaPrvegaObiska != null && !$porocilaPrvegaObiska->isEmpty()){
+					foreach($porocilaPrvegaObiska as $porociloPO){
+						$decoded = json_decode($porociloPO->opis);
+						if ($decoded->KZZ == $otrok->stevilka_KZZ){
+							$dec_datum = $decoded->datum;
+							$dec_teza = $decoded->teza;
+							$dec_visina = $decoded->visina;
+							$dec_opis = $decoded->opis;
+							echo "<div class=\"input-group\">";
+							echo "<div class=\"datepicker input-group date\" data-provide=\"datepicker\">";
+							echo "<div class=\"input-group-addon\">";
+							echo "<span class=\"glyphicon glyphicon-th\"></span>";
+							echo "</div>";
+							echo "<input type=\"text\" class=\"form-control\" 
+							value=\"$dec_datum\" name=\"25 datum $otrok->stevilka_KZZ\" readonly>";
+							echo "</div>";
+							echo "</div>";
+							echo "<div class=\"input-group\">";
+							echo "<span class=\"input-group-addon\">g</span>";
+							echo "<input type=\"number\" name=\"25 teza $otrok->stevilka_KZZ\" class=\"form-control input-sm\" value=\"$dec_teza\" placeholder=\"Porodna teza otroka\" readonly>";
+							echo "</div>";
+							echo "<div class=\"input-group\">";
+							echo "<span class=\"input-group-addon\">cm</span>";
+							echo "<input type=\"number\" name=\"25 visina $otrok->stevilka_KZZ\" class=\"form-control input-sm\" value=\"$dec_visina\" placeholder=\"Porodna visina otroka\" readonly>";
+							echo "</div>";
+							echo "<div class=\"input-group\">";
+							echo "<span class=\"input-group-addon\">Opis</span>";
+							echo "<input type=\"text\" name=\"25 opis $otrok->stevilka_KZZ\" class=\"form-control input-sm\" value=\"$dec_opis\" readonly>";
+							echo "</div>";
+						}
 					}
+				} else if (!$obisk->porocilo->where('aid',25)->isEmpty()){
+					foreach($obisk->porocilo->where('aid',25) as $knjizica){
+						$decoded = json_decode($knjizica->opis);
+						if($decoded->KZZ == $otrok->stevilka_KZZ){
+							$dec_datum = $decoded->datum;
+							$dec_teza = $decoded->teza;
+							$dec_visina = $decoded->visina;
+							$dec_opis = $decoded->opis;
+							echo "<div class=\"input-group\">";
+							echo "<div class=\"datepicker input-group date\" data-provide=\"datepicker\">";
+							echo "<div class=\"input-group-addon\">";
+							echo "<span class=\"glyphicon glyphicon-th\"></span>";
+							echo "</div>";
+							echo "<input type=\"text\" class=\"form-control\" 
+							value=\"$dec_datum\" name=\"25 datum $otrok->stevilka_KZZ\" readonly>";
+							echo "</div>";
+							echo "</div>";
+							echo "<div class=\"input-group\">";
+							echo "<span class=\"input-group-addon\">g</span>";
+							echo "<input type=\"number\" name=\"25 teza $otrok->stevilka_KZZ\" class=\"form-control input-sm\" value=\"$dec_teza\" placeholder=\"Porodna teza otroka\" readonly>";
+							echo "</div>";
+							echo "<div class=\"input-group\">";
+							echo "<span class=\"input-group-addon\">cm</span>";
+							echo "<input type=\"number\" name=\"25 visina $otrok->stevilka_KZZ\" class=\"form-control input-sm\" value=\"$dec_visina\" placeholder=\"Porodna visina otroka\" readonly>";
+							echo "</div>";
+							echo "<div class=\"input-group\">";
+							echo "<span class=\"input-group-addon\">Opis</span>";
+							echo "<input type=\"text\" name=\"25 opis $otrok->stevilka_KZZ\" class=\"form-control input-sm\" value=\"$dec_opis\" readonly>";
+							echo "</div>";
+						}
+					}
+				} else {
+					echo "<div class=\"input-group\">";
+					echo "<div class=\"datepicker input-group date\" data-provide=\"datepicker\">";
+					echo "<div class=\"input-group-addon\">";
+					echo "<span class=\"glyphicon glyphicon-th\"></span>";
+					echo "</div>";
+					echo "<input type=\"text\" class=\"form-control\" placeholder=\"Datum rojstva otroka dd.mm.llll\" name=\"25 datum $otrok->stevilka_KZZ\">";
+					echo "</div>";
+					echo "</div>";
+					echo "<div class=\"input-group\">";
+					echo "<span class=\"input-group-addon\">g</span>";
+					echo "<input type=\"number\" name=\"25 teza $otrok->stevilka_KZZ\" class=\"form-control input-sm\" placeholder=\"Porodna teza otroka [g]\" min=\"100\" max=\"9999\">";
+					echo "</div>";
+					echo "<div class=\"input-group\">";
+					echo "<span class=\"input-group-addon\">cm</span>";
+					echo "<input type=\"number\" name=\"25 visina $otrok->stevilka_KZZ\" class=\"form-control input-sm\" placeholder=\"Porodna visina otroka [cm]\" min=\"10\" max=\"99\">";
+					echo "</div>";
+					echo "<div class=\"input-group\">";
+					echo "<span class=\"input-group-addon\">Opis</span>";
+					echo "<input type=\"text\" name=\"25 opis $otrok->stevilka_KZZ\" class=\"form-control input-sm\" placeholder=\"Opis\" >";
+					echo "</div>";
+				}
 				echo "</div>";
 				$gArray = [54];
 				$cmArray = [55];
 				$DaNeArray = [56,57];
 				$izlocanjeArray = [58];
 				$porocila = $obisk->porocilo;
-					foreach ($aktivnostiNovorojencek as $aktivnostNovorojencek){
+				foreach ($obisk->aktivnostiNovorojencek as $aktivnostNovorojencek){
 						$opis = null;
+
 						foreach($porocila as $porocilo){
 							if ($porocilo['aid'] == $aktivnostNovorojencek->aid){
-								$opis = $porocilo->opis;
+								
+								$opis = json_decode($porocilo->opis);
+								if ($opis->KZZ == $otrok->stevilka_KZZ){
+
+									$opis = json_encode($opis);
+									break;
+								}								
 							}
 						}
 						echo "<div class=\"form-group\">";
@@ -757,13 +823,13 @@
 						if (in_array($aktivnostNovorojencek->aid, $gArray)){
 								echo "<div class=\"input-group\">";
 								echo "<span class=\"input-group-addon\">Trenutna teza [g]</span>";
-								echo "<input type=\"number\" name=\"$aktivnostNovorojencek->aid\" class=\"form-control input-sm\" value=\"$opis\" placeholder=\"Trenutna teza [g]\" min=\"100\" max=\"99999\">";
+								echo "<input type=\"number\" name=\"$aktivnostNovorojencek->aid $otrok->stevilka_KZZ\" class=\"form-control input-sm\" value=\"\" placeholder=\"Trenutna teza [g]\" min=\"100\" max=\"99999\">";
 								echo "</div>";
 						}
 						else if (in_array($aktivnostNovorojencek->aid, $cmArray)){
 								echo "<div class=\"input-group\">";
 								echo "<span class=\"input-group-addon\">Trenutna visina [cm]</span>";
-								echo "<input type=\"number\" name=\"$aktivnostNovorojencek->aid\" class=\"form-control input-sm\" value=\"$opis\" placeholder=\"Trenutna visina [cm]\" min=\"10\" max=\"150\">";
+								echo "<input type=\"number\" name=\"$aktivnostNovorojencek->aid $otrok->stevilka_KZZ\" class=\"form-control input-sm\" value=\"\" placeholder=\"Trenutna visina [cm]\" min=\"10\" max=\"150\">";
 								echo "</div>";
 						} 
 						else if (in_array($aktivnostNovorojencek->aid, $DaNeArray)){
@@ -773,24 +839,24 @@
 								$dec_opis = $decoded->opis;
 								if($dec_da == "ne"){
 									echo "<div class=\"input-group\">";
-									echo "<label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" value=\"ne\" name=\"$aktivnostNovorojencek->aid dane\" >Da</label><label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" value=\"da\" name=\"$aktivnostNovorojencek->aid dane\" checked >Ne</label>";
+									echo "<label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" value=\"ne\" name=\"$aktivnostNovorojencek->aid dane $otrok->stevilka_KZZ\" >Da</label><label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" value=\"da\" name=\"$aktivnostNovorojencek->aid dane $otrok->stevilka_KZZ\" checked >Ne</label>";
 								} else {
 									echo "<div class=\"input-group\">";
-									echo "<label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" value=\"ne\" name=\"$aktivnostNovorojencek->aid dane\" checked >Da</label><label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" value=\"da\" name=\"$aktivnostNovorojencek->aid dane\" >Ne</label>";
+									echo "<label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" value=\"ne\" name=\"$aktivnostNovorojencek->aid dane $otrok->stevilka_KZZ\" checked >Da</label><label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" value=\"da\" name=\"$aktivnostNovorojencek->aid dane $otrok->stevilka_KZZ\" >Ne</label>";
 								}
 								echo "</div>";
 								echo "<div class=\"input-group\">";
 								echo "<span class=\"input-group-addon\">Opis</span>";
-								echo "<input type=\"text\" name=\"$aktivnostNovorojencek->aid opis\" class=\"form-control input-sm opis\" value=\"$dec_opis\" placeholder=\"Opis\" >";
+								echo "<input type=\"text\" name=\"$aktivnostNovorojencek->aid opis $otrok->stevilka_KZZ\" class=\"form-control input-sm opis\" value=\"$dec_opis\" placeholder=\"Opis\" >";
 								echo "</div>";
 
 							} else {
 								echo "<div class=\"input-group\">";
-								echo "<label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" value=\"ne\" name=\"$aktivnostNovorojencek->aid dane\" >Da</label><label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" value=\"da\" name=\"$aktivnostNovorojencek->aid dane\" >Ne</label>";
+								echo "<label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" value=\"ne\" name=\"$aktivnostNovorojencek->aid dane $otrok->stevilka_KZZ\" >Da</label><label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" value=\"da\" name=\"$aktivnostNovorojencek->aid dane $otrok->stevilka_KZZ\" >Ne</label>";
 								echo "</div>";
 								echo "<div class=\"input-group\">";
 								echo "<span class=\"input-group-addon\">Opis</span>";
-								echo "<input type=\"text\" name=\"$aktivnostNovorojencek->aid opis\" class=\"form-control input-sm opis\" placeholder=\"Opis\" >";
+								echo "<input type=\"text\" name=\"$aktivnostNovorojencek->aid opis $otrok->stevilka_KZZ\" class=\"form-control input-sm opis\" placeholder=\"Opis\" >";
 								echo "</div>";
 							} 
 						}
@@ -801,42 +867,42 @@
 								$dec_opis = $decoded->opis;
 								if($dec_def == "ni"){
 									echo "<div class=\"input-group\">";
-									echo "<label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" value=\"ni\" name=\"$aktivnostNovorojencek->aid defekacija\" checked >Ni posebnosti</label><label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" value=\"mikcija\" name=\"$aktivnostNovorojencek->aid defekacija\" >Mikcija</label><label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" value=\"defekacija\" name=\"$aktivnostNovorojencek->aid defekacija\" >Defekacija</label><label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" value=\"kolike\" name=\"$aktivnostNovorojencek->aid defekacija\" >Kolike</label><label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" value=\"polivanje\" name=\"$aktivnostNovorojencek->aid defekacija\" >Polivanje</label><label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" value=\"bruhanje\" name=\"$aktivnostNovorojencek->aid defekacija\" >Bruhanje</label>";
+									echo "<label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" value=\"ni\" name=\"$aktivnostNovorojencek->aid defekacija $otrok->stevilka_KZZ\" checked >Ni posebnosti</label><label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" value=\"mikcija\" name=\"$aktivnostNovorojencek->aid defekacija $otrok->stevilka_KZZ\" >Mikcija</label><label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" value=\"defekacija\" name=\"$aktivnostNovorojencek->aid defekacija $otrok->stevilka_KZZ\" >Defekacija</label><label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" value=\"kolike\" name=\"$aktivnostNovorojencek->aid defekacija $otrok->stevilka_KZZ\" >Kolike</label><label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" value=\"polivanje\" name=\"$aktivnostNovorojencek->aid defekacija $otrok->stevilka_KZZ\" >Polivanje</label><label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" value=\"bruhanje\" name=\"$aktivnostNovorojencek->aid defekacija $otrok->stevilka_KZZ\" >Bruhanje</label>";
 								} else if($dec_def == "mikcija"){
 									echo "<div class=\"input-group\">";
-									echo "<label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" value=\"ni\" name=\"$aktivnostNovorojencek->aid defekacija\" >Ni posebnosti</label><label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" value=\"mikcija\" name=\"$aktivnostNovorojencek->aid defekacija\" checked >Mikcija</label><label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" value=\"defekacija\" name=\"$aktivnostNovorojencek->aid defekacija\" >Defekacija</label><label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" value=\"kolike\" name=\"$aktivnostNovorojencek->aid defekacija\" >Kolike</label><label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" value=\"polivanje\" name=\"$aktivnostNovorojencek->aid defekacija\" >Polivanje</label><label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" value=\"bruhanje\" name=\"$aktivnostNovorojencek->aid defekacija\" >Bruhanje</label>";
+									echo "<label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" value=\"ni\" name=\"$aktivnostNovorojencek->aid defekacija $otrok->stevilka_KZZ\" >Ni posebnosti</label><label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" value=\"mikcija\" name=\"$aktivnostNovorojencek->aid defekacija $otrok->stevilka_KZZ\" checked >Mikcija</label><label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" value=\"defekacija\" name=\"$aktivnostNovorojencek->aid defekacija $otrok->stevilka_KZZ\" >Defekacija</label><label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" value=\"kolike\" name=\"$aktivnostNovorojencek->aid defekacija $otrok->stevilka_KZZ\" >Kolike</label><label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" value=\"polivanje\" name=\"$aktivnostNovorojencek->aid defekacija $otrok->stevilka_KZZ\" >Polivanje</label><label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" value=\"bruhanje\" name=\"$aktivnostNovorojencek->aid defekacija $otrok->stevilka_KZZ\" >Bruhanje</label>";
 								} else if($dec_def == "defekacija"){
 									echo "<div class=\"input-group\">";
-									echo "<label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" value=\"ni\" name=\"$aktivnostNovorojencek->aid defekacija\" >Ni posebnosti</label><label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" value=\"mikcija\" name=\"$aktivnostNovorojencek->aid defekacija\" >Mikcija</label><label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" value=\"defekacija\" name=\"$aktivnostNovorojencek->aid defekacija\" checked >Defekacija</label><label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" value=\"kolike\" name=\"$aktivnostNovorojencek->aid defekacija\" >Kolike</label><label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" value=\"polivanje\" name=\"$aktivnostNovorojencek->aid defekacija\" >Polivanje</label><label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" value=\"bruhanje\" name=\"$aktivnostNovorojencek->aid defekacija\" >Bruhanje</label>";
+									echo "<label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" value=\"ni\" name=\"$aktivnostNovorojencek->aid defekacija $otrok->stevilka_KZZ\" >Ni posebnosti</label><label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" value=\"mikcija\" name=\"$aktivnostNovorojencek->aid defekacija $otrok->stevilka_KZZ\" >Mikcija</label><label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" value=\"defekacija\" name=\"$aktivnostNovorojencek->aid defekacija $otrok->stevilka_KZZ\" checked >Defekacija</label><label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" value=\"kolike\" name=\"$aktivnostNovorojencek->aid defekacija $otrok->stevilka_KZZ\" >Kolike</label><label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" value=\"polivanje\" name=\"$aktivnostNovorojencek->aid defekacija $otrok->stevilka_KZZ\" >Polivanje</label><label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" value=\"bruhanje\" name=\"$aktivnostNovorojencek->aid defekacija\" >Bruhanje</label>";
 								} else if($dec_def == "kolike"){
 									echo "<div class=\"input-group\">";
-									echo "<label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" value=\"ni\" name=\"$aktivnostNovorojencek->aid defekacija\" >Ni posebnosti</label><label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" value=\"mikcija\" name=\"$aktivnostNovorojencek->aid defekacija\" >Mikcija</label><label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" value=\"defekacija\" name=\"$aktivnostNovorojencek->aid defekacija\" >Defekacija</label><label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" value=\"kolike\" name=\"$aktivnostNovorojencek->aid defekacija\" checked >Kolike</label><label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" value=\"polivanje\" name=\"$aktivnostNovorojencek->aid defekacija\" >Polivanje</label><label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" value=\"bruhanje\" name=\"$aktivnostNovorojencek->aid defekacija\" >Bruhanje</label>";
+									echo "<label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" value=\"ni\" name=\"$aktivnostNovorojencek->aid defekacija $otrok->stevilka_KZZ\" >Ni posebnosti</label><label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" value=\"mikcija\" name=\"$aktivnostNovorojencek->aid defekacija $otrok->stevilka_KZZ\" >Mikcija</label><label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" value=\"defekacija\" name=\"$aktivnostNovorojencek->aid defekacija $otrok->stevilka_KZZ\" >Defekacija</label><label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" value=\"kolike\" name=\"$aktivnostNovorojencek->aid defekacija $otrok->stevilka_KZZ\" checked >Kolike</label><label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" value=\"polivanje\" name=\"$aktivnostNovorojencek->aid defekacija $otrok->stevilka_KZZ\" >Polivanje</label><label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" value=\"bruhanje\" name=\"$aktivnostNovorojencek->aid defekacija $otrok->stevilka_KZZ\" >Bruhanje</label>";
 								} else if($dec_def == "polivanje"){
 									echo "<div class=\"input-group\">";
-									echo "<label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" value=\"ni\" name=\"$aktivnostNovorojencek->aid defekacija\" >Ni posebnosti</label><label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" value=\"mikcija\" name=\"$aktivnostNovorojencek->aid defekacija\" >Mikcija</label><label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" value=\"defekacija\" name=\"$aktivnostNovorojencek->aid defekacija\" >Defekacija</label><label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" value=\"kolike\" name=\"$aktivnostNovorojencek->aid defekacija\" >Kolike</label><label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" value=\"polivanje\" name=\"$aktivnostNovorojencek->aid defekacija\" checked >Polivanje</label><label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" value=\"bruhanje\" name=\"$aktivnostNovorojencek->aid defekacija\" >Bruhanje</label>";
+									echo "<label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" value=\"ni\" name=\"$aktivnostNovorojencek->aid defekacija $otrok->stevilka_KZZ\" >Ni posebnosti</label><label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" value=\"mikcija\" name=\"$aktivnostNovorojencek->aid defekacija $otrok->stevilka_KZZ\" >Mikcija</label><label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" value=\"defekacija\" name=\"$aktivnostNovorojencek->aid defekacija $otrok->stevilka_KZZ\" >Defekacija</label><label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" value=\"kolike\" name=\"$aktivnostNovorojencek->aid defekacija $otrok->stevilka_KZZ\" >Kolike</label><label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" value=\"polivanje\" name=\"$aktivnostNovorojencek->aid defekacija $otrok->stevilka_KZZ\" checked >Polivanje</label><label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" value=\"bruhanje\" name=\"$aktivnostNovorojencek->aid defekacija $otrok->stevilka_KZZ\" >Bruhanje</label>";
 								} else {
 									echo "<div class=\"input-group\">";
-									echo "<label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" value=\"ni\" name=\"$aktivnostNovorojencek->aid defekacija\" >Ni posebnosti</label><label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" value=\"mikcija\" name=\"$aktivnostNovorojencek->aid defekacija\" >Mikcija</label><label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" value=\"defekacija\" name=\"$aktivnostNovorojencek->aid defekacija\" >Defekacija</label><label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" value=\"kolike\" name=\"$aktivnostNovorojencek->aid defekacija\" >Kolike</label><label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" value=\"polivanje\" name=\"$aktivnostNovorojencek->aid defekacija\" >Polivanje</label><label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" value=\"bruhanje\" name=\"$aktivnostNovorojencek->aid defekacija\" checked >Bruhanje</label>";
+									echo "<label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" value=\"ni\" name=\"$aktivnostNovorojencek->aid defekacija $otrok->stevilka_KZZ\" >Ni posebnosti</label><label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" value=\"mikcija\" name=\"$aktivnostNovorojencek->aid defekacija $otrok->stevilka_KZZ\" >Mikcija</label><label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" value=\"defekacija\" name=\"$aktivnostNovorojencek->aid defekacija $otrok->stevilka_KZZ\" >Defekacija</label><label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" value=\"kolike\" name=\"$aktivnostNovorojencek->aid defekacija $otrok->stevilka_KZZ\" >Kolike</label><label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" value=\"polivanje\" name=\"$aktivnostNovorojencek->aid defekacija $otrok->stevilka_KZZ\" >Polivanje</label><label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" value=\"bruhanje\" name=\"$aktivnostNovorojencek->aid defekacija $otrok->stevilka_KZZ\" checked >Bruhanje</label>";
 								}
 								echo "</div>";
 								echo "<div class=\"input-group\">";
 								echo "<span class=\"input-group-addon\">Opis</span>";
-								echo "<input type=\"text\" name=\"$aktivnostNovorojencek->aid opis\" class=\"form-control input-sm\" value=\"$dec_opis\" >";
+								echo "<input type=\"text\" name=\"$aktivnostNovorojencek->aid opis $otrok->stevilka_KZZ\" class=\"form-control input-sm\" value=\"$dec_opis\" >";
 								echo "</div>";
 							} else {
 								echo "<div class=\"input-group\">";
-								echo "<label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" value=\"ni\" name=\"$aktivnostNovorojencek->aid defekacija\" >Ni posebnosti</label><label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" value=\"mikcija\" name=\"$aktivnostNovorojencek->aid defekacija\" >Mikcija</label><label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" value=\"defekacija\" name=\"$aktivnostNovorojencek->aid defekacija\" >Defekacija</label><label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" value=\"kolike\" name=\"$aktivnostNovorojencek->aid defekacija\" >Kolike</label><label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" value=\"polivanje\" name=\"$aktivnostNovorojencek->aid defekacija\" >Polivanje</label><label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" value=\"bruhanje\" name=\"$aktivnostNovorojencek->aid defekacija\" >Bruhanje</label>";
+								echo "<label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" value=\"ni\" name=\"$aktivnostNovorojencek->aid defekacija $otrok->stevilka_KZZ\" >Ni posebnosti</label><label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" value=\"mikcija\" name=\"$aktivnostNovorojencek->aid defekacija $otrok->stevilka_KZZ\" >Mikcija</label><label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" value=\"defekacija\" name=\"$aktivnostNovorojencek->aid defekacija $otrok->stevilka_KZZ\" >Defekacija</label><label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" value=\"kolike\" name=\"$aktivnostNovorojencek->aid defekacija $otrok->stevilka_KZZ\" >Kolike</label><label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" value=\"polivanje\" name=\"$aktivnostNovorojencek->aid defekacija $otrok->stevilka_KZZ\" >Polivanje</label><label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" value=\"bruhanje\" name=\"$aktivnostNovorojencek->aid defekacija $otrok->stevilka_KZZ\" >Bruhanje</label>";
 								echo "</div>";
 								echo "<div class=\"input-group\">";
 								echo "<span class=\"input-group-addon\">Opis</span>";
-								echo "<input type=\"text\" name=\"$aktivnostNovorojencek->aid opis\" class=\"form-control input-sm\" placeholder=\"Opis\" >";
+								echo "<input type=\"text\" name=\"$aktivnostNovorojencek->aid opis $otrok->stevilka_KZZ\" class=\"form-control input-sm\" placeholder=\"Opis\" >";
 								echo "</div>";
 							} 
 						}
 						else {
 							echo "<div class=\"input-group\">";
 							echo "<span class=\"input-group-addon\">Opis</span>";
-							echo "<input type=\"text\" name=\"$aktivnostNovorojencek->aid\" class=\"form-control input-sm\" value=\"$opis\" placeholder=\"Opis\" >";
+							echo "<input type=\"text\" name=\"$aktivnostNovorojencek->aid $otrok->stevilka_KZZ\" class=\"form-control input-sm\" value=\"\" placeholder=\"Opis\" >";
 							echo "</div>";
 						}
 						
