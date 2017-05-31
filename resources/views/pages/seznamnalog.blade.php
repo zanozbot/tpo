@@ -155,7 +155,7 @@
 						  	$("#stevilcenje_{{$mini->sifra_dn}}").html(st);
 						  	st++;
 						</script>
-						<td><label>{{$mini->ime_pacienta.' '.$mini->priimek_pacienta}}</label></td>
+						<td><label>{{$mini->ime_pacienta.' '.$mini->priimek_pacienta}} </label></td>
 						<td><label>{{$mini->naslov_pacienta.', '.$mini->kraj_pacienta}}</label></td>
 						<td><label>{{$mini->ime_vrsta_obiska}}</label></td>
 						<td>
@@ -176,13 +176,19 @@
 							</div>
 						</td>
 						@if (Auth::user()->sifra_vloga == 3 || Auth::user()->sifra_vloga == 2)
-						<td>
-							<form role="form" method="POST" action="{{ route('filterSeznamNalogov') }}">
-								<button type="submit" class="btn btn-info btn-block"><span class="glyphicon glyphicon-trash"></button>
-								<input type="hidden" name="deleteNalog" value="{{ $mini->sifra_dn }}"/>
-								<input type="hidden" name="_token" value="{{ Session::token() }}"/>
-							</form>
-						</button></td>
+							@if(Auth::user()->delavec->sifra_delavec==$mini->sifra_delavca)
+							<td>
+								<form role="form" method="POST" action="{{ route('filterSeznamNalogov') }}">
+									<button type="submit" class="btn btn-info btn-block"><span class="glyphicon glyphicon-trash"></button>
+									<input type="hidden" name="deleteNalog" value="{{ $mini->sifra_dn }}"/>
+									<input type="hidden" name="_token" value="{{ Session::token() }}"/>
+								</form>
+							</td>
+							@else
+							<td>
+									<button disabled type="submit" class="btn btn-info btn-block"><span class="glyphicon glyphicon-trash" ></button>
+							</td>
+							@endif
 						@endif
 					</tr>
 				@endif
