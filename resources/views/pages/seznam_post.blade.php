@@ -15,15 +15,15 @@
 
 	<div class="panel panel-default">			
 	  <div class="panel-heading">
-		<h3 class="panel-title">Seznam meritev</h3>
+		<h3 class="panel-title">Seznam vrst razmerij</h3>
 	  </div>
 
 	  <div class="panel-body">
 	  	<div class="row">
 	  	<div class="col-lg-10 col-lg-offset-1">
-	  		<label class="label label-primary">Dodaj meritev</label>
-	  		<button type="button" class="btn btn-info btn-block" data-toggle="modal" data-target="#dodajMeritev"><span class="glyphicon glyphicon-plus"></span></button>
-							<div class="modal fade" id="dodajMeritev" role="dialog">
+	  		<label class="label label-primary">Dodaj vrsto razmerja</label>
+	  		<button type="button" class="btn btn-info btn-block" data-toggle="modal" data-target="#dodajPosto"><span class="glyphicon glyphicon-plus"></span></button>
+							<div class="modal fade" id="dodajPosto" role="dialog">
 								<div class="modal-dialog modal-lg">
 								  <div class="modal-content">
 									<div class="modal-header">
@@ -32,7 +32,7 @@
 									<div class="modal-body">
 									<div class="container-fluid">
 
-									  @include('includes.vrsta_meritev')
+									  @include('includes.vrsta_razmerja')
 
 									</div>
 									</div>
@@ -48,22 +48,22 @@
 				<thead>
 				  <tr>
 				  	<th></th>
-					<th><label class="label label-primary">Šifra</label></th>
-					<th><label class="label label-primary">Ime</label></th>
+					<th><label class="label label-primary">Poštna številka</label></th>
+					<th><label class="label label-primary">Kraj</label></th>
 					<th></th>
 					<th></th>
 				  </tr>
 				</thead>
 
 				<tbody>
-				@foreach($meritve as $meritev)
+				@foreach($poste as $posta)
 					<tr>
 						<td></td>
-						<td><label>{{ $meritev->sifra_meritev }}</label></td>
-						<td><label>{{ $meritev->ime }}</label></td>
+						<td><label>{{ $posta->postna_stevilka }}</label></td>
+						<td><label>{{ $posta->kraj }}</label></td>
 						<td>
-							<button type="button" class="btn btn-info btn-block" data-toggle="modal" data-target="#podrobnosti{{ $meritev->sifra_meritev }}"><span class="glyphicon glyphicon-pencil"></span></button>
-							<div class="modal fade" id="podrobnosti{{ $meritev->sifra_meritev }}" role="dialog">
+							<button type="button" class="btn btn-info btn-block" data-toggle="modal" data-target="#podrobnosti{{ $posta->sifra_posta }}"><span class="glyphicon glyphicon-pencil"></span></button>
+							<div class="modal fade" id="podrobnosti{{ $posta->sifra_posta }}" role="dialog">
 								<div class="modal-dialog modal-lg">
 								  <div class="modal-content">
 									<div class="modal-header">
@@ -72,7 +72,7 @@
 									<div class="modal-body">
 									<div class="container-fluid">
 
-									  @include('includes.vrsta_meritev')
+									  @include('includes.posta')
 
 									</div>
 									</div>
@@ -82,8 +82,8 @@
 						</td>
 						<td>
 							<form action="" method="post">
-							    <input class="btn {{ $meritev->izbrisan ? 'btn-primary' : 'btn-warning' }}  btn-block" type="submit" value="{{ $meritev->izbrisan ? 'Aktiviraj' : 'Deaktiviraj' }}">
-							    <input type="text" name="sifra" value="{{ $meritev->sifra_meritev }}" hidden="true">
+							    <input class="btn {{ $posta->izbrisan ? 'btn-primary' : 'btn-warning' }}  btn-block" type="submit" value="{{ $posta->izbrisan ? 'Aktiviraj' : 'Deaktiviraj' }}">
+							    <input type="text" name="sifra" value="{{ $posta->postna_stevilka }}" hidden="true">
 							    <input type="hidden" name="method" value="izbrisi"/>
 							    <input type="hidden" name="_token" value="{{ Session::token() }}"/>
 							</form>

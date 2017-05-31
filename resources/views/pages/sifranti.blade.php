@@ -23,6 +23,7 @@
 				  	<a href="{{ route('bolezni') }}" class="btn btn-info btn-block">Šifrant belezni</a>
 				  	<a href="{{ route('zdravila') }}" class="btn btn-info btn-block">Šifrant zdravil</a>
 				  	<a href="{{ route('meritve') }}" class="btn btn-info btn-block">Šifrant meritev</a>
+				  	<a href="{{ route('poste') }}" class="btn btn-info btn-block">Šifrant pošt</a>
 					<a href="{{ route('izvajalci') }}" class="btn btn-info btn-block">Šifrant izvajalcev zdravstvene dejavnosti</a>
 				  </div>
 				</div>

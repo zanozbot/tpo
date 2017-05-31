@@ -16,7 +16,7 @@ class RegistrationController extends Controller
 {
 	public function index() {
     	$okolisi = Okolis::where('sifra_okolis', '>', 1)->get();
-    	$poste = Posta::all();
+    	$poste = Posta::where('izbrisan', false)->get();
     	return view('pages.register', ['okolisi' => $okolisi, 'poste' => $poste]);
     }
 

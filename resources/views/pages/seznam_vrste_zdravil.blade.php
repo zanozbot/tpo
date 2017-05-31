@@ -86,7 +86,7 @@
 						</td>
 						<td>
 							<form action="" method="post">
-							    <input class="btn btn-warning btn-block" type="submit" value="X">
+							    <input class="btn {{ $zdravilo->izbrisan ? 'btn-primary' : 'btn-warning' }}  btn-block" type="submit" value="{{ $zdravilo->izbrisan ? 'Aktiviraj' : 'Deaktiviraj' }}">
 							    <input type="text" name="sifra" value="{{ $zdravilo->sifra_zdravilo }}" hidden="true">
 							    <input type="hidden" name="method" value="izbrisi"/>
 							    <input type="hidden" name="_token" value="{{ Session::token() }}"/>

@@ -9,6 +9,8 @@ class Posta extends Model
     protected $table = 'posta';
     protected $primaryKey = 'postna_stevilka';
 
+    protected $fillable = ['postna_stevilka', 'kraj', 'izbrisan'];
+
     // Primary key will not be auto incremented
     public $incrementing = false;
     // Model will not be timestamped

@@ -24,6 +24,9 @@ Route::post('/uporabniki', 'SifrantController@post_uporabniki');
 Route::get('/vrsteIzvajalcev', 'SifrantController@vrste_izvajalcev')->name('izvajalci');
 Route::post('/vrsteIzvajalcev', 'SifrantController@post_vrste_izvajalcev');
 
+Route::get('/poste', 'SifrantController@poste')->name('poste');
+Route::post('/poste', 'SifrantController@post_poste');
+
 Route::get('/vrsteMeritev', 'SifrantController@vrste_meritev')->name('meritve');
 Route::post('/vrsteMeritev', 'SifrantController@post_vrste_meritev');
 

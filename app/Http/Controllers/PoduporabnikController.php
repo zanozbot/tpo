@@ -46,7 +46,7 @@ class PoduporabnikController extends Controller
 
 			}
 			$glavni->datum_rojstva=$this->datum($glavni->datum_rojstva);
-			$poste = Posta::all();
+			$poste = Posta::where('izbrisan', false)->get();
     	return view('pages.poduporabnik', ['glavni' => $glavni, 'okolisi' => $okolisi, 'razmerja' => $razmerja, 'poduporabniki' => $poduporabniki, 'poste' => $poste]);
     }
 
