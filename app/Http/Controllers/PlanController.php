@@ -180,12 +180,12 @@ class PlanController extends Controller
 					}
 					$jsonOpis = json_encode($opis);
 					$porocilo = Porocilo::where('sifra_obisk', '=', $sifraObisk)
-						->where('aid', '=', $aid[0])->first();
+						->where('aid', '=', $aid[0])->get();
 					$KZZFound = false;
 					if(isset($porocila)){
 						foreach ($porocila as $porocilo){
 							$opis = json_decode($porocilo->opis);
-							if($opis['KZZ'] == $KZZ[0]){
+							if($opis->KZZ == $KZZ[0]){
 								$porocilo->opis = $jsonOpis;
 								$porocilo->save();
 								$KZZFound = true;
@@ -303,12 +303,12 @@ class PlanController extends Controller
 					}
 					$jsonOpis = json_encode($opis);
 					$porocilo = Porocilo::where('sifra_obisk', '=', $sifraObisk)
-						->where('aid', '=', $aid[0])->first();
+						->where('aid', '=', $aid[0])->get();
 					$KZZFound = false;
 					if(isset($porocila)){
 						foreach ($porocila as $porocilo){
 							$opis = json_decode($porocilo->opis);
-							if($opis['KZZ'] == $KZZ[0]){
+							if($opis->KZZ == $KZZ[0]){
 								$porocilo->opis = $jsonOpis;
 								$porocilo->save();
 								$KZZFound = true;
@@ -337,7 +337,7 @@ class PlanController extends Controller
 					if(isset($porocila)){
 						foreach ($porocila as $porocilo){
 							$opis = json_decode($porocilo->opis);
-							if($opis['KZZ'] == $KZZ[0]){
+							if($opis->KZZ == $KZZ[0]){
 								$porocilo->opis = $jsonOpis;
 								$porocilo->save();
 								$KZZFound = true;
@@ -369,12 +369,12 @@ class PlanController extends Controller
 					}
 					$jsonOpis = json_encode($opis);
 					$porocilo = Porocilo::where('sifra_obisk', '=', $sifraObisk)
-						->where('aid', '=', $aid[0])->first();
+						->where('aid', '=', $aid[0])->get();
 					$KZZFound = false;
 					if(isset($porocila)){
 						foreach ($porocila as $porocilo){
 							$opis = json_decode($porocilo->opis);
-							if($opis['KZZ'] == $KZZ[0]){
+							if($opis->KZZ == $KZZ[0]){
 								$porocilo->opis = $jsonOpis;
 								$porocilo->save();
 								$KZZFound = true;
