@@ -334,7 +334,7 @@ class SeznamObiskovVcerajController extends Controller
 			->join('izvajalec_zd', 'izvajalec_zd.sifra_zd', '=', 'delavec.sifra_zd')
 			->join('plan', 'obisk.sifra_plan', '=', 'plan.sifra_plan')
 			->where('datum_opravljenosti_obiska', date('Y-m-d',strtotime("-1 days")))
-			->orWhere('datum_opravljenosti_obiska', date('Y-m-d',strtotime("0 days")))
+			->orWhere('datum_opravljenosti_obiska', date('Y-m-d',strtotime("today UTC")))
 			->where('obisk.sifra_ps', '=', $sifraPS)
 			->orderBy('datum_opravljenosti_obiska', 'asc')
 			->get(array(
