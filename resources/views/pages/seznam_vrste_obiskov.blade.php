@@ -86,7 +86,7 @@
 						</td>
 						<td>
 							<form action="" method="post">
-							    <input class="btn btn-warning btn-block" type="submit" value="X">
+							    <input class="btn {{ $vrstaObiska->izbrisan ? 'btn-primary' : 'btn-warning' }}  btn-block" type="submit" value="{{ $vrstaObiska->izbrisan ? 'Aktiviraj' : 'Deaktiviraj' }}">
 							    <input type="text" name="sifra" value="{{ $vrstaObiska->sifra_vrsta_obisk }}" hidden="true">
 							    <input type="hidden" name="method" value="izbrisi"/>
 							    <input type="hidden" name="_token" value="{{ Session::token() }}"/>

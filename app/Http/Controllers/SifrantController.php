@@ -16,7 +16,7 @@ use App\Uporabnik;
 class SifrantController extends Controller
 {
     public function vrste_obiskov() {
-    	$vrsteObiskov = VrstaObiska::where('izbrisan', false)->get();
+    	$vrsteObiskov = VrstaObiska::all();
     	return view('pages.seznam_vrste_obiskov', ['vrsteObiskov' => $vrsteObiskov]);
     }
 
@@ -34,7 +34,7 @@ class SifrantController extends Controller
 
 				case 'izbrisi':
 					$vrstaObiska = VrstaObiska::find($request['sifra']);
-					$vrstaObiska->izbrisan = 1;
+					$vrstaObiska->izbrisan ^= 1;
 					$vrstaObiska->save();
 					return redirect()->back();
 
@@ -56,7 +56,7 @@ class SifrantController extends Controller
     }
 
     public function vrste_uporabniskih_vlog() {
-    	$vloge = Vloga::where('izbrisan', false)->get();
+    	$vloge = Vloga::all();
     	return view('pages.seznam_uporabniskih_vlog', ['vloge' => $vloge]);
     }
 
@@ -72,7 +72,7 @@ class SifrantController extends Controller
 
 				case 'izbrisi':
 					$vloga = Vloga::find($request['sifra']);
-					$vloga->izbrisan = 1;
+					$vloga->izbrisan ^= 1;
 					$vloga->save();
 					return redirect()->back();
 
@@ -92,7 +92,7 @@ class SifrantController extends Controller
     }
 
     public function vrste_razmerij() {
-    	$razmerja = SorodstvenoRazmerje::where('izbrisan', false)->get();
+    	$razmerja = SorodstvenoRazmerje::all();
     	return view('pages.seznam_vrste_razmerij', ['razmerja' => $razmerja]);
     }
 
@@ -108,7 +108,7 @@ class SifrantController extends Controller
 
 				case 'izbrisi':
 					$razmerje = SorodstvenoRazmerje::find($request['sifra']);
-					$razmerje->izbrisan = 1;
+					$razmerje->izbrisan ^= 1;
 					$razmerje->save();
 					return redirect()->back();
 
@@ -128,7 +128,7 @@ class SifrantController extends Controller
     }
 
     public function vrste_bolezni() {
-    	$bolezni = Bolezen::where('izbrisan', false)->get();
+    	$bolezni = Bolezen::all();
     	return view('pages.seznam_vrste_bolezni', ['bolezni' => $bolezni]);
     }
 
@@ -144,7 +144,7 @@ class SifrantController extends Controller
 
 				case 'izbrisi':
 					$bolezen = Bolezen::find($request['sifra']);
-					$bolezen->izbrisan = 1;
+					$bolezen->izbrisan ^= 1;
 					$bolezen->save();
 					return redirect()->back();
 
@@ -164,7 +164,7 @@ class SifrantController extends Controller
     }
 
     public function vrste_zdravil() {
-    	$zdravila = Zdravilo::where('izbrisan', false)->get();
+    	$zdravila = Zdravilo::all();
     	return view('pages.seznam_vrste_zdravil', ['zdravila' => $zdravila]);
     }
 
@@ -182,7 +182,7 @@ class SifrantController extends Controller
 
 				case 'izbrisi':
 					$zdravilo = Zdravilo::find($request['sifra']);
-					$zdravilo->izbrisan = 1;
+					$zdravilo->izbrisan ^= 1;
 					$zdravilo->save();
 					return redirect()->back();
 
@@ -204,7 +204,7 @@ class SifrantController extends Controller
     }
 
     public function vrste_meritev() {
-    	$meritve = Meritve::where('izbrisan', false)->get();
+    	$meritve = Meritve::all();
     	return view('pages.seznam_vrste_meritev', ['meritve' => $meritve]);
     }
 
@@ -220,7 +220,7 @@ class SifrantController extends Controller
 
 				case 'izbrisi':
 					$meritev = Meritve::find($request['sifra']);
-					$meritev->izbrisan = 1;
+					$meritev->izbrisan ^= 1;
 					$meritev->save();
 					return redirect()->back();
 
@@ -241,7 +241,7 @@ class SifrantController extends Controller
 
     public function vrste_izvajalcev() {
     	$poste = Posta::all();
-    	$izvajalci = IzvajalecZD::where('izbrisan', false)->get();
+    	$izvajalci = IzvajalecZD::all();
     	return view('pages.seznam_vrste_izvajalcev', ['izvajalci' => $izvajalci, 'poste' => $poste]);
     }
 
@@ -259,7 +259,7 @@ class SifrantController extends Controller
 
 				case 'izbrisi':
 					$izvajalec = IzvajalecZD::find($request['sifra']);
-					$izvajalec->izbrisan = 1;
+					$izvajalec->izbrisan ^= 1;
 					$izvajalec->save();
 					return redirect()->back();
 
@@ -300,6 +300,42 @@ class SifrantController extends Controller
 						$uporabnik->geslo = bcrypt($request['geslo']);
 					}
 					$uporabnik->save();
+					return redirect()->back();
+			}	
+
+
+    	return redirect()->back();
+    }
+
+    public function poste() {
+    	$poste = Posta::all();
+    	return view('pages.seznam_post', ['poste' => $poste]);
+    }
+
+    public function post_poste(Request $request) {
+    	$method = $request['method'];
+		switch ($method) {
+				case 'posodobi':
+					$posta = Posta::find($request['sifra']);
+
+					$posta->kraj = $request['kraj'];
+					$posta->save();
+					return redirect()->back();
+
+				case 'izbrisi':
+					$posta = Posta::find($request['sifra']);
+					$posta->izbrisan ^= 1;
+					$posta->save();
+					return redirect()->back();
+
+				case 'dodaj':
+					if(Posta::find($request['sifra'])) {
+						return redirect()->back()->with('warning', "Pošta že obstaja!");
+					}
+					Pošta::create([
+						'postna_stevilka' => $request['sifra'],
+						'kraj' => $request['kraj']
+					]);
 					return redirect()->back();
 			}	
 

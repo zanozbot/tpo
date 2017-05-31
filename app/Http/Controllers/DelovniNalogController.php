@@ -86,7 +86,12 @@ class DelovniNalogController extends Controller
                                     'pacient.ime as ime_pacienta',
                                     'stevilka_KZZ',
                                     'pacient.priimek as priimek_pacienta'));
-            return view('pages.nalog', ['bolezni' => $bolezni, 'zdravila' => $zdravila, 'errPacient' => $msg, 'pacienti' => $pacienti]);
+            if(Auth::user()->sifra_vloga == 3){
+                $vrsteObiska = VrstaObiska::where('preventivni', 1)->get();
+            } else if (Auth::user()->sifra_vloga == 2){
+                $vrsteObiska = VrstaObiska::all();
+            }
+            return view('pages.nalog', ['bolezni' => $bolezni, 'zdravila' => $zdravila, 'errPacient' => $msg, 'vrsteObiska' => $vrsteObiska, 'pacienti' => $pacienti]);
         }
 
         //preverjanje pacienta v bazi
@@ -102,7 +107,12 @@ class DelovniNalogController extends Controller
                                     'pacient.ime as ime_pacienta',
                                     'stevilka_KZZ',
                                     'pacient.priimek as priimek_pacienta'));
-                return view('pages.nalog', ['bolezni' => $bolezni, 'zdravila' => $zdravila, 'errPacient' => $msg, 'pacienti' => $pacienti]);
+                if(Auth::user()->sifra_vloga == 3){
+                    $vrsteObiska = VrstaObiska::where('preventivni', 1)->get();
+                } else if (Auth::user()->sifra_vloga == 2){
+                    $vrsteObiska = VrstaObiska::all();
+                }
+                return view('pages.nalog', ['bolezni' => $bolezni, 'zdravila' => $zdravila, 'errPacient' => $msg, 'vrsteObiska' => $vrsteObiska, 'pacienti' => $pacienti]);
             }
         }
 

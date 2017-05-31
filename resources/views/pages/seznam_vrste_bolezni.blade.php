@@ -82,7 +82,7 @@
 						</td>
 						<td>
 							<form action="" method="post">
-							    <input class="btn btn-warning btn-block" type="submit" value="X">
+							    <input class="btn {{ $bolezen->izbrisan ? 'btn-primary' : 'btn-warning' }}  btn-block" type="submit" value="{{ $bolezen->izbrisan ? 'Aktiviraj' : 'Deaktiviraj' }}">
 							    <input type="text" name="sifra" value="{{ $bolezen->sifra_bolezen }}" hidden="true">
 							    <input type="hidden" name="method" value="izbrisi"/>
 							    <input type="hidden" name="_token" value="{{ Session::token() }}"/>

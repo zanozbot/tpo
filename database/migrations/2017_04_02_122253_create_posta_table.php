@@ -16,6 +16,7 @@ class CreatePostaTable extends Migration
         Schema::create('posta', function (Blueprint $table) {
             $table->integer('postna_stevilka');
             $table->string('kraj');
+            $table->boolean('izbrisan')->default(false);
         });
     }
 
