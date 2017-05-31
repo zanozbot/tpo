@@ -14,7 +14,7 @@ class Uporabnik extends Authenticatable
     protected $primaryKey = 'id_uporabnik';
 
     protected $fillable = [
-        'ime', 'email', 'geslo', 'sifra_vloga', 'tel_stevilka', 'priimek', 'aktiviran','datum_prijave'
+        'ime', 'email', 'geslo', 'sifra_vloga', 'tel_stevilka', 'priimek', 'aktiviran','datum_prijave','izbrisan'
     ];
 
     protected $hidden = [
@@ -41,11 +41,11 @@ class Uporabnik extends Authenticatable
     public function pacient() {
     	return $this->hasMany('App\Pacient', 'id_uporabnik', 'id_uporabnik');
     }
-	
+
 	public function kontaktna_oseba() {
     	return $this->hasMany('App\KontaktnaOseba', 'id_uporabnik', 'id_uporabnik');
     }
-	
+
     public function aktivacija() {
         return $this->hasOne('App\AktivacijaRacuna', 'id_uporabnik', 'id_uporabnik');
     }

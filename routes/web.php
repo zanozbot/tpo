@@ -53,6 +53,10 @@ Route::post('/poduporabnik', 'PoduporabnikController@create')->name('poduporabni
 Route::get('/profil', 'ProfilController@index')->name('profil');
 Route::post('/profil', 'ProfilController@update')->name('profil_update');
 
+//Odstranitev racuna
+Route::get('/deleteAccount', 'OdstraniRacunController@index')->name('odstraniRacun');
+Route::post('/deleteAccount', 'OdstraniRacunController@delete_account')->name('odstraniRacunPOST');
+
 // Kontaktna oseba
 Route::get('/contact', 'ContactController@index')->name('contact');
 Route::post('/contact', 'ContactController@create')->name('contact_create_user');

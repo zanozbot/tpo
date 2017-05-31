@@ -15,6 +15,6 @@ class Material extends Model
     public $timestamps = false;
 
     public function delovni_nalog() {
-    	return $this->belongsToMany('App\DelovniNalog', 'delovni_nalog_material');
+    	return $this->belongsToMany('App\DelovniNalog', 'delovni_nalog_material','sifra_material','sifra_material');
     }
 }

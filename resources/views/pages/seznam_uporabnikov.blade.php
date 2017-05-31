@@ -13,7 +13,7 @@
         </div>
     @endif
 
-	<div class="panel panel-default">			
+	<div class="panel panel-default">
 	  <div class="panel-heading">
 		<h3 class="panel-title">Seznam zdravstvenega osebja</h3>
 	  </div>
@@ -29,6 +29,7 @@
 					<th><label class="label label-primary">Priimek</label></th>
 					<th><label class="label label-primary">Telefonska številka</label></th>
 					<th><label class="label label-primary">Vloga</label></th>
+					<th></th>
 					<th></th>
 				  </tr>
 				</thead>
@@ -67,6 +68,14 @@
 								  </div>
 								</div>
 							</div>
+						</td>
+						<td>
+							<form action="" method="post">
+								<button type="submit" class="btn btn-info btn-block"><span class="glyphicon glyphicon-trash"></button>
+								<input type="hidden" name="method" value="odstrani"/>
+								<input type="hidden" name="id" value="{{ $uporabnik->id_uporabnik }}"/>
+								<input type="hidden" name="_token" value="{{ Session::token() }}"/>
+							</form>
 						</td>
 					</tr>
 				@endforeach

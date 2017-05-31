@@ -169,7 +169,16 @@ class SeznamNalogovController extends Controller
 			}
 			foreach($obiski as $obisk){
 				$obisk->delete();
+				if(!empty($obisk->nadomesca()))
+				$obisk->nadomesca()->delete();
+				if(!empty($obisk->porocilo()))
+				$obisk->porocilo()->delete();
+				$obisk->plan()->delete();
 			}
+			if(!empty($nalog->material()))
+				$nalog->material()->detach();
+			$nalog->zdravilo()->detach();
+			$nalog->pacient()->detach();
 			$nalog->delete();
 
 			return redirect()->route('seznamNalogov');
@@ -299,7 +308,7 @@ class SeznamNalogovController extends Controller
 		        										'datum_rojstva'
 		        										));
         }
-        
+
         $pacienti = Pacient::get(array(
                                     'pacient.ime as ime_pacienta',
                                     'stevilka_KZZ'));

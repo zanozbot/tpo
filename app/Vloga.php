@@ -16,7 +16,7 @@ class Vloga extends Model
     // Model will not be timestamped
     public $timestamps = false;
 
-    public function uporanik() {
+    public function uporabnik() {
     	return $this->hasMany('App\Uporabnik', 'sifra_vloga', 'sifra_vloga');
     }
 }
