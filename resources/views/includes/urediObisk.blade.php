@@ -709,8 +709,7 @@
 				echo "</div>";
 				echo "<div class=\"form-group\">";
 				echo "<label class=\"label label-primary\">Pregled materinske knjižice in odpustnice iz porodnišnice. </label>";
-
-				if(isset($porocilaPrvegaObiska)){
+				if(!$porocilaPrvegaObiska->isEmpty()){
 					foreach($porocilaPrvegaObiska as $porociloPO){
 						$decoded = json_decode($porociloPO->opis);
 						if ($decoded->KZZ == $otrok->stevilka_KZZ){
