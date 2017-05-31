@@ -19,7 +19,7 @@ class PlanController extends Controller
 {
 
 	public function vnesiPodatke(Request $request, $sifraObisk, $sifraPlan, $izbraniDatum){
-		
+		//return $request->all();
 		foreach ($request->all() as $key => $value){
 			if (is_numeric($key)){
 				$porocilo = Porocilo::where('sifra_obisk', '=', $sifraObisk)
@@ -161,19 +161,38 @@ class PlanController extends Controller
 				}
 				if (strpos($key, 'datum') !== false){
 					preg_match('!\d+!', $key, $aid);
-					$opis = (object)array(
-						"datum" => $value,
-						"teza" => $request->input($aid[0].'_teza'),
-						"visina" => $request->input($aid[0].'_visina'),
-						"opis" => $request->input($aid[0].'_opis')
-						);
-					$jsonOpis = json_encode($opis);
-				$porocilo = Porocilo::where('sifra_obisk', '=', $sifraObisk)
-						->where('aid', '=', $aid[0])->first();
-					if(isset($porocilo)){
-						$porocilo->opis = $jsonOpis;
-						$porocilo->save();
+					preg_match('!\d{10}!', $key, $KZZ);
+					if($KZZ != null){
+						$opis = (object)array(
+							"datum" => $value,
+							"teza" => $request->input($aid[0].'_teza_'.$KZZ[0]),
+							"visina" => $request->input($aid[0].'_visina_'.$KZZ[0]),
+							"opis" => $request->input($aid[0].'_opis_'.$KZZ[0]),
+							"KZZ" => $KZZ[0]
+							);
 					} else {
+						$opis = (object)array(
+							"datum" => $value,
+							"teza" => $request->input($aid[0].'_teza'),
+							"visina" => $request->input($aid[0].'_visina'),
+							"opis" => $request->input($aid[0].'_opis')
+							);
+					}
+					$jsonOpis = json_encode($opis);
+					$porocilo = Porocilo::where('sifra_obisk', '=', $sifraObisk)
+						->where('aid', '=', $aid[0])->first();
+					$KZZFound = false;
+					if(isset($porocila)){
+						foreach ($porocila as $porocilo){
+							$opis = json_decode($porocilo->opis);
+							if($opis['KZZ'] == $KZZ[0]){
+								$porocilo->opis = $jsonOpis;
+								$porocilo->save();
+								$KZZFound = true;
+							}
+						}
+					} 
+					if($KZZFound == false){
 						Porocilo::create([
 							'sifra_obisk' => $sifraObisk,
 							'aid' => $aid[0],
@@ -269,17 +288,63 @@ class PlanController extends Controller
 				}
 				if (strpos($key, 'dane') !== false){
 					preg_match('!\d+!', $key, $aid);
-					$opis = (object)array(
-						"dane" => $value,
-						"opis" => $request->input($aid[0].'_opis')
-						);
+					preg_match('!\d{10}!', $key, $KZZ);
+					if($KZZ != null){
+						$opis = (object)array(
+							"dane" => $value,
+							"opis" => $request->input($aid[0].'_opis_'.$KZZ[0]),
+							"KZZ" => $KZZ[0]
+							);
+					} else {
+						$opis = (object)array(
+							"dane" => $value,
+							"opis" => $request->input($aid[0].'_opis_'.$KZZ[0])
+							);
+					}
 					$jsonOpis = json_encode($opis);
 					$porocilo = Porocilo::where('sifra_obisk', '=', $sifraObisk)
 						->where('aid', '=', $aid[0])->first();
-					if(isset($porocilo)){
-						$porocilo->opis = $jsonOpis;
-						$porocilo->save();
-					} else {
+					$KZZFound = false;
+					if(isset($porocila)){
+						foreach ($porocila as $porocilo){
+							$opis = json_decode($porocilo->opis);
+							if($opis['KZZ'] == $KZZ[0]){
+								$porocilo->opis = $jsonOpis;
+								$porocilo->save();
+								$KZZFound = true;
+							}
+						}
+					} 
+					if($KZZFound == false){
+						Porocilo::create([
+							'sifra_obisk' => $sifraObisk,
+							'aid' => $aid[0],
+							'opis' => $jsonOpis
+							]);
+					}
+				}
+				if(preg_match('!\d{2}_\d{10}!', $key)){
+					preg_match('!\d+!', $key, $aid);
+					preg_match('!\d{10}!', $key, $KZZ);
+					$opis = (object)array(
+						"opis" => $value,
+						"KZZ" => $KZZ[0]
+						);
+					$jsonOpis = json_encode($opis);
+					$porocila = Porocilo::where('sifra_obisk', '=', $sifraObisk)
+						->where('aid', '=', $aid[0])->get();
+					$KZZFound = false;
+					if(isset($porocila)){
+						foreach ($porocila as $porocilo){
+							$opis = json_decode($porocilo->opis);
+							if($opis['KZZ'] == $KZZ[0]){
+								$porocilo->opis = $jsonOpis;
+								$porocilo->save();
+								$KZZFound = true;
+							}
+						}
+					} 
+					if($KZZFound == false){
 						Porocilo::create([
 							'sifra_obisk' => $sifraObisk,
 							'aid' => $aid[0],
@@ -289,17 +354,34 @@ class PlanController extends Controller
 				}
 				if (strpos($key, 'defekacija') !== false){
 					preg_match('!\d+!', $key, $aid);
-					$opis = (object)array(
-						"defekacija" => $value,
-						"opis" => $request->input($aid[0].'_opis')
-						);
+					preg_match('!\d{10}!', $key, $KZZ);
+					if($KZZ != null){
+						$opis = (object)array(
+							"defekacija" => $value,
+							"opis" => $request->input($aid[0].'_opis_'.$KZZ[0]),
+							"KZZ" => $KZZ[0]
+							);
+					} else {
+						$opis = (object)array(
+							"defekacija" => $value,
+							"opis" => $request->input($aid[0].'_opis')
+							);
+					}
 					$jsonOpis = json_encode($opis);
 					$porocilo = Porocilo::where('sifra_obisk', '=', $sifraObisk)
 						->where('aid', '=', $aid[0])->first();
-					if(isset($porocilo)){
-						$porocilo->opis = $jsonOpis;
-						$porocilo->save();
-					} else {
+					$KZZFound = false;
+					if(isset($porocila)){
+						foreach ($porocila as $porocilo){
+							$opis = json_decode($porocilo->opis);
+							if($opis['KZZ'] == $KZZ[0]){
+								$porocilo->opis = $jsonOpis;
+								$porocilo->save();
+								$KZZFound = true;
+							}
+						}
+					} 
+					if($KZZFound == false){
 						Porocilo::create([
 							'sifra_obisk' => $sifraObisk,
 							'aid' => $aid[0],

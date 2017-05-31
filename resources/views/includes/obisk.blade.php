@@ -439,24 +439,7 @@
 						  <div class="panel-body">
 						  	<div class="form-group">
 							    <label class="label label-primary">Pregled materinske knjižice in odpustnice iz porodnišnice.</label>
-							    @php
-							    	$json = $obisk->porocilo[0]->opis;
-									$obj = json_decode($json);
-									$msg = "";
-									if ($obj->{'datum'} !== null) {
-										$msg = $msg."Datum rojstva otroka: ".$obj->{'datum'}.". ";
-									}
-									if ($obj->{'teza'} !== null) {
-										$msg = $msg."Porodna teža otroka: ".$obj->{'teza'}." g. ";
-									}
-									if ($obj->{'visina'} !== null) {
-										$msg = $msg."Porodna višina otroka: ".$obj->{'visina'}." cm. ";
-									}
-									if ($obj->{'opis'} !== null) {
-										$msg = $msg."Opis: ".$obj->{'opis'}.". ";
-									}
-									echo "<div class=\"form-control nalog\" name=\"vrstaStoritve\"><label>".$msg."</label></div>";
-								@endphp
+							    
 							</div>
 							<div class="form-group">
 							    <label class="label label-primary">Kontrola vitalnih funkcij.</label>
