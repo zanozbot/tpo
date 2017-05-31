@@ -85,7 +85,7 @@
 						<a href="{{route('seznamObiskov')}}"><span class="glyphicon glyphicon-list"></span> Obiski</a>
 					</li>
 					<li>
-						<a href="{{route('seznamObiskovVceraj')}}"><span class="glyphicon glyphicon-list"></span> Včerajšni obiski</a>
+						<a href="{{route('seznamObiskovVceraj')}}"><span class="glyphicon glyphicon-list"></span> Včerajšni/Današnji obiski</a>
 					</li>
 					<li>
 						<a href="{{route('prikazMeritev')}}"><span class="glyphicon glyphicon-list-alt"></span> Prikaz meritev</a>

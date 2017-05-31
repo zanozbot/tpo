@@ -21,6 +21,7 @@ class SeznamObiskovVcerajController extends Controller
 {
 
 	public function vnesiPodatke(Request $request, $sifraObisk){
+		
 		foreach ($request->all() as $key => $value){
 			if (is_numeric($key)){
 				$porocilo = Porocilo::where('sifra_obisk', '=', $sifraObisk)
@@ -162,19 +163,38 @@ class SeznamObiskovVcerajController extends Controller
 				}
 				if (strpos($key, 'datum') !== false){
 					preg_match('!\d+!', $key, $aid);
-					$opis = (object)array(
-						"datum" => $value,
-						"teza" => $request->input($aid[0].'_teza'),
-						"visina" => $request->input($aid[0].'_visina'),
-						"opis" => $request->input($aid[0].'_opis')
-						);
-					$jsonOpis = json_encode($opis);
-				$porocilo = Porocilo::where('sifra_obisk', '=', $sifraObisk)
-						->where('aid', '=', $aid[0])->first();
-					if(isset($porocilo)){
-						$porocilo->opis = $jsonOpis;
-						$porocilo->save();
+					preg_match('!\d{10}!', $key, $KZZ);
+					if($KZZ != null){
+						$opis = (object)array(
+							"datum" => $value,
+							"teza" => $request->input($aid[0].'_teza_'.$KZZ[0]),
+							"visina" => $request->input($aid[0].'_visina_'.$KZZ[0]),
+							"opis" => $request->input($aid[0].'_opis_'.$KZZ[0]),
+							"KZZ" => $KZZ[0]
+							);
 					} else {
+						$opis = (object)array(
+							"datum" => $value,
+							"teza" => $request->input($aid[0].'_teza'),
+							"visina" => $request->input($aid[0].'_visina'),
+							"opis" => $request->input($aid[0].'_opis')
+							);
+					}
+					$jsonOpis = json_encode($opis);
+					$porocilo = Porocilo::where('sifra_obisk', '=', $sifraObisk)
+						->where('aid', '=', $aid[0])->get();
+					$KZZFound = false;
+					if(isset($porocila)){
+						foreach ($porocila as $porocilo){
+							$opis = json_decode($porocilo->opis);
+							if($opis->KZZ == $KZZ[0]){
+								$porocilo->opis = $jsonOpis;
+								$porocilo->save();
+								$KZZFound = true;
+							}
+						}
+					} 
+					if($KZZFound == false){
 						Porocilo::create([
 							'sifra_obisk' => $sifraObisk,
 							'aid' => $aid[0],
@@ -270,17 +290,63 @@ class SeznamObiskovVcerajController extends Controller
 				}
 				if (strpos($key, 'dane') !== false){
 					preg_match('!\d+!', $key, $aid);
-					$opis = (object)array(
-						"dane" => $value,
-						"opis" => $request->input($aid[0].'_opis')
-						);
+					preg_match('!\d{10}!', $key, $KZZ);
+					if($KZZ != null){
+						$opis = (object)array(
+							"dane" => $value,
+							"opis" => $request->input($aid[0].'_opis_'.$KZZ[0]),
+							"KZZ" => $KZZ[0]
+							);
+					} else {
+						$opis = (object)array(
+							"dane" => $value,
+							"opis" => $request->input($aid[0].'_opis_'.$KZZ[0])
+							);
+					}
 					$jsonOpis = json_encode($opis);
 					$porocilo = Porocilo::where('sifra_obisk', '=', $sifraObisk)
-						->where('aid', '=', $aid[0])->first();
-					if(isset($porocilo)){
-						$porocilo->opis = $jsonOpis;
-						$porocilo->save();
-					} else {
+						->where('aid', '=', $aid[0])->get();
+					$KZZFound = false;
+					if(isset($porocila)){
+						foreach ($porocila as $porocilo){
+							$opis = json_decode($porocilo->opis);
+							if($opis->KZZ == $KZZ[0]){
+								$porocilo->opis = $jsonOpis;
+								$porocilo->save();
+								$KZZFound = true;
+							}
+						}
+					} 
+					if($KZZFound == false){
+						Porocilo::create([
+							'sifra_obisk' => $sifraObisk,
+							'aid' => $aid[0],
+							'opis' => $jsonOpis
+							]);
+					}
+				}
+				if(preg_match('!\d{2}_\d{10}!', $key)){
+					preg_match('!\d+!', $key, $aid);
+					preg_match('!\d{10}!', $key, $KZZ);
+					$opis = (object)array(
+						"opis" => $value,
+						"KZZ" => $KZZ[0]
+						);
+					$jsonOpis = json_encode($opis);
+					$porocila = Porocilo::where('sifra_obisk', '=', $sifraObisk)
+						->where('aid', '=', $aid[0])->get();
+					$KZZFound = false;
+					if(isset($porocila)){
+						foreach ($porocila as $porocilo){
+							$opis = json_decode($porocilo->opis);
+							if($opis->KZZ == $KZZ[0]){
+								$porocilo->opis = $jsonOpis;
+								$porocilo->save();
+								$KZZFound = true;
+							}
+						}
+					} 
+					if($KZZFound == false){
 						Porocilo::create([
 							'sifra_obisk' => $sifraObisk,
 							'aid' => $aid[0],
@@ -290,17 +356,34 @@ class SeznamObiskovVcerajController extends Controller
 				}
 				if (strpos($key, 'defekacija') !== false){
 					preg_match('!\d+!', $key, $aid);
-					$opis = (object)array(
-						"defekacija" => $value,
-						"opis" => $request->input($aid[0].'_opis')
-						);
+					preg_match('!\d{10}!', $key, $KZZ);
+					if($KZZ != null){
+						$opis = (object)array(
+							"defekacija" => $value,
+							"opis" => $request->input($aid[0].'_opis_'.$KZZ[0]),
+							"KZZ" => $KZZ[0]
+							);
+					} else {
+						$opis = (object)array(
+							"defekacija" => $value,
+							"opis" => $request->input($aid[0].'_opis')
+							);
+					}
 					$jsonOpis = json_encode($opis);
 					$porocilo = Porocilo::where('sifra_obisk', '=', $sifraObisk)
-						->where('aid', '=', $aid[0])->first();
-					if(isset($porocilo)){
-						$porocilo->opis = $jsonOpis;
-						$porocilo->save();
-					} else {
+						->where('aid', '=', $aid[0])->get();
+					$KZZFound = false;
+					if(isset($porocila)){
+						foreach ($porocila as $porocilo){
+							$opis = json_decode($porocilo->opis);
+							if($opis->KZZ == $KZZ[0]){
+								$porocilo->opis = $jsonOpis;
+								$porocilo->save();
+								$KZZFound = true;
+							}
+						}
+					} 
+					if($KZZFound == false){
 						Porocilo::create([
 							'sifra_obisk' => $sifraObisk,
 							'aid' => $aid[0],
@@ -333,8 +416,8 @@ class SeznamObiskovVcerajController extends Controller
 			->join('delavec', 'delavec.sifra_delavec', '=', 'delovni_nalog.sifra_delavec')
 			->join('izvajalec_zd', 'izvajalec_zd.sifra_zd', '=', 'delavec.sifra_zd')
 			->join('plan', 'obisk.sifra_plan', '=', 'plan.sifra_plan')
-			->where('datum_opravljenosti_obiska', date('Y-m-d',strtotime("-1 days")))
-			->orWhere('datum_opravljenosti_obiska', date('Y-m-d',strtotime("today UTC")))
+			->where('datum_opravljenosti_obiska', Carbon::yesterday())
+			->orWhere('datum_opravljenosti_obiska', Carbon::today())
 			->where('obisk.sifra_ps', '=', $sifraPS)
 			->orderBy('datum_opravljenosti_obiska', 'asc')
 			->get(array(
