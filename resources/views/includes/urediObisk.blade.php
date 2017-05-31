@@ -806,6 +806,7 @@
 				$porocila = $obisk->porocilo;
 				foreach ($obisk->aktivnostiNovorojencek as $aktivnostNovorojencek){
 						$opis = null;
+						break;
 						foreach($porocila as $porocilo){
 							if ($porocilo['aid'] == $aktivnostNovorojencek->aid){
 								
@@ -813,8 +814,10 @@
 								if ($opis->KZZ == $otrok->stevilka_KZZ){
 
 									$opis = json_encode($opis);
+									echo $opis;
 									break;
 								}
+								echo $opis;
 								
 							}
 						} 
