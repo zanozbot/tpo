@@ -477,6 +477,7 @@ class PlanController extends Controller
 											->where('sifra_plan', '=', $sifraPlan)->get();
 		        	foreach($mix2[$i]->obiski as $obisk){
 						$obisk->porocilaPrvegaObiska = $obisk->delovni_nalog->obisk[0]->porocilo->where('aid', '25');
+						$obisk->nosecnicaPrvegaObiska = $obisk->delovni_nalog->obisk[0]->porocilo->where('aid', '23');
 						//echo $obisk->porocilaPrvegaObiska;
 					} 
 
@@ -588,6 +589,7 @@ class PlanController extends Controller
 											->where('sifra_plan', '!=', $sifraPlan)->get();
 					foreach($mix1[$i]->obiski as $obisk){
 						$obisk->porocilaPrvegaObiska = $obisk->delovni_nalog->obisk[0]->porocilo->where('aid', '25');
+						$obisk->nosecnicaPrvegaObiska = $obisk->delovni_nalog->obisk[0]->porocilo->where('aid', '23');
 					}
 
 					$mix1[$i]->sestra = PatronaznaSestra::join('uporabnik', 'uporabnik.id_uporabnik', '=', 'patronazna_sestra.id_uporabnik')

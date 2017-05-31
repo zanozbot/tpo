@@ -477,10 +477,19 @@
 						
 				}
 				else if (in_array($aktivnost->aid, $kgArray)){
+					$nosecnicaPrvegaObiska = $obisk->obiski[0]->nosecnicaPrvegaObiska;
+					if($aktivnost->aid == '23' && !$nosecnicaPrvegaObiska->isEmpty()){
+						$teza = $nosecnicaPrvegaObiska->first()->opis;
+						echo "<div class=\"input-group\">";
+						echo "<span class=\"input-group-addon\">kg</span>";
+						echo "<input type=\"number\" name=\"$aktivnost->aid\" class=\"form-control input-sm\" value=\"$teza\" readonly>";
+						echo "</div>";
+					} else {
 						echo "<div class=\"input-group\">";
 						echo "<span class=\"input-group-addon\">kg</span>";
 						echo "<input type=\"number\" name=\"$aktivnost->aid\" class=\"form-control input-sm\" value=\"$opis\" placeholder=\"\" min=\"0\" max=\"999\">";
 						echo "</div>";
+					}
 				}
 				else if (in_array($aktivnost->aid, $kriArray)){
 						if(isset($opis)){
