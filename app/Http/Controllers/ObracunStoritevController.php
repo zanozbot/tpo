@@ -31,17 +31,21 @@ class ObracunStoritevController extends Controller
 
 		$stVsehObiskov_vrstaObiska = 0;
 		$skupniStroskiObiskov_vrstaObiska = 0;
+		$skupniStroski_vsi = 0;
 		$vrsteObiskov = VrstaObiska::all();
 		foreach ($vrsteObiskov as $vrstaObiska) {
 			$plani = Plan::join('obisk', 'obisk.sifra_plan', 'plan.sifra_plan')
 						->join('delovni_nalog', 'delovni_nalog.sifra_dn', 'obisk.sifra_dn')
 						->where('sifra_vrsta_obisk', $vrstaObiska->sifra_vrsta_obisk)
-						->whereBetween('datum_plan', [$zacetek, $konec])
+						->where('datum_plan', '>=', $zacetek)
+						->where('datum_plan', '<=', $konec)
 						->get();
+
 			$vrstaObiska->st_obiskov = count($plani);
 			$vrstaObiska->stroski = $vrstaObiska->st_obiskov*$vrstaObiska->cena;
 			$stVsehObiskov_vrstaObiska = $stVsehObiskov_vrstaObiska + $vrstaObiska->st_obiskov;
 			$skupniStroskiObiskov_vrstaObiska = $skupniStroskiObiskov_vrstaObiska + $vrstaObiska->stroski;
+			$skupniStroski_vsi = $skupniStroski_vsi + $vrstaObiska->stroski;
 		}
 
 		$stVsehObiskov_zdravilo = 0;
@@ -52,12 +56,15 @@ class ObracunStoritevController extends Controller
 						->join('delovni_nalog', 'delovni_nalog.sifra_dn', 'obisk.sifra_dn')
 						->join('delovni_nalog_zdravilo', 'delovni_nalog.sifra_dn', 'delovni_nalog_zdravilo.delovni_nalog_sifra_dn')
 						->where('zdravilo_sifra_zdravilo', $zdravilo->sifra_zdravilo)
-						->whereBetween('datum_plan', [$zacetek, $konec])
+						->where('datum_plan', '>=', $zacetek)
+						->where('datum_plan', '<=', $konec)
 						->get();
+
 			$zdravilo->st_obiskov = count($plani);
 			$zdravilo->stroski = $zdravilo->st_obiskov*$zdravilo->cena;
 			$stVsehObiskov_zdravilo = $stVsehObiskov_zdravilo + $zdravilo->st_obiskov;
 			$skupniStroskiObiskov_zdravilo = $skupniStroskiObiskov_zdravilo + $zdravilo->stroski;
+			$skupniStroski_vsi = $skupniStroski_vsi + $zdravilo->stroski;
 		}
 
     	return view('pages.prikaz_obracun', ['datumZacetek' => $request['datumZacetek'],
@@ -68,6 +75,7 @@ class ObracunStoritevController extends Controller
     										 'skupniStroskiObiskov_vrstaObiska' => $skupniStroskiObiskov_vrstaObiska,
     										 'stVsehObiskov_zdravilo' => $stVsehObiskov_zdravilo,
     										 'skupniStroskiObiskov_zdravilo' => $skupniStroskiObiskov_zdravilo,
+    										 'skupniStroski_vsi' => $skupniStroski_vsi
     										]);
     }
 }

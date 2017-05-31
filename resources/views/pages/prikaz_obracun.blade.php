@@ -12,12 +12,12 @@
 
 	<div class="panel panel-default">			
 	  <div class="panel-heading">
-		<h3 class="panel-title">Obračun storitev za obdobje od {{$datumZacetek}} do {{$datumKonec}}.</h3>
+		<h3 class="panel-title">Obračun stroškov storitev za obdobje od {{$datumZacetek}} do {{$datumKonec}}.</h3>
 	  </div>
     </div>
     <div class="panel panel-default">
         <div class="panel-heading">
-        <h3 class="panel-title">Cene glede na vrsto obiska</h3>
+        <h3 class="panel-title">Stroški glede na vrsto obiska</h3>
         </div>
         <div class="panel-body">
             <table class="table ">
@@ -25,7 +25,7 @@
                     <tr>
                     <th><label>Vrsta obiska</label></th>
                     <th><label>Število obiskov</label></th>
-                    <th><label>Skupna cena v €</label></th>
+                    <th><label>Skupni stroški v €</label></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -42,14 +42,14 @@
     </div>
     <div class="panel panel-default">
         <div class="panel-heading">
-        <h3 class="panel-title">Skupna cena vseh obiskov</h3>
+        <h3 class="panel-title">Skupni stroški vseh obiskov</h3>
         </div>
         <div class="panel-body">
             <table class="table ">
                 <thead>
                     <tr>
                     <th><label>Število obiskov</label></th>
-                    <th><label>Skupna cena v €</label></th>
+                    <th><label>Skupni stroški v €</label></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -63,7 +63,7 @@
     </div>
     <div class="panel panel-default">
         <div class="panel-heading">
-        <h3 class="panel-title">Cene glede na zdravilo</h3>
+        <h3 class="panel-title">Stroški glede na zdravilo</h3>
         </div>
         <div class="panel-body">
             <table class="table ">
@@ -71,7 +71,7 @@
                     <tr>
                     <th><label>Zdravilo</label></th>
                     <th><label>Število obiskov</label></th>
-                    <th><label>Skupna cena v €</label></th>
+                    <th><label>Skupni stroški v €</label></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -88,7 +88,28 @@
     </div>
     <div class="panel panel-default">
         <div class="panel-heading">
-        <h3 class="panel-title">Skupna cena vseh zdravil</h3>
+        <h3 class="panel-title">Skupni stroški vseh zdravil</h3>
+        </div>
+        <div class="panel-body">
+            <table class="table ">
+                <thead>
+                    <tr>
+                    <th><label>Število obiskov</label></th>
+                    <th><label>Skupni stroški v €</label></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><label>{{$stVsehObiskov_zdravilo}}</label></td>
+                        <td><label>{{$skupniStroskiObiskov_zdravilo}}</label></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+        <h3 class="panel-title">Skupni stroški</h3>
         </div>
         <div class="panel-body">
             <table class="table ">
@@ -100,8 +121,8 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td><label>{{$stVsehObiskov_zdravilo}}</label></td>
-                        <td><label>{{$skupniStroskiObiskov_zdravilo}}</label></td>
+                        <td><label>{{$stVsehObiskov_vrstaObiska}}</label></td>
+                        <td><label>{{$skupniStroski_vsi}}</label></td>
                     </tr>
                 </tbody>
             </table>

@@ -486,6 +486,7 @@ class PlanController extends Controller
 
 		        	$mix2[$i]->zdravila = DelovniNalog::join('delovni_nalog_zdravilo', 'delovni_nalog.sifra_dn', '=', 'delovni_nalog_zdravilo.delovni_nalog_sifra_dn')
 		        									->join('zdravilo', 'zdravilo.sifra_zdravilo', '=', 'delovni_nalog_zdravilo.zdravilo_sifra_zdravilo')
+		        									->where('delovni_nalog.sifra_dn', $mix2[$i]->sifra_dn)
 		        									->get(array(
 		        										'zdravilo.sifra_zdravilo as sifra_zdravila',
 		        										'zdravilo.ime as ime_zdravila',
@@ -588,6 +589,7 @@ class PlanController extends Controller
 
 		        	$mix1[$i]->zdravila = DelovniNalog::join('delovni_nalog_zdravilo', 'delovni_nalog.sifra_dn', '=', 'delovni_nalog_zdravilo.delovni_nalog_sifra_dn')
 		        									->join('zdravilo', 'zdravilo.sifra_zdravilo', '=', 'delovni_nalog_zdravilo.zdravilo_sifra_zdravilo')
+		        									->where('delovni_nalog.sifra_dn', $mix1[$i]->sifra_dn)
 		        									->get(array(
 		        										'zdravilo.sifra_zdravilo as sifra_zdravila',
 		        										'zdravilo.ime as ime_zdravila',

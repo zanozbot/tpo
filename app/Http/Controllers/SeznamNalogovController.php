@@ -93,6 +93,7 @@ class SeznamNalogovController extends Controller
 
 		        	$mix[$i]->zdravila = DelovniNalog::join('delovni_nalog_zdravilo', 'delovni_nalog.sifra_dn', '=', 'delovni_nalog_zdravilo.delovni_nalog_sifra_dn')
 		        									->join('zdravilo', 'zdravilo.sifra_zdravilo', '=', 'delovni_nalog_zdravilo.zdravilo_sifra_zdravilo')
+		        									->where('delovni_nalog.sifra_dn', $mix[$i]->sifra_dn)
 		        									->get(array(
 		        										'zdravilo.sifra_zdravilo as sifra_zdravila',
 		        										'zdravilo.ime as ime_zdravila',
@@ -264,6 +265,7 @@ class SeznamNalogovController extends Controller
 
         	$filteredMix[$i]->zdravila = DelovniNalog::join('delovni_nalog_zdravilo', 'delovni_nalog.sifra_dn', '=', 'delovni_nalog_zdravilo.delovni_nalog_sifra_dn')
         									->join('zdravilo', 'zdravilo.sifra_zdravilo', '=', 'delovni_nalog_zdravilo.zdravilo_sifra_zdravilo')
+        									->where('delovni_nalog.sifra_dn', $filteredMix[$i]->sifra_dn)
         									->get(array(
         										'zdravilo.sifra_zdravilo as sifra_zdravila',
         										'zdravilo.ime as ime_zdravila',
