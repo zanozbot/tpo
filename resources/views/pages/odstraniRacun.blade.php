@@ -20,7 +20,7 @@
 						<form role="form" method="post">
 						<div class="form-group">
 							<label class="label label-primary">Geslo za potrditev</label>
-							<input type="password" name="geslo" class="form-control input-sm" placeholder="geslo"
+							<input type="password" name="geslo" class="form-control input-sm" placeholder="Geslo"
 							 required>
 						  </div>
 						  <input type="submit" value="Odstrani račun" class="btn btn-info btn-block">

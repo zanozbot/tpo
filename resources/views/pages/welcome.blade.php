@@ -18,10 +18,10 @@
         @endif
 		@if (Auth::user())
         <div class="alert alert-success text-center">Dobrodošli {{Auth::user()->ime}}! <div>
-		@else	
+		@else
 		<div class="container">
 			<div class="row">
-				<div class="box" >  
+				<div class="box" >
 					<div class="col-lg-12 text-center">
 						<div id="carousel" class="carousel slide">
 							<!-- Indicators -->
@@ -34,10 +34,10 @@
 							<!-- Wrapper for slides -->
 							<div class="carousel-inner">
 								<div class="item active">
-									<img class="img-responsive img-full" src="img/slide-1.jpg" alt="">
+									<img class="img-responsive img-full" src="img/slide-2.jpg" alt="">
 								</div>
 								<div class="item">
-									<img class="img-responsive img-full" src="img/slide-2.jpg" alt="">
+									<img class="img-responsive img-full" src="img/slide-1.jpg" alt="">
 								</div>
 								<div class="item">
 									<img class="img-responsive img-full" src="img/slide-3.jpg" alt="">
@@ -56,7 +56,7 @@
 				</div>
 			</div>
 			<div class="row">
-				<div class="box" >                   
+				<div class="box" >
 					<div class="col-lg-12">
 						<div class="text-center">
 						<h1>Patronažna služba</h1>
@@ -70,6 +70,6 @@
 			</div>
 		</div>
 		@endif
-		
+
 
 @stop

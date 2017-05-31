@@ -21,7 +21,7 @@ class DelovniNalog extends Model
     }
 
     public function material() {
-    	return $this->belongsToMany('App\Material', 'delovni_nalog_material');
+    	return $this->belongsToMany('App\Material', 'delovni_nalog_material','sifra_dn','sifra_dn');
     }
 
     public function obisk() {

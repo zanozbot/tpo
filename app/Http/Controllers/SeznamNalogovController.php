@@ -175,8 +175,8 @@ class SeznamNalogovController extends Controller
 				$obisk->porocilo()->delete();
 				$obisk->plan()->delete();
 			}
-			//if(!empty($nalog->material()))
-			//$nalog->material()->detach();
+			if(!empty($nalog->material()))
+				$nalog->material()->detach();
 			$nalog->zdravilo()->detach();
 			$nalog->pacient()->detach();
 			$nalog->delete();
