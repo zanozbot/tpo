@@ -31,7 +31,6 @@ class SifrantController extends Controller
 					$vrstaObiska->cena = $request['cena'];
 					$vrstaObiska->save();
 					return redirect()->back();
-
 				case 'izbrisi':
 					$vrstaObiska = VrstaObiska::find($request['sifra']);
 					$vrstaObiska->izbrisan ^= 1;
@@ -49,7 +48,7 @@ class SifrantController extends Controller
 						'cena' => $request['cena']
 					]);
 					return redirect()->back();
-			}	
+			}
 
 
     	return redirect()->back();
@@ -85,7 +84,7 @@ class SifrantController extends Controller
 						'ime' => $request['ime']
 					]);
 					return redirect()->back();
-			}	
+			}
 
 
     	return redirect()->back();
@@ -121,7 +120,7 @@ class SifrantController extends Controller
 						'ime' => $request['ime']
 					]);
 					return redirect()->back();
-			}	
+			}
 
 
     	return redirect()->back();
@@ -157,7 +156,7 @@ class SifrantController extends Controller
 						'ime' => $request['ime']
 					]);
 					return redirect()->back();
-			}	
+			}
 
 
     	return redirect()->back();
@@ -197,7 +196,7 @@ class SifrantController extends Controller
 						'cena' => $request['cena']
 					]);
 					return redirect()->back();
-			}	
+			}
 
 
     	return redirect()->back();
@@ -233,7 +232,7 @@ class SifrantController extends Controller
 						'ime' => $request['ime']
 					]);
 					return redirect()->back();
-			}	
+			}
 
 
     	return redirect()->back();
@@ -274,20 +273,20 @@ class SifrantController extends Controller
 						'naslov' => $request['naslov']
 					]);
 					return redirect()->back();
-			}	
+			}
 
 
     	return redirect()->back();
     }
 
     public function uporabniki() {
-    	$uporabniki = Uporabnik::whereNotIn('sifra_vloga', [1,6])->get();
+    	$uporabniki = Uporabnik::whereNotIn('sifra_vloga', [1,6,7])->where('izbrisan',0)->get();
     	return view('pages.seznam_uporabnikov', ['uporabniki' => $uporabniki]);
     }
 
     public function post_uporabniki(Request $request) {
     	$method = $request['method'];
-		
+
 		switch ($method) {
 				case 'posodobi':
 					$uporabnik = Uporabnik::find($request['id']);
@@ -301,7 +300,15 @@ class SifrantController extends Controller
 					}
 					$uporabnik->save();
 					return redirect()->back();
-			}	
+          case 'odstrani':
+            $uporabnik=Uporabnik::find($request['id']);
+            $uporabnik->geslo = NULL;
+            $uporabnik->email = NULL;
+            $uporabnik->tel_stevilka = NULL;
+            $uporabnik->izbrisan = 1;
+            $uporabnik->save();
+            return redirect()->back();
+			}
 
 
     	return redirect()->back();
@@ -337,7 +344,7 @@ class SifrantController extends Controller
 						'kraj' => $request['kraj']
 					]);
 					return redirect()->back();
-			}	
+			}
 
 
     	return redirect()->back();

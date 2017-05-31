@@ -12,12 +12,12 @@ class PacientTableSeeder extends Seeder
      */
     public function run()
     {
-        
+
 
         \DB::table('pacient')->delete();
-        
+
         \DB::table('pacient')->insert(array (
-            0 => 
+            0 =>
             array (
                 'stevilka_KZZ' => 1234567890,
                 'postna_stevilka' => 1000,
@@ -32,7 +32,7 @@ class PacientTableSeeder extends Seeder
                 'sifra_razmerje' => '/',
                 'id_uporabnik' => 5,
             ),
-            1 => 
+            1 =>
             array (
                 'stevilka_KZZ' => 1111111111,
                 'postna_stevilka' => 1000,
@@ -47,7 +47,7 @@ class PacientTableSeeder extends Seeder
                 'sifra_razmerje' => 'A1',
                 'id_uporabnik' => 14,
             ),
-            2 => 
+            2 =>
             array (
                 'stevilka_KZZ' => 1211111111,
                 'postna_stevilka' => 1000,
@@ -62,7 +62,7 @@ class PacientTableSeeder extends Seeder
                 'sifra_razmerje' => 'A1',
                 'id_uporabnik' => 15,
             ),
-            3 => 
+            3 =>
             array (
                 'stevilka_KZZ' => 1311111111,
                 'postna_stevilka' => 1000,
@@ -77,7 +77,7 @@ class PacientTableSeeder extends Seeder
                 'sifra_razmerje' => '/',
                 'id_uporabnik' => 6,
             ),
-            4 => 
+            4 =>
             array (
                 'stevilka_KZZ' => 1411111111,
                 'postna_stevilka' => 1000,
@@ -92,7 +92,7 @@ class PacientTableSeeder extends Seeder
                 'sifra_razmerje' => '/',
                 'id_uporabnik' => 7,
             ),
-            5 => 
+            5 =>
             array (
                 'stevilka_KZZ' => 1511111111,
                 'postna_stevilka' => 1000,
@@ -107,7 +107,7 @@ class PacientTableSeeder extends Seeder
                 'sifra_razmerje' => '/',
                 'id_uporabnik' => 8,
             ),
-            6 => 
+            6 =>
             array (
                 'stevilka_KZZ' => 1122222222,
                 'postna_stevilka' => 2000,
@@ -120,10 +120,10 @@ class PacientTableSeeder extends Seeder
                 'datum_rojstva' => '1931-07-27',
                 'spol' => 'm',
                 'sifra_razmerje' => '/',
-                'id_uporabnik' => 13,
+                'id_uporabnik' => 12,
             ),
         ));
-        
-        
+
+
     }
 }

@@ -39,7 +39,7 @@ class UporabnikController extends Controller
                 return redirect()->route('home')->with('danger', 'Zaradi 3 napačnih poskusov smo vam onemogočili prijavo za 2 minuti.');
             }
         }
-        
+
         if(Auth::attempt($userdata)){
             $this->resetirajPoskuse($zaklepanjeIP);
             $uporabnik = Auth::user();
@@ -48,7 +48,7 @@ class UporabnikController extends Controller
 
             if(!$uporabnik->aktiviran) {
                 Auth::logout();
-                return redirect()->route('home')->with('warning', 'Vaš račun še ni bil aktiviran. Preverite svoj email.');
+                return redirect()->route('prijava')->with('warning', 'Vaš račun še ni bil aktiviran. Preverite svoj email.');
             }
 
             //return $uporabnik; // Zbriši!
@@ -56,7 +56,7 @@ class UporabnikController extends Controller
         } else {
             $zaklepanjeIP->poskus += 1;
             $zaklepanjeIP->save();
-            return redirect()->route('home')->with('warning', 'Napačno uporabniško ime ali geslo.');
+            return redirect()->route('prijava')->with('warning', 'Napačno uporabniško ime ali geslo.');
         }
     }
 

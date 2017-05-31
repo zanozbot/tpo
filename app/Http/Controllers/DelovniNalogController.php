@@ -11,6 +11,7 @@ use App\Zdravilo;
 use App\VrstaObiska;
 use App\Obisk;
 use App\Delavec;
+use App\Uporabnik;
 use App\Plan;
 use App\PatronaznaSestra;
 
@@ -21,10 +22,12 @@ class DelovniNalogController extends Controller
             if (Auth::user()->sifra_vloga == 3 || Auth::user()->sifra_vloga == 2){
                 $bolezni = Bolezen::where('izbrisan', false)->get();
                 $zdravila = Zdravilo::where('izbrisan', false)->get();
-                $pacienti = Pacient::get(array(
-                                    'pacient.ime as ime_pacienta',
-                                    'stevilka_KZZ',
-                                    'pacient.priimek as priimek_pacienta'));
+                $pacienti = Uporabnik::where('izbrisan',false)->where('sifra_vloga',6)
+                    ->join('pacient', 'uporabnik.id_uporabnik', '=', 'pacient.id_uporabnik')
+                    ->get(array(
+                                        'pacient.ime as ime_pacienta',
+                                        'stevilka_KZZ',
+                                        'pacient.priimek as priimek_pacienta'));
                 if(Auth::user()->sifra_vloga == 3){
                     $vrsteObiska = VrstaObiska::where('preventivni', 1)
                                     ->where('izbrisan', false)->get();
@@ -41,7 +44,7 @@ class DelovniNalogController extends Controller
     }
 
     public function getFilteredResults(Request $request){
-        
+
     }
 
     public function create(Request $request) {
@@ -126,7 +129,7 @@ class DelovniNalogController extends Controller
                 'koncniDatum' => $prevKoncniDatum,
                 'obveznoDrzanjeDatuma' => 'required'
             ], $messages, $customAttributes);
-        
+
         //Sprememba formata datuma
         $datumZacetni = $request['datumPrvegaObiska'];
        	list($dan, $mesec, $leto) = explode(".", $datumZacetni);
@@ -136,7 +139,7 @@ class DelovniNalogController extends Controller
         if($datumKoncni){
             list($dan, $mesec, $leto) = explode(".", $datumKoncni);
             $datumKoncni = $leto.'-'.$mesec.'-'.$dan;
-        }        
+        }
 
         //obveznost datuma kot 0 ali 1
         $datumObvezen = 0;
@@ -193,7 +196,7 @@ class DelovniNalogController extends Controller
         $okolis = $okolis[0]->sifra_okolis;
         $sifraPS = PatronaznaSestra::where('sifra_okolis', '=', $okolis)->get();
         $sifraPS = $sifraPS[0]->sifra_ps;
-        
+
         //kreiranje obiskov
         if ($datumKoncni) {
             $date1 = date_create((string)$datumZacetni);
@@ -266,7 +269,7 @@ class DelovniNalogController extends Controller
             $korak = $request['casovniInterval'];
             $datumObiska = $datumZacetni;
             for ($x = 0; $x < $request['steviloObiskov']; $x++) {
-                
+
                 //preverjanje ali je datum sobota ali nedelja
                 $novDatumObiska = $datumObiska;
                 if (date('N', strtotime($novDatumObiska)) == 6) {
@@ -306,7 +309,7 @@ class DelovniNalogController extends Controller
                 $datumObiska = date('Y-m-d', strtotime($datumObiska.' + '.$korak.' days'));
             }
         }
-        
+
         $pacienti = Pacient::get(array(
                                     'pacient.ime as ime_pacienta',
                                     'stevilka_KZZ',
@@ -319,4 +322,3 @@ class DelovniNalogController extends Controller
         return redirect()->route('nalog')->with(['status' => true, 'pacienti' => $pacienti, 'vrsteObiska' =>$vrsteObiska]);
     }
 }
-

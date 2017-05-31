@@ -111,11 +111,13 @@
 					<li>
 						<a href="{{route('prikazMeritev')}}"><span class="glyphicon glyphicon-list-alt"></span> Prikaz meritev</a>
 					</li>
+					<li>
+						<a href="{{route('odstraniRacun')}}"><span class="glyphicon glyphicon-list-alt"></span> Odstrani račun</a>
+					</li>
 					@endif
 					<li>
 						<a href="{{route('newPassword')}}"><span class="fa fa-edit"></span> Spremeni geslo</a>
 						<a href="{{route('odjava')}}"><span class="fa fa-power-off"></span>	Odjava</a>
-
 					</li>
 					<li>
 						<a id="datum_zadnje_prijave" class="line"></a>
