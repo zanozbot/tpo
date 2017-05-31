@@ -437,160 +437,219 @@
 					  <div class="form-group">
 						<div class="form-control nalog" name="vrstaStoritve">
 						  <div class="panel-body">
-						  	<div class="form-group">
-							    <label class="label label-primary">Pregled materinske knjižice in odpustnice iz porodnišnice.</label>
-							    
-							</div>
 							<div class="form-group">
 							    <label class="label label-primary">Kontrola vitalnih funkcij.</label>
-								<div class="form-control nalog" name="vrstaStoritve"><label>{{$obisk->porocilo[1]->opis}}</label></div>
+								<div class="form-control nalog" name="vrstaStoritve"><label>{{$obisk->porocilo[0]->opis}}</label></div>
 							</div>
 							<div class="form-group">
 							    <label class="label label-primary">Opazovanje čišče.</label>
-								<div class="form-control nalog" name="vrstaStoritve"><label>{{$obisk->porocilo[2]->opis}}</label></div>
+								<div class="form-control nalog" name="vrstaStoritve"><label>{{$obisk->porocilo[1]->opis}}</label></div>
 							</div>
 							<div class="form-group">
 							    <label class="label label-primary">Nadzor nad izločanjem blata in urina.</label>
+								<div class="form-control nalog" name="vrstaStoritve"><label>{{$obisk->porocilo[2]->opis}}</label></div>
+							</div>
+							<div class="form-group">
+							    <label class="label label-primary">Zdravstveno vzgojno delo glede pravilnega rokovanja z novorojenčkom.</label>
 								<div class="form-control nalog" name="vrstaStoritve"><label>{{$obisk->porocilo[3]->opis}}</label></div>
 							</div>
 							<div class="form-group">
-							    <label class="label label-primary">Zdravstveno vzgojno delo.</label>
+							    <label class="label label-primary">Motivacija za dojenje. Nadzor in pomoč pri dojenju.</label>
 								<div class="form-control nalog" name="vrstaStoritve"><label>{{$obisk->porocilo[4]->opis}}</label></div>
 							</div>
 							<div class="form-group">
-							    <label class="label label-primary">Motivacija za dojenje. Nadzor in pomoč pri dojenju.</label>
+							    <label class="label label-primary">Svetovanje o čustveni podpori s strani partnerja.</label>
 								<div class="form-control nalog" name="vrstaStoritve"><label>{{$obisk->porocilo[5]->opis}}</label></div>
 							</div>
 							<div class="form-group">
-							    <label class="label label-primary">Svetovanje o čustveni podpori s strani partnerja.</label>
+							    <label class="label label-primary">Seznanitev o otrokovih potrebah po toplini, nežnosti in varnosti.</label>
 								<div class="form-control nalog" name="vrstaStoritve"><label>{{$obisk->porocilo[6]->opis}}</label></div>
 							</div>
 							<div class="form-group">
-							    <label class="label label-primary">Seznanitev o otrokovih potrebah po toplini, nežnosti in varnosti.</label>
+							    <label class="label label-primary">Svetovanje o spalnih potrebah otročnice, pravilni negi in higienskem režimu.</label>
 								<div class="form-control nalog" name="vrstaStoritve"><label>{{$obisk->porocilo[7]->opis}}</label></div>
 							</div>
 							<div class="form-group">
-							    <label class="label label-primary">Svetovanje o spalnih potrebah otročnice, pravilni negi in higienskem režimu.</label>
+							    <label class="label label-primary">Svetovanje o pravilni prehrani, pitju ustreznih količin tekočin.</label>
 								<div class="form-control nalog" name="vrstaStoritve"><label>{{$obisk->porocilo[8]->opis}}</label></div>
 							</div>
 							<div class="form-group">
-							    <label class="label label-primary">Svetovanje o pravilni prehrani, pitju ustreznih količin tekočin.</label>
+							    <label class="label label-primary">Poučitev o poporodni telovadbi.</label>
 								<div class="form-control nalog" name="vrstaStoritve"><label>{{$obisk->porocilo[9]->opis}}</label></div>
 							</div>
 							<div class="form-group">
-							    <label class="label label-primary">Poučitev o poporodni telovadbi.</label>
+							    <label class="label label-primary">Sezananitev z nekaterimi obolenji.</label>
 								<div class="form-control nalog" name="vrstaStoritve"><label>{{$obisk->porocilo[10]->opis}}</label></div>
 							</div>
 							<div class="form-group">
-							    <label class="label label-primary">Sezananitev z nekaterimi obolenji.</label>
+							    <label class="label label-primary">Napotitev na poporodni pregled.</label>
 								<div class="form-control nalog" name="vrstaStoritve"><label>{{$obisk->porocilo[11]->opis}}</label></div>
 							</div>
 							<div class="form-group">
-							    <label class="label label-primary">Napotitev na poporodni pregled.</label>
+							    <label class="label label-primary">Seznanitev z metodami zaščite pred nezaželjno nosečnostjo.</label>
 								<div class="form-control nalog" name="vrstaStoritve"><label>{{$obisk->porocilo[12]->opis}}</label></div>
 							</div>
 							<div class="form-group">
-							    <label class="label label-primary">Seznanitev z metodami zaščite pred nezaželjno nosečnostjo.</label>
-								<div class="form-control nalog" name="vrstaStoritve"><label>{{$obisk->porocilo[13]->opis}}</label></div>
-							</div>
-							<div class="form-group">
 							    <label class="label label-primary">Svetovanje o normalnem delu, življenju in spolnih odnosih.</label>
-								<div class="form-control nalog" name="vrstaStoritve"><label>{{$obisk->porocilo[14]->opis}}</label></div>
+								<div class="form-control nalog" name="vrstaStoritve"><label>{{$obisk->porocilo[13]->opis}}</label></div>
 							</div>
 							<div class="form-group">
 							    <label class="label label-primary">Krvni pritisk.</label>
 								@php
-							    	$json = $obisk->porocilo[15]->opis;
+							    	$json = $obisk->porocilo[14]->opis;
 									$obj = json_decode($json);
 									$msg = "";
 									if ($obj->{'sis'} !== null) {
-										$msg = $msg."Sistolični: ".$obj->{'sis'}.". ";
+										$msg = $msg."Sistolični: ".$obj->{'sis'}." mm Hg. ";
 									}
 									if ($obj->{'dia'} !== null) {
-										$msg = $msg."Diastolični: ".$obj->{'dia'}.". ";
+										$msg = $msg."Diastolični: ".$obj->{'dia'}." mm Hg. ";
 									}
 									echo "<div class=\"form-control nalog\" name=\"vrstaStoritve\"><label>$msg</label></div>";
 								@endphp
 							</div>
-							<div class="form-group">
-							    <label class="label label-primary">Srčni utrip.</label>
-								<div class="form-control nalog" name="vrstaStoritve"><label>{{$obisk->porocilo[16]->opis}}</label></div>
-							</div>
-							<div class="form-group">
-							    <label class="label label-primary">Dihanje.</label>
-								<div class="form-control nalog" name="vrstaStoritve"><label>{{$obisk->porocilo[17]->opis}}</label></div>
-							</div>
-							<div class="form-group">
-							    <label class="label label-primary">Telesna temperatura.</label>
-								<div class="form-control nalog" name="vrstaStoritve"><label>{{$obisk->porocilo[18]->opis}}</label></div>
-							</div>
-							<div class="form-group">
-							    <label class="label label-primary">Trenutna telesna teža.</label>
-								<div class="form-control nalog" name="vrstaStoritve"><label>{{$obisk->porocilo[19]->opis}}</label></div>
-							</div>
-							<div class="form-group">
-							    <label class="label label-primary">Anamneza: počutje, telesni znaki nosečnosti.</label>
-								<div class="form-control nalog" name="vrstaStoritve"><label>{{$obisk->porocilo[20]->opis}}</label></div>
-							</div>
-							<div class="form-group">
-							    <label class="label label-primary">Družinska anamneza.</label>
-								<div class="form-control nalog" name="vrstaStoritve"><label>{{$obisk->porocilo[21]->opis}}</label></div>
-							</div>
-								@php
-									$i = 22;
+
+							@php
+								$i = 15;
+								$json = $obisk->porocilo[$i]->opis;
+								$msg = "";
+								if ($json !== null){
+									$msg = $json." udarcev/minuto";
+								}
+								echo "<div class=\"form-group\"><label class=\"label label-primary\">Srčni utrip.</label><div class=\"form-control nalog\" name=\"vrstaStoritve\"><label>".$msg."</label></div></div>";
+								$i = $i + 1;
+
+								$json = $obisk->porocilo[$i]->opis;
+								$msg = "";
+								if ($json !== null){
+									$msg = $json." vdihov/minuto";
+								}
+								echo "<div class=\"form-group\"><label class=\"label label-primary\">Dihanje.</label><div class=\"form-control nalog\" name=\"vrstaStoritve\"><label>".$msg."</label></div></div>";
+								$i = $i + 1;
+
+								$json = $obisk->porocilo[$i]->opis;
+								$msg = "";
+								if ($json !== null){
+									$msg = $json." C";
+								}
+								echo "<div class=\"form-group\"><label class=\"label label-primary\">Telesna temperatura.</label><div class=\"form-control nalog\" name=\"vrstaStoritve\"><label>".$msg."</label></div></div>";
+								$i = $i + 1;
+
+								$json = $obisk->porocilo[$i]->opis;
+								$msg = "";
+								if ($json !== null){
+									$msg = $json." kg";
+								}
+								echo "<div class=\"form-group\"><label class=\"label label-primary\">Trenutna telesna teža.</label><div class=\"form-control nalog\" name=\"vrstaStoritve\"><label>".$msg."</label></div></div>";
+								$i = $i + 1;
+
+								echo "<div class=\"form-group\"><label class=\"label label-primary\">Anamneza: počutje, telesni znaki nosečnosti.</label><div class=\"form-control nalog\" name=\"vrstaStoritve\"><label>".$obisk->porocilo[$i]->opis."</label></div></div>";
+								$i = $i + 1;
+
+								echo "<div class=\"form-group\"><label class=\"label label-primary\">Družinska anamneza.</label><div class=\"form-control nalog\" name=\"vrstaStoritve\"><label>".$obisk->porocilo[$i]->opis."</label></div></div>";
+								$i = $i + 1;
+
+								$json = $obisk->porocilo[$i]->opis;
+								$obj = json_decode($json);
+								$msg = "";
+								if ($obisk->porocilo[$i]->aid == 47){
+									if ($obj->{'mot'} === "moteno") {
+										$msg = $msg."Je moteno. ";
+									} else if ($obj->{'mot'} === "niMoteno"){
+										$msg = $msg."Ni moteno. ";
+									}
+									if ($obj->{'opis'} !== null) {
+										$msg = $msg."Opis: ".$obj->{'opis'}.". ";
+									}
+									$i = $i + 1;
+								}
+								echo "<div class=\"form-group\"><label class=\"label label-primary\">Izražanje čustev.</label><div class=\"form-control nalog\" name=\"vrstaStoritve\"><label>".$msg."</label></div></div>";
+
+								$json = $obisk->porocilo[$i]->opis;
+								$obj = json_decode($json);
+								$msg = "";
+								if ($obisk->porocilo[$i]->aid == 48){
+									if ($obj->{'fizicna'} === "nizka") {
+										$msg = $msg."Nizka obremenjenost. ";
+									} else if ($obj->{'fizicna'} === "srednja"){
+										$msg = $msg."Srednja obremenjenost. ";
+									} else  if ($obj->{'fizicna'} === "visoka"){
+										$msg = $msg."Visoka obremenjenost. ";
+									}
+									if ($obj->{'opis'} !== null) {
+										$msg = $msg."Opis: ".$obj->{'opis'}.". ";
+									}
+									$i = $i + 1;
+								}
+								echo "<div class=\"form-group\"><label class=\"label label-primary\">Fizična obremenjenost.</label><div class=\"form-control nalog\" name=\"vrstaStoritve\"><label>".$msg."</label></div></div>";
+
+								foreach ($obisk->otroci as $otrok) {
+
+									echo "<div class=\"form-group\">";
+									echo "<label class=\"label label-primary\">Ime in priimek novorojenčka</label>";
+									echo "<div class=\"form-control nalog\" name=\"vrstaStoritve\"><label>".$otrok->ime." ".$otrok->priimek."</label></div>";
+									echo "</div>";
+
 									$json = $obisk->porocilo[$i]->opis;
 									$obj = json_decode($json);
 									$msg = "";
-									if ($obisk->porocilo[$i]->aid == 47){
-										if ($obj->{'mot'} === "moteno") {
-											$msg = $msg."Je moteno. ";
-										} else if ($obj->{'mot'} === "niMoteno"){
-											$msg = $msg."Ni moteno. ";
-										}
-										if ($obj->{'opis'} !== null) {
-											$msg = $msg."Opis: ".$obj->{'opis'}.". ";
-										}
-										$i = $i + 1;
+									if ($obj->{'datum'} !== null) {
+										$msg = $msg."Datum rojstva: ".$obj->{'datum'}.". ";
 									}
-									echo "<div class=\"form-group\"><label class=\"label label-primary\">Izražanje čustev.</label><div class=\"form-control nalog\" name=\"vrstaStoritve\"><label>".$msg."</label></div></div>";
+									if ($obj->{'teza'} !== null) {
+										$msg = $msg."Teža: ".$obj->{'teza'}." g. ";
+									}
+									if ($obj->{'visina'} !== null) {
+										$msg = $msg."Višina: ".$obj->{'visina'}." cm. ";
+									}
+									if ($obj->{'opis'} !== null) {
+										$msg = $msg."Opis: ".$obj->{'opis'}.". ";
+									}
+
+									echo "<div class=\"form-group\"><label class=\"label label-primary\">Pregled materinske knjižice in odpustnice iz porodnišnice.</label><div class=\"form-control nalog\" name=\"vrstaStoritve\"><label>".$msg."</label></div></div>";
+									$i = $i + 1;
+
+									$json = $obisk->porocilo[$i]->opis;
+									$obj = json_decode($json);
+									echo "<div class=\"form-group\"><label class=\"label label-primary\">Prikaz nege dojenčka.</label><div class=\"form-control nalog\" name=\"vrstaStoritve\"><label>".$obj->{'opis'}."</label></div></div>";
+									$i = $i + 1;
+
+									$json = $obisk->porocilo[$i]->opis;
+									$obj = json_decode($json);
+									echo "<div class=\"form-group\"><label class=\"label label-primary\">Nega popokovne rane.</label><div class=\"form-control nalog\" name=\"vrstaStoritve\"><label>".$obj->{'opis'}."</label></div></div>";
+									$i = $i + 1;
+
+									$json = $obisk->porocilo[$i]->opis;
+									$obj = json_decode($json);
+									echo "<div class=\"form-group\"><label class=\"label label-primary\">Nudenje pomoči pri dojenju in seznanitev s tehnikami dojenja.</label><div class=\"form-control nalog\" name=\"vrstaStoritve\"><label>".$obj->{'opis'}."</label></div></div>";
+									$i = $i + 1;
+
+									$json = $obisk->porocilo[$i]->opis;
+									$obj = json_decode($json);
+									echo "<div class=\"form-group\"><label class=\"label label-primary\">Ureditev ležišča.</label><div class=\"form-control nalog\" name=\"vrstaStoritve\"><label>".$obj->{'opis'}."</label></div></div>";
+									$i = $i + 1;
+
+									$json = $obisk->porocilo[$i]->opis;
+									$obj = json_decode($json);
+									echo "<div class=\"form-group\"><label class=\"label label-primary\">Svetovanje o povijanju, oblačenju, slačenju.</label><div class=\"form-control nalog\" name=\"vrstaStoritve\"><label>".$obj->{'opis'}."</label></div></div>";
+									$i = $i + 1;
 
 									$json = $obisk->porocilo[$i]->opis;
 									$obj = json_decode($json);
 									$msg = "";
-									if ($obisk->porocilo[$i]->aid == 48){
-										if ($obj->{'fizicna'} === "nizka") {
-											$msg = $msg."Nizka obremenjenost. ";
-										} else if ($obj->{'fizicna'} === "srednja"){
-											$msg = $msg."Srednja obremenjenost. ";
-										} else  if ($obj->{'fizicna'} === "visoka"){
-											$msg = $msg."Visoka obremenjenost. ";
-										}
-										if ($obj->{'opis'} !== null) {
-											$msg = $msg."Opis: ".$obj->{'opis'}.". ";
-										}
-										$i = $i + 1;
+									if ($obj->{'opis'} !== null){
+										$msg = "g";
 									}
-									echo "<div class=\"form-group\"><label class=\"label label-primary\">Fizična obremenjenost.</label><div class=\"form-control nalog\" name=\"vrstaStoritve\"><label>".$msg."</label></div></div>";
-
-									echo "<div class=\"form-group\"><label class=\"label label-primary\">Prikaz nege dojenčka.</label><div class=\"form-control nalog\" name=\"vrstaStoritve\"><label>".$obisk->porocilo[$i]->opis."</label></div></div>";
+									echo "<div class=\"form-group\"><label class=\"label label-primary\">Trenutna telesna teža.</label><div class=\"form-control nalog\" name=\"vrstaStoritve\"><label>".$obj->{'opis'}." ".$msg."</label></div></div>";
 									$i = $i + 1;
 
-									echo "<div class=\"form-group\"><label class=\"label label-primary\">Nega popokovne rane.</label><div class=\"form-control nalog\" name=\"vrstaStoritve\"><label>".$obisk->porocilo[$i]->opis."</label></div></div>";
-									$i = $i + 1;
-
-									echo "<div class=\"form-group\"><label class=\"label label-primary\">Nudenje pomoči pri dojenju in seznanitev s tehnikami dojenja.</label><div class=\"form-control nalog\" name=\"vrstaStoritve\"><label>".$obisk->porocilo[$i]->opis."</label></div></div>";
-									$i = $i + 1;
-
-									echo "<div class=\"form-group\"><label class=\"label label-primary\">Ureditev ležišča.</label><div class=\"form-control nalog\" name=\"vrstaStoritve\"><label>".$obisk->porocilo[$i]->opis."</label></div></div>";
-									$i = $i + 1;
-
-									echo "<div class=\"form-group\"><label class=\"label label-primary\">Svetovanje o povijanju, oblačenju, slačenju.</label><div class=\"form-control nalog\" name=\"vrstaStoritve\"><label>".$obisk->porocilo[$i]->opis."</label></div></div>";
-									$i = $i + 1;
-
-									echo "<div class=\"form-group\"><label class=\"label label-primary\">Trenutna telesna teža.</label><div class=\"form-control nalog\" name=\"vrstaStoritve\"><label>".$obisk->porocilo[$i]->opis."</label></div></div>";
-									$i = $i + 1;
-
-									echo "<div class=\"form-group\"><label class=\"label label-primary\">Trenutna telesna višina.</label><div class=\"form-control nalog\" name=\"vrstaStoritve\"><label>".$obisk->porocilo[$i]->opis."</label></div></div>";
+									$json = $obisk->porocilo[$i]->opis;
+									$obj = json_decode($json);
+									$msg = "";
+									if ($obj->{'opis'} !== null){
+										$msg = "cm";
+									}
+									echo "<div class=\"form-group\"><label class=\"label label-primary\">Trenutna telesna višina.</label><div class=\"form-control nalog\" name=\"vrstaStoritve\"><label>".$obj->{'opis'}." ".$msg."</label></div></div>";
 									$i = $i + 1;
 
 									$json = $obisk->porocilo[$i]->opis;
@@ -649,20 +708,29 @@
 									}
 									echo "<div class=\"form-group\"><label class=\"label label-primary\">Izločanje in odvajanje.</label><div class=\"form-control nalog\" name=\"vrstaStoritve\"><label>".$msg."</label></div></div>";
 
-									echo "<div class=\"form-group\"><label class=\"label label-primary\">Ritem spanja.</label><div class=\"form-control nalog\" name=\"vrstaStoritve\"><label>".$obisk->porocilo[$i]->opis."</label></div></div>";
+									$json = $obisk->porocilo[$i]->opis;
+									$obj = json_decode($json);
+									echo "<div class=\"form-group\"><label class=\"label label-primary\">Ritem spanja.</label><div class=\"form-control nalog\" name=\"vrstaStoritve\"><label>".$obj->{'opis'}."</label></div></div>";
 									$i = $i + 1;
 
-									echo "<div class=\"form-group\"><label class=\"label label-primary\">Povišanje bilirubina (zlatenica).</label><div class=\"form-control nalog\" name=\"vrstaStoritve\"><label>".$obisk->porocilo[$i]->opis."</label></div></div>";
+									$json = $obisk->porocilo[$i]->opis;
+									$obj = json_decode($json);
+									echo "<div class=\"form-group\"><label class=\"label label-primary\">Povišanje bilirubina (zlatenica).</label><div class=\"form-control nalog\" name=\"vrstaStoritve\"><label>".$obj->{'opis'}."</label></div></div>";
 									$i = $i + 1;
 
-									echo "<div class=\"form-group\"><label class=\"label label-primary\">Kolki.</label><div class=\"form-control nalog\" name=\"vrstaStoritve\"><label>".$obisk->porocilo[$i]->opis."</label></div></div>";
+									$json = $obisk->porocilo[$i]->opis;
+									$obj = json_decode($json);
+									echo "<div class=\"form-group\"><label class=\"label label-primary\">Kolki.</label><div class=\"form-control nalog\" name=\"vrstaStoritve\"><label>".$obj->{'opis'}."</label></div></div>";
 									$i = $i + 1;
 
-									echo "<div class=\"form-group\"><label class=\"label label-primary\">Posebnosti.</label><div class=\"form-control nalog\" name=\"vrstaStoritve\"><label>".$obisk->porocilo[$i]->opis."</label></div></div>";
+									$json = $obisk->porocilo[$i]->opis;
+									$obj = json_decode($json);
+									echo "<div class=\"form-group\"><label class=\"label label-primary\">Posebnosti.</label><div class=\"form-control nalog\" name=\"vrstaStoritve\"><label>".$obj->{'opis'}."</label></div></div>";
 									$i = $i + 1;
-
-								@endphp
-						  </div>
+								}
+							@endphp
+							</div>
+						</div>
 					  </div>
 					</div>
 				  </div>
