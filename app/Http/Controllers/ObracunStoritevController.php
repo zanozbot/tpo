@@ -26,8 +26,13 @@ class ObracunStoritevController extends Controller
 		    'datumKonec' => 'required|date|after:datumZacetek'
 		], $messages, []);
 
-    	$zacetek = Carbon::createFromFormat('d.m.Y', $request['datumZacetek']);
-		$konec = Carbon::createFromFormat('d.m.Y', $request['datumKonec']);
+    	$zacetek = $request['datumZacetek'];
+       	list($dan, $mesec, $leto) = explode(".", $zacetek);
+        $zacetek = $leto.'-'.$mesec.'-'.$dan;
+
+        $konec = $request['datumKonec'];
+       	list($dan, $mesec, $leto) = explode(".", $konec);
+        $konec = $leto.'-'.$mesec.'-'.$dan;
 
 		$stVsehObiskov_vrstaObiska = 0;
 		$skupniStroskiObiskov_vrstaObiska = 0;

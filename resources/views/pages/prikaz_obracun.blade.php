@@ -70,7 +70,7 @@
                 <thead>
                     <tr>
                     <th><label>Zdravilo</label></th>
-                    <th><label>Število obiskov</label></th>
+                    <th><label>Število doz zdravila</label></th>
                     <th><label>Skupni stroški v €</label></th>
                     </tr>
                 </thead>
@@ -94,7 +94,7 @@
             <table class="table ">
                 <thead>
                     <tr>
-                    <th><label>Število obiskov</label></th>
+                    <th><label>Število doz zdravil</label></th>
                     <th><label>Skupni stroški v €</label></th>
                     </tr>
                 </thead>
