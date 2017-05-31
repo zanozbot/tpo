@@ -137,11 +137,11 @@
 						<div class="form-group" >
 							<label class="label label-primary">Vrsta obiska</label>
 							@if ($obisk->preventivni == 1)
-								<label class="checkbox-inline"><input type="checkbox" name="vrstaZdravnik" disabled checked>Preventivni</label>
-								<label class="checkbox-inline"><input type="checkbox" name="vrstaZdravnik" disabled>Kurativni</label>
+								<label class="checkbox-inline"><input type="checkbox" name="vrstaZdravnik" readonly checked>Preventivni</label>
+								<label class="checkbox-inline"><input type="checkbox" name="vrstaZdravnik" readonly>Kurativni</label>
 							@else
-								<label class="checkbox-inline"><input type="checkbox" name="vrstaZdravnik" disabled>Preventivni</label>
-								<label class="checkbox-inline"><input type="checkbox" name="vrstaZdravnik" disabled checked>Kurativni</label>
+								<label class="checkbox-inline"><input type="checkbox" name="vrstaZdravnik" readonly>Preventivni</label>
+								<label class="checkbox-inline"><input type="checkbox" name="vrstaZdravnik" readonly checked>Kurativni</label>
 							@endif
 						</div>
 					  </div>
@@ -174,11 +174,11 @@
 					  <div class="form-group" >
 						<label class="label label-primary">Nadomeščanje</label>
 						@if ($obisk->nadomescanje == 1)
-							<label class="checkbox-inline"><input type="checkbox" name="nadomescanje" disabled checked>Da</label>
-							<label class="checkbox-inline"><input type="checkbox" name="nadomescanje" disabled>Ne</label>
+							<label class="checkbox-inline"><input type="checkbox" name="nadomescanje" readonly checked>Da</label>
+							<label class="checkbox-inline"><input type="checkbox" name="nadomescanje" readonly>Ne</label>
 						@else
-							<label class="checkbox-inline"><input type="checkbox" name="nadomescanje" disabled>Da</label>
-							<label class="checkbox-inline"><input type="checkbox" name="nadomescanje" disabled checked>Ne</label>
+							<label class="checkbox-inline"><input type="checkbox" name="nadomescanje" readonly>Da</label>
+							<label class="checkbox-inline"><input type="checkbox" name="nadomescanje" readonly checked>Ne</label>
 						@endif
 					  </div>
 					</div>
@@ -477,10 +477,19 @@
 						
 				}
 				else if (in_array($aktivnost->aid, $kgArray)){
+					$nosecnicaPrvegaObiska = $obisk->obiski[0]->nosecnicaPrvegaObiska;
+					if($aktivnost->aid == '23' && !$nosecnicaPrvegaObiska->isEmpty()){
+						$teza = $nosecnicaPrvegaObiska->first()->opis;
+						echo "<div class=\"input-group\">";
+						echo "<span class=\"input-group-addon\">kg</span>";
+						echo "<input type=\"number\" name=\"$aktivnost->aid\" class=\"form-control input-sm\" value=\"$teza\" readonly>";
+						echo "</div>";
+					} else {
 						echo "<div class=\"input-group\">";
 						echo "<span class=\"input-group-addon\">kg</span>";
 						echo "<input type=\"number\" name=\"$aktivnost->aid\" class=\"form-control input-sm\" value=\"$opis\" placeholder=\"\" min=\"0\" max=\"999\">";
 						echo "</div>";
+					}
 				}
 				else if (in_array($aktivnost->aid, $kriArray)){
 						if(isset($opis)){
@@ -705,7 +714,7 @@
 			foreach($obisk->otroci as $otrok){
 				echo "<div class=\"form-group\">";
 				echo "<label class=\"label label-primary\">Ime in priimek novorojenčka</label>";
-				echo "<input type =\"text\" class=\"form-control nalog\" name=\"imePriimekZavOsebe\" value=\"$otrok->ime $otrok->priimek\" disabled></input>";
+				echo "<input type =\"text\" class=\"form-control nalog\" name=\"imePriimekZavOsebe\" value=\"$otrok->ime $otrok->priimek\" readonly></input>";
 				echo "</div>";
 				echo "<div class=\"form-group\">";
 				echo "<label class=\"label label-primary\">Pregled materinske knjižice in odpustnice iz porodnišnice. </label>";
@@ -723,20 +732,20 @@
 							echo "<span class=\"glyphicon glyphicon-th\"></span>";
 							echo "</div>";
 							echo "<input type=\"text\" class=\"form-control\" 
-							value=\"$dec_datum\" name=\"25 datum $otrok->stevilka_KZZ\" disabled>";
+							value=\"$dec_datum\" name=\"25 datum $otrok->stevilka_KZZ\" readonly>";
 							echo "</div>";
 							echo "</div>";
 							echo "<div class=\"input-group\">";
 							echo "<span class=\"input-group-addon\">g</span>";
-							echo "<input type=\"number\" name=\"25 teza $otrok->stevilka_KZZ\" class=\"form-control input-sm\" value=\"$dec_teza\" placeholder=\"Porodna teza otroka\" disabled>";
+							echo "<input type=\"number\" name=\"25 teza $otrok->stevilka_KZZ\" class=\"form-control input-sm\" value=\"$dec_teza\" placeholder=\"Porodna teza otroka\" readonly>";
 							echo "</div>";
 							echo "<div class=\"input-group\">";
 							echo "<span class=\"input-group-addon\">cm</span>";
-							echo "<input type=\"number\" name=\"25 visina $otrok->stevilka_KZZ\" class=\"form-control input-sm\" value=\"$dec_visina\" placeholder=\"Porodna visina otroka\" disabled>";
+							echo "<input type=\"number\" name=\"25 visina $otrok->stevilka_KZZ\" class=\"form-control input-sm\" value=\"$dec_visina\" placeholder=\"Porodna visina otroka\" readonly>";
 							echo "</div>";
 							echo "<div class=\"input-group\">";
 							echo "<span class=\"input-group-addon\">Opis</span>";
-							echo "<input type=\"text\" name=\"25 opis $otrok->stevilka_KZZ\" class=\"form-control input-sm\" value=\"$dec_opis\" disabled>";
+							echo "<input type=\"text\" name=\"25 opis $otrok->stevilka_KZZ\" class=\"form-control input-sm\" value=\"$dec_opis\" readonly>";
 							echo "</div>";
 						}
 					}
