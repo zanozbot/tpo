@@ -475,7 +475,11 @@ class PlanController extends Controller
 		        	$mix2[$i]->obiski = Obisk::where('obisk.sifra_dn', '=', $mix2[$i]->sifra_dn)
 		        							->where('opravljen', '=', 0)
 											->where('sifra_plan', '=', $sifraPlan)->get();
-		        
+		        	foreach($mix2[$i]->obiski as $obisk){
+						$obisk->porocilaPrvegaObiska = $obisk->delovni_nalog->obisk[0]->porocilo->where('aid', '25');
+						//echo $obisk->porocilaPrvegaObiska;
+					} 
+
 		        	$mix2[$i]->aktivnosti = Aktivnost::where('sifra_storitve', '=', $mix2[$i]->sifra_vrsta_obisk)->get();
 		        	if($mix2[$i]->sifra_vrsta_obisk == 20)
 		        		$mix2[$i]->aktivnostiNovorojencek = Aktivnost::where('sifra_storitve', '=', "30")->get();
@@ -581,6 +585,9 @@ class PlanController extends Controller
 					        				->where('datum_obvezen', '=', 0)
 					        				->where('opravljen', '=', 0)
 											->where('sifra_plan', '!=', $sifraPlan)->get();
+					foreach($mix1[$i]->obiski as $obisk){
+						$obisk->porocilaPrvegaObiska = $obisk->delovni_nalog->obisk[0]->porocilo->where('aid', '25');
+					}
 
 					$mix1[$i]->sestra = PatronaznaSestra::join('uporabnik', 'uporabnik.id_uporabnik', '=', 'patronazna_sestra.id_uporabnik')
         										->where('sifra_okolis', '=', $mix1[$i]->sifra_okolis)
@@ -644,6 +651,10 @@ class PlanController extends Controller
 		        }
 
 		        $datum = Plan::where('sifra_plan', '=', $sifraPlan)->value('datum_plan');
+
+		      
+		        
+
 		    	return view('pages.plan', ['datumPlan' => $datum, 'izbraniDatum' => $izbraniDatum, 'sifraPlan' => $sifraPlan, 'sifraSestre' => $sifraSestre, 'mix1' => $mix1, 'mix2' => $mix2, 'vceraj' => 0]);
             } else {
                 return redirect()->route('home');

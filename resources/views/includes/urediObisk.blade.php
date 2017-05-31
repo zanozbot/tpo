@@ -701,6 +701,7 @@
 			<div class="panel-heading">
 			<h3 class="panel-title">Izvajanje aktivnosti novorojenčku</h3>
 			@php
+			$porocilaPrvegaObiska = $obisk->obiski[0]->porocilaPrvegaObiska;
 			foreach($obisk->otroci as $otrok){
 				echo "<div class=\"form-group\">";
 				echo "<label class=\"label label-primary\">Ime in priimek novorojenčka</label>";
@@ -709,61 +710,66 @@
 				echo "<div class=\"form-group\">";
 				echo "<label class=\"label label-primary\">Pregled materinske knjižice in odpustnice iz porodnišnice. </label>";
 
-				if(isset($opis)){
-						$decoded = json_decode($opis);
-						$dec_datum = $decoded->datum;
-						$dec_teza = $decoded->teza;
-						$dec_visina = $decoded->visina;
-						$dec_opis = $decoded->opis;
-						echo "<div class=\"input-group\">";
-						echo "<div class=\"datepicker input-group date\" data-provide=\"datepicker\">";
-						echo "<div class=\"input-group-addon\">";
-						echo "<span class=\"glyphicon glyphicon-th\"></span>";
-						echo "</div>";
-						echo "<input type=\"text\" class=\"form-control\" 
-						value=\"$dec_datum\" name=\"25 datum $otrok->stevilka_KZZ\" disabled>";
-						echo "</div>";
-						echo "</div>";
-						echo "<div class=\"input-group\">";
-						echo "<span class=\"input-group-addon\">g</span>";
-						echo "<input type=\"number\" name=\"25 teza $otrok->stevilka_KZZ\" class=\"form-control input-sm\" value=\"$dec_teza\" placeholder=\"Porodna teza otroka\" disabled>";
-						echo "</div>";
-						echo "<div class=\"input-group\">";
-						echo "<span class=\"input-group-addon\">cm</span>";
-						echo "<input type=\"number\" name=\"25 visina $otrok->stevilka_KZZ\" class=\"form-control input-sm\" value=\"$dec_visina\" placeholder=\"Porodna visina otroka\" disabled>";
-						echo "</div>";
-						echo "<div class=\"input-group\">";
-						echo "<input type=\"text\" name=\"25 opis $otrok->stevilka_KZZ\" class=\"form-control input-sm\" value=\"$dec_opis\" disabled>";
-						echo "</div>";
-					} else {
-						echo "<div class=\"input-group\">";
-						echo "<div class=\"datepicker input-group date\" data-provide=\"datepicker\">";
-						echo "<div class=\"input-group-addon\">";
-						echo "<span class=\"glyphicon glyphicon-th\"></span>";
-						echo "</div>";
-						echo "<input type=\"text\" class=\"form-control\" placeholder=\"Datum rojstva otroka dd.mm.llll\" name=\"25 datum $otrok->stevilka_KZZ\">";
-						echo "</div>";
-						echo "</div>";
-						echo "<div class=\"input-group\">";
-						echo "<span class=\"input-group-addon\">g</span>";
-						echo "<input type=\"number\" name=\"25 teza $otrok->stevilka_KZZ\" class=\"form-control input-sm\" placeholder=\"Porodna teza otroka [g]\" min=\"100\" max=\"9999\">";
-						echo "</div>";
-						echo "<div class=\"input-group\">";
-						echo "<span class=\"input-group-addon\">cm</span>";
-						echo "<input type=\"number\" name=\"25 visina $otrok->stevilka_KZZ\" class=\"form-control input-sm\" placeholder=\"Porodna visina otroka [cm]\" min=\"10\" max=\"99\">";
-						echo "</div>";
-						echo "<div class=\"input-group\">";
-						echo "<span class=\"input-group-addon\">Opis</span>";
-						echo "<input type=\"text\" name=\"25 opis $otrok->stevilka_KZZ\" class=\"form-control input-sm\" placeholder=\"Opis\" >";
-						echo "</div>";
+				if(isset($porocilaPrvegaObiska)){
+					foreach($porocilaPrvegaObiska as $porociloPO){
+						$decoded = json_decode($porociloPO->opis);
+						if ($decoded->KZZ == $otrok->stevilka_KZZ){
+							$dec_datum = $decoded->datum;
+							$dec_teza = $decoded->teza;
+							$dec_visina = $decoded->visina;
+							$dec_opis = $decoded->opis;
+							echo "<div class=\"input-group\">";
+							echo "<div class=\"datepicker input-group date\" data-provide=\"datepicker\">";
+							echo "<div class=\"input-group-addon\">";
+							echo "<span class=\"glyphicon glyphicon-th\"></span>";
+							echo "</div>";
+							echo "<input type=\"text\" class=\"form-control\" 
+							value=\"$dec_datum\" name=\"25 datum $otrok->stevilka_KZZ\" disabled>";
+							echo "</div>";
+							echo "</div>";
+							echo "<div class=\"input-group\">";
+							echo "<span class=\"input-group-addon\">g</span>";
+							echo "<input type=\"number\" name=\"25 teza $otrok->stevilka_KZZ\" class=\"form-control input-sm\" value=\"$dec_teza\" placeholder=\"Porodna teza otroka\" disabled>";
+							echo "</div>";
+							echo "<div class=\"input-group\">";
+							echo "<span class=\"input-group-addon\">cm</span>";
+							echo "<input type=\"number\" name=\"25 visina $otrok->stevilka_KZZ\" class=\"form-control input-sm\" value=\"$dec_visina\" placeholder=\"Porodna visina otroka\" disabled>";
+							echo "</div>";
+							echo "<div class=\"input-group\">";
+							echo "<span class=\"input-group-addon\">Opis</span>";
+							echo "<input type=\"text\" name=\"25 opis $otrok->stevilka_KZZ\" class=\"form-control input-sm\" value=\"$dec_opis\" disabled>";
+							echo "</div>";
+						}
 					}
+				} else {
+					echo "<div class=\"input-group\">";
+					echo "<div class=\"datepicker input-group date\" data-provide=\"datepicker\">";
+					echo "<div class=\"input-group-addon\">";
+					echo "<span class=\"glyphicon glyphicon-th\"></span>";
+					echo "</div>";
+					echo "<input type=\"text\" class=\"form-control\" placeholder=\"Datum rojstva otroka dd.mm.llll\" name=\"25 datum $otrok->stevilka_KZZ\">";
+					echo "</div>";
+					echo "</div>";
+					echo "<div class=\"input-group\">";
+					echo "<span class=\"input-group-addon\">g</span>";
+					echo "<input type=\"number\" name=\"25 teza $otrok->stevilka_KZZ\" class=\"form-control input-sm\" placeholder=\"Porodna teza otroka [g]\" min=\"100\" max=\"9999\">";
+					echo "</div>";
+					echo "<div class=\"input-group\">";
+					echo "<span class=\"input-group-addon\">cm</span>";
+					echo "<input type=\"number\" name=\"25 visina $otrok->stevilka_KZZ\" class=\"form-control input-sm\" placeholder=\"Porodna visina otroka [cm]\" min=\"10\" max=\"99\">";
+					echo "</div>";
+					echo "<div class=\"input-group\">";
+					echo "<span class=\"input-group-addon\">Opis</span>";
+					echo "<input type=\"text\" name=\"25 opis $otrok->stevilka_KZZ\" class=\"form-control input-sm\" placeholder=\"Opis\" >";
+					echo "</div>";
+				}
 				echo "</div>";
 				$gArray = [54];
 				$cmArray = [55];
 				$DaNeArray = [56,57];
 				$izlocanjeArray = [58];
 				$porocila = $obisk->porocilo;
-					foreach ($aktivnostiNovorojencek as $aktivnostNovorojencek){
+				foreach ($aktivnostiNovorojencek as $aktivnostNovorojencek){
 						$opis = null;
 						foreach($porocila as $porocilo){
 							if ($porocilo['aid'] == $aktivnostNovorojencek->aid){
