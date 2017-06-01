@@ -795,13 +795,11 @@
 							$dec_visina = $decoded->visina;
 							$dec_opis = $decoded->opis;
 							echo "<div class=\"input-group\">";
-							echo "<div class=\"datepicker input-group date\" data-provide=\"datepicker\">";
 							echo "<div class=\"input-group-addon\">";
 							echo "<span class=\"glyphicon glyphicon-th\"></span>";
 							echo "</div>";
 							echo "<input type=\"text\" class=\"form-control\" 
 							value=\"$dec_datum\" name=\"25 datum $otrok->stevilka_KZZ\" readonly>";
-							echo "</div>";
 							echo "</div>";
 							echo "<div class=\"input-group\">";
 							echo "<span class=\"input-group-addon\">g</span>";
