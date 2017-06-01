@@ -932,7 +932,7 @@
 		@php
 			if($vceraj == 1){
 				echo "<div class=\"checkbox\">";
-				  echo "<label><input type=\"checkbox\" value=\"razlikaVDnevihPotrditev\" required> Obisk je bil opravljen včeraj. Ali ste prepričani, da želite nadaljevati?</label>";
+				  echo "<label><input type=\"checkbox\" value=\"razlikaVDnevihPotrditev\" required> Obisk je bil že opravljen. Ali ste prepričani, da želite posodobiti meritve?</label>";
 				echo "</div>";
 			}
 		@endphp
