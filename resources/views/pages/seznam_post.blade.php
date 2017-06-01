@@ -15,13 +15,13 @@
 
 	<div class="panel panel-default">			
 	  <div class="panel-heading">
-		<h3 class="panel-title">Seznam vrst razmerij</h3>
+		<h3 class="panel-title">Seznam pošt</h3>
 	  </div>
 
 	  <div class="panel-body">
 	  	<div class="row">
 	  	<div class="col-lg-10 col-lg-offset-1">
-	  		<label class="label label-primary">Dodaj vrsto razmerja</label>
+	  		<label class="label label-primary">Dodaj pošto</label>
 	  		<button type="button" class="btn btn-info btn-block" data-toggle="modal" data-target="#dodajPosto"><span class="glyphicon glyphicon-plus"></span></button>
 							<div class="modal fade" id="dodajPosto" role="dialog">
 								<div class="modal-dialog modal-lg">

@@ -366,13 +366,38 @@
 
 				}
 				else if (in_array($aktivnost->aid, $terapijaArray)){
-					echo "<div class=\"input-group\">";
-					echo "<label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" name=\"$aktivnost->aid terapija\" value=\"da\" >Da</label><label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" name=\"$aktivnost->aid terapija\" value=\"delno\" >Delno</label><label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" name=\"$aktivnost->aid terapija\" value=\"ne\" >Ne</label>";
-					echo "</div>";
-					echo "<div class=\"input-group\">";
-					echo "<span class=\"input-group-addon\">Opis</span>";
-					echo "<input type=\"text\" name=\"$aktivnost->aid opis\" class=\"form-control input-sm\" placeholder=\"Opis\" >";
-					echo "</div>";
+					if(isset($opis)){
+						$decoded = json_decode($opis);
+						$dec_terapija = $decoded->terapija;
+						$dec_opis = $decoded->opis;
+						if($dec_terapija == "da"){
+							echo "<div class=\"input-group\">";
+							echo "<label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" name=\"$aktivnost->aid terapija\" value=\"da\" checked>Da</label><label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" name=\"$aktivnost->aid terapija\" value=\"delno\" checked>Delno</label><label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" name=\"$aktivnost->aid terapija\" value=\"ne\" >Ne</label>";
+							echo "</div>";
+						} else if($dec_terapija == "delno"){
+							echo "<div class=\"input-group\">";
+							echo "<label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" name=\"$aktivnost->aid terapija\" value=\"da\" >Da</label><label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" name=\"$aktivnost->aid terapija\" value=\"delno\" >Delno</label><label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" name=\"$aktivnost->aid terapija\" value=\"ne\" >Ne</label>";
+							echo "</div>";
+						} else {
+							echo "<div class=\"input-group\">";
+							echo "<label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" name=\"$aktivnost->aid terapija\" value=\"da\" >Da</label><label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" name=\"$aktivnost->aid terapija\" value=\"delno\" >Delno</label><label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" name=\"$aktivnost->aid terapija\" value=\"ne\" checked>Ne</label>";
+							echo "</div>";
+						}
+						
+						echo "<div class=\"input-group\">";
+						echo "<span class=\"input-group-addon\">Opis</span>";
+						echo "<input type=\"text\" name=\"$aktivnost->aid opis\" class=\"form-control input-sm\" value=\"$dec_opis\" >";
+						echo "</div>";
+					} else {
+						echo "<div class=\"input-group\">";
+						echo "<label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" name=\"$aktivnost->aid terapija\" value=\"da\" >Da</label><label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" name=\"$aktivnost->aid terapija\" value=\"delno\" >Delno</label><label class=\"radio-inline\"><input type=\"radio\" class=\"radio-inline\" name=\"$aktivnost->aid terapija\" value=\"ne\" >Ne</label>";
+						echo "</div>";
+						echo "<div class=\"input-group\">";
+						echo "<span class=\"input-group-addon\">Opis</span>";
+						echo "<input type=\"text\" name=\"$aktivnost->aid opis\" class=\"form-control input-sm\" placeholder=\"Opis\" >";
+						echo "</div>";
+					}
+					
 				}
 				else if (in_array($aktivnost->aid, $oksigenacijaArray)){
 						echo "<div class=\"input-group\">";
@@ -381,14 +406,28 @@
 						echo "</div>";
 				}
 				else if (in_array($aktivnost->aid, $sladkorArray)){
-						echo "<div class=\"input-group\">";
-						echo "<span class=\"input-group-addon\">mmol/L</span>";
-						echo "<input type=\"number\" name=\"$aktivnost->aid num\" class=\"form-control input-sm\" placeholder=\"\" min=\"0\" max=\"20\">";
-						echo "</div>";
-						echo "<div class=\"input-group\">";
-						echo "<span class=\"input-group-addon\">Opis</span>";
-						echo "<input type=\"text\" name=\"$aktivnost->aid opis\" class=\"form-control input-sm\" placeholder=\"Opis\" >";
-						echo "</div>";
+						if(isset($opis)){
+							$decoded = json_decode($opis);
+							$dec_num = $decoded->num;
+							$dec_opis = $decoded->opis;
+							echo "<div class=\"input-group\">";
+							echo "<span class=\"input-group-addon\">mmol/L</span>";
+							echo "<input type=\"number\" name=\"$aktivnost->aid num\" class=\"form-control input-sm\" value=\"$dec_num\" min=\"0\" max=\"20\">";
+							echo "</div>";
+							echo "<div class=\"input-group\">";
+							echo "<span class=\"input-group-addon\">Opis</span>";
+							echo "<input type=\"text\" name=\"$aktivnost->aid opis\" class=\"form-control input-sm\" value=\"$dec_opis\" >";
+							echo "</div>";
+						} else {
+							echo "<div class=\"input-group\">";
+							echo "<span class=\"input-group-addon\">mmol/L</span>";
+							echo "<input type=\"number\" name=\"$aktivnost->aid num\" class=\"form-control input-sm\" placeholder=\"\" min=\"0\" max=\"20\">";
+							echo "</div>";
+							echo "<div class=\"input-group\">";
+							echo "<span class=\"input-group-addon\">Opis</span>";
+							echo "<input type=\"text\" name=\"$aktivnost->aid opis\" class=\"form-control input-sm\" placeholder=\"Opis\" >";
+							echo "</div>";
+						}
 				}
 				else if (in_array($aktivnost->aid, $cutilaArray)){
 						if(isset($opis)){
