@@ -24,6 +24,7 @@
                 <thead>
                     <tr>
                     <th><label>Vrsta obiska</label></th>
+                    <th><label>Strošek za 1</label></th>
                     <th><label>Število obiskov</label></th>
                     <th><label>Skupni stroški v €</label></th>
                     </tr>
@@ -32,6 +33,7 @@
                      @foreach($vrsteObiskov as $vrstaObiska)
                         <tr>
                             <td><label>{{$vrstaObiska->ime}}</label></td>
+                            <td><label>{{$vrstaObiska->cena}}</label></td>
                             <td><label>{{$vrstaObiska->st_obiskov}}</label></td>
                             <td><label>{{$vrstaObiska->stroski}}</label></td>
                         </tr>
@@ -70,6 +72,7 @@
                 <thead>
                     <tr>
                     <th><label>Zdravilo</label></th>
+                    <th><label>Strošek za 1</label></th>
                     <th><label>Število doz zdravila</label></th>
                     <th><label>Skupni stroški v €</label></th>
                     </tr>
@@ -78,6 +81,7 @@
                      @foreach($zdravila as $zdravilo)
                         <tr>
                             <td><label>{{$zdravilo->ime}}</label></td>
+                            <td><label>{{$zdravilo->cena}}</label></td>
                             <td><label>{{$zdravilo->st_obiskov}}</label></td>
                             <td><label>{{$zdravilo->stroski}}</label></td>
                         </tr>
@@ -116,12 +120,14 @@
                 <thead>
                     <tr>
                     <th><label>Število obiskov</label></th>
+                    <th><label>Število doz zdravil</label></th>
                     <th><label>Skupna cena v €</label></th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
                         <td><label>{{$stVsehObiskov_vrstaObiska}}</label></td>
+                        <td><label>{{$stVsehObiskov_zdravilo}}</label></td>
                         <td><label>{{$skupniStroski_vsi}}</label></td>
                     </tr>
                 </tbody>

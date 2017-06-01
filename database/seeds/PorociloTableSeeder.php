@@ -94,7 +94,7 @@ class PorociloTableSeeder extends Seeder
                 'pid' => 9,
                 'sifra_obisk' => 35,
                 'aid' => 80,
-                'opis' => 'Rosuvastatin',
+                'opis' => 'Rosuvastatin, Acetilsalicilna kislina',
                 'created_at' => '2017-05-30 19:54:37',
                 'updated_at' => '2017-05-30 19:54:37',
             ),
