@@ -277,8 +277,6 @@
 				  <div class="panel-body">					  
 					  <div class="form-group">
 						<div class="form-control nalog" name="vrstaStoritve">
-						
-
 						  <div class="panel-heading">
 							<h3 class="panel-title">Otroci</h3>
 						  </div>
@@ -316,9 +314,12 @@
 		</div>
 	  </div>
 	</div>
+	</div>
 	<div class="panel panel-default">			
 	  <div class="panel-heading">
 		<h3 class="panel-title">Izvajanje aktivnosti</h3>
+	  </div>
+	  <div class="panel-body">
 		@if ($vceraj == 1)
 			<form role="form" method="POST" action="{{ route('seznamObiskovVcerajVnesiPodatke', ['sifraObisk' => $obisk->sifra_obisk]) }}">
 		@else
@@ -693,14 +694,15 @@
 					echo "<input type=\"text\" name=\"$aktivnost->aid\" class=\"form-control input-sm\" placeholder=\"Opis\" value=\"$opis\" >";
 					echo "</div>";
 				}
-				echo "</div>";
 			}
 			@endphp
 			</div>
-
 			@isset($obisk->aktivnostiNovorojencek)
-			<div class="panel-heading">
-			<h3 class="panel-title">Izvajanje aktivnosti novorojenčku</h3>
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title">Izvajanje aktivnosti novorojenčku</h3>
+				</div>
+			<div class="panel-body">
 			@php
 			if(!$obisk->obiski->isEmpty()){
 				$porocilaPrvegaObiska = $obisk->obiski[0]->porocilaPrvegaObiska;
@@ -708,6 +710,8 @@
 				$porocilaPrvegaObiska = null;
 			}
 			foreach($obisk->otroci as $otrok){
+				echo "<div class=\"panel panel-default\">";
+				echo "<div class=\"form-control nalog\">";
 				echo "<div class=\"form-group\">";
 				echo "<label class=\"label label-primary\">Ime in priimek novorojenčka</label>";
 				echo "<input type =\"text\" class=\"form-control nalog\" name=\"imePriimekZavOsebe\" value=\"$otrok->ime $otrok->priimek\" readonly></input>";
@@ -723,13 +727,11 @@
 							$dec_visina = $decoded->visina;
 							$dec_opis = $decoded->opis;
 							echo "<div class=\"input-group\">";
-							echo "<div class=\"datepicker input-group date\" data-provide=\"datepicker\">";
 							echo "<div class=\"input-group-addon\">";
 							echo "<span class=\"glyphicon glyphicon-th\"></span>";
 							echo "</div>";
 							echo "<input type=\"text\" class=\"form-control\" 
 							value=\"$dec_datum\" name=\"25 datum $otrok->stevilka_KZZ\" readonly>";
-							echo "</div>";
 							echo "</div>";
 							echo "<div class=\"input-group\">";
 							echo "<span class=\"input-group-addon\">g</span>";
@@ -869,7 +871,7 @@
 								echo "<span class=\"input-group-addon\">Opis</span>";
 								echo "<input type=\"text\" name=\"$aktivnostNovorojencek->aid opis $otrok->stevilka_KZZ\" class=\"form-control input-sm opis\" placeholder=\"Opis\" >";
 								echo "</div>";
-							} 
+							}
 						}
 						else if (in_array($aktivnostNovorojencek->aid, $izlocanjeArray)){
 							if(isset($opis)){
@@ -921,12 +923,15 @@
 							}
 							echo "</div>";
 						}
-						
+						echo "</div>";
 					}
+					echo "</div>";
+					echo "</div>";
 				}
+				
 			echo "<script>$('.datepicker').datepicker({format: 'dd.mm.yyyy', clearBtn: true, autoclose: true});</script>";
 		@endphp
-		
+		</div>
 		</div>
 		@endisset
 		@php
@@ -939,6 +944,6 @@
 		<input type="submit" value="Vnesi podatke" class="btn btn-info btn-block" >	
 		<input type="hidden" name="_token" value="{{ Session::token() }}"/>
 		</form>
-	  </div>
 	</div>
+  </div>
 </div>
