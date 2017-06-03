@@ -31,7 +31,7 @@
 		};
     
         var color = Chart.helpers.color;
-        var barChartData = {
+        var chartData = {
             labels: [
             @foreach($datum as $d)
                 	"{{ $d }}",
@@ -39,24 +39,28 @@
             ],
             datasets: [{
                 label: 'Sistolični krvni tlak',
-                backgroundColor: color(window.chartColors.red).alpha(0.5).rgbString(),
+                backgroundColor: window.chartColors.red,
+                fill: false,
                 borderColor: window.chartColors.red,
-                borderWidth: 1,
+                borderWidth: 2,
                 data: [
                 	@foreach($sistolicni as $sis)
                 	{{$sis}},
                 	@endforeach
-                ]
+                ],
+                lineTension: 0
             }, {
                 label: 'Diastolični krvni tlak',
-                backgroundColor: color(window.chartColors.blue).alpha(0.5).rgbString(),
+                backgroundColor: window.chartColors.blue,
+                fill: false,
                 borderColor: window.chartColors.blue,
-                borderWidth: 1,
+                borderWidth: 2,
                 data: [
                     @foreach($diastolicni as $dia)
                 	{{$dia}},
                 	@endforeach
-                ]
+                ],
+                lineTension: 0
             }]
 
         };
@@ -64,8 +68,8 @@
         window.onload = function() {
             var ctx = document.getElementById("canvas").getContext("2d");
             window.myBar = new Chart(ctx, {
-                type: 'bar',
-                data: barChartData,
+                type: 'line',
+                data: chartData,
                 options: {
                     responsive: true,
                     legend: {
@@ -73,6 +77,14 @@
                     },
                     title: {
                         display: false
+                    },
+                    tooltips: {
+                    mode: 'index',
+                    intersect: false,
+                    },
+                    hover: {
+                        mode: 'nearest',
+                        intersect: true
                     },
                     scales: {
                         yAxes: [{
