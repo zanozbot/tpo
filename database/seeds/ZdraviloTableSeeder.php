@@ -15,62 +15,62 @@ class ZdraviloTableSeeder extends Seeder
 
             DB::table('zdravilo')->insert([
                 [
-                	'sifra_zdravilo' => 'C10AA05',
-                    'ime' => 'Atorvastatin',
+                	'sifra_zdravilo' => '040185',
+                    'ime' => 'Atoris',
                     'opis' => 'Atoris 20 mg filmsko obložene tablete',
                     'cena' => 7.99
                 ],
                 [
-                	'sifra_zdravilo' => 'L04AA31',
-                    'ime' => 'Teriflunomid',
+                	'sifra_zdravilo' => '146028',
+                    'ime' => 'Aubagio',
                     'opis' => 'Aubagio 14 mg filmsko obložene tablete',
                     'cena' => 5.99
                 ],
                 [
-                	'sifra_zdravilo' => 'C10AA07',
-                    'ime' => 'Rosuvastatin',
+                	'sifra_zdravilo' => '097691',
+                    'ime' => 'Crestor',
                     'opis' => 'CRESTOR 5 mg filmsko obložene tablete',
                     'cena' => 6.99
                 ],
                 [
-                	'sifra_zdravilo' => 'B01AC06',
-                    'ime' => 'Acetilsalicilna kislina',
+                	'sifra_zdravilo' => '072907',
+                    'ime' => 'Aspirin protect',
                     'opis' => 'Aspirin protect 100 mg gastrorezistentne tablete',
                     'cena' => 8.99
                 ],
                 [
-                	'sifra_zdravilo' => 'N05AH03',
-                    'ime' => 'Olanzapin',
+                	'sifra_zdravilo' => '046493',
+                    'ime' => 'Olanzapin Teva',
                     'opis' => 'Olanzapin Teva 10 mg orodisperzibilne tablete',
                     'cena' => 9.99
                 ],
                 [
-                	'sifra_zdravilo' => 'C09BB04',
-                    'ime' => 'Perindopril in amlodipin',
+                	'sifra_zdravilo' => '142191',
+                    'ime' => 'PRESTANCE',
                     'opis' => 'PRESTANCE 5 mg/10 mg tablete',
                     'cena' => 6.99
                 ],
                 [
-                	'sifra_zdravilo' => 'D06BX01',
-                    'ime' => 'Metronidazol',
+                	'sifra_zdravilo' => '005800',
+                    'ime' => 'Rozamet',
                     'opis' => 'Rozamet 10 mg/g krema',
                     'cena' => 8.99
                 ],
                 [
-                	'sifra_zdravilo' => 'C09CA07',
-                    'ime' => 'Telmisartan',
+                	'sifra_zdravilo' => '119857',
+                    'ime' => 'Telmisartan Lek',
                     'opis' => 'Telmisartan Lek 40 mg tablete',
                     'cena' => 7.99
                 ],
                 [
-                	'sifra_zdravilo' => 'A11HA02',
-                    'ime' => 'Piridoksin (vitamin B6)',
-                    'opis' => 'Vitamin B6 20 MG Jenapharm tablete',
+                	'sifra_zdravilo' => '144717',
+                    'ime' => 'VITAMIN B6',
+                    'opis' => 'VITAMIN B6 20 MG JENAPHARM TABLETE',
                     'cena' => 9.99
                 ],
                 [
-                	'sifra_zdravilo' => 'N05BA12',
-                    'ime' => 'Alprazolam',
+                	'sifra_zdravilo' => '096040',
+                    'ime' => 'XANAX',
                     'opis' => 'XANAX 1 mg tablete',
                     'cena' => 5.99
                 ]
