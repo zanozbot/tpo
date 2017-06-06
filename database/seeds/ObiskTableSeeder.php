@@ -21,7 +21,7 @@ class ObiskTableSeeder extends Seeder
             array (
                 'sifra_obisk' => 1,
                 'sifra_dn' => 1,
-                'sifra_plan' => -1,
+                'sifra_plan' => 1,
                 'originalna_sifra_plan' => -1,
                 'sifra_ps' => 83312,
                 'sifra_nadomestne_ps' => NULL,
