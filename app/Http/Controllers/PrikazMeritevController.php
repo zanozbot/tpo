@@ -43,7 +43,7 @@ class PrikazMeritevController extends Controller
 		], $messages, []);
 
 		$delovniNalog = DelovniNalog::find($request['delovniNalog']);
-		$obiski = $delovniNalog->obisk->where('opravljen', true);
+		$obiski = $delovniNalog->obisk->where('opravljen', true)->sortBy('datum_opravljenosti_obiska');
 
 		$zacetek = Carbon::createFromFormat('d.m.Y', $request['datumZacetek']);
 		$konec = Carbon::createFromFormat('d.m.Y', $request['datumKonec']);

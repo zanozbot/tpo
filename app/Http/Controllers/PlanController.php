@@ -404,6 +404,8 @@ class PlanController extends Controller
             if (Auth::user()->sifra_vloga == 4){
                 if (session()->has('sifraPlan')){
 		        	$sifraPlan = session('sifraPlan');
+		        }else {
+		        	return redirect()->route('datumPlan');
 		        }
 		        if (session()->has('izbraniDatum')){
 		        	$izbraniDatum = session('izbraniDatum');

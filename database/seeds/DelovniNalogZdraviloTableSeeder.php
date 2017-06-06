@@ -21,55 +21,55 @@ class DelovniNalogZdraviloTableSeeder extends Seeder
             array (
                 'id' => 1,
                 'delovni_nalog_sifra_dn' => 4,
-                'zdravilo_sifra_zdravilo' => 'L04AA31',
+                'zdravilo_sifra_zdravilo' => '146028',
             ),
             1 => 
             array (
                 'id' => 2,
                 'delovni_nalog_sifra_dn' => 4,
-                'zdravilo_sifra_zdravilo' => 'B01AC06',
+                'zdravilo_sifra_zdravilo' => '046493',
             ),
             2 => 
             array (
                 'id' => 3,
                 'delovni_nalog_sifra_dn' => 4,
-                'zdravilo_sifra_zdravilo' => 'C09CA07',
+                'zdravilo_sifra_zdravilo' => '040185',
             ),
             3 => 
             array (
                 'id' => 4,
                 'delovni_nalog_sifra_dn' => 10,
-                'zdravilo_sifra_zdravilo' => 'C10AA05',
+                'zdravilo_sifra_zdravilo' => '119857',
             ),
             4 => 
             array (
                 'id' => 5,
                 'delovni_nalog_sifra_dn' => 10,
-                'zdravilo_sifra_zdravilo' => 'L04AA31',
+                'zdravilo_sifra_zdravilo' => '096040',
             ),
             5 => 
             array (
                 'id' => 6,
                 'delovni_nalog_sifra_dn' => 10,
-                'zdravilo_sifra_zdravilo' => 'A11HA02',
+                'zdravilo_sifra_zdravilo' => '040185',
             ),
             6 => 
             array (
                 'id' => 7,
                 'delovni_nalog_sifra_dn' => 15,
-                'zdravilo_sifra_zdravilo' => 'C10AA07',
+                'zdravilo_sifra_zdravilo' => '097691',
             ),
             7 => 
             array (
                 'id' => 8,
                 'delovni_nalog_sifra_dn' => 15,
-                'zdravilo_sifra_zdravilo' => 'B01AC06',
+                'zdravilo_sifra_zdravilo' => '144717',
             ),
             8 => 
             array (
                 'id' => 9,
                 'delovni_nalog_sifra_dn' => 18,
-                'zdravilo_sifra_zdravilo' => 'B01AC06',
+                'zdravilo_sifra_zdravilo' => '096040',
             ),
         ));
         
