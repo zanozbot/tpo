@@ -140,7 +140,15 @@ class SeznamNalogovController extends Controller
         							'uporabnik.priimek as priimek',
         							'patronazna_sestra.sifra_ps as sifra_ps',
         							'patronazna_sestra.id_uporabnik as id_sestre'));
-		return view('pages.seznamnalog', ['mix' => $mix, 'pacienti' => $pacienti, 'sestre'=>$sestre]);
+        $izdajatelji = Uporabnik::join('delavec', 'uporabnik.id_uporabnik', '=', 'delavec.id_uporabnik')
+        						->where('sifra_vloga', '=', '2')
+        						->orWhere('sifra_vloga', '=', '3')
+        						->get(array(
+        							'sifra_delavec',
+        							'ime',
+        							'priimek'
+        							));
+		return view('pages.seznamnalog', ['mix' => $mix, 'pacienti' => $pacienti, 'sestre'=>$sestre, 'izdajatelji' => $izdajatelji]);
     }
 
     public function filter(Request $request){
@@ -221,7 +229,7 @@ class SeznamNalogovController extends Controller
 		if(isset($forceZdravnik)){
 			$mix->where('delovni_nalog.sifra_delavec', '=', $forceZdravnik);
 		}
-		else if($request['izdajalec']){
+		else if($request['izdajalec'] != "-"){
 			$mix->where('delovni_nalog.sifra_delavec', '=', $request['izdajalec']);
 		}
 
@@ -318,7 +326,15 @@ class SeznamNalogovController extends Controller
         							'uporabnik.priimek as priimek',
         							'patronazna_sestra.sifra_ps as sifra_ps',
         							'patronazna_sestra.id_uporabnik as id_sestre'));
-    	return view('pages.seznamnalog', ['mix' => $filteredMix, 'pacienti' => $pacienti, 'sestre' => $sestre]);
+		$izdajatelji = Uporabnik::join('delavec', 'uporabnik.id_uporabnik', '=', 'delavec.id_uporabnik')
+			->where('sifra_vloga', '=', '2')
+			->orWhere('sifra_vloga', '=', '3')
+			->get(array(
+				'sifra_delavec',
+				'ime',
+				'priimek'
+				));
+    	return view('pages.seznamnalog', ['mix' => $filteredMix, 'pacienti' => $pacienti, 'sestre' => $sestre, 'izdajatelji' => $izdajatelji]);
     }
 
 
