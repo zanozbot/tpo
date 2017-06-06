@@ -199,14 +199,14 @@ class SeznamNalogovController extends Controller
 			//Sprememba formata datuma
 	        $odDatum = $request['odDatum'];
 	       	list($dan, $mesec, $leto) = explode(".", $odDatum);
-	        $odDatum = $leto.'-'.$mesec.'-'.$dan;;
+	        $odDatum = $leto.'-'.$mesec.'-'.$dan;
 			$mix->whereDate('delovni_nalog.created_at', '>', date($odDatum));
 		}
 		if($request['doDatum']){
 			//Sprememba formata datuma
-	        $doDatum = $request['odDatum'];
+	        $doDatum = $request['doDatum'];
 	       	list($dan, $mesec, $leto) = explode(".", $doDatum);
-	        $doDatum = $leto.'-'.$mesec.'-'.$dan;;
+	        $doDatum = $leto.'-'.$mesec.'-'.$dan;
 			$mix->whereDate('delovni_nalog.created_at', '<', date($doDatum));
 		}
 		if($request['pacient'] != "-"){
