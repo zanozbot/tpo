@@ -430,8 +430,11 @@ class PlanController extends Controller
         			->join('bolezen', 'bolezen.sifra_bolezen', '=', 'delovni_nalog.sifra_bolezen')
         			->join('delavec', 'delavec.sifra_delavec', '=', 'delovni_nalog.sifra_delavec')
     				->join('izvajalec_zd', 'izvajalec_zd.sifra_zd', '=', 'delavec.sifra_zd')
-    				->where('opravljen', '=', 0)
     				->where('obisk.sifra_ps', '=', $sifraPS)
+    				->where('opravljen', '=', 0)
+					->where('obisk.sifra_plan', '=', $sifraPlan)
+					->orWhere('obisk.sifra_nadomestne_ps', $sifraPS)
+					->where('opravljen', '=', 0)
 					->where('obisk.sifra_plan', '=', $sifraPlan)
 					->orderBy('datum_obiska', 'asc')
         			->get(array(
@@ -481,7 +484,7 @@ class PlanController extends Controller
 						$obisk->porocilaPrvegaObiska = $obisk->delovni_nalog->obisk[0]->porocilo->where('aid', '25');
 						$obisk->nosecnicaPrvegaObiska = $obisk->delovni_nalog->obisk[0]->porocilo->where('aid', '23');
 						//echo $obisk->porocilaPrvegaObiska;
-					} 
+					}
 
 		        	$mix2[$i]->aktivnosti = Aktivnost::where('sifra_storitve', '=', $mix2[$i]->sifra_vrsta_obisk)->get();
 		        	if($mix2[$i]->sifra_vrsta_obisk == 20)
@@ -539,9 +542,13 @@ class PlanController extends Controller
         			->join('bolezen', 'bolezen.sifra_bolezen', '=', 'delovni_nalog.sifra_bolezen')
         			->join('delavec', 'delavec.sifra_delavec', '=', 'delovni_nalog.sifra_delavec')
     				->join('izvajalec_zd', 'izvajalec_zd.sifra_zd', '=', 'delavec.sifra_zd')
+					->where('obisk.sifra_ps', '=', $sifraPS)
     				->where('datum_obvezen', '=', 0)
     				->where('opravljen', '=', 0)
-					->where('obisk.sifra_ps', '=', $sifraPS)
+					->where('obisk.sifra_plan', '!=', $sifraPlan)
+					->orWhere('obisk.sifra_nadomestne_ps', $sifraPS)
+					->where('datum_obvezen', '=', 0)
+    				->where('opravljen', '=', 0)
 					->where('obisk.sifra_plan', '!=', $sifraPlan)
         			->orderBy('datum_obiska', 'asc')
         			->get(array(
