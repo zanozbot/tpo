@@ -12,6 +12,7 @@ use App\PatronaznaSestra;
 use App\Delavec;
 use App\Plan;
 use App\Porocilo;
+use App\Nadomescanje;
 use Auth;
 
 class SeznamObiskovPacientController extends Controller
@@ -80,8 +81,16 @@ class SeznamObiskovPacientController extends Controller
         	$obiskiPacienta[$i]->datum_obiska = $datum_obiska[0]->datum_plan;
 
         	$obiskiPacienta[$i]->sestra = PatronaznaSestra::join('uporabnik', 'uporabnik.id_uporabnik', '=', 'patronazna_sestra.id_uporabnik')
-        										->where('sifra_okolis', '=', $obiskiPacienta[$i]->sifra_okolis)
-        										->get();
+                                                ->where('sifra_okolis', '=', $obiskiPacienta[$i]->sifra_okolis)
+                                                ->get();
+            $nadomescanja = Nadomescanje::where('sifra_obisk', $obiskiPacienta[$i]->sifra_obisk)
+                                        ->where('sifra_ps', $obiskiPacienta[$i]->sestra[0]->sifra_ps)
+                                        ->get();
+            if(count($nadomescanja)){
+                $obiskiPacienta[$i]->sestra = PatronaznaSestra::join('uporabnik', 'uporabnik.id_uporabnik', '=', 'patronazna_sestra.id_uporabnik')
+                                                ->where('sifra_ps', $nadomescanja[0]->nadomestna_sifra_ps)
+                                                ->get();
+            }
 
         	$obiskiPacienta[$i]->zdravila = DelovniNalog::join('delovni_nalog_zdravilo', 'delovni_nalog.sifra_dn', '=', 'delovni_nalog_zdravilo.delovni_nalog_sifra_dn')
         									->join('zdravilo', 'zdravilo.sifra_zdravilo', '=', 'delovni_nalog_zdravilo.zdravilo_sifra_zdravilo')
@@ -176,8 +185,16 @@ class SeznamObiskovPacientController extends Controller
         	$obiskiPoduporabnikov[$i]->datum_obiska = $datum_obiska[0]->datum_plan;
 
         	$obiskiPoduporabnikov[$i]->sestra = PatronaznaSestra::join('uporabnik', 'uporabnik.id_uporabnik', '=', 'patronazna_sestra.id_uporabnik')
-        										->where('sifra_okolis', '=', $obiskiPoduporabnikov[$i]->sifra_okolis)
-        										->get();
+                                                ->where('sifra_okolis', '=', $obiskiPoduporabnikov[$i]->sifra_okolis)
+                                                ->get();
+            $nadomescanja = Nadomescanje::where('sifra_obisk', $obiskiPoduporabnikov[$i]->sifra_obisk)
+                                        ->where('sifra_ps', $obiskiPoduporabnikov[$i]->sestra[0]->sifra_ps)
+                                        ->get();
+            if(count($nadomescanja)){
+                $obiskiPoduporabnikov[$i]->sestra = PatronaznaSestra::join('uporabnik', 'uporabnik.id_uporabnik', '=', 'patronazna_sestra.id_uporabnik')
+                                                ->where('sifra_ps', $nadomescanja[0]->nadomestna_sifra_ps)
+                                                ->get();
+            }
 
         	$obiskiPoduporabnikov[$i]->zdravila = DelovniNalog::join('delovni_nalog_zdravilo', 'delovni_nalog.sifra_dn', '=', 'delovni_nalog_zdravilo.delovni_nalog_sifra_dn')
         									->join('zdravilo', 'zdravilo.sifra_zdravilo', '=', 'delovni_nalog_zdravilo.zdravilo_sifra_zdravilo')

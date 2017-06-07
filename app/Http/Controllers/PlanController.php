@@ -323,7 +323,7 @@ class PlanController extends Controller
 							]);
 					}
 				}
-				if(preg_match('!\d{2}_\d{10}!', $key)){
+				if(preg_match('!\d{2}_\d{7,}!', $key)){
 					preg_match('!\d+!', $key, $aid);
 					preg_match('!\d{7,}!', $key, $KZZ);
 					$opis = (object)array(
