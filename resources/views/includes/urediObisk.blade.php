@@ -726,6 +726,7 @@
 					echo "<span class=\"glyphicon glyphicon-th\"></span>";
 					echo "</div>";
 					echo "</div>";
+					echo "<script>$('.datepicker').datepicker({format: 'dd.mm.yyyy', clearBtn: true, autoclose: true});</script>";
 				}
 				else {
 					if(in_array($aktivnost->aid, $requiredArray)){
