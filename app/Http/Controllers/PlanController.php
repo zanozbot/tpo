@@ -161,7 +161,7 @@ class PlanController extends Controller
 				}
 				if (strpos($key, 'datum') !== false){
 					preg_match('!\d+!', $key, $aid);
-					preg_match('!\d{10}!', $key, $KZZ);
+					preg_match('!\d{7,}!', $key, $KZZ);
 					if($KZZ != null){
 						$opis = (object)array(
 							"datum" => $value,
@@ -288,7 +288,7 @@ class PlanController extends Controller
 				}
 				if (strpos($key, 'dane') !== false){
 					preg_match('!\d+!', $key, $aid);
-					preg_match('!\d{10}!', $key, $KZZ);
+					preg_match('!\d{7,}!', $key, $KZZ);
 					if($KZZ != null){
 						$opis = (object)array(
 							"dane" => $value,
@@ -298,7 +298,7 @@ class PlanController extends Controller
 					} else {
 						$opis = (object)array(
 							"dane" => $value,
-							"opis" => $request->input($aid[0].'_opis_'.$KZZ[0])
+							"opis" => $request->input($aid[0].'_opis')
 							);
 					}
 					$jsonOpis = json_encode($opis);
@@ -325,7 +325,7 @@ class PlanController extends Controller
 				}
 				if(preg_match('!\d{2}_\d{10}!', $key)){
 					preg_match('!\d+!', $key, $aid);
-					preg_match('!\d{10}!', $key, $KZZ);
+					preg_match('!\d{7,}!', $key, $KZZ);
 					$opis = (object)array(
 						"opis" => $value,
 						"KZZ" => $KZZ[0]
@@ -354,7 +354,7 @@ class PlanController extends Controller
 				}
 				if (strpos($key, 'defekacija') !== false){
 					preg_match('!\d+!', $key, $aid);
-					preg_match('!\d{10}!', $key, $KZZ);
+					preg_match('!\d{7,}!', $key, $KZZ);
 					if($KZZ != null){
 						$opis = (object)array(
 							"defekacija" => $value,
