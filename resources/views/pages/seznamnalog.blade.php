@@ -23,7 +23,13 @@
 							<div class="form-group">
 							  <label class="label label-primary">Izdajatelj</label>
 							  @if (Auth::user()->sifra_vloga == 3)
-							  	<input type="text" class="form-control input-sm" name="izdajalec" placeholder=""></input>
+								  <select class="selectpicker form-control input-sm" name="izdajalec" required>
+				                    <option> - </option>
+				                  @foreach($izdajatelji as $izdajatelj)
+									<option value="{{$izdajatelj->sifra_delavec}}">{{$izdajatelj->ime . " " . $izdajatelj->priimek}}</option>
+							      @endforeach
+				                  </select>
+							    
 							  @else
 							  <input type="text" class="form-control input-sm" name="izdajalec" placeholder="Med izdajalci lahko išče le vodja" disabled="true"></input>
 							  @endif
