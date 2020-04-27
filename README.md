@@ -1,4 +1,7 @@
 # Patronažna služba
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 *Skupinsko delo pri predmetu Tehnologije programske opreme po Scrum metodologiji*
 Aplikacija je dosegljiva na naslednjem naslovu http://tpo-patronazna-sluzba.herokuapp.com/
 
